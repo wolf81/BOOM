@@ -1,0 +1,23 @@
+{
+	"sprite": "gfx/Soldier.png",
+
+	"anim": {
+		"down": {
+			"move": [1, 4],
+			"attack": [17, 1],
+		},
+		"up": {
+			"move": [5, 4],
+			"attack": [18, 1],
+		},
+		"right": {
+			"move": [9, 4],
+			"attack": [19, 1],
+		},
+		"left": {
+			"move": [13, 4],
+			"attack": [20, 1],
+		},
+		"die": [21, 2],
+	}
+}
