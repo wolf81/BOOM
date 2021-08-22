@@ -22,15 +22,28 @@ function Map:new(gridDescString)
 	local graph = GridGraph(Map.WIDTH, Map.HEIGHT)
 
 	self._gridDescString = gridDescString
+	self._players = {}
+	self._monsters = {}
+	self._blocks = {}
 
 	for i = 1, #self._gridDescString do
 		local c = self._gridDescString:sub(i,i)
 
-		local y = math.floor((i - 1) / Map.WIDTH)
-		local x = (i - 1) % Map.WIDTH
+		local y = math.floor((i - 1) / Map.WIDTH) + 1
+		local x = (i - 1) % Map.WIDTH + 1
 
-		if not (c == '0' or c == 'X' or c == 'Y' or c == 'A') then
-			local node = graph:nodeAt(x + 1, y + 1)
+		if c == 'X' or c == 'Y' then
+			self._players[#self._players + 1] = Player(x, y, c == 'X' and 1 or 2)
+		end
+
+		if c == 'A' then
+			self._monsters[#self._monsters + 1] = Monster(x, y)
+		end
+
+		if c == '1' or c == '2' then
+			self._blocks[#self._blocks + 1] = Block(x, y, c == '2')
+
+			local node = graph:nodeAt(x, y)
 			graph:remove(node)
 		end
     end
