@@ -5,6 +5,10 @@ io.stdout:setvbuf("no")
 
 local level = nil
 
+backgroundPatterns = {
+    ['1'] = love.graphics.newImage('gfx/BGPattern 02.png')
+}
+
 function love.load(args)
 	print('load')
 
@@ -24,9 +28,9 @@ function love.load(args)
 end
 
 function love.update(dt)
-	-- body
+	level:update(dt)
 end
 
 function love.draw()
-	-- body
+	level:draw()
 end
