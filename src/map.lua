@@ -15,11 +15,25 @@
 ]]
 
 Map = Object:extend()
+Map.WIDTH = 15
+Map.HEIGHT = 13
 
 function Map:new(gridDescString)
-	print('init map')
+	local graph = GridGraph(Map.WIDTH, Map.HEIGHT)
 
 	self._gridDescString = gridDescString
-	print(self._gridDescString)
 
+	for i = 1, #self._gridDescString do
+		local c = self._gridDescString:sub(i,i)
+
+		local y = math.floor((i - 1) / Map.WIDTH)
+		local x = (i - 1) % Map.WIDTH
+
+		if not (c == '0' or c == 'X' or c == 'Y' or c == 'A') then
+			local node = graph:nodeAt(x + 1, y + 1)
+			graph:remove(node)
+		end
+    end
+
+    print('\n' .. tostring(graph))
 end

@@ -7,3 +7,6 @@
 [submodule "lib/anim8"]
 	path = lib/anim8
 	url = https://github.com/wolf81/anim8.git
+[submodule "lib/knife"]
+	path = lib/knife
+	url = https://github.com/wolf81/knife.git
