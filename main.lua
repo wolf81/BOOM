@@ -1,5 +1,10 @@
 require 'src/dependencies'
 
+-- show live output in console, don't wait for app to close
+io.stdout:setvbuf("no")
+
+local level = nil
+
 function love.load(args)
 	print('load')
 
@@ -14,6 +19,8 @@ function love.load(args)
     end
 
 	love.window.setTitle('BOOM (' .. version .. ')')
+
+	level = Level(1)
 end
 
 function love.update(dt)

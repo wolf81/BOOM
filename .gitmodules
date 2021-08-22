@@ -1,0 +1,6 @@
+[submodule "lib/classic"]
+	path = lib/classic
+	url = https://github.com/wolf81/classic.git
+[submodule "lib/json"]
+	path = lib/json
+	url = https://github.com/wolf81/json.lua.git
