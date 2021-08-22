@@ -50,3 +50,7 @@ function Map:new(gridDescString)
 
     print('\n' .. tostring(graph))
 end
+
+function Map:blocks()
+	return self._blocks
+end

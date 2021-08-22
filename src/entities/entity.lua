@@ -5,6 +5,10 @@ function Entity:new(x, y)
 	self._y = y
 end
 
+function Entity:position()
+	return self._x, self._y
+end
+
 function Entity:update(dt)
 	-- body
 end

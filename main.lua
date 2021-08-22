@@ -13,6 +13,11 @@ borders = {
     ['0'] = love.graphics.newImage('gfx/Border 01.png')    
 }
 
+blocks = {
+    ['fixed'] = love.graphics.newImage('gfx/Fixed Blocks.png'),
+    ['breakable'] = love.graphics.newImage('gfx/Breakable Blocks.png')    
+}
+
 function love.load(args)
 	print('load')
 
