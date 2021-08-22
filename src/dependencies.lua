@@ -9,6 +9,7 @@ require 'src/entities/monster'
 
 -- utilities
 GridGraph = require 'src/utilities/gridgraph'
+Background = require 'src/utilities/background'
 
 -- game
 require 'src/map'
