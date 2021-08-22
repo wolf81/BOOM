@@ -42,14 +42,34 @@ end
 
 function Level:draw()
 	local sw, sh = love.graphics.getDimensions()
-	local lw, lh = Map.WIDTH * TileSize.WIDTH, Map.HEIGHT * TileSize.HEIGHT
-	local ox, oy = (sw - lw - TileSize.WIDTH) / 2, (sh - lh - TileSize.HEIGHT) / 2
+	local lw, lh = (Map.WIDTH + 2) * TileSize.WIDTH, (Map.HEIGHT + 2) * TileSize.HEIGHT
+	local ox, oy = (sw - lw) / 2, (sh - lh) / 2
 
-	local bg = backgroundPatterns[tostring(self._bgPatternID)]
+	local bg = backgroundPatterns[tostring(self._bgPatternID)]	
 
-	for y = 0, Map.HEIGHT do
-		for x = 0, Map.WIDTH do
+	for y = 1, Map.HEIGHT do
+		for x = 1, Map.WIDTH do
 			love.graphics.draw(bg, ox + x * TileSize.WIDTH, oy + y * TileSize.HEIGHT)
 		end
 	end
+
+	local border = borders[tostring(self._borderId)]
+	
+	for x = 1, Map.WIDTH do
+		love.graphics.draw(border, borderQuads['U'], ox + x * TileSize.WIDTH, oy)
+		local y = oy + (Map.HEIGHT + 1) * TileSize.HEIGHT
+		love.graphics.draw(border, borderQuads['D'], ox + x * TileSize.WIDTH, y)
+	end	
+
+	for y = 1, Map.HEIGHT do
+		love.graphics.draw(border, borderQuads['L'], ox, oy + y * TileSize.HEIGHT)
+		local x = ox + (Map.WIDTH + 1) * TileSize.WIDTH
+		love.graphics.draw(border, borderQuads['R'], x, oy + y * TileSize.HEIGHT)	
+	end
+
+	love.graphics.draw(border, borderQuads['UL'], ox, oy)
+	love.graphics.draw(border, borderQuads['UR'], ox + (Map.WIDTH + 1) * TileSize.WIDTH, oy)
+	love.graphics.draw(border, borderQuads['DL'], ox, oy + (Map.HEIGHT + 1) * TileSize.HEIGHT)
+	love.graphics.draw(border, borderQuads['DR'], ox + (Map.WIDTH + 1) * TileSize.WIDTH, oy + (Map.HEIGHT + 1) * TileSize.HEIGHT)
+
 end
