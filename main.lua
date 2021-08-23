@@ -12,6 +12,7 @@ backgroundPatterns = {
     ['4'] = love.graphics.newImage('gfx/BGPattern 05.png'),
     ['5'] = love.graphics.newImage('gfx/BGPattern 06.png'),
     ['6'] = love.graphics.newImage('gfx/BGPattern 07.png'),
+    ['7'] = love.graphics.newImage('gfx/BGPattern 08.png'),
 }
 
 borders = {
@@ -21,6 +22,7 @@ borders = {
     ['3'] = love.graphics.newImage('gfx/Border 04.png'),
     ['4'] = love.graphics.newImage('gfx/Border 05.png'),
     ['5'] = love.graphics.newImage('gfx/Border 06.png'),
+    ['6'] = love.graphics.newImage('gfx/Border 07.png'),
 }
 
 function love.load(args)
@@ -42,7 +44,7 @@ function love.load(args)
         EntityFactory:register(data)
     end)
 
-	level = Level(51)
+	level = Level(61)
 end
 
 function love.update(dt)

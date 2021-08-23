@@ -1,0 +1,14 @@
+{
+	"texture": "gfx/Fixed Blocks.png",
+	"type": "Block",
+	"id": "fblock6",
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [7, 1],
+				"duration": 0,
+			},
+		},
+	}
+}
