@@ -12,7 +12,7 @@ local function getLevelData(index)
 end
 
 function Level:new(index)
-	print('load level' .. index)
+	print('load level ' .. index)
 
 	self._index = index
 	self._entities = {}
