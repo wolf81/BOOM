@@ -6,11 +6,13 @@ io.stdout:setvbuf("no")
 local level = nil
 
 backgroundPatterns = {
-    ['1'] = love.graphics.newImage('gfx/BGPattern 02.png')
+    ['1'] = love.graphics.newImage('gfx/BGPattern 02.png'),
+    ['2'] = love.graphics.newImage('gfx/BGPattern 03.png'),
 }
 
 borders = {
-    ['0'] = love.graphics.newImage('gfx/Border 01.png')    
+    ['0'] = love.graphics.newImage('gfx/Border 01.png'),
+    ['1'] = love.graphics.newImage('gfx/Border 02.png'),   
 }
 
 function love.load(args)
@@ -32,7 +34,7 @@ function love.load(args)
         EntityFactory:register(data)
     end)
 
-	level = Level(1)
+	level = Level(11)
 end
 
 function love.update(dt)

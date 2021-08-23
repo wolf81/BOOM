@@ -1,0 +1,11 @@
+{
+	"texture": "gfx/Teleporter.png",
+	"type": "Prop",
+	"id": "+",
+
+	"states": {
+		"idle": {
+			"anim": [1, 1],
+		},		
+	}
+}

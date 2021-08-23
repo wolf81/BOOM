@@ -22,6 +22,8 @@ local function createPrototype(data)
 		return Player(data)
 	elseif data.type == 'Bonus' then
 		return Bonus(data)
+	elseif data.type == 'Prop' then
+		return Prop(data)
 	end
 
 	error('unknown type: ' .. data.type)

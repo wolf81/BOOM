@@ -1,7 +1,7 @@
 {
 	"texture": "gfx/Fixed Blocks.png",
 	"type": "Block",
-	"id": "fblock0",
+	"id": "fblock1",
 
 	"states": {
 		"idle": {

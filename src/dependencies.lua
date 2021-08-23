@@ -23,6 +23,7 @@ require 'src/entities/player'
 require 'src/entities/monster'
 require 'src/entities/block'
 require 'src/entities/bonus'
+require 'src/entities/prop'
 
 -- game
 require 'src/constants'

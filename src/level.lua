@@ -32,31 +32,22 @@ function Level:new(index)
 
 	-- create background canvas
 	local backgroundPatternId = levelData['BGPatternID']
+	print('backgroundPatternId: ' .. backgroundPatternId)
 	local borderId = levelData['BorderID']
+	print('borderId: ' .. borderId)
 	self._background = Background(self._offset, backgroundPatternId, borderId)
 
-	for _, block in ipairs(self._map:fblocks()) do
-		local entity = EntityFactory:create(fixedBlockId, block.pos)
-		self._entities[#self._entities + 1] = entity
-	end
+	for _, entityInfo in ipairs(self._map:entityInfos()) do
+		local entity = nil
 
-	for _, block in ipairs(self._map:bblocks()) do
-		local entity = EntityFactory:create(breakableBlockId, block.pos)
-		self._entities[#self._entities + 1] = entity
-	end
+		if entityInfo.id == '1' then			
+			entity = EntityFactory:create(fixedBlockId, entityInfo.pos)
+		elseif entityInfo.id == '2' then
+			entity = EntityFactory:create(breakableBlockId, entityInfo.pos)
+		else
+			entity = EntityFactory:create(entityInfo.id, entityInfo.pos)
+		end
 
-	for _, monster in ipairs(self._map:monsters()) do
-		local entity = EntityFactory:create(monster.id, monster.pos)
-		self._entities[#self._entities + 1] = entity
-	end
-
-	for _, player in ipairs(self._map:players()) do
-		local entity = EntityFactory:create(player.id, player.pos)
-		self._entities[#self._entities + 1] = entity
-	end
-
-	for _, bonus in ipairs(self._map:bonuses()) do
-		local entity = EntityFactory:create(bonus.id, bonus.pos)
 		self._entities[#self._entities + 1] = entity
 	end
 end
