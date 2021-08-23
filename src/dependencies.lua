@@ -9,6 +9,7 @@ GridGraph = require 'src/utilities/gridgraph'
 Background = require 'src/utilities/background'
 DataLoader = require 'src/utilities/dataloader'
 EntityFactory = require 'src/utilities/entityfactory'
+
 require 'src/utilities/Animation'
 require 'src/utilities/statemachine'
 
@@ -21,6 +22,7 @@ require 'src/entities/entity'
 require 'src/entities/player'
 require 'src/entities/monster'
 require 'src/entities/block'
+require 'src/entities/bonus'
 
 -- game
 require 'src/constants'

@@ -1,0 +1,11 @@
+{
+	"texture": "gfx/Coin.png",
+	"type": "Bonus",
+	"id": "3",
+
+	"states": {
+		"idle": {
+			"anim": [0, 10],
+		},
+	}
+}

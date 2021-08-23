@@ -20,6 +20,8 @@ local function createPrototype(data)
 		return Monster(data)
 	elseif data.type == 'Player' then		
 		return Player(data)
+	elseif data.type == 'Bonus' then
+		return Bonus(data)
 	end
 
 	error('unknown type: ' .. data.type)

@@ -26,6 +26,7 @@ function Map:new(gridDescString)
 	self._monsters = {}
 	self._bblocks = {}
 	self._fblocks = {}
+	self._bonuses = {}
 
 	for i = 1, #self._gridDescString do
 		local c = self._gridDescString:sub(i,i)
@@ -48,6 +49,8 @@ function Map:new(gridDescString)
 			self._bblocks[#self._bblocks + 1] = tileInfo
 			local node = graph:nodeAt(x, y)
 			graph:remove(node)
+		elseif c == '3' then
+			self._bonuses[#self._bonuses + 1] = tileInfo			
 		end
     end
 
@@ -68,4 +71,8 @@ end
 
 function Map:fblocks()
 	return self._fblocks
+end
+
+function Map:bonuses()
+	return self._bonuses
 end

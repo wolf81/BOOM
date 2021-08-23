@@ -54,6 +54,11 @@ function Level:new(index)
 		local entity = EntityFactory:create(player.id, player.pos)
 		self._entities[#self._entities + 1] = entity
 	end
+
+	for _, bonus in ipairs(self._map:bonuses()) do
+		local entity = EntityFactory:create(bonus.id, bonus.pos)
+		self._entities[#self._entities + 1] = entity
+	end
 end
 
 function Level:update(dt)
