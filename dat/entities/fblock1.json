@@ -6,7 +6,7 @@
 	"states": {
 		"idle": {
 			"anim": {
-				"frames": [1, 1],
+				"frames": [2, 1],
 				"duration": 0,
 			},
 		},
