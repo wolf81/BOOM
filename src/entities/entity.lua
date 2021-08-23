@@ -2,6 +2,12 @@ Entity = Object:extend()
 
 function Entity:new()
 	self._position = vector(1, 1)
+
+	self._stateMachine = StateMachine({ 
+		['idle'] = function() return Idle() end, 
+	})
+
+	self._stateMachine:change('idle')
 end
 
 function Entity:position()
