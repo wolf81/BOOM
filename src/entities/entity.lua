@@ -8,7 +8,7 @@ function Entity:new(data)
 	QuadCache:register(self)
 
 	self._stateMachine = StateMachine({ 
-		['idle'] = function() return Idle() end, 
+		['idle'] = function() return Idle(self) end, 
 	})
 end
 

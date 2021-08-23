@@ -1,16 +1,32 @@
 Animation = Object:extend()
 
-function Animation:new(entity)
+function Animation:new(entity, animationInfo)
 	self._entity = entity
+	self._animationInfo = animationInfo
 
-	local texture, quads = QuadCache:get(entity)
+	local texture, quads = QuadCache:get(entity, animationInfo.frames)
 	self._texture = texture
 	self._quads = quads
+
+	self._duration = animationInfo.duration or 1.0
+	self._frameDuration = self._duration / #quads
 	self._frameIndex = 1
+
+	self._time = 0
 end
 
 function Animation:update(dt)
-	-- body
+	self._time = self._time + dt
+
+	if self._time < self._frameDuration then return end
+
+	self._time = self._time % self._frameDuration
+	
+	self._frameIndex = self._frameIndex + 1
+
+	if self._frameIndex > #self._quads then
+		self._frameIndex = 1
+	end
 end
 
 function Animation:draw()

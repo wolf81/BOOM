@@ -5,7 +5,10 @@
 
 	"states": {
 		"idle": {
-			"anim": [1, 1],
+			"anim": {
+				"frames": [1, 1],
+				"duration": 0,
+			},			
 		},		
 	}
 }

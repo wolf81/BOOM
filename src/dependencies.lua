@@ -3,6 +3,7 @@ Object = require 'lib/classic/classic'
 json = require 'lib/json/json'
 anim8 = require 'lib/anim8/anim8'
 vector = require 'lib/hump/vector'
+lume = require 'lib/lume/lume'
 
 -- utilities
 GridGraph = require 'src/utilities/gridgraph'
