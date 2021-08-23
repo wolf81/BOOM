@@ -1,12 +1,15 @@
 Entity = Object:extend()
 
-function Entity:new(x, y)
-	self._x = x
-	self._y = y
+function Entity:new()
+	self._position = vector(1, 1)
 end
 
 function Entity:position()
-	return self._x, self._y
+	return self._position:clone()
+end
+
+function Entity:setPosition(position)
+	self._position = position or vector(1, 1)
 end
 
 function Entity:update(dt)

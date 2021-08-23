@@ -2,6 +2,7 @@
 Object = require 'lib/classic/classic'
 json = require 'lib/json/json'
 anim8 = require 'lib/anim8/anim8'
+vector = require 'lib/hump/vector'
 
 -- entities
 require 'src/entities/entity'
@@ -14,5 +15,6 @@ GridGraph = require 'src/utilities/gridgraph'
 Background = require 'src/utilities/background'
 
 -- game
+require 'src/constants'
 require 'src/map'
 require 'src/level'

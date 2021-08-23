@@ -19,8 +19,6 @@ blocks = {
 }
 
 function love.load(args)
-	print('load')
-
     love.math.setRandomSeed(love.timer.getTime())
 
     local contents, size = love.filesystem.read('version.txt')

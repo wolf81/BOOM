@@ -10,3 +10,6 @@
 [submodule "lib/knife"]
 	path = lib/knife
 	url = https://github.com/wolf81/knife.git
+[submodule "lib/hump"]
+	path = lib/hump
+	url = https://github.com/wolf81/hump.git

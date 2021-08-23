@@ -31,17 +31,24 @@ function Map:new(gridDescString)
 
 		local y = math.floor((i - 1) / Map.WIDTH) + 1
 		local x = (i - 1) % Map.WIDTH + 1
+		local pos = vector(x, y)
 
 		if c == 'X' or c == 'Y' then
-			self._players[#self._players + 1] = Player(x, y, c == 'X' and 1 or 2)
+			local player = Player(c == 'Y' and 2 or 1)
+			player:setPosition(pos)
+			self._players[#self._players + 1] = player
 		end
 
 		if c == 'A' then
-			self._monsters[#self._monsters + 1] = Monster(x, y)
+			local monster = Monster()
+			monster:setPosition(pos)
+			self._monsters[#self._monsters + 1] = monster
 		end
 
 		if c == '1' or c == '2' then
-			self._blocks[#self._blocks + 1] = Block(x, y, c == '2')
+			local block = Block(c == '2')
+			block:setPosition(pos)
+			self._blocks[#self._blocks + 1] = block
 
 			local node = graph:nodeAt(x, y)
 			graph:remove(node)

@@ -1,15 +1,17 @@
 Level = Object:extend()
 
+local tileSize = vector(32, 32)
+
 local function getFixedBlockQuad(blockId, tex)
 	local tex = blocks['fixed']
-	local qy = blockId * TileSize.WIDTH
-	return love.graphics.newQuad(0, qy, TileSize.WIDTH, TileSize.WIDTH, tex)
+	local qy = blockId * TileSize.y
+	return love.graphics.newQuad(0, qy, TileSize.x, TileSize.x, tex)
 end 
 
 local function getBreakableBlockQuad(blockId, tex)
 	local tex = blocks['breakable']
-	local qx = blockId * TileSize.WIDTH
-	return love.graphics.newQuad(qx, 0, TileSize.WIDTH, TileSize.WIDTH, tex)
+	local qx = blockId * TileSize.x
+	return love.graphics.newQuad(qx, 0, TileSize.x, TileSize.x, tex)
 end
 
 local function getLevelData(index)
@@ -45,14 +47,13 @@ function Level:new(index)
 	end
 
 	local sw, sh = love.graphics.getDimensions()
-	local lw, lh = (Map.WIDTH + 2) * TileSize.WIDTH, (Map.HEIGHT + 2) * TileSize.HEIGHT
-	self._ox = (sw - lw) / 2
-	self._oy = (sh - lh) / 2
+	local lw, lh = (Map.WIDTH + 2) * TileSize.x, (Map.HEIGHT + 2) * TileSize.y
+	self._offset = vector((sw - lw) / 2, (sh - lh) / 2)
 
 	-- create background canvas
 	local backgroundPatternId = levelData['BGPatternID']
 	local borderId = levelData['BorderID']
-	self._background = Background(self._ox, self._oy, backgroundPatternId, borderId)
+	self._background = Background(self._offset, backgroundPatternId, borderId)
 end
 
 function Level:update(dt)
@@ -63,16 +64,16 @@ function Level:draw()
 	self._background:draw()
 
 	for _, block in ipairs(self._map:blocks()) do
+		local pos = block:position():permul(tileSize) + self._offset
+
 		if block:isBreakable() then
-			local x, y = block:position()
 			local tex = blocks['breakable']
 			local quad = self._breakableBlockQuad
-			love.graphics.draw(tex, quad, self._ox + x * TileSize.WIDTH, self._oy + y * TileSize.HEIGHT)
+			love.graphics.draw(tex, quad, pos.x, pos.y)
 		else
-			local x, y = block:position()
 			local tex = blocks['fixed']
 			local quad = self._fixedBlockQuad
-			love.graphics.draw(tex, quad, self._ox + x * TileSize.WIDTH, self._oy + y * TileSize.HEIGHT)
+			love.graphics.draw(tex, quad, pos.x, pos.y)
 		end
 	end
 end

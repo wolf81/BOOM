@@ -1,11 +1,6 @@
 local Background = {}
 Background.__index = Background
 
-TileSize = {
-	['WIDTH'] = 32,
-	['HEIGHT'] = 32,
-}
-
 local BorderQuads = {
     ['L'] = love.graphics.newQuad(0, 0, 32, 32, 256, 32),
     ['R'] = love.graphics.newQuad(32, 0, 32, 32, 256, 32),
@@ -18,37 +13,37 @@ local BorderQuads = {
 }
 
 local function newBackgroundCanvas(background, border)
-	local lw, lh = (Map.WIDTH + 2) * TileSize.WIDTH, (Map.HEIGHT + 2) * TileSize.HEIGHT
+	local lw, lh = (Map.WIDTH + 2) * TileSize.x, (Map.HEIGHT + 2) * TileSize.y
 	local canvas = love.graphics.newCanvas(lw, lh)
 
 	love.graphics.setCanvas(canvas)
 
 	do
 		local sw, sh = love.graphics.getDimensions()
-		local lw, lh = (Map.WIDTH + 2) * TileSize.WIDTH, (Map.HEIGHT + 2) * TileSize.HEIGHT
+		local lw, lh = (Map.WIDTH + 2) * TileSize.x, (Map.HEIGHT + 2) * TileSize.y
 
 		for y = 1, Map.HEIGHT do
 			for x = 1, Map.WIDTH do
-				love.graphics.draw(background, x * TileSize.WIDTH, y * TileSize.HEIGHT)
+				love.graphics.draw(background, x * TileSize.x, y * TileSize.y)
 			end
 		end
 
 		for x = 1, Map.WIDTH do
-			love.graphics.draw(border, BorderQuads['U'], x * TileSize.WIDTH, 0)
-			local y = (Map.HEIGHT + 1) * TileSize.HEIGHT
-			love.graphics.draw(border, BorderQuads['D'], x * TileSize.WIDTH, y)
+			love.graphics.draw(border, BorderQuads['U'], x * TileSize.x, 0)
+			local y = (Map.HEIGHT + 1) * TileSize.y
+			love.graphics.draw(border, BorderQuads['D'], x * TileSize.x, y)
 		end	
 
 		for y = 1, Map.HEIGHT do
-			love.graphics.draw(border, BorderQuads['L'], 0, y * TileSize.HEIGHT)
-			local x = (Map.WIDTH + 1) * TileSize.WIDTH
-			love.graphics.draw(border, BorderQuads['R'], x, y * TileSize.HEIGHT)
+			love.graphics.draw(border, BorderQuads['L'], 0, y * TileSize.y)
+			local x = (Map.WIDTH + 1) * TileSize.x
+			love.graphics.draw(border, BorderQuads['R'], x, y * TileSize.y)
 		end
 
 		love.graphics.draw(border, BorderQuads['UL'], 0, 0)
-		love.graphics.draw(border, BorderQuads['UR'], (Map.WIDTH + 1) * TileSize.WIDTH, 0)
-		love.graphics.draw(border, BorderQuads['DL'], 0, (Map.HEIGHT + 1) * TileSize.HEIGHT)
-		love.graphics.draw(border, BorderQuads['DR'], (Map.WIDTH + 1) * TileSize.WIDTH, (Map.HEIGHT + 1) * TileSize.HEIGHT)
+		love.graphics.draw(border, BorderQuads['UR'], (Map.WIDTH + 1) * TileSize.x, 0)
+		love.graphics.draw(border, BorderQuads['DL'], 0, (Map.HEIGHT + 1) * TileSize.y)
+		love.graphics.draw(border, BorderQuads['DR'], (Map.WIDTH + 1) * TileSize.x, (Map.HEIGHT + 1) * TileSize.y)
 	end
 
 	love.graphics.setCanvas()
@@ -56,11 +51,10 @@ local function newBackgroundCanvas(background, border)
 	return canvas
 end
 
-function Background:new(x, y, backgroundPatternId, borderId)
+function Background:new(offset, backgroundPatternId, borderId)
 	self._backgroundPatternId = backgroundPatternId
 	self._borderId = borderId
-	self._x = x
-	self._y = y
+	self._offset = offset
 
 	local backgroundPattern = backgroundPatterns[tostring(self._backgroundPatternId)]
 	local border = borders[tostring(self._borderId)]
@@ -70,7 +64,7 @@ function Background:new(x, y, backgroundPatternId, borderId)
 end
 
 function Background:draw()
-	love.graphics.draw(self._canvas, self._x, self._y)
+	love.graphics.draw(self._canvas, self._offset.x, self._offset.y)
 end
 
 return setmetatable(Background, {

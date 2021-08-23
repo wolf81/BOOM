@@ -1,7 +1,7 @@
 Block = Entity:extend()
 
-function Block:new(x, y, breakable)
-	Block.super.new(self, x, y)
+function Block:new(breakable)
+	Block.super.new(self)
 
 	self._breakable = breakable
 end

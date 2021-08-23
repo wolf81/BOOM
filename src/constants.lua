@@ -1,0 +1,1 @@
+TileSize = vector(32, 32)
