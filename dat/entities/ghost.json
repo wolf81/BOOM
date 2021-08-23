@@ -1,0 +1,14 @@
+{
+	"texture": "gfx/Ghost.png",
+	"type": "Monster",
+	"id": "G",
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [1, 1],
+				"duration": 0,
+			},			
+		},		
+	}
+}
