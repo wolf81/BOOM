@@ -8,8 +8,8 @@ local BorderQuads = {
     ['D'] = love.graphics.newQuad(96, 0, 32, 32, 256, 32),
     ['DL'] = love.graphics.newQuad(128, 0, 32, 32, 256, 32),
     ['DR'] = love.graphics.newQuad(160, 0, 32, 32, 256, 32),
-    ['UR'] = love.graphics.newQuad(196, 0, 32, 32, 256, 32),
-    ['UL'] = love.graphics.newQuad(228, 0, 32, 32, 256, 32),
+    ['UR'] = love.graphics.newQuad(192, 0, 32, 32, 256, 32),
+    ['UL'] = love.graphics.newQuad(224, 0, 32, 32, 256, 32),
 }
 
 local function newBackgroundCanvas(background, border)
