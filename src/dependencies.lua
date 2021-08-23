@@ -4,6 +4,7 @@ json = require 'lib/json/json'
 anim8 = require 'lib/anim8/anim8'
 vector = require 'lib/hump/vector'
 lume = require 'lib/lume/lume'
+baton = require 'lib/baton/baton'
 
 -- utilities
 GridGraph = require 'src/utilities/gridgraph'

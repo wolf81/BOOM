@@ -16,3 +16,6 @@
 [submodule "lib/lume"]
 	path = lib/lume
 	url = https://github.com/wolf81/lume.git
+[submodule "lib/baton"]
+	path = lib/baton
+	url = https://github.com/wolf81/baton.git
