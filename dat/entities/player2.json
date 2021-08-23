@@ -1,0 +1,11 @@
+{
+	"texture": "gfx/Player2.png",
+	"type": "Player",
+	"id": "Y",
+
+	"states": {
+		"idle": {
+			"anim": [0, 1],
+		},		
+	}
+}

@@ -44,6 +44,16 @@ function Level:new(index)
 		local entity = EntityFactory:create(breakableBlockId, block.pos)
 		self._entities[#self._entities + 1] = entity
 	end
+
+	for _, monster in ipairs(self._map:monsters()) do
+		local entity = EntityFactory:create(monster.id, monster.pos)
+		self._entities[#self._entities + 1] = entity
+	end
+
+	for _, player in ipairs(self._map:players()) do
+		local entity = EntityFactory:create(player.id, player.pos)
+		self._entities[#self._entities + 1] = entity
+	end
 end
 
 function Level:update(dt)

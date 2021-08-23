@@ -34,7 +34,7 @@ function Map:new(gridDescString)
 		local x = (i - 1) % Map.WIDTH + 1
 		local pos = vector(x, y)
 
-		local tileInfo = { pos = pos, type = c}
+		local tileInfo = { pos = pos, id = c }
 
 		if c == 'X' or c == 'Y' then
 			self._players[#self._players + 1] = tileInfo
@@ -52,6 +52,14 @@ function Map:new(gridDescString)
     end
 
     print('\n' .. tostring(graph))
+end
+
+function Map:players()
+	return self._players
+end
+
+function Map:monsters()
+	return self._monsters
 end
 
 function Map:bblocks()
