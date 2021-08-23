@@ -40,12 +40,14 @@ function Level:new(index)
 	for _, entityInfo in ipairs(self._map:entityInfos()) do
 		local entity = nil
 
+		local pos = self._offset + entityInfo.pos:permul(TileSize)
+
 		if entityInfo.id == '1' then			
-			entity = EntityFactory:create(fixedBlockId, entityInfo.pos)
+			entity = EntityFactory:create(fixedBlockId, pos)
 		elseif entityInfo.id == '2' then
-			entity = EntityFactory:create(breakableBlockId, entityInfo.pos)
+			entity = EntityFactory:create(breakableBlockId, pos)
 		else
-			entity = EntityFactory:create(entityInfo.id, entityInfo.pos)
+			entity = EntityFactory:create(entityInfo.id, pos)
 		end
 
 		self._entities[#self._entities + 1] = entity
@@ -62,6 +64,6 @@ function Level:draw()
 	self._background:draw()
 
 	for _, entity in ipairs(self._entities) do
-		entity:draw(self._offset)
+		entity:draw()
 	end
 end

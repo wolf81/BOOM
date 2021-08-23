@@ -5,6 +5,8 @@ function Entity:new(data)
 
 	self._position = vector(1, 1)
 
+	QuadCache:register(self)
+
 	self._stateMachine = StateMachine({ 
 		['idle'] = function() return Idle() end, 
 	})

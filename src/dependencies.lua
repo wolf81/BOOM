@@ -12,6 +12,7 @@ EntityFactory = require 'src/utilities/entityfactory'
 
 require 'src/utilities/Animation'
 require 'src/utilities/statemachine'
+require 'src/utilities/quadcache'
 
 -- states
 require 'src/states/idle'

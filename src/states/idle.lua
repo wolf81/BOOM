@@ -13,6 +13,6 @@ function Idle:update(dt)
 	self._animation:update(dt)
 end
 
-function Idle:draw(offset)
-	self._animation:draw(offset)
+function Idle:draw()
+	self._animation:draw()
 end

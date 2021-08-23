@@ -26,8 +26,8 @@ function StateMachine:update(dt)
 	self._current:update(dt)
 end
 
-function StateMachine:draw(offset)
-	self._current:draw(offset)
+function StateMachine:draw()
+	self._current:draw()
 end
 
 function StateMachine:currentStateName()

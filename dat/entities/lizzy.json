@@ -1,0 +1,11 @@
+{
+	"texture": "gfx/Lizzy.png",
+	"type": "Monster",
+	"id": "C",
+
+	"states": {
+		"idle": {
+			"anim": [1, 1],
+		},		
+	}
+}

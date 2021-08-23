@@ -1,0 +1,11 @@
+{
+	"texture": "gfx/Sarge.png",
+	"type": "Monster",
+	"id": "B",
+
+	"states": {
+		"idle": {
+			"anim": [1, 1],
+		},		
+	}
+}
