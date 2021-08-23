@@ -22,7 +22,7 @@ function Level:new(index)
 	
 	local fixedBlockId = 'fblock' .. levelData['FixedBlockID']
 	local breakableBlockId = 'bblock' .. levelData['BreakableBlockID']
-		
+
 	local gridDescString = levelData['GridDescString']
 	self._map = Map(gridDescString)
 
@@ -32,9 +32,13 @@ function Level:new(index)
 
 	-- create background canvas
 	local backgroundPatternId = levelData['BGPatternID']
-	print('backgroundPatternId: ' .. backgroundPatternId)
 	local borderId = levelData['BorderID']
+
+	print('fixedBlockId: ' .. fixedBlockId)
+	print('BreakableBlockID: ' .. breakableBlockId)
+	print('backgroundPatternId: ' .. backgroundPatternId)
 	print('borderId: ' .. borderId)
+
 	self._background = Background(self._offset, backgroundPatternId, borderId)
 
 	for _, entityInfo in ipairs(self._map:entityInfos()) do

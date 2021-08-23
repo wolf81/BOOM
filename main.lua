@@ -8,11 +8,13 @@ local level = nil
 backgroundPatterns = {
     ['1'] = love.graphics.newImage('gfx/BGPattern 02.png'),
     ['2'] = love.graphics.newImage('gfx/BGPattern 03.png'),
+    ['3'] = love.graphics.newImage('gfx/BGPattern 04.png'),
 }
 
 borders = {
     ['0'] = love.graphics.newImage('gfx/Border 01.png'),
-    ['1'] = love.graphics.newImage('gfx/Border 02.png'),   
+    ['1'] = love.graphics.newImage('gfx/Border 02.png'),
+    ['2'] = love.graphics.newImage('gfx/Border 03.png'),
 }
 
 function love.load(args)
@@ -34,7 +36,7 @@ function love.load(args)
         EntityFactory:register(data)
     end)
 
-	level = Level(11)
+	level = Level(21)
 end
 
 function love.update(dt)

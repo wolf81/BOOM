@@ -1,0 +1,16 @@
+{
+	"texture": "gfx/Breakable Blocks.png",
+	"type": "Block",
+	"id": "bblock8",
+
+	"breakable": true,
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [9, 1],
+				"duration": 0,
+			},			
+		},
+	}
+}
