@@ -1,3 +1,11 @@
 {
 	"texture": "gfx/Soldier.png",
+	"type": "Monster",
+	"id": "A",
+
+	"states": {
+		"idle": {
+			"anim": [0, 1],
+		},		
+	}
 }

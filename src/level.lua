@@ -1,19 +1,5 @@
 Level = Object:extend()
 
-local tileSize = vector(32, 32)
-
-local function getFixedBlockQuad(blockId, tex)
-	local tex = blocks['fixed']
-	local qy = blockId * TileSize.y
-	return love.graphics.newQuad(0, qy, TileSize.x, TileSize.x, tex)
-end 
-
-local function getBreakableBlockQuad(blockId, tex)
-	local tex = blocks['breakable']
-	local qx = blockId * TileSize.x
-	return love.graphics.newQuad(qx, 0, TileSize.x, TileSize.x, tex)
-end
-
 local function getLevelData(index)
 	local contents, _ = love.filesystem.read('dat/levels.json')
 	local json, _ = json.decode(contents)
@@ -29,22 +15,16 @@ function Level:new(index)
 	print('load level' .. index)
 
 	self._index = index
+	self._entities = {}
 
 	local levelData = getLevelData(index)
 	self._time = levelData['Time']
 	
-	local fixedBlockId = levelData['FixedBlockID']
-	self._fixedBlockQuad = getFixedBlockQuad(fixedBlockId, blocks['fixed'])
-
-	local breakableBlockId = levelData['BreakableBlockID']
-	self._breakableBlockQuad = getBreakableBlockQuad(breakableBlockId, blocks['breakable'])
+	local fixedBlockId = 'fblock' .. levelData['FixedBlockID']
+	local breakableBlockId = 'bblock' .. levelData['BreakableBlockID']
 		
 	local gridDescString = levelData['GridDescString']
 	self._map = Map(gridDescString)
-
-	for k, v in pairs(self) do
-		print(k, v)
-	end
 
 	local sw, sh = love.graphics.getDimensions()
 	local lw, lh = (Map.WIDTH + 2) * TileSize.x, (Map.HEIGHT + 2) * TileSize.y
@@ -54,26 +34,28 @@ function Level:new(index)
 	local backgroundPatternId = levelData['BGPatternID']
 	local borderId = levelData['BorderID']
 	self._background = Background(self._offset, backgroundPatternId, borderId)
+
+	for _, block in ipairs(self._map:fblocks()) do
+		local entity = EntityFactory:create(fixedBlockId, block.pos)
+		self._entities[#self._entities + 1] = entity
+	end
+
+	for _, block in ipairs(self._map:bblocks()) do
+		local entity = EntityFactory:create(breakableBlockId, block.pos)
+		self._entities[#self._entities + 1] = entity
+	end
 end
 
 function Level:update(dt)
-	-- body
+	for _, entity in ipairs(self._entities) do
+		entity:update(dt)
+	end
 end
 
 function Level:draw()
 	self._background:draw()
 
-	for _, block in ipairs(self._map:blocks()) do
-		local pos = block:position():permul(tileSize) + self._offset
-
-		if block:isBreakable() then
-			local tex = blocks['breakable']
-			local quad = self._breakableBlockQuad
-			love.graphics.draw(tex, quad, pos.x, pos.y)
-		else
-			local tex = blocks['fixed']
-			local quad = self._fixedBlockQuad
-			love.graphics.draw(tex, quad, pos.x, pos.y)
-		end
+	for _, entity in ipairs(self._entities) do
+		entity:draw(self._offset)
 	end
 end

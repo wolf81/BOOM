@@ -1,0 +1,13 @@
+{
+	"texture": "gfx/Breakable Blocks.png",
+	"type": "Block",
+	"id": "bblock0",
+
+	"breakable": true,
+
+	"states": {
+		"idle": {
+			"anim": [0, 1],
+		},
+	}
+}

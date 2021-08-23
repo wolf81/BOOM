@@ -1,6 +1,7 @@
 Monster = Entity:extend()
 
-function Monster:new()
-	Monster.super.new(self)
+function Monster:new(data)
 	print('init monster')
+
+	Monster.super.new(self, data)
 end

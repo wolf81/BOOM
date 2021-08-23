@@ -32,7 +32,7 @@ function love.load(args)
 	love.window.setTitle('BOOM (' .. version .. ')')
 
     DataLoader:load('dat/entities', function(data)
-        print('did load')
+        EntityFactory:register(data)
     end)
 
 	level = Level(1)

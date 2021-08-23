@@ -1,17 +1,21 @@
 Entity = Object:extend()
 
-function Entity:new()
+function Entity:new(data)
+	self._data = data
+
 	self._position = vector(1, 1)
 
 	self._stateMachine = StateMachine({ 
 		['idle'] = function() return Idle() end, 
 	})
+end
 
-	self._stateMachine:change('idle')
+function Entity:texture()
+	return self._data.texture
 end
 
 function Entity:position()
-	return self._position:clone()
+	return self._position
 end
 
 function Entity:setPosition(position)
@@ -19,9 +23,13 @@ function Entity:setPosition(position)
 end
 
 function Entity:update(dt)
-	-- body
+	self._stateMachine:update(dt)
 end
 
-function Entity:draw()
-	-- body
+function Entity:draw(offset)
+	self._stateMachine:draw(offset)
+end
+
+function Entity:idle()
+	self._stateMachine:change('idle', self)
 end

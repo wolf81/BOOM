@@ -1,0 +1,13 @@
+{
+	"texture": "gfx/Fixed Blocks.png",
+	"type": "Block",
+	"id": "fblock0",
+
+	"breakable": false,
+
+	"states": {
+		"idle": {
+			"anim": [0, 1],
+		},
+	}
+}

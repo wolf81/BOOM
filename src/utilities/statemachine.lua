@@ -1,27 +1,20 @@
-local StateMachine = {}
-StateMachine.__index = StateMachine
+StateMachine = Object:extend()
 
 function StateMachine:new(states)
-	local empty = {
+	self._empty = {
 		draw = function() end,
 		update = function() end,
 		enter = function() end,
 		exit = function() end,
 	}
-
-	return setmetatable({
-		_empty = empty,
-		_states = states or {},
-		_current = empty,
-		_currentStateName = nil
-	}, StateMachine)
+	self._states = states or {}
+	self._current = self._empty
+	self._currentStateName = nil
 end
 
 function StateMachine:change(stateName, enterParams)
-	for k,v in pairs(self._states) do
-		print(k, tostring(v))
-	end
 	assert(self._states[stateName], 'state not defined: ' .. stateName)
+	
 	self._current:exit()
 	self._current = self._states[stateName]()
 	self._current:enter(enterParams)
@@ -33,14 +26,10 @@ function StateMachine:update(dt)
 	self._current:update(dt)
 end
 
-function StateMachine:draw()
-	self._current:draw()
+function StateMachine:draw(offset)
+	self._current:draw(offset)
 end
 
 function StateMachine:currentStateName()
 	return self._currentStateName
 end
-
-return setmetatable(StateMachine, {
-	__call = StateMachine.new
-})

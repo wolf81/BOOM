@@ -8,7 +8,9 @@ vector = require 'lib/hump/vector'
 GridGraph = require 'src/utilities/gridgraph'
 Background = require 'src/utilities/background'
 DataLoader = require 'src/utilities/dataloader'
-StateMachine = require 'src/utilities/statemachine'
+EntityFactory = require 'src/utilities/entityfactory'
+require 'src/utilities/Animation'
+require 'src/utilities/statemachine'
 
 -- states
 require 'src/states/idle'

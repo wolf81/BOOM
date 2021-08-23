@@ -24,7 +24,8 @@ function Map:new(gridDescString)
 	self._gridDescString = gridDescString
 	self._players = {}
 	self._monsters = {}
-	self._blocks = {}
+	self._bblocks = {}
+	self._fblocks = {}
 
 	for i = 1, #self._gridDescString do
 		local c = self._gridDescString:sub(i,i)
@@ -33,23 +34,18 @@ function Map:new(gridDescString)
 		local x = (i - 1) % Map.WIDTH + 1
 		local pos = vector(x, y)
 
+		local tileInfo = { pos = pos, type = c}
+
 		if c == 'X' or c == 'Y' then
-			local player = Player(c == 'Y' and 2 or 1)
-			player:setPosition(pos)
-			self._players[#self._players + 1] = player
-		end
-
-		if c == 'A' then
-			local monster = Monster()
-			monster:setPosition(pos)
-			self._monsters[#self._monsters + 1] = monster
-		end
-
-		if c == '1' or c == '2' then
-			local block = Block(c == '2')
-			block:setPosition(pos)
-			self._blocks[#self._blocks + 1] = block
-
+			self._players[#self._players + 1] = tileInfo
+		elseif c == 'A' then
+			self._monsters[#self._monsters + 1] = tileInfo
+		elseif c == '1' then
+			self._fblocks[#self._fblocks + 1] = tileInfo
+			local node = graph:nodeAt(x, y)
+			graph:remove(node)
+		elseif c == '2' then
+			self._bblocks[#self._bblocks + 1] = tileInfo
 			local node = graph:nodeAt(x, y)
 			graph:remove(node)
 		end
@@ -58,6 +54,10 @@ function Map:new(gridDescString)
     print('\n' .. tostring(graph))
 end
 
-function Map:blocks()
-	return self._blocks
+function Map:bblocks()
+	return self._bblocks
+end
+
+function Map:fblocks()
+	return self._fblocks
 end

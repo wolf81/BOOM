@@ -1,13 +1,18 @@
 Idle = Object:extend()
 
-function Idle:enter(args)
+function Idle:new()
 	-- body
+end
+
+function Idle:enter(entity)
+	self._stateInfo = entity._data.states.idle
+	self._animation = Animation(entity)
 end
 
 function Idle:update(dt)
-	-- body
+	self._animation:update(dt)
 end
 
-function Idle:draw()
-	-- body
+function Idle:draw(offset)
+	self._animation:draw(offset)
 end
