@@ -27,9 +27,7 @@ end
 
 function Entity:gridPosition()
 	local pos = self:position()
-	local x = math.floor(pos.x / TileSize.x) 
-	local y = math.floor(pos.y / TileSize.y)
-	return vector(x, y)
+	return toGridPosition(pos)
 end
 
 function Entity:update(dt)

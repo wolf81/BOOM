@@ -2,6 +2,7 @@
 	"texture": "gfx/Player1.png",
 	"type": "Player",
 	"id": "X",
+	"speed": 2.0,
 
 	"states": {
 		"idle": {

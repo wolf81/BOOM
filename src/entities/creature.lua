@@ -4,6 +4,7 @@ function Creature:new(data)
 	Creature.super.new(self, data)
 
 	self._direction = nil
+	self._speed = data.speed or 1.0
 end
 
 function Creature:move(direction)
@@ -11,14 +12,17 @@ function Creature:move(direction)
 
 	self._direction = direction
 
-	print(direction)
+	--print(direction)
 
 	if direction ~= Direction.NONE then
 		self._stateMachine:change('move', self)
 	else
 		self:idle()
 	end
+end
 
+function Creature:speed()
+	return self._speed
 end
 
 function Creature:direction()

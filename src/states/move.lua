@@ -27,7 +27,7 @@ end
 function Move:update(dt)
 	local dir = self._entity:direction()
 	local pos = self._entity:position()
-	local dxy = dir:permul(TileSize) * dt
+	local dxy = dir:permul(TileSize) * dt * self._entity:speed()
 	pos = pos + dxy
 	self._entity:setPosition(pos)
 

@@ -7,3 +7,9 @@ Direction = {
 	['RIGHT'] = vector(1, 0),
 	['NONE'] = vector(0, 0),
 }
+
+function toGridPosition(position)
+	local x = math.floor(position.x / TileSize.x) 
+	local y = math.floor(position.y / TileSize.y)
+	return vector(x, y)
+end
