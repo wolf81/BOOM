@@ -5,6 +5,11 @@ Direction = {
 	['DOWN'] = vector(0, 1),
 	['LEFT'] = vector(-1, 0),
 	['RIGHT'] = vector(1, 0),
+	['NONE'] = vector(0, 0),
+
+	opposite = function(dir)
+		return dir:permul(vector(-1, -1))
+	end
 }
 
 function toGridPosition(position)

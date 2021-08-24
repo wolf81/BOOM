@@ -30,6 +30,10 @@ function StateMachine:draw()
 	self._current:draw()
 end
 
+function StateMachine:currentState()
+	return self._current
+end
+
 function StateMachine:currentStateName()
 	return self._currentStateName
 end
