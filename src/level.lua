@@ -39,12 +39,12 @@ function Level:new(index)
 	print('backgroundPatternId: ' .. backgroundPatternId)
 	print('borderId: ' .. borderId)
 
-	self._background = Background(self._offset, backgroundPatternId, borderId)
+	self._background = Background(backgroundPatternId, borderId)
 
 	for _, entityInfo in ipairs(self._map:entityInfos()) do
 		local entity = nil
 
-		local pos = self._offset + entityInfo.pos:permul(TileSize)
+		local pos = entityInfo.pos:permul(TileSize)
 
 		if entityInfo.id == '1' then			
 			entity = EntityFactory:create(fixedBlockId, pos)
@@ -65,9 +65,14 @@ function Level:update(dt)
 end
 
 function Level:draw()
+	love.graphics.push()
+	love.graphics.translate(self._offset.x, self._offset.y)
+
 	self._background:draw()
 
 	for _, entity in ipairs(self._entities) do
 		entity:draw()
 	end
+
+	love.graphics.pop()
 end

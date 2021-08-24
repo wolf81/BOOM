@@ -25,6 +25,13 @@ function Entity:setPosition(position)
 	self._position = position or vector(1, 1)
 end
 
+function Entity:gridPosition()
+	local pos = self:position()
+	local x = math.floor(pos.x / TileSize.x) 
+	local y = math.floor(pos.y / TileSize.y)
+	return vector(x, y)
+end
+
 function Entity:update(dt)
 	self._stateMachine:update(dt)
 end

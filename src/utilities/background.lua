@@ -51,10 +51,9 @@ local function newBackgroundCanvas(background, border)
 	return canvas
 end
 
-function Background:new(offset, backgroundPatternId, borderId)
+function Background:new(backgroundPatternId, borderId)
 	self._backgroundPatternId = backgroundPatternId
 	self._borderId = borderId
-	self._offset = offset
 
 	local backgroundPattern = backgroundPatterns[tostring(self._backgroundPatternId)]
 	local border = borders[tostring(self._borderId)]
@@ -64,7 +63,7 @@ function Background:new(offset, backgroundPatternId, borderId)
 end
 
 function Background:draw()
-	love.graphics.draw(self._canvas, self._offset.x, self._offset.y)
+	love.graphics.draw(self._canvas)
 end
 
 return setmetatable(Background, {
