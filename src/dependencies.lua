@@ -19,6 +19,7 @@ require 'src/utilities/quadcache'
 -- states
 require 'src/states/idle'
 require 'src/states/attack'
+require 'src/states/move'
 
 -- entities
 require 'src/entities/entity'

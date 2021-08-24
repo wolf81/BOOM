@@ -24,7 +24,6 @@ function QuadCache:register(entity, spriteSize)
 		local texture = love.graphics.newImage(entity:texture())
 		local quads = generateQuads(texture, spriteSize[1], spriteSize[2])
 		cache[entity._data.id] = { texture, quads }
-		print('quads:', entity._data.id, #quads)
 	end
 end
 

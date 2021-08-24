@@ -9,6 +9,10 @@ function Idle:enter(entity)
 	self._animation = Animation(entity, animationInfo)
 end
 
+function Idle:exit()
+	-- body
+end
+
 function Idle:update(dt)
 	self._animation:update(dt)
 end

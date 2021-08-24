@@ -9,6 +9,32 @@
 				"frames": [1, 1],
 				"duration": 0,
 			},			
-		},		
+		},
+		"move": {
+			"up": {
+				"anim": {
+					"frames": [9, 8],
+					"duration": 1.0,
+				},			
+			},
+			"down": {
+				"anim": {
+					"frames": [1, 8],
+					"duration": 1.0,
+				},			
+			},
+			"left": {
+				"anim": {
+					"frames": [25, 8],
+					"duration": 1.0,
+				},			
+			},
+			"right": {
+				"anim": {
+					"frames": [17, 8],
+					"duration": 1.0,
+				},			
+			}
+		}
 	}
 }
