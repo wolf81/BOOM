@@ -1,4 +1,4 @@
-Player = Entity:extend()
+Player = Creature:extend()
 
 local input = baton.new {
   controls = {

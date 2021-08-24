@@ -23,6 +23,7 @@ require 'src/states/move'
 
 -- entities
 require 'src/entities/entity'
+require 'src/entities/creature'
 require 'src/entities/player'
 require 'src/entities/monster'
 require 'src/entities/block'

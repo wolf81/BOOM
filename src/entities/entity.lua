@@ -4,7 +4,6 @@ function Entity:new(data)
 	self._data = data
 
 	self._position = vector(1, 1)
-	self._direction = nil
 
 	QuadCache:register(self, data.spriteSize)
 
@@ -35,21 +34,5 @@ function Entity:draw(offset)
 end
 
 function Entity:idle()
-	if self._direction == Direction.NONE then return end
-
-	self._direction = Direction.NONE
-
 	self._stateMachine:change('idle', self)
-end
-
-function Entity:move(direction)
-	if self._direction == direction then return end
-
-	self._direction = direction
-
-	self._stateMachine:change('move', self)
-end
-
-function Entity:direction()
-	return self._direction
 end

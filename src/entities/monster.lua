@@ -1,4 +1,4 @@
-Monster = Entity:extend()
+Monster = Creature:extend()
 
 function Monster:new(data)
 	print('init monster')
