@@ -5,7 +5,7 @@ function Entity:new(data)
 
 	self._position = vector(1, 1)
 
-	QuadCache:register(self)
+	QuadCache:register(self, data.spriteSize)
 
 	self._stateMachine = StateMachine({ 
 		['idle'] = function() return Idle(self) end, 

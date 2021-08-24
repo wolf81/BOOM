@@ -1,0 +1,15 @@
+{
+	"texture": "gfx/Alien Boss.png",
+	"spriteSize": [160, 160],
+	"type": "Monster",
+	"id": "|",
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [1, 1],
+				"duration": 0,
+			},			
+		},		
+	}
+}

@@ -2,13 +2,13 @@ QuadCache = {}
 
 local cache = {}
 
-local function generateQuads(texture)
+local function generateQuads(texture, spriteWidth, spriteHeight)
 	local tw, th = texture:getDimensions()
 
 	local quads = {}
-	for y = 0, (th - 32), 32 do
-		for x = 0, (tw - 32), 32 do
-			local quad = love.graphics.newQuad(x, y, 32, 32, tw, th)
+	for y = 0, (th - spriteHeight), spriteHeight do
+		for x = 0, (tw - spriteWidth), spriteWidth do
+			local quad = love.graphics.newQuad(x, y, spriteWidth, spriteHeight, tw, th)
 			quads[#quads + 1] = quad
 		end
 	end
@@ -16,11 +16,13 @@ local function generateQuads(texture)
 	return quads
 end
 
-function QuadCache:register(entity)
-	print(entity._data.id)
+function QuadCache:register(entity, spriteSize)
+	spriteSize = spriteSize or { 32, 32 }
+	print(spriteSize[1], spriteSize[2])
+
 	if cache[entity._data.id] == nil then
 		local texture = love.graphics.newImage(entity:texture())
-		local quads = generateQuads(texture)
+		local quads = generateQuads(texture, spriteSize[1], spriteSize[2])
 		cache[entity._data.id] = { texture, quads }
 		print('quads:', entity._data.id, #quads)
 	end
