@@ -25,6 +25,14 @@ function Entity:setPosition(position)
 	self._position = position or vector(1, 1)
 end
 
+function Entity:setLevel(level)
+	self._level = level
+end
+
+function Entity:level()
+	return self._level
+end
+
 function Entity:gridPosition()
 	local pos = self:position()
 	return toGridPosition(pos)

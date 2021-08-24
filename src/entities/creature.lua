@@ -18,6 +18,11 @@ function Creature:move(direction)
 			self._stateMachine:change('move', self)
 		end
 	else
+		local toPos = self:gridPosition() + direction
+		if self:level():isBlocked(toPos) then
+			return
+		end
+
 		if direction ~= Direction.NONE then
 			self._direction = direction
 			self._stateMachine:change('move', self)

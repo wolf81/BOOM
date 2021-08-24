@@ -16,6 +16,7 @@ function Level:new(index)
 
 	self._index = index
 	self._entities = {}
+	self._blocks = {}
 
 	local levelData = getLevelData(index)
 	self._time = levelData['Time']
@@ -46,21 +47,25 @@ function Level:new(index)
 
 		local pos = entityInfo.pos:permul(TileSize)
 
-		if entityInfo.id == '1' then			
-			entity = EntityFactory:create(fixedBlockId, pos)
+		if entityInfo.id == '1' then
+			local block = EntityFactory:create(self, fixedBlockId, pos)
+			self._blocks[tostring(block:gridPosition())] = block
 		elseif entityInfo.id == '2' then
-			entity = EntityFactory:create(breakableBlockId, pos)
+			local block = EntityFactory:create(self, breakableBlockId, pos)
+			self._blocks[tostring(block:gridPosition())] = block
 		else
-			entity = EntityFactory:create(entityInfo.id, pos)
+			self._entities[#self._entities + 1] = EntityFactory:create(self, entityInfo.id, pos)
 		end
-
-		self._entities[#self._entities + 1] = entity
 	end
 end
 
 function Level:update(dt)
 	for _, entity in ipairs(self._entities) do
 		entity:update(dt)
+	end
+
+	for _, block in pairs(self._blocks) do
+		block:update(dt)
 	end
 end
 
@@ -74,5 +79,20 @@ function Level:draw()
 		entity:draw()
 	end
 
+	for _, block in pairs(self._blocks) do
+		block:draw()
+	end
+
 	love.graphics.pop()
+end
+
+function Level:isBlocked(gridPosition)
+	if gridPosition.x < 1 or gridPosition.y < 1 then return true end
+	if gridPosition.x > Map.WIDTH or gridPosition.y > Map.HEIGHT then return true end
+
+	if self._blocks[tostring(gridPosition)] ~= nil then
+		return true
+	end
+
+	return false
 end

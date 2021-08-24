@@ -41,13 +41,14 @@ function EntityFactory:register(data)
 end
 
 -- create a new instance from a prototype
-function EntityFactory:create(id, position)
+function EntityFactory:create(level, id, position)
 	assert(id ~= nil, 'id is required')
 
 	local prototype = registry[id:lower()]
 	assert(prototype ~= nil, 'id not registered: ' .. id)
 
 	local instance = clone(prototype)
+	instance:setLevel(level)
 	instance:setPosition(position)
 	instance:idle()
 

@@ -8,7 +8,7 @@ function Move:enter(entity)
 		if self._direction == Direction.DOWN or self._direction == Direction.RIGHT then
 			self._toPosition = toPosition(toGridPosition(self._entity:position() + TileSize))		
 		elseif self._direction == Direction.UP or self._direction == Direction.LEFT then
-			self._toPosition = toPosition(toGridPosition(self._entity:position() - TileSize))		
+			self._toPosition = toPosition(toGridPosition(self._entity:position()))		
 		end
 	else
 		self._toPosition = toPosition(self._entity:gridPosition() + self._direction)
