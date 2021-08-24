@@ -11,7 +11,14 @@ function Creature:move(direction)
 
 	self._direction = direction
 
-	self._stateMachine:change('move', self)
+	print(direction)
+
+	if direction ~= Direction.NONE then
+		self._stateMachine:change('move', self)
+	else
+		self:idle()
+	end
+
 end
 
 function Creature:direction()

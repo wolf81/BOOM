@@ -41,5 +41,7 @@ function Entity:draw(offset)
 end
 
 function Entity:idle()
+	if self._stateMachine:currentStateName() == 'idle' then return end
+
 	self._stateMachine:change('idle', self)
 end

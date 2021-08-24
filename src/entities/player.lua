@@ -38,5 +38,5 @@ function Player:update(dt)
 	elseif input:down('down') then self:move(Direction.DOWN)
 	elseif input:down('left') then self:move(Direction.LEFT)
 	elseif input:down('right') then self:move(Direction.RIGHT)
-	else self:idle() end
+	else self:move(Direction.NONE) end
 end
