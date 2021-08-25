@@ -15,7 +15,8 @@ function Level:new(index)
 	print('load level ' .. index)
 
 	self._index = index
-	self._entities = {}
+	self._players = {}
+	self._monsters = {}
 	self._blocks = {}
 	self._bombs = {}
 	self._explosions = {}
@@ -55,8 +56,10 @@ function Level:new(index)
 		elseif entityInfo.id == '2' then
 			local block = EntityFactory:create(self, breakableBlockId, pos)
 			self._blocks[tostring(block:gridPosition())] = block
+		elseif entityInfo.id == 'X' or entityInfo.id == 'Y' then
+			self._players[#self._players + 1] = EntityFactory:create(self, entityInfo.id, pos)			
 		else
-			self._entities[#self._entities + 1] = EntityFactory:create(self, entityInfo.id, pos)
+			self._monsters[#self._monsters + 1] = EntityFactory:create(self, entityInfo.id, pos)
 		end
 	end
 end
@@ -74,8 +77,12 @@ function Level:update(dt)
 		end
 	end
 
-	for _, entity in ipairs(self._entities) do
-		entity:update(dt)
+	for _, monster in ipairs(self._monsters) do
+		monster:update(dt)
+	end
+
+	for _, player in ipairs(self._players) do
+		player:update(dt)
 	end
 
 	for id, block in pairs(self._blocks) do
@@ -105,8 +112,12 @@ function Level:draw()
 		bomb:draw()
 	end
 
-	for _, entity in ipairs(self._entities) do
-		entity:draw()
+	for _, monster in ipairs(self._monsters) do
+		monster:draw()
+	end
+
+	for _, player in ipairs(self._players) do
+		player:draw()
 	end
 
 	for _, explosion in ipairs(self._explosions) do
