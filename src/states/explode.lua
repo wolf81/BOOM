@@ -2,10 +2,8 @@ Explode = Object:extend()
 
 function Explode:enter(entity)
 	self._entity = entity
-	self._duration = entity._data.states.explode.duration or 1.0
 
 	local animationInfo = entity._data.states.explode.center.anim
-
 	if self._entity:orientation() == Orientation.HORIZONTAL then
 		animationInfo = entity._data.states.explode.horizontal.anim
 	elseif self._entity:orientation() == Orientation.VERTICAL then
@@ -13,6 +11,7 @@ function Explode:enter(entity)
 	end
 
 	self._animation = Animation(entity, animationInfo)
+	self._duration = self._animation:duration()
 end
 
 function Explode:exit()

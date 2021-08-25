@@ -2,10 +2,10 @@ Fuse = Object:extend()
 
 function Fuse:enter(entity)
 	self._entity = entity
-	self._duration = entity._data.states.fuse.duration or 1.0
 
 	local animationInfo = entity._data.states.fuse.anim
 	self._animation = Animation(entity, animationInfo)
+	self._duration = self._animation:duration()
 end
 
 function Fuse:exit()

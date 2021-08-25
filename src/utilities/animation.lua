@@ -3,19 +3,23 @@ Animation = Object:extend()
 function Animation:new(entity, animationInfo)
 	self._entity = entity
 	self._animationInfo = animationInfo
-	self._duration = animationInfo.duration
+	self._duration = animationInfo.duration or -1.0
+	self._iterate = animationInfo.iterate or 1.0
 
 	if self._duration >= 0 then
 		local texture, quads = QuadCache:get(entity, animationInfo.frames)
 		self._texture = texture
 		self._quads = quads
 
-		self._duration = animationInfo.duration or 1.0
 		self._frameDuration = self._duration / #quads
 		self._frameIndex = 1
 	end
 
 	self._time = 0
+end
+
+function Animation:duration()
+	return self._duration * self._iterate
 end
 
 function Animation:update(dt)
