@@ -139,27 +139,35 @@ function Level:addExplosion(bomb)
 	local size = bomb:size() + 1
 
 	for x = gridPos.x - size, gridPos.x - 1 do
-		local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(x, gridPos.y)))
-		explosion:explode(Orientation.HORIZONTAL)
-		self._explosions[#self._explosions + 1] = explosion
+		if x > 0 then
+			local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(x, gridPos.y)))
+			explosion:explode(Orientation.HORIZONTAL)
+			self._explosions[#self._explosions + 1] = explosion
+		end
 	end
 
 	for x = gridPos.x + 1, gridPos.x + size do
-		local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(x, gridPos.y)))
-		explosion:explode(Orientation.HORIZONTAL)
-		self._explosions[#self._explosions + 1] = explosion
+		if x < Map.WIDTH then
+			local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(x, gridPos.y)))
+			explosion:explode(Orientation.HORIZONTAL)
+			self._explosions[#self._explosions + 1] = explosion
+		end
 	end	
 
 	for y = gridPos.y - size, gridPos.y - 1 do
-		local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(gridPos.x, y)))
-		explosion:explode(Orientation.VERTICAL)
-		self._explosions[#self._explosions + 1] = explosion
+		if y > 0 then
+			local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(gridPos.x, y)))
+			explosion:explode(Orientation.VERTICAL)
+			self._explosions[#self._explosions + 1] = explosion
+		end
 	end	
 
 
 	for y = gridPos.y + 1, gridPos.y + size do
-		local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(gridPos.x, y)))
-		explosion:explode(Orientation.VERTICAL)
-		self._explosions[#self._explosions + 1] = explosion
+		if y < Map.HEIGHT then
+			local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(gridPos.x, y)))
+			explosion:explode(Orientation.VERTICAL)
+			self._explosions[#self._explosions + 1] = explosion
+		end
 	end	
 end

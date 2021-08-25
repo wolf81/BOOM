@@ -46,7 +46,7 @@ function love.load(args)
         EntityFactory:register(data)
     end)
 
-	level = Level(1)
+	level = Level(10)
 end
 
 function love.update(dt)
