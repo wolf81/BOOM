@@ -6,7 +6,9 @@ function Entity:new(data)
 	self._position = vector(1, 1)
 	self._removed = false
 
-	QuadCache:register(self, data.spriteSize)
+	self._spriteSize = data.spriteSize or { 32, 32 }
+
+	QuadCache:register(self, self._spriteSize)
 
 	self._stateMachine = StateMachine({ 
 		['idle'] = function() return Idle() end, 
@@ -43,6 +45,10 @@ end
 
 function Entity:level()
 	return self._level
+end
+
+function Entity:frame()
+	return Frame(self._position.x, self._position.y, self._spriteSize[1], self._spriteSize[2])
 end
 
 function Entity:gridPosition()

@@ -11,6 +11,7 @@ GridGraph = require 'src/utilities/gridgraph'
 Background = require 'src/utilities/background'
 DataLoader = require 'src/utilities/dataloader'
 EntityFactory = require 'src/utilities/entityfactory'
+Frame = require 'src/utilities/frame'
 
 require 'src/utilities/Animation'
 require 'src/utilities/AnimationQueue'

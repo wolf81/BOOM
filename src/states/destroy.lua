@@ -4,7 +4,7 @@ function Destroy:enter(entity)
 	self._entity = entity	
 
 	local animationInfo = entity._data.states.destroy.anim or {
-		["duration"] = -1,
+		['duration'] = -1,
 	}
 
 	self._animation = Animation(entity, animationInfo)

@@ -17,7 +17,6 @@ local function generateQuads(texture, spriteWidth, spriteHeight)
 end
 
 function QuadCache:register(entity, spriteSize)
-	spriteSize = spriteSize or { 32, 32 }
 	print(spriteSize[1], spriteSize[2])
 
 	if cache[entity._data.id] == nil then

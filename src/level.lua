@@ -19,6 +19,7 @@ function Level:new(index)
 	self._monsters = {}
 	self._blocks = {}
 	self._bombs = {}
+	self._coins = {}
 	self._explosions = {}
 
 	local levelData = getLevelData(index)
@@ -56,6 +57,9 @@ function Level:new(index)
 		elseif entityInfo.id == '2' then
 			local block = EntityFactory:create(self, breakableBlockId, pos)
 			self._blocks[tostring(block:gridPosition())] = block
+		elseif entityInfo.id == '3' then
+			local coin = EntityFactory:create(self, entityInfo.id, pos)
+			self._coins[tostring(coin:gridPosition())] = coin
 		elseif entityInfo.id == 'X' or entityInfo.id == 'Y' then
 			self._players[#self._players + 1] = EntityFactory:create(self, entityInfo.id, pos)			
 		else
@@ -77,12 +81,22 @@ function Level:update(dt)
 		end
 	end
 
+	for _, coin in pairs(self._coins) do
+		coin:update(dt)
+	end
+
 	for _, monster in ipairs(self._monsters) do
 		monster:update(dt)
 	end
 
 	for _, player in ipairs(self._players) do
 		player:update(dt)
+
+		for _, coin in pairs(self._coins) do
+			if player:frame():intersects(coin:frame()) then
+				coin:destroy()
+			end
+		end		
 	end
 
 	for id, block in pairs(self._blocks) do
@@ -110,6 +124,10 @@ function Level:draw()
 
 	for _, bomb in pairs(self._bombs) do
 		bomb:draw()
+	end
+
+	for _, coin in pairs(self._coins) do
+		coin:draw()
 	end
 
 	for _, explosion in ipairs(self._explosions) do
