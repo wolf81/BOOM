@@ -7,18 +7,19 @@
 	"states": {
 		"idle": {},		
 		"fuse": {
-			"anim": {
-				"frames": [1, 2],
-				"duration": 0.2,
-				"iterate": 12.5,
-			},			
+			"anim": [
+				{
+					"frames": [1, 2],
+					"duration": 0.2,
+					"iterate": 12.5,
+				},
+				{
+					"frames": [2, 2],
+					"duration": 0.2,
+					"iterate": 12.5,
+				},
+			],			
 		},
-		"destroy": {
-			"anim": {
-				"frames": [2, 2],
-				"duration": 0.2,
-				"iterate": 12.5,
-			},						
-		}
+		"destroy": {}
 	}
 }

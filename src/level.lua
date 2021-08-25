@@ -112,16 +112,16 @@ function Level:draw()
 		bomb:draw()
 	end
 
+	for _, explosion in ipairs(self._explosions) do
+		explosion:draw()
+	end
+
 	for _, monster in ipairs(self._monsters) do
 		monster:draw()
 	end
 
 	for _, player in ipairs(self._players) do
 		player:draw()
-	end
-
-	for _, explosion in ipairs(self._explosions) do
-		explosion:draw()
 	end
 
 	for _, block in pairs(self._blocks) do

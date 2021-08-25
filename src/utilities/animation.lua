@@ -27,14 +27,13 @@ function Animation:update(dt)
 
 	self._time = self._time + dt
 
-	if self._time < self._frameDuration then return end
+	if self._time > self._frameDuration then
+		self._time = self._time % self._frameDuration
+		self._frameIndex = self._frameIndex + 1
 
-	self._time = self._time % self._frameDuration
-	
-	self._frameIndex = self._frameIndex + 1
-
-	if self._frameIndex > #self._quads then
-		self._frameIndex = 1
+		if self._frameIndex > #self._quads then
+			self._frameIndex = 1
+		end
 	end
 end
 

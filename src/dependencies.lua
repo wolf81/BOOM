@@ -13,6 +13,7 @@ DataLoader = require 'src/utilities/dataloader'
 EntityFactory = require 'src/utilities/entityfactory'
 
 require 'src/utilities/Animation'
+require 'src/utilities/AnimationQueue'
 require 'src/utilities/statemachine'
 require 'src/utilities/quadcache'
 
