@@ -148,13 +148,13 @@ function Level:addBomb(position)
 	self._bombs[#self._bombs + 1] = bomb
 end
 
-function Level:addExplosion(gridPosition, direction, size)
+function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
 	if gridPosition.x < 1 or gridPosition.x > Map.WIDTH then return end
 	if gridPosition.y < 1 or gridPosition.y > Map.HEIGHT then return end
 
 	local block = self._blocks[tostring(gridPosition)]
 	if block ~= nil then
-		if block:isBreakable() then 
+		if block:isBreakable() and destroyAdjacentWalls then 
 			size = 1
 			block:destroy() 
 		else return end
@@ -176,10 +176,10 @@ function Level:addExplosion(gridPosition, direction, size)
 	if size == 0 then return end
 
 	if direction == Direction.NONE then		
-		self:addExplosion(gridPosition + vector(-1, 0), Direction.LEFT, size)
-		self:addExplosion(gridPosition + vector(1, 0), Direction.RIGHT, size)
-		self:addExplosion(gridPosition + vector(0, 1), Direction.UP, size)
-		self:addExplosion(gridPosition + vector(0, -1), Direction.DOWN, size)
+		self:addExplosion(gridPosition + vector(-1, 0), Direction.LEFT, size, true)
+		self:addExplosion(gridPosition + vector(1, 0), Direction.RIGHT, size, true)
+		self:addExplosion(gridPosition + vector(0, 1), Direction.UP, size, true)
+		self:addExplosion(gridPosition + vector(0, -1), Direction.DOWN, size, true)
 	elseif direction == Direction.LEFT then
 		self:addExplosion(gridPosition + vector(-1, 0), Direction.LEFT, size)
 	elseif direction == Direction.RIGHT then
