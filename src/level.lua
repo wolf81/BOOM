@@ -66,7 +66,10 @@ function Level:update(dt)
 		bomb:update(dt)
 
 		if bomb:isRemoved() then
-			self:addExplosion(bomb)
+			local gridPos = bomb:gridPosition()
+			local size = bomb:size() + 2
+			self:addExplosion(gridPos, Direction.NONE, size)
+
 			table.remove(self._bombs, idx)
 		end
 	end
@@ -130,44 +133,37 @@ function Level:addBomb(position)
 	self._bombs[#self._bombs + 1] = bomb
 end
 
-function Level:addExplosion(bomb)
-	local explosion = EntityFactory:create(self, 'explosion', toPosition(bomb:gridPosition()))
-	explosion:explode()
-	self._explosions[#self._explosions + 1] = explosion
+function Level:addExplosion(gridPosition, direction, size)
+	if gridPosition.x < 1 or gridPosition.x > Map.WIDTH then return end
+	if gridPosition.y < 1 or gridPosition.y > Map.HEIGHT then return end
 
-	local gridPos = explosion:gridPosition() 
-	local size = bomb:size() + 1
+	local explosion = EntityFactory:create(self, 'explosion', toPosition(gridPosition))
+	local orientation = nil
 
-	for x = gridPos.x - size, gridPos.x - 1 do
-		if x > 0 then
-			local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(x, gridPos.y)))
-			explosion:explode(Orientation.HORIZONTAL)
-			self._explosions[#self._explosions + 1] = explosion
-		end
+	if direction == Direction.LEFT or direction == Direction.RIGHT then
+		orientation = Orientation.HORIZONTAL
+	elseif direction == Direction.UP or direction == Direction.DOWN then
+		orientation = Orientation.VERTICAL		
 	end
 
-	for x = gridPos.x + 1, gridPos.x + size do
-		if x < Map.WIDTH then
-			local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(x, gridPos.y)))
-			explosion:explode(Orientation.HORIZONTAL)
-			self._explosions[#self._explosions + 1] = explosion
-		end
-	end	
+	explosion:explode(orientation)
+	self._explosions[#self._explosions + 1] = explosion
 
-	for y = gridPos.y - size, gridPos.y - 1 do
-		if y > 0 then
-			local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(gridPos.x, y)))
-			explosion:explode(Orientation.VERTICAL)
-			self._explosions[#self._explosions + 1] = explosion
-		end
-	end	
+	size = size - 1
+	if size == 0 then return end
 
-
-	for y = gridPos.y + 1, gridPos.y + size do
-		if y < Map.HEIGHT then
-			local explosion = EntityFactory:create(self, 'explosion', toPosition(vector(gridPos.x, y)))
-			explosion:explode(Orientation.VERTICAL)
-			self._explosions[#self._explosions + 1] = explosion
-		end
-	end	
+	if direction == Direction.NONE then		
+		self:addExplosion(gridPosition + vector(-1, 0), Direction.LEFT, size)
+		self:addExplosion(gridPosition + vector(1, 0), Direction.RIGHT, size)
+		self:addExplosion(gridPosition + vector(0, 1), Direction.UP, size)
+		self:addExplosion(gridPosition + vector(0, -1), Direction.DOWN, size)
+	elseif direction == Direction.LEFT then
+		self:addExplosion(gridPosition + vector(-1, 0), Direction.LEFT, size)
+	elseif direction == Direction.RIGHT then
+		self:addExplosion(gridPosition + vector(1, 0), Direction.RIGHT, size)
+	elseif direction == Direction.UP then
+		self:addExplosion(gridPosition + vector(0, 1), Direction.UP, size)
+	elseif direction == Direction.DOWN then
+		self:addExplosion(gridPosition + vector(0, -1), Direction.DOWN, size)
+	end
 end
