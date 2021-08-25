@@ -12,5 +12,12 @@
 				"duration": 0,
 			},			
 		},
+		"destroy": {
+			"duration": 0.5,
+			"anim": {
+				"frames": [1, 4],
+				"duration": 0.5,
+			},						
+		}
 	}
 }

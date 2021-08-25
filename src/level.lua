@@ -78,8 +78,12 @@ function Level:update(dt)
 		entity:update(dt)
 	end
 
-	for _, block in pairs(self._blocks) do
+	for id, block in pairs(self._blocks) do
 		block:update(dt)
+
+		if block:isRemoved() then
+			self._blocks[id] = nil
+		end
 	end
 
 	for idx, explosion in lume.ripairs(self._explosions) do
@@ -105,12 +109,12 @@ function Level:draw()
 		entity:draw()
 	end
 
-	for _, block in pairs(self._blocks) do
-		block:draw()
-	end
-
 	for _, explosion in ipairs(self._explosions) do
 		explosion:draw()
+	end
+
+	for _, block in pairs(self._blocks) do
+		block:draw()
 	end
 
 	love.graphics.pop()
@@ -136,6 +140,14 @@ end
 function Level:addExplosion(gridPosition, direction, size)
 	if gridPosition.x < 1 or gridPosition.x > Map.WIDTH then return end
 	if gridPosition.y < 1 or gridPosition.y > Map.HEIGHT then return end
+
+	local block = self._blocks[tostring(gridPosition)]
+	if block ~= nil then
+		if block:isBreakable() then 
+			size = 1
+			block:destroy() 
+		else return end
+	end
 
 	local explosion = EntityFactory:create(self, 'explosion', toPosition(gridPosition))
 	local orientation = nil
