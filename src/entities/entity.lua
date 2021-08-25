@@ -12,6 +12,7 @@ function Entity:new(data)
 		['idle'] = function() return Idle(self) end, 
 		['move'] = function() return Move(self) end,
 		['fuse'] = function() return Fuse(self) end,
+		['explode'] = function() return Explode(self) end,
 		['destroy'] = function() return Destroy(self) end,
 	})
 end

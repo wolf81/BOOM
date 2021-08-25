@@ -4,12 +4,7 @@
 	"id": "bomb",
 
 	"states": {
-		"idle": {
-			"anim": {
-				"frames": [1, 1],
-				"duration": 0,
-			},
-		},
+		"idle": {},		
 		"fuse": {
 			"duration": 2.5,
 			"anim": {

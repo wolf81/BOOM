@@ -1,10 +1,13 @@
 Destroy = Object:extend()
 
 function Destroy:enter(entity)
-	self._entity = entity
+	self._entity = entity	
 	self._duration = entity._data.states.destroy.duration or 1.0
 
-	local animationInfo = entity._data.states.destroy.anim
+	local animationInfo = entity._data.states.destroy.anim or {
+		["duration"] = -1,
+	}
+
 	self._animation = Animation(entity, animationInfo)
 end
 

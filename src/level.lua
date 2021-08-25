@@ -18,6 +18,7 @@ function Level:new(index)
 	self._entities = {}
 	self._blocks = {}
 	self._bombs = {}
+	self._explosions = {}
 
 	local levelData = getLevelData(index)
 	self._time = levelData['Time']
@@ -65,6 +66,7 @@ function Level:update(dt)
 		bomb:update(dt)
 
 		if bomb:isRemoved() then
+			self:addExplosion(bomb)
 			table.remove(self._bombs, idx)
 		end
 	end
@@ -75,6 +77,14 @@ function Level:update(dt)
 
 	for _, block in pairs(self._blocks) do
 		block:update(dt)
+	end
+
+	for idx, explosion in lume.ripairs(self._explosions) do
+		explosion:update(dt)
+
+		if explosion:isRemoved() then
+			table.remove(self._explosions, idx)
+		end
 	end
 end
 
@@ -96,6 +106,10 @@ function Level:draw()
 		block:draw()
 	end
 
+	for _, explosion in ipairs(self._explosions) do
+		explosion:draw()
+	end
+
 	love.graphics.pop()
 end
 
@@ -113,4 +127,9 @@ end
 function Level:addBomb(position)
 	local bomb = EntityFactory:create(self, 'bomb', toPosition(toGridPosition(position)))
 	self._bombs[#self._bombs + 1] = bomb
+end
+
+function Level:addExplosion(bomb)
+	local explosion = EntityFactory:create(self, 'explosion', toPosition(bomb:gridPosition()))
+	self._explosions[#self._explosions + 1] = explosion
 end

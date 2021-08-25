@@ -5,12 +5,7 @@
 	"speed": 2.0,
 
 	"states": {
-		"idle": {
-			"anim": {
-				"frames": [1, 1],
-				"duration": 0,
-			},			
-		},
+		"idle": {},		
 		"move": {
 			"up": {
 				"anim": {

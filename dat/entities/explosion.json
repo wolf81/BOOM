@@ -4,31 +4,29 @@
 	"id": "explosion",
 
 	"states": {
-		"idle": {
-			"anim": {
-				"frames": [1, 1],
-				"duration": 0,
-			},			
-		},
+		"idle": {},		
 		"explode": {
+			"duration": 0.5,
+						
 			"center": {
 				"anim": {
 					"frames": [1, 4],
-					"duration": 1.0,
+					"duration": 0.5,
 				},			
 			},
 			"vertical": {
 				"anim": {
 					"frames": [5, 4],
-					"duration": 1.0,
+					"duration": 0.5,
 				},			
 			},
 			"horizontal": {
 				"anim": {
 					"frames": [9, 4],
-					"duration": 1.0,
+					"duration": 0.5,
 				},			
 			},
-		}
+		},
+		"destroy": {}
 	}
 }

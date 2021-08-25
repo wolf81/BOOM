@@ -1,7 +1,11 @@
 Idle = Object:extend()
 
 function Idle:enter(entity)
-	local animationInfo = entity._data.states.idle.anim
+	local animationInfo = entity._data.states.idle.anim or {
+		["frames"] = {1, 1},
+		["duration"] = 0.0,
+	}
+
 	self._animation = Animation(entity, animationInfo)
 end
 

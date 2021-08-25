@@ -4,11 +4,6 @@
 	"id": "G",
 
 	"states": {
-		"idle": {
-			"anim": {
-				"frames": [1, 1],
-				"duration": 0,
-			},			
-		},		
+		"idle": {},		
 	}
 }
