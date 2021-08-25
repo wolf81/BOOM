@@ -1,0 +1,34 @@
+{
+	"texture": "gfx/Explosion.png",
+	"type": "Explosion",
+	"id": "explosion",
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [1, 1],
+				"duration": 0,
+			},			
+		},
+		"explode": {
+			"center": {
+				"anim": {
+					"frames": [1, 4],
+					"duration": 1.0,
+				},			
+			},
+			"vertical": {
+				"anim": {
+					"frames": [5, 4],
+					"duration": 1.0,
+				},			
+			},
+			"horizontal": {
+				"anim": {
+					"frames": [9, 4],
+					"duration": 1.0,
+				},			
+			},
+		}
+	}
+}

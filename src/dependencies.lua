@@ -22,6 +22,7 @@ require 'src/states/attack'
 require 'src/states/move'
 require 'src/states/fuse'
 require 'src/states/destroy'
+require 'src/states/explode'
 
 -- entities
 require 'src/entities/entity'
@@ -32,6 +33,7 @@ require 'src/entities/block'
 require 'src/entities/bonus'
 require 'src/entities/prop'
 require 'src/entities/bomb'
+require 'src/entities/explosion'
 
 -- game
 require 'src/constants'
