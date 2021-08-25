@@ -29,6 +29,7 @@ require 'src/entities/monster'
 require 'src/entities/block'
 require 'src/entities/bonus'
 require 'src/entities/prop'
+require 'src/entities/bomb'
 
 -- game
 require 'src/constants'

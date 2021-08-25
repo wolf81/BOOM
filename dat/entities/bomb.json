@@ -1,0 +1,14 @@
+{
+	"texture": "gfx/Bomb.png",
+	"type": "Bomb",
+	"id": "bomb",
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [1, 3],
+				"duration": 1.0,
+			},			
+		},
+	}
+}

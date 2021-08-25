@@ -6,7 +6,7 @@ local input = baton.new {
     right = {'key:right', 'key:d', 'axis:leftx+', 'button:dpright'},
     up = {'key:up', 'key:w', 'axis:lefty-', 'button:dpup'},
     down = {'key:down', 'key:s', 'axis:lefty+', 'button:dpdown'},
-    action = {'key:x', 'button:a'},
+    action = {'key:space', 'button:a'},
   },
   pairs = {
     --move = {'left', 'right', 'up', 'down'}
@@ -39,4 +39,11 @@ function Player:update(dt)
 	elseif input:down('left') then self:move(Direction.LEFT)
 	elseif input:down('right') then self:move(Direction.RIGHT)
 	else self:move(Direction.NONE) end
+
+	if input:pressed('action') then self:dropBomb() end
+end
+
+function Player:dropBomb()
+	local p = self:position() + TileSize / 2
+	self:level():addBomb(p)
 end

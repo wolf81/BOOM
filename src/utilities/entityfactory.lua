@@ -24,6 +24,8 @@ local function createPrototype(data)
 		return Bonus(data)
 	elseif data.type == 'Prop' then
 		return Prop(data)
+	elseif data.type == 'Bomb' then
+		return Bomb(data)
 	end
 
 	error('unknown type: ' .. data.type)

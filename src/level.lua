@@ -17,6 +17,7 @@ function Level:new(index)
 	self._index = index
 	self._entities = {}
 	self._blocks = {}
+	self._bombs = {}
 
 	local levelData = getLevelData(index)
 	self._time = levelData['Time']
@@ -60,6 +61,10 @@ function Level:new(index)
 end
 
 function Level:update(dt)
+	for _, bomb in pairs(self._bombs) do
+		bomb:update(dt)
+	end
+
 	for _, entity in ipairs(self._entities) do
 		entity:update(dt)
 	end
@@ -74,6 +79,10 @@ function Level:draw()
 	love.graphics.translate(self._offset.x, self._offset.y)
 
 	self._background:draw()
+
+	for _, bomb in pairs(self._bombs) do
+		bomb:draw()
+	end
 
 	for _, entity in ipairs(self._entities) do
 		entity:draw()
@@ -95,4 +104,10 @@ function Level:isBlocked(gridPosition)
 	end
 
 	return false
+end
+
+function Level:addBomb(position)
+	local bomb = EntityFactory:create(self, 'bomb', toPosition(toGridPosition(position)))
+	self._bombs[#self._bombs + 1] = bomb
+
 end

@@ -1,0 +1,1 @@
+Bomb = Entity:extend()
