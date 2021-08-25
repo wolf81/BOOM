@@ -69,7 +69,7 @@ function Level:new(index)
 end
 
 function Level:update(dt)
-	for idx, bomb in lume.ripairs(self._bombs) do
+	for id, bomb in pairs(self._bombs) do
 		bomb:update(dt)
 
 		if bomb:isRemoved() then
@@ -77,7 +77,7 @@ function Level:update(dt)
 			local size = bomb:size() + 2
 			self:addExplosion(gridPos, Direction.NONE, size)
 
-			table.remove(self._bombs, idx)
+			self._bombs[id] = nil
 		end
 	end
 
@@ -163,7 +163,7 @@ end
 function Level:addBomb(position)
 	local bomb = EntityFactory:create(self, 'bomb', toPosition(toGridPosition(position)))
 	bomb:fuse()
-	self._bombs[#self._bombs + 1] = bomb
+	self._bombs[tostring(bomb:gridPosition())] = bomb
 end
 
 function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
@@ -176,6 +176,11 @@ function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
 			size = 1
 			block:destroy() 
 		else return end
+	end
+
+	local bomb = self._bombs[tostring(gridPosition)]
+	if bomb ~= nil then
+		bomb:destroy()
 	end
 
 	local explosion = EntityFactory:create(self, 'explosion', toPosition(gridPosition))
