@@ -12,6 +12,11 @@ Direction = {
 	end
 }
 
+Orientation = {
+	['HORIZONTAL'] = 0,
+	['VERTICAL'] = 1,
+}
+
 function toGridPosition(position)
 	local x = math.floor(position.x / TileSize.x) 
 	local y = math.floor(position.y / TileSize.y)

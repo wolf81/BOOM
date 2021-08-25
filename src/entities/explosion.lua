@@ -1,9 +1,11 @@
 Explosion = Entity:extend()
 
-function Explosion:explode()
-	self._stateMachine:change('explode', self)
+function Explosion:orientation()
+	return self._orientation
 end
 
-function Explosion:idle()
-	self:explode()
+function Explosion:explode(orientation)
+	self._orientation = orientation
+	
+	self._stateMachine:change('explode', self)
 end

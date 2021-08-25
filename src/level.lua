@@ -126,10 +126,12 @@ end
 
 function Level:addBomb(position)
 	local bomb = EntityFactory:create(self, 'bomb', toPosition(toGridPosition(position)))
+	bomb:fuse()
 	self._bombs[#self._bombs + 1] = bomb
 end
 
 function Level:addExplosion(bomb)
 	local explosion = EntityFactory:create(self, 'explosion', toPosition(bomb:gridPosition()))
+	explosion:explode()
 	self._explosions[#self._explosions + 1] = explosion
 end

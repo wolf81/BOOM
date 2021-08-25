@@ -9,11 +9,11 @@ function Entity:new(data)
 	QuadCache:register(self, data.spriteSize)
 
 	self._stateMachine = StateMachine({ 
-		['idle'] = function() return Idle(self) end, 
-		['move'] = function() return Move(self) end,
-		['fuse'] = function() return Fuse(self) end,
-		['explode'] = function() return Explode(self) end,
-		['destroy'] = function() return Destroy(self) end,
+		['idle'] = function() return Idle() end, 
+		['move'] = function() return Move() end,
+		['fuse'] = function() return Fuse() end,
+		['explode'] = function() return Explode() end,
+		['destroy'] = function() return Destroy() end,
 	})
 end
 
