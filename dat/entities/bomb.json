@@ -2,7 +2,7 @@
 	"texture": "gfx/Bomb.png",
 	"type": "Bomb",
 	"id": "bomb",
-	"size": 2,
+	"size": 1,
 
 	"states": {
 		"idle": {},		
