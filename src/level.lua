@@ -61,8 +61,12 @@ function Level:new(index)
 end
 
 function Level:update(dt)
-	for _, bomb in pairs(self._bombs) do
+	for idx, bomb in lume.ripairs(self._bombs) do
 		bomb:update(dt)
+
+		if bomb:isRemoved() then
+			table.remove(self._bombs, idx)
+		end
 	end
 
 	for _, entity in ipairs(self._entities) do
@@ -109,5 +113,4 @@ end
 function Level:addBomb(position)
 	local bomb = EntityFactory:create(self, 'bomb', toPosition(toGridPosition(position)))
 	self._bombs[#self._bombs + 1] = bomb
-
 end

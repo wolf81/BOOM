@@ -20,6 +20,8 @@ require 'src/utilities/quadcache'
 require 'src/states/idle'
 require 'src/states/attack'
 require 'src/states/move'
+require 'src/states/fuse'
+require 'src/states/destroy'
 
 -- entities
 require 'src/entities/entity'

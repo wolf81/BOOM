@@ -1,9 +1,5 @@
 Idle = Object:extend()
 
-function Idle:new(entity)
-	-- body
-end
-
 function Idle:enter(entity)
 	local animationInfo = entity._data.states.idle.anim
 	self._animation = Animation(entity, animationInfo)
