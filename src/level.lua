@@ -23,6 +23,16 @@ local p1Input = baton.new({
 	joystick = love.joystick.getJoysticks()[1]
 })
 
+local function playMusic()
+	local music = love.audio.newSource('mus/BOOM Music 1.wav', 'stream')
+    music:setLooping(true)                              
+    music:setVolume(.2)                                 
+    love.audio.play(music) 
+
+    --woosh = love.audio.newSource({'sfx/Bolt.wav', 'sfx/BoltHit.wav'}, 'static')
+    --local t = woosh:play()
+end
+
 function Level:new(index)
 	print('load level ' .. index)
 
@@ -88,6 +98,8 @@ function Level:new(index)
 			monster:setControl(control)
 		end
 	end
+
+	playMusic()
 end
 
 function Level:update(dt)
