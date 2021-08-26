@@ -11,6 +11,10 @@ function Destroy:enter(entity)
 	self._duration = self._animation:duration()
 end
 
+function Destroy:exit()
+	-- body
+end
+
 function Destroy:update(dt)
 	self._animation:update(dt)
 

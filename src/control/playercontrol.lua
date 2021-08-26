@@ -1,8 +1,9 @@
 PlayerControl = {}
 PlayerControl.__index = PlayerControl
 
-function PlayerControl:new(player, input)
+function PlayerControl:new(level, player, input)
 	return setmetatable({
+		_level = level,
 		_player = player,
 		_input = input,
 	}, self)

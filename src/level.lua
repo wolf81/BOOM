@@ -77,14 +77,14 @@ function Level:new(index)
 			self._players[#self._players + 1] = player
 
 			if player:index() == 1 then
-				local control = PlayerControl(player, p1Input)
+				local control = PlayerControl(self, player, p1Input)
 				player:setControl(control)
 			end
 		else
 			local monster = EntityFactory:create(self, entityInfo.id, pos)
 			self._monsters[#self._monsters + 1] = monster
 
-			local control = CpuControl(monster)
+			local control = CpuControl(self, monster)
 			monster:setControl(control)
 		end
 	end
