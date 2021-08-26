@@ -85,8 +85,12 @@ function Level:update(dt)
 		coin:update(dt)
 	end
 
-	for _, monster in ipairs(self._monsters) do
+	for idx, monster in lume.ripairs(self._monsters) do
 		monster:update(dt)
+
+		if monster:isRemoved() then
+			table.remove(self._monsters, idx)
+		end
 	end
 
 	for _, player in ipairs(self._players) do
@@ -185,6 +189,12 @@ function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
 
 	local explosion = EntityFactory:create(self, 'explosion', toPosition(gridPosition))
 	local orientation = nil
+
+	for idx, monster in ipairs(self._monsters) do
+		if monster:frame():intersects(explosion:frame()) then
+			monster:destroy()
+		end
+	end
 
 	if direction == Direction.LEFT or direction == Direction.RIGHT then
 		orientation = Orientation.HORIZONTAL

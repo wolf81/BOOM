@@ -4,6 +4,13 @@
 	"id": "A",
 
 	"states": {
-		"idle": {},		
+		"idle": {},
+		"destroy": {
+			"anim": {
+				"frames": [21, 2],
+				"duration": 0.2,
+				"iterate": 10,
+			}
+		},
 	}
 }
