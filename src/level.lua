@@ -81,8 +81,12 @@ function Level:update(dt)
 		end
 	end
 
-	for _, coin in pairs(self._coins) do
+	for id, coin in pairs(self._coins) do
 		coin:update(dt)
+
+		if coin:isRemoved() then
+			self._coins[id] = nil
+		end 
 	end
 
 	for idx, monster in lume.ripairs(self._monsters) do
