@@ -18,6 +18,10 @@ require 'src/utilities/AnimationQueue'
 require 'src/utilities/statemachine'
 require 'src/utilities/quadcache'
 
+-- control
+PlayerControl = require 'src/control/playercontrol'
+CpuControl = require 'src/control/cpucontrol'
+
 -- states
 require 'src/states/idle'
 require 'src/states/attack'

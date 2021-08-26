@@ -5,6 +5,19 @@ function Creature:new(data)
 
 	self._speed = data.speed or 1.0
 	self._direction = Direction.NONE
+	self._control = {
+		update = function() end
+	}	
+end
+
+function Creature:update(dt)
+	Creature.super.update(self, dt)
+	
+	self._control:update(dt)
+end
+
+function Creature:setControl(control)
+	self._control = control
 end
 
 function Creature:isMoving()
