@@ -2,7 +2,6 @@ Animation = Object:extend()
 
 function Animation:new(entity, animationInfo)
 	self._entity = entity
-	self._animationInfo = animationInfo
 	self._duration = animationInfo.duration or -1.0
 	self._iterate = animationInfo.iterate or 1.0
 

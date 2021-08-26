@@ -11,6 +11,18 @@ local function getLevelData(index)
 	return nil
 end
 
+local p1Input = baton.new({
+	controls = {
+		left = {'key:a', 'axis:leftx-', 'button:dpleft'},
+		right = {'key:d', 'axis:leftx+', 'button:dpright'},
+		up = {'key:w', 'axis:lefty-', 'button:dpup'},
+		down = {'key:s', 'axis:lefty+', 'button:dpdown'},
+		action = {'key:space', 'button:a'},
+	},
+	pairs = {},
+	joystick = love.joystick.getJoysticks()[1]
+})
+
 function Level:new(index)
 	print('load level ' .. index)
 
@@ -61,9 +73,19 @@ function Level:new(index)
 			local coin = EntityFactory:create(self, entityInfo.id, pos)
 			self._coins[tostring(coin:gridPosition())] = coin
 		elseif entityInfo.id == 'X' or entityInfo.id == 'Y' then
-			self._players[#self._players + 1] = EntityFactory:create(self, entityInfo.id, pos)			
+			local player = EntityFactory:create(self, entityInfo.id, pos)
+			self._players[#self._players + 1] = player
+
+			if player:index() == 1 then
+				local control = PlayerControl(self, player, p1Input)
+				player:setControl(control)
+			end
 		else
-			self._monsters[#self._monsters + 1] = EntityFactory:create(self, entityInfo.id, pos)
+			local monster = EntityFactory:create(self, entityInfo.id, pos)
+			self._monsters[#self._monsters + 1] = monster
+
+			local control = CpuControl(self, monster)
+			monster:setControl(control)
 		end
 	end
 end
