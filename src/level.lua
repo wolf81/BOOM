@@ -198,7 +198,10 @@ function Level:isBlocked(gridPosition)
 end
 
 function Level:addBomb(position)
-	local bomb = EntityFactory:create(self, 'bomb', toPosition(toGridPosition(position)))
+	local gridPosition = toGridPosition(position)
+	if self._bombs[tostring(gridPosition)] ~= nil then return end
+	
+	local bomb = EntityFactory:create(self, 'bomb', toPosition(gridPosition))
 	bomb:fuse()
 	self._bombs[tostring(bomb:gridPosition())] = bomb
 end
