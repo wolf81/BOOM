@@ -13,8 +13,9 @@ DataLoader = require 'src/utilities/dataloader'
 EntityFactory = require 'src/utilities/entityfactory'
 Frame = require 'src/utilities/frame'
 
-require 'src/utilities/Animation'
-require 'src/utilities/AnimationQueue'
+require 'src/utilities/audioplayer'
+require 'src/utilities/animation'
+require 'src/utilities/animationqueue'
 require 'src/utilities/statemachine'
 require 'src/utilities/quadcache'
 

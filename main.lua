@@ -27,11 +27,32 @@ borders = {
     ['7'] = love.graphics.newImage('gfx/Border 08.png'),
 }
 
+local function prepareAudioPlayer()
+    -- register music with audio player
+    local musicFiles = love.filesystem.getDirectoryItems('mus')
+    for _, musicFile in ipairs(musicFiles) do
+        local name = musicFile:gsub('%.wav', '')
+        local path = 'mus/' .. musicFile
+        AudioPlayer.registerMusic(name, path)
+    end
+
+    -- register sounds with audio player
+    local soundFiles = love.filesystem.getDirectoryItems('sfx')
+    for _, soundFile in ipairs(soundFiles) do
+        local name = soundFile:gsub('%.wav', '')
+        local path = 'sfx/' .. soundFile
+        AudioPlayer.registerSound(name, path)
+    end
+
+end
+
 function love.load(args)
     love.math.setRandomSeed(love.timer.getTime())
 
     local contents, size = love.filesystem.read('version.txt')
     local version = contents:gsub('_', '.')
+
+    prepareAudioPlayer()
 
     --[[
     local modes = love.window.getFullscreenModes(1)

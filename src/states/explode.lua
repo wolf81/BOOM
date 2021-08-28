@@ -3,6 +3,10 @@ Explode = Object:extend()
 function Explode:enter(entity)
 	self._entity = entity
 
+	if entity._data.states.explode.center.sound then
+		AudioPlayer.playSound(entity._data.states.explode.center.sound)
+	end
+
 	local animationInfo = entity._data.states.explode.center.anim
 	if self._entity:orientation() == Orientation.HORIZONTAL then
 		animationInfo = entity._data.states.explode.horizontal.anim

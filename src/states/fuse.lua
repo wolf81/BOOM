@@ -3,6 +3,10 @@ Fuse = Object:extend()
 function Fuse:enter(entity)
 	self._entity = entity
 
+	if entity._data.states.fuse.sound then
+		AudioPlayer.playSound(entity._data.states.fuse.sound)
+	end
+
 	local animList = entity._data.states.fuse.anim
 	local animations = {}
 	for _, animationInfo in ipairs(animList) do 

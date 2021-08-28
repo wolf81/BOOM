@@ -7,6 +7,7 @@
 	"states": {
 		"idle": {},		
 		"fuse": {
+			"sound": "LightTheFuse",
 			"anim": [
 				{
 					"frames": [1, 2],

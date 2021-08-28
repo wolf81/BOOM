@@ -24,13 +24,8 @@ local p1Input = baton.new({
 })
 
 local function playMusic()
-	local music = love.audio.newSource('mus/BOOM Music 1.wav', 'stream')
-    music:setLooping(true)                              
-    music:setVolume(.2)                                 
-    love.audio.play(music) 
-
-    --woosh = love.audio.newSource({'sfx/Bolt.wav', 'sfx/BoltHit.wav'}, 'static')
-    --local t = woosh:play()
+	AudioPlayer.setMusicVolume(0.2)
+	AudioPlayer.playMusic('BOOM Music 1')
 end
 
 function Level:new(index)
