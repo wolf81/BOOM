@@ -6,11 +6,16 @@ local registry = {
 }
 
 local settings = {
-	musicVolume = 1.0
+	musicVolume = 1.0,
+	soundVolume = 1.0,
 }
 
 function AudioPlayer.setMusicVolume(volume)
 	settings.musicVolume = volume
+end
+
+function AudioPlayer.setSoundVolume(volume)
+	-- body
 end
 
 function AudioPlayer.registerMusic(name, path)

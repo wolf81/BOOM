@@ -3,18 +3,7 @@ Explode = State:extend()
 function Explode:enter(params)
 	Explode.super.enter(self, params)
 
-	if self.stateInfo.center.sound then
-		AudioPlayer.playSound(self.stateInfo.center.sound)
-	end
-
-	local animationInfo = self.stateInfo.center.anim
-	if self.entity:orientation() == Orientation.HORIZONTAL then
-		animationInfo = self.stateInfo.horizontal.anim
-	elseif self.entity:orientation() == Orientation.VERTICAL then
-		animationInfo = self.stateInfo.vertical.anim
-	end
-
-	self._animation = Animation(self.entity, animationInfo)
+	self._animation = Animation(self.entity, self.stateInfo.anim)
 	self._duration = self._animation:duration()
 end
 

@@ -224,7 +224,6 @@ function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
 	end
 
 	local explosion = EntityFactory:create(self, 'explosion', toPosition(gridPosition))
-	local orientation = nil
 
 	for idx, monster in ipairs(self._monsters) do
 		if monster:frame():intersects(explosion:frame()) then
@@ -232,6 +231,7 @@ function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
 		end
 	end
 
+	local orientation = nil
 	if direction == Direction.LEFT or direction == Direction.RIGHT then
 		orientation = Orientation.HORIZONTAL
 	elseif direction == Direction.UP or direction == Direction.DOWN then

@@ -32,6 +32,7 @@
 			}
 		},		
 		"destroy": {
+			"sound": "SoldierDeath",
 			"anim": {
 				"frames": [21, 2],
 				"duration": 0.2,

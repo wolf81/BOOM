@@ -3,10 +3,6 @@ Fuse = State:extend()
 function Fuse:enter(params)
 	Fuse.super.enter(self, params)
 
-	if self.stateInfo.sound then
-		AudioPlayer.playSound(self.stateInfo.sound)
-	end
-
 	local animList = self.stateInfo.anim
 	local animations = {}
 	for _, animationInfo in ipairs(animList) do 

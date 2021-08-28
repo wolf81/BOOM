@@ -13,6 +13,7 @@
 			},			
 		},
 		"destroy": {
+			"sound": "BlockDestruction",
 			"anim": {
 				"frames": [1, 4],
 				"duration": 0.5,
