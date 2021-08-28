@@ -67,7 +67,15 @@ end
 function Entity:destroy()
 	if self._stateMachine:currentStateName() == 'destroy' then return end
 
-	local params = { entity = self, stateInfo = self._data.states.destroy }
+	-- add a default destroy animation if none is defined
+	local stateInfo = self._data.states.destroy
+	if stateInfo.anim == nil then
+		stateInfo.anim = {
+			duration = -1,
+		}
+	end
+
+	local params = { entity = self, stateInfo = stateInfo }
 
 	self._stateMachine:change('destroy', params)
 end
@@ -75,7 +83,16 @@ end
 function Entity:idle()
 	if self._stateMachine:currentStateName() == 'idle' then return end
 
-	local params = { entity = self, stateInfo = self._data.states.idle }
+	-- add a default idle animation if none is defined
+	local stateInfo = self._data.states.idle
+	if stateInfo.anim == nil then
+		stateInfo.anim = {
+			['frames'] = {1, 1},
+			['duration'] = 0.0,
+		}
+	end
+
+	local params = { entity = self, stateInfo = stateInfo }
 
 	self._stateMachine:change('idle', params)
 end

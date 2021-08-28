@@ -3,12 +3,7 @@ Idle = State:extend()
 function Idle:enter(params)
 	Idle.super.enter(self, params)
 
-	local animationInfo = self.stateInfo.anim or {
-		['frames'] = {1, 1},
-		['duration'] = 0.0,
-	}
-
-	self._animation = Animation(self.entity, animationInfo)
+	self._animation = Animation(self.entity, self.stateInfo.anim)
 end
 
 function Idle:update(dt)
