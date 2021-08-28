@@ -19,6 +19,3 @@
 [submodule "lib/baton"]
 	path = lib/baton
 	url = https://github.com/wolf81/baton.git
-[submodule "lib/slam"]
-	path = lib/slam
-	url = https://github.com/wolf81/slam.git
