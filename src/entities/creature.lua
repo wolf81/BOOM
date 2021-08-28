@@ -32,7 +32,8 @@ function Creature:move(direction)
 	if self:isMoving() then 
 		if direction == Direction.opposite(self._direction) then
 			self._direction = direction
-			self._stateMachine:change('move', self)
+			local params = { entity = self, stateInfo = self._data.states.move }
+			self._stateMachine:change('move', params)
 		end
 	else
 		local toPos = self:gridPosition() + direction
@@ -42,13 +43,15 @@ function Creature:move(direction)
 
 		if direction ~= Direction.NONE then
 			self._direction = direction
-			self._stateMachine:change('move', self)
+			local params = { entity = self, stateInfo = self._data.states.move }
+			self._stateMachine:change('move', params)
 		end
 	end
 end
 
 function Creature:idle()
-	self._direction = Direction.NONE	
+	self._direction = Direction.NONE
+
 	Creature.super.idle(self)
 end
 

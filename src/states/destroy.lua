@@ -1,18 +1,14 @@
-Destroy = Object:extend()
+Destroy = State:extend()
 
-function Destroy:enter(entity)
-	self._entity = entity	
+function Destroy:enter(params)
+	Destroy.super.enter(self, params)
 
-	local animationInfo = entity._data.states.destroy.anim or {
+	local animationInfo = self.stateInfo.anim or {
 		['duration'] = -1,
 	}
 
-	self._animation = Animation(entity, animationInfo)
+	self._animation = Animation(self.entity, animationInfo)
 	self._duration = self._animation:duration()
-end
-
-function Destroy:exit()
-	-- body
 end
 
 function Destroy:update(dt)
@@ -20,7 +16,7 @@ function Destroy:update(dt)
 
 	self._duration = math.max(self._duration - dt, 0)
 	if self._duration == 0 then
-		self._entity:remove()
+		self.entity:remove()
 	end
 end
 

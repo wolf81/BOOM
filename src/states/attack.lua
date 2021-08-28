@@ -1,4 +1,4 @@
-Attack = Object:extend()
+Attack = State:extend()
 
 function Attack:enter(entity)
 	self._entity = entity

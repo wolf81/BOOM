@@ -1,7 +1,8 @@
 Bomb = Entity:extend()
 
 function Bomb:fuse()
-	self._stateMachine:change('fuse', self)
+	local params = { entity = self, stateInfo = self._data.states.fuse }
+	self._stateMachine:change('fuse', params)
 end
 
 function Bomb:size()

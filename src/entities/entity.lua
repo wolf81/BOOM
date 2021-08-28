@@ -66,12 +66,16 @@ end
 
 function Entity:destroy()
 	if self._stateMachine:currentStateName() == 'destroy' then return end
-	
-	self._stateMachine:change('destroy', self)
+
+	local params = { entity = self, stateInfo = self._data.states.destroy }
+
+	self._stateMachine:change('destroy', params)
 end
 
 function Entity:idle()
 	if self._stateMachine:currentStateName() == 'idle' then return end
 
-	self._stateMachine:change('idle', self)
+	local params = { entity = self, stateInfo = self._data.states.idle }
+
+	self._stateMachine:change('idle', params)
 end

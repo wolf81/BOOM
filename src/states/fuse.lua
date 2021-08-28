@@ -1,16 +1,16 @@
-Fuse = Object:extend()
+Fuse = State:extend()
 
-function Fuse:enter(entity)
-	self._entity = entity
+function Fuse:enter(params)
+	Fuse.super.enter(self, params)
 
-	if entity._data.states.fuse.sound then
-		AudioPlayer.playSound(entity._data.states.fuse.sound)
+	if self.stateInfo.sound then
+		AudioPlayer.playSound(self.stateInfo.sound)
 	end
 
-	local animList = entity._data.states.fuse.anim
+	local animList = self.stateInfo.anim
 	local animations = {}
 	for _, animationInfo in ipairs(animList) do 
-		animations[#animations + 1] = Animation(entity, animationInfo)
+		animations[#animations + 1] = Animation(self.entity, animationInfo)
 	end
 	self._animation = AnimationQueue(animations)
 	self._duration = self._animation:duration()
@@ -25,7 +25,7 @@ function Fuse:update(dt)
 
 	self._duration = math.max(self._duration - dt, 0)
 	if self._duration == 0 then
-		self._entity:destroy()
+		self.entity:destroy()
 	end
 end
 
