@@ -43,9 +43,12 @@ require 'src/entities/prop'
 require 'src/entities/bomb'
 require 'src/entities/explosion'
 
+-- hud
+require 'src/hud/panel'
+require 'src/hud/playerstatus'
+
 -- game
 require 'src/constants'
-require 'src/panel'
 require 'src/level'
 require 'src/game'
 require 'src/map'
