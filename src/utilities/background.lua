@@ -1,5 +1,4 @@
-local Background = {}
-Background.__index = Background
+Background = Object:extend()
 
 local BorderQuads = {
     ['L'] = love.graphics.newQuad(0, 0, 32, 32, 256, 32),
@@ -58,15 +57,8 @@ function Background:new(backgroundPatternId, borderId)
 	local backgroundPattern = backgroundPatterns[tostring(self._backgroundPatternId)]
 	local border = borders[tostring(self._borderId)]
 	self._canvas = newBackgroundCanvas(backgroundPattern, border)
-
-	return setmetatable({}, Background)
 end
 
 function Background:draw()
 	love.graphics.draw(self._canvas)
 end
-
-return setmetatable(Background, {
-	__call = Background.new
-})
-

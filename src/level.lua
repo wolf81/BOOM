@@ -1,5 +1,4 @@
-local Level = {}
-Level.__index = Level
+Level = Object:extend()
 
 local function getLevelData(index)
 	local contents, _ = love.filesystem.read('dat/levels.json')
@@ -16,26 +15,16 @@ function Level:new(index)
 	print('load level ' .. index)
 
 	local levelData = getLevelData(index)
-
-	local level = {
-		_index = index,
-
-		_time = levelData['Time'] or 0,
-
-		_bombs = {},
-		_explosions = {},
-
-		_blocks = {},
-		_players = {},
-		_monsters = {},
-		_coins = {},
-	}
-
-	local blocks = {}
-	local players = {}
-	local monsters = {}
-	local coins = {}
 	
+	self._index = index
+	self._time = levelData['Time'] or 0
+	self._explosions = {}
+	self._bombs = {}
+	self._blocks = {}
+	self._players = {}
+	self._monsters = {}
+	self._coins = {}
+
 	local fixedBlockId = 'fblock' .. levelData['FixedBlockID']
 	local breakableBlockId = 'bblock' .. levelData['BreakableBlockID']
 
@@ -51,7 +40,7 @@ function Level:new(index)
 	print('backgroundPatternId: ' .. backgroundPatternId)
 	print('borderId: ' .. borderId)
 
-	level._background = Background(backgroundPatternId, borderId)
+	self._background = Background(backgroundPatternId, borderId)
 
 	for _, entityInfo in ipairs(map:entityInfos()) do
 		local entity = nil
@@ -59,30 +48,23 @@ function Level:new(index)
 		local pos = entityInfo.pos:permul(TileSize)
 
 		if entityInfo.id == '1' then
-			local block = EntityFactory:create(level, fixedBlockId, pos)
-			blocks[tostring(block:gridPosition())] = block
+			local block = EntityFactory:create(self, fixedBlockId, pos)
+			self._blocks[tostring(block:gridPosition())] = block
 		elseif entityInfo.id == '2' then
-			local block = EntityFactory:create(level, breakableBlockId, pos)
-			blocks[tostring(block:gridPosition())] = block
+			local block = EntityFactory:create(self, breakableBlockId, pos)
+			self._blocks[tostring(block:gridPosition())] = block
 		elseif entityInfo.id == '3' then
-			local coin = EntityFactory:create(level, entityInfo.id, pos)
-			coins[tostring(coin:gridPosition())] = coin
+			local coin = EntityFactory:create(self, entityInfo.id, pos)
+			self._coins[tostring(coin:gridPosition())] = coin
 		elseif entityInfo.id == 'X' or entityInfo.id == 'Y' then
-			local player = EntityFactory:create(level, entityInfo.id, pos)
-			players[#players + 1] = player
+			local player = EntityFactory:create(self, entityInfo.id, pos)
+			self._players[#self._players + 1] = player
 		else
-			local monster = EntityFactory:create(level, entityInfo.id, pos)
-			monsters[#monsters + 1] = monster
-			monster:setControl(CpuControl(level, monster))
+			local monster = EntityFactory:create(self, entityInfo.id, pos)
+			self._monsters[#self._monsters + 1] = monster
+			monster:setControl(CpuControl(self, monster))
 		end
 	end
-
-	level._blocks = blocks
-	level._monsters = monsters
-	level._coins = coins
-	level._players = players
-
-	return setmetatable(level, self)
 end
 
 function Level:players()
@@ -246,7 +228,3 @@ function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
 		self:addExplosion(gridPosition + vector(0, -1), Direction.DOWN, size)
 	end
 end
-
-return setmetatable(Level, {
-	__call = Level.new,
-})

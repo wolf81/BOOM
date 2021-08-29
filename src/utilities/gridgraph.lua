@@ -1,5 +1,4 @@
-local GridGraphNode = {}
-GridGraphNode.__index = GridGraphNode
+local GridGraphNode = Object:extend()
 
 local function isConnected(self, node)
 	for i, connectedNode in ipairs(self._connectedNodes) do
@@ -12,10 +11,8 @@ local function isConnected(self, node)
 end
 
 function GridGraphNode:new(x, y)
-	return setmetatable({
-		_position = {x, y},
-		_connectedNodes = {},
-	}, self)
+	self._position = {x, y}
+	self._connectedNodes = {} 
 end
 
 function GridGraphNode:position()
@@ -48,14 +45,9 @@ function GridGraphNode:connectedNodes()
 	return self._connectedNodes
 end
 
-setmetatable(GridGraphNode, { __call = GridGraphNode.new })
+--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]
 
---[[
-
-]]
-
-local GridGraph = {}
-GridGraph.__index = GridGraph
+GridGraph = Object:extend()
 
 local function newGraph(width, height)
 	local graph = {}
@@ -84,8 +76,6 @@ function GridGraph:new(width, height)
 			self:connectToAdjacentNodes(node)
 		end
 	end
-
-	return setmetatable({}, GridGraph)
 end 
 
 function GridGraph:nodeAt(x, y)
@@ -158,8 +148,3 @@ function GridGraph:__tostring()
 
 	return s
 end
-
-return setmetatable(GridGraph, {
-	__call = GridGraph.new
-})
-

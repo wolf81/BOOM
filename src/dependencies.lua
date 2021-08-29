@@ -7,11 +7,11 @@ lume = require 'lib/lume/lume'
 baton = require 'lib/baton/baton'
 
 -- utilities
-GridGraph = require 'src/utilities/gridgraph'
-Background = require 'src/utilities/background'
-DataLoader = require 'src/utilities/dataloader'
-EntityFactory = require 'src/utilities/entityfactory'
-Frame = require 'src/utilities/frame'
+require 'src/utilities/gridgraph'
+require 'src/utilities/background'
+require 'src/utilities/dataloader'
+require 'src/utilities/entityfactory'
+require 'src/utilities/frame'
 
 require 'src/utilities/audioplayer'
 require 'src/utilities/animation'
@@ -19,8 +19,8 @@ require 'src/utilities/statemachine'
 require 'src/utilities/quadcache'
 
 -- control
-PlayerControl = require 'src/control/playercontrol'
-CpuControl = require 'src/control/cpucontrol'
+require 'src/control/playercontrol'
+require 'src/control/cpucontrol'
 
 -- states
 require 'src/states/state'
@@ -45,6 +45,6 @@ require 'src/entities/explosion'
 
 -- game
 require 'src/constants'
-Level = require 'src/level'
-Game = require 'src/game'
+require 'src/level'
+require 'src/game'
 require 'src/map'

@@ -1,4 +1,4 @@
-local DataLoader = {}
+DataLoader = {}
 
 --[[
 	Use the data loader to load json files from the filesystem. The load 
@@ -20,5 +20,3 @@ function DataLoader:load(path, f)
 		f(fileJs)
 	end
 end
-
-return DataLoader

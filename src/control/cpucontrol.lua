@@ -1,11 +1,8 @@
-CpuControl = {}
-CpuControl.__index = CpuControl
+CpuControl = Object:extend()
 
 function CpuControl:new(level, monster)
-	return setmetatable({
-		_level = level, 
-		_monster = monster,
-	}, self)
+	self._level = level
+	self._monster = monster
 end
 
 function CpuControl:update(dt)
@@ -31,8 +28,3 @@ function CpuControl:update(dt)
 		end
 	end
 end
-
-return setmetatable(CpuControl, {
-	__call = CpuControl.new
-})
-

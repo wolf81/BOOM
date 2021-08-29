@@ -1,12 +1,9 @@
-PlayerControl = {}
-PlayerControl.__index = PlayerControl
+PlayerControl = Object:extend()
 
 function PlayerControl:new(level, player, input)
-	return setmetatable({
-		_level = level,
-		_player = player,
-		_input = input,
-	}, self)
+	self._level = level
+	self._player = player
+	self._input = input
 end
 
 function PlayerControl:update(dt)
@@ -20,8 +17,3 @@ function PlayerControl:update(dt)
 
 	if self._input:pressed('action') then self._player:dropBomb() end
 end
-
-return setmetatable(PlayerControl, {
-	__call = PlayerControl.new
-})
-

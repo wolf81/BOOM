@@ -1,4 +1,4 @@
-local EntityFactory = {}
+EntityFactory = {}
 
 local registry = {}
 
@@ -56,5 +56,3 @@ function EntityFactory:create(level, id, position)
 
 	return instance
 end
-
-return EntityFactory

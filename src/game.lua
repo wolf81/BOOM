@@ -1,5 +1,4 @@
-local Game = {}
-Game.__index = Game
+Game = Object:extend()
 
 local p1Input = baton.new({
 	controls = {
@@ -25,17 +24,13 @@ function Game:new(levelIndex)
 	local lw, lh = (Map.WIDTH + 2) * TileSize.x, (Map.HEIGHT + 2) * TileSize.y
 	self._offset = vector((sw - lw) / 2, (sh - lh) / 2)
 
-	local level = Level(levelIndex)
-	for _, player in ipairs(level:players()) do
+	self._level = Level(levelIndex)
+	for _, player in ipairs(self._level:players()) do
 		if player:index() == 1 then
 			local control = PlayerControl(level, player, p1Input)
 			player:setControl(control)
 		end
 	end
-
-	return setmetatable({
-		_level = level,
-	}, self)
 end
 
 function Game:update(dt)
@@ -50,7 +45,3 @@ function Game:draw()
 
 	love.graphics.pop()
 end
-
-return setmetatable(Game, {
-	__call = Game.new
-})

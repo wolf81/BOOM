@@ -1,13 +1,10 @@
-local Frame = {}
-Frame.__index = Frame
+Frame = Object:extend()
 
 function Frame:new(x, y, width, height)
-	return setmetatable({
-		x = x,
-		y = y,
-		width = width,
-		height = height,
-	}, self)
+	self.x = x
+	self.y = y
+	self.width = width
+	self.height = height
 end
 
 function Frame:intersects(frame)
@@ -30,7 +27,3 @@ function Frame:__tostring()
 
 	return 'Frame { ' .. s .. ' }'
 end
-
-return setmetatable(Frame, {
-	__call = Frame.new
-})
