@@ -1,6 +1,8 @@
 Explosion = Entity:extend()
 
 function Explosion:explode(orientation)
+	if self._stateMachine:currentStateName() == 'explode' then return false end
+	
 	local stateInfo = self._data.states.explode.center
 
 	if orientation == Orientation.HORIZONTAL then
@@ -12,4 +14,6 @@ function Explosion:explode(orientation)
 	local params = { entity = self, stateInfo = stateInfo }
 	
 	self._stateMachine:change('explode', params)
+
+	return true
 end

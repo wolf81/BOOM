@@ -38,7 +38,7 @@ function Creature:move(direction)
 	else
 		local toPos = self:gridPosition() + direction
 		if self:level():isBlocked(toPos) then
-			return
+			return false
 		end
 
 		if direction ~= Direction.NONE then
@@ -47,12 +47,14 @@ function Creature:move(direction)
 			self._stateMachine:change('move', params)
 		end
 	end
+
+	return true
 end
 
 function Creature:idle()
 	self._direction = Direction.NONE
 
-	Creature.super.idle(self)
+	return Creature.super.idle(self)
 end
 
 function Creature:speed()

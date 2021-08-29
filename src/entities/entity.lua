@@ -66,7 +66,7 @@ function Entity:draw(offset)
 end
 
 function Entity:destroy()
-	if self._stateMachine:currentStateName() == 'destroy' then return end
+	if self._stateMachine:currentStateName() == 'destroy' then return false end
 
 	-- add a default destroy animation if none is defined
 	local stateInfo = self._data.states.destroy
@@ -79,10 +79,12 @@ function Entity:destroy()
 	local params = { entity = self, stateInfo = stateInfo }
 
 	self._stateMachine:change('destroy', params)
+
+	return true
 end
 
 function Entity:idle()
-	if self._stateMachine:currentStateName() == 'idle' then return end
+	if self._stateMachine:currentStateName() == 'idle' then return false end
 
 	-- add a default idle animation if none is defined
 	local stateInfo = self._data.states.idle
@@ -96,4 +98,6 @@ function Entity:idle()
 	local params = { entity = self, stateInfo = stateInfo }
 
 	self._stateMachine:change('idle', params)
+
+	return true
 end

@@ -15,6 +15,6 @@ function Player:update(dt)
 end
 
 function Player:dropBomb()
-	local p = self:position() + TileSize / 2
-	self:level():addBomb(p)
+	local position = self:position() + TileSize / 2
+	self:level():addBomb(position)
 end
