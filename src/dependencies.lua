@@ -46,6 +46,7 @@ require 'src/entities/explosion'
 -- hud
 require 'src/hud/panel'
 require 'src/hud/bonusbar'
+require 'src/hud/extrabar'
 require 'src/hud/healthbar'
 require 'src/hud/playerstatus'
 

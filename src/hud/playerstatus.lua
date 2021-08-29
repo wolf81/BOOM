@@ -15,6 +15,7 @@ function PlayerStatus:new(playerIndex)
 	self._head = love.graphics.newImage(path)
 	self._healthBar = HealthBar()
 	self._bonusBar = BonusBar()
+	self._extraBar = ExtraBar()
 end
 
 function PlayerStatus:update(dt)
@@ -40,4 +41,8 @@ function PlayerStatus:draw()
 	self._bonusBar:draw()
 	love.graphics.pop()
 
+	love.graphics.push()
+	love.graphics.translate(14, 128)
+	self._extraBar:draw()
+	love.graphics.pop()
 end
