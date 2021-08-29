@@ -1,4 +1,6 @@
 TileSize = vector(32, 32)
+TileSize.w = TileSize.x
+TileSize.h = TileSize.y
 
 Direction = {
 	UP = vector(0, -1),

@@ -45,6 +45,7 @@ require 'src/entities/explosion'
 
 -- game
 require 'src/constants'
+require 'src/panel'
 require 'src/level'
 require 'src/game'
 require 'src/map'

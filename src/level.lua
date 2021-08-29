@@ -11,6 +11,10 @@ local function getLevelData(index)
 	return nil
 end
 
+function Level:getDimensions()
+	return (Map.WIDTH + 2) * TileSize.w, (Map.HEIGHT + 2) * TileSize.h
+end
+
 function Level:new(index)
 	print('load level ' .. index)
 
