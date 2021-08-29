@@ -14,6 +14,7 @@ function Entity:new(data)
 		['idle'] = function() return Idle() end, 
 		['move'] = function() return Move() end,
 		['fuse'] = function() return Fuse() end,
+		['detonate'] = function() return Detonate() end,
 		['explode'] = function() return Explode() end,
 		['destroy'] = function() return Destroy() end,
 	})

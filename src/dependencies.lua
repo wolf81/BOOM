@@ -15,7 +15,6 @@ Frame = require 'src/utilities/frame'
 
 require 'src/utilities/audioplayer'
 require 'src/utilities/animation'
-require 'src/utilities/animationqueue'
 require 'src/utilities/statemachine'
 require 'src/utilities/quadcache'
 
@@ -29,6 +28,7 @@ require 'src/states/idle'
 require 'src/states/attack'
 require 'src/states/move'
 require 'src/states/fuse'
+require 'src/states/detonate'
 require 'src/states/destroy'
 require 'src/states/explode'
 

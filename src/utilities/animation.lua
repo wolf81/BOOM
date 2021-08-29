@@ -17,6 +17,10 @@ function Animation:new(entity, animationInfo)
 	self._time = 0
 end
 
+function Animation:isFinished()
+	-- body
+end
+
 function Animation:duration()
 	return self._duration * self._iterate
 end
