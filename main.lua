@@ -3,7 +3,7 @@ require 'src/dependencies'
 -- show live output in console, don't wait for app to close
 io.stdout:setvbuf("no")
 
-local level = nil
+local game = nil
 
 backgroundPatterns = {
     ['1'] = love.graphics.newImage('gfx/BGPattern 02.png'),
@@ -67,13 +67,13 @@ function love.load(args)
         EntityFactory:register(data)
     end)
 
-	level = Level(1)
+    game = Game(1)
 end
 
 function love.update(dt)
-	level:update(dt)
+    game:update(dt)
 end
 
 function love.draw()
-	level:draw()
+    game:draw()
 end

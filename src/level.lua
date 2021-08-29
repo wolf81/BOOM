@@ -1,4 +1,5 @@
-Level = Object:extend()
+local Level = {}
+Level.__index = Level
 
 local function getLevelData(index)
 	local contents, _ = love.filesystem.read('dat/levels.json')
@@ -11,46 +12,35 @@ local function getLevelData(index)
 	return nil
 end
 
-local p1Input = baton.new({
-	controls = {
-		left = {'key:a', 'axis:leftx-', 'button:dpleft'},
-		right = {'key:d', 'axis:leftx+', 'button:dpright'},
-		up = {'key:w', 'axis:lefty-', 'button:dpup'},
-		down = {'key:s', 'axis:lefty+', 'button:dpdown'},
-		action = {'key:space', 'button:a'},
-	},
-	pairs = {},
-	joystick = love.joystick.getJoysticks()[1]
-})
-
-local function playMusic()
-	AudioPlayer.setMusicVolume(0.2)
-	AudioPlayer.playMusic('BOOM Music 1')
-end
-
 function Level:new(index)
 	print('load level ' .. index)
 
-	self._index = index
-	self._players = {}
-	self._monsters = {}
-	self._blocks = {}
-	self._bombs = {}
-	self._coins = {}
-	self._explosions = {}
-
 	local levelData = getLevelData(index)
-	self._time = levelData['Time']
+
+	local level = {
+		_index = index,
+
+		_time = levelData['Time'] or 0,
+
+		_bombs = {},
+		_explosions = {},
+
+		_blocks = {},
+		_players = {},
+		_monsters = {},
+		_coins = {},
+	}
+
+	local blocks = {}
+	local players = {}
+	local monsters = {}
+	local coins = {}
 	
 	local fixedBlockId = 'fblock' .. levelData['FixedBlockID']
 	local breakableBlockId = 'bblock' .. levelData['BreakableBlockID']
 
 	local gridDescString = levelData['GridDescString']
-	self._map = Map(gridDescString)
-
-	local sw, sh = love.graphics.getDimensions()
-	local lw, lh = (Map.WIDTH + 2) * TileSize.x, (Map.HEIGHT + 2) * TileSize.y
-	self._offset = vector((sw - lw) / 2, (sh - lh) / 2)
+	local map = Map(gridDescString)
 
 	-- create background canvas
 	local backgroundPatternId = levelData['BGPatternID']
@@ -61,40 +51,42 @@ function Level:new(index)
 	print('backgroundPatternId: ' .. backgroundPatternId)
 	print('borderId: ' .. borderId)
 
-	self._background = Background(backgroundPatternId, borderId)
+	level._background = Background(backgroundPatternId, borderId)
 
-	for _, entityInfo in ipairs(self._map:entityInfos()) do
+	for _, entityInfo in ipairs(map:entityInfos()) do
 		local entity = nil
 
 		local pos = entityInfo.pos:permul(TileSize)
 
 		if entityInfo.id == '1' then
-			local block = EntityFactory:create(self, fixedBlockId, pos)
-			self._blocks[tostring(block:gridPosition())] = block
+			local block = EntityFactory:create(level, fixedBlockId, pos)
+			blocks[tostring(block:gridPosition())] = block
 		elseif entityInfo.id == '2' then
-			local block = EntityFactory:create(self, breakableBlockId, pos)
-			self._blocks[tostring(block:gridPosition())] = block
+			local block = EntityFactory:create(level, breakableBlockId, pos)
+			blocks[tostring(block:gridPosition())] = block
 		elseif entityInfo.id == '3' then
-			local coin = EntityFactory:create(self, entityInfo.id, pos)
-			self._coins[tostring(coin:gridPosition())] = coin
+			local coin = EntityFactory:create(level, entityInfo.id, pos)
+			coins[tostring(coin:gridPosition())] = coin
 		elseif entityInfo.id == 'X' or entityInfo.id == 'Y' then
-			local player = EntityFactory:create(self, entityInfo.id, pos)
-			self._players[#self._players + 1] = player
-
-			if player:index() == 1 then
-				local control = PlayerControl(self, player, p1Input)
-				player:setControl(control)
-			end
+			local player = EntityFactory:create(level, entityInfo.id, pos)
+			players[#players + 1] = player
 		else
-			local monster = EntityFactory:create(self, entityInfo.id, pos)
-			self._monsters[#self._monsters + 1] = monster
-
-			local control = CpuControl(self, monster)
-			monster:setControl(control)
+			local monster = EntityFactory:create(level, entityInfo.id, pos)
+			monsters[#monsters + 1] = monster
+			monster:setControl(CpuControl(level, monster))
 		end
 	end
 
-	playMusic()
+	level._blocks = blocks
+	level._monsters = monsters
+	level._coins = coins
+	level._players = players
+
+	return setmetatable(level, self)
+end
+
+function Level:players()
+	return self._players
 end
 
 function Level:update(dt)
@@ -154,9 +146,6 @@ function Level:update(dt)
 end
 
 function Level:draw()
-	love.graphics.push()
-	love.graphics.translate(self._offset.x, self._offset.y)
-
 	self._background:draw()
 
 	for _, bomb in pairs(self._bombs) do
@@ -182,8 +171,6 @@ function Level:draw()
 	for _, block in pairs(self._blocks) do
 		block:draw()
 	end
-
-	love.graphics.pop()
 end
 
 function Level:isBlocked(gridPosition)
@@ -259,3 +246,7 @@ function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
 		self:addExplosion(gridPosition + vector(0, -1), Direction.DOWN, size)
 	end
 end
+
+return setmetatable(Level, {
+	__call = Level.new,
+})

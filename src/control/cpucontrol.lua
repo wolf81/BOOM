@@ -3,7 +3,7 @@ CpuControl.__index = CpuControl
 
 function CpuControl:new(level, monster)
 	return setmetatable({
-		_level = level,
+		_level = level, 
 		_monster = monster,
 	}, self)
 end

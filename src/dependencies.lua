@@ -45,5 +45,6 @@ require 'src/entities/explosion'
 
 -- game
 require 'src/constants'
+Level = require 'src/level'
+Game = require 'src/game'
 require 'src/map'
-require 'src/level'
