@@ -29,3 +29,17 @@ function toPosition(gridPosition)
 	local position = gridPosition:permul(TileSize)
 	return position
 end
+
+function generateQuads(texture, spriteWidth, spriteHeight)
+	local tw, th = texture:getDimensions()
+
+	local quads = {}
+	for y = 0, (th - spriteHeight), spriteHeight do
+		for x = 0, (tw - spriteWidth), spriteWidth do
+			local quad = love.graphics.newQuad(x, y, spriteWidth, spriteHeight, tw, th)
+			quads[#quads + 1] = quad
+		end
+	end
+
+	return quads
+end
