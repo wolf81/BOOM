@@ -27,8 +27,6 @@ borders = {
     ['7'] = love.graphics.newImage('gfx/Border 08.png'),
 }
 
-font = love.graphics.newImageFont('gfx/BigLettersFont.png', ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}', -4)
-
 local function prepareAudioPlayer()
     -- register music with audio player
     local musicFiles = love.filesystem.getDirectoryItems('mus')
