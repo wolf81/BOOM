@@ -9,6 +9,7 @@ function State:enter(params)
 	end
 
 	self._animation = Animation(self.entity, self.stateInfo.anim)
+	self._duration = self._animation:duration() or 0
 end
 
 function State:exit()
@@ -16,9 +17,15 @@ function State:exit()
 end
 
 function State:update(dt)
+	self._duration = math.max(self._duration - dt, 0)
+
 	self._animation:update(dt)
 end
 
 function State:draw()
 	self._animation:draw()
+end
+
+function State:isFinished()
+	return self._duration == 0
 end
