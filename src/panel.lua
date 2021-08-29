@@ -12,6 +12,9 @@ function Panel:update(dt)
 	-- body
 end
 
-function Panel:draw()
+function Panel:draw()	
 	love.graphics.draw(self._background)
+
+	love.graphics.setFont(font)
+	love.graphics.print('01:45', 18, 234)
 end
