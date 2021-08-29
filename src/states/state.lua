@@ -7,6 +7,8 @@ function State:enter(params)
 	if self.stateInfo.sound then
 		AudioPlayer.playSound(self.stateInfo.sound)
 	end
+
+	self._animation = Animation(self.entity, self.stateInfo.anim)
 end
 
 function State:exit()
@@ -14,9 +16,9 @@ function State:exit()
 end
 
 function State:update(dt)
-	-- body
+	self._animation:update(dt)
 end
 
 function State:draw()
-	-- body
+	self._animation:draw()
 end

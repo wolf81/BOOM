@@ -1,10 +1,20 @@
 Move = State:extend()
 
+local function getAnimationInfo(direction, stateInfo)
+	if direction == Direction.UP then return stateInfo.up.anim
+	elseif direction == Direction.DOWN then return stateInfo.down.anim
+	elseif direction == Direction.RIGHT then return stateInfo.right.anim
+	elseif direction == Direction.LEFT then return stateInfo.left.anim
+	end
+end
+
 function Move:enter(params)
+	-- set proper animation for current direction
+	params.stateInfo.anim = getAnimationInfo(params.entity:direction(), params.stateInfo)
+
 	Move.super.enter(self, params)
 
 	self._direction = self.entity:direction()
-
 	if self.entity:isMoving() then
 		if self._direction == Direction.DOWN or self._direction == Direction.RIGHT then
 			self._toPosition = toPosition(toGridPosition(self.entity:position() + TileSize))		
@@ -14,27 +24,11 @@ function Move:enter(params)
 	else
 		self._toPosition = toPosition(self.entity:gridPosition() + self._direction)
 	end
-
-	if self._direction == Direction.UP then	
-		local animationInfo = self.stateInfo.up.anim
-		self._animation = Animation(self.entity, animationInfo)
-	elseif self._direction == Direction.DOWN then
-		local animationInfo = self.stateInfo.down.anim
-		self._animation = Animation(self.entity, animationInfo)		
-	elseif self._direction == Direction.RIGHT then
-		local animationInfo = self.stateInfo.right.anim
-		self._animation = Animation(self.entity, animationInfo)		
-	elseif self._direction == Direction.LEFT then
-		local animationInfo = self.stateInfo.left.anim
-		self._animation = Animation(self.entity, animationInfo)		
-	end
-end
-
-function Move:exit()
-	-- body
 end
 
 function Move:update(dt)
+	Move.super.update(self, dt)
+
 	local dxy = self._direction:permul(TileSize) * dt * self.entity:speed()
 	local pos = self.entity:position() + dxy
 
@@ -65,10 +59,4 @@ function Move:update(dt)
 	end
 
 	self.entity:setPosition(pos)
-
-	self._animation:update(dt)
-end
-
-function Move:draw()
-	self._animation:draw()
 end
