@@ -1,8 +1,6 @@
 local EntityFactory = {}
 
 local registry = {}
---local textureCache = {}
-
 
 -- create a deep clone of a table
 local function clone(obj)

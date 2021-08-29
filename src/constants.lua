@@ -1,11 +1,11 @@
 TileSize = vector(32, 32)
 
 Direction = {
-	['UP'] = vector(0, -1),
-	['DOWN'] = vector(0, 1),
-	['LEFT'] = vector(-1, 0),
-	['RIGHT'] = vector(1, 0),
-	['NONE'] = vector(0, 0),
+	UP = vector(0, -1),
+	DOWN = vector(0, 1),
+	LEFT = vector(-1, 0),
+	RIGHT = vector(1, 0),
+	NONE = vector(0, 0),
 
 	opposite = function(dir)
 		return dir:permul(vector(-1, -1))
@@ -13,8 +13,8 @@ Direction = {
 }
 
 Orientation = {
-	['HORIZONTAL'] = 0,
-	['VERTICAL'] = 1,
+	HORIZONTAL = 0,
+	VERTICAL = 1,
 }
 
 function toGridPosition(position)

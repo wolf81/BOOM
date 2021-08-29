@@ -6,6 +6,7 @@
 	"states": {
 		"idle": {},
 		"destroy": {
+			"sound": "Coin",
 			"anim": {
 				"frames": [1, 10],
 				"duration": 0.15,
