@@ -1,0 +1,17 @@
+{
+	"texture": "gfx/Bonuses.png",
+	"type": "Bonus",
+	"id": "b_shield",
+
+	"spawnChance": 20,
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [8, 1],
+				"duration": 7.0,
+			},
+		},
+		"destroy": {}
+	}
+}

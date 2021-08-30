@@ -15,8 +15,23 @@ function Level:getDimensions()
 	return (Map.WIDTH + 2) * TileSize.w, (Map.HEIGHT + 2) * TileSize.h
 end
 
+local bonusProbabilities = nil
+
+local function configureBonusProbabilities()
+	bonusProbabilities = Probability()
+
+	local bonuses = EntityFactory:getEntitiesOfType(Bonus)
+    for _, bonus in ipairs(bonuses) do
+    	bonusProbabilities:add(bonus._data.id, bonus._data.spawnChance)       
+    end
+end
+
 function Level:new(index)
 	print('load level ' .. index)
+
+	if bonusProbabilities == nil then
+		configureBonusProbabilities()
+	end
 
 	local levelData = getLevelData(index)
 	
@@ -28,6 +43,7 @@ function Level:new(index)
 	self._players = {}
 	self._monsters = {}
 	self._coins = {}
+	self._bonuses = {}
 
 	local fixedBlockId = 'fblock' .. levelData['FixedBlockID']
 	local breakableBlockId = 'bblock' .. levelData['BreakableBlockID']
@@ -96,6 +112,14 @@ function Level:update(dt)
 		end 
 	end
 
+	for id, bonus in pairs(self._bonuses) do
+		bonus:update(dt)
+
+		if bonus:isRemoved() then
+			self._bonuses[id] = nil
+		end
+	end
+
 	for idx, monster in lume.ripairs(self._monsters) do
 		monster:update(dt)
 
@@ -107,11 +131,19 @@ function Level:update(dt)
 	for _, player in ipairs(self._players) do
 		player:update(dt)
 
+		local playerFrame = player:frame()
+
 		for _, coin in pairs(self._coins) do
-			if player:frame():intersects(coin:frame()) then
+			if playerFrame:intersects(coin:frame()) then
 				coin:destroy()
 			end
-		end		
+		end
+
+		for _, bonus in pairs(self._bonuses) do
+			if playerFrame:intersects(bonus:frame()) then
+				bonus:destroy()
+			end
+		end
 	end
 
 	for id, block in pairs(self._blocks) do
@@ -142,6 +174,10 @@ function Level:draw()
 		coin:draw()
 	end
 
+	for _, bonus in pairs(self._bonuses) do
+		bonus:draw()
+	end
+
 	for _, explosion in ipairs(self._explosions) do
 		explosion:draw()
 	end
@@ -157,6 +193,15 @@ function Level:draw()
 	for _, block in pairs(self._blocks) do
 		block:draw()
 	end
+end
+
+function Level:trySpawnBonus(gridPosition)
+	local bonusId = bonusProbabilities:random()
+
+	if bonusId == 'b_dummy' then return end
+	
+	local bonus = EntityFactory:create(self, bonusId, toPosition(gridPosition))
+	self._bonuses[tostring(gridPosition)] = bonus
 end
 
 function Level:isBlocked(gridPosition)

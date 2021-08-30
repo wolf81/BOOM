@@ -1,0 +1,17 @@
+{
+	"texture": "gfx/Bonuses.png",
+	"type": "Bonus",
+	"id": "b_bombs",
+
+	"spawnChance": 20,
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [3, 1],
+				"duration": 7.0,
+			},
+		},
+		"destroy": {}
+	}
+}

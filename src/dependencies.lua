@@ -12,6 +12,7 @@ require 'src/utilities/background'
 require 'src/utilities/dataloader'
 require 'src/utilities/entityfactory'
 require 'src/utilities/frame'
+require 'src/utilities/probability'
 
 require 'src/utilities/audioplayer'
 require 'src/utilities/animation'

@@ -56,3 +56,15 @@ function EntityFactory:create(level, id, position)
 
 	return instance
 end
+
+function EntityFactory:getEntitiesOfType(type)
+	local entities = {}
+	
+	for _, prototype in pairs(registry) do
+		if prototype:is(type) then
+			entities[#entities + 1] = clone(prototype)
+		end
+	end
+
+	return entities
+end

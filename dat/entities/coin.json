@@ -1,6 +1,6 @@
 {
 	"texture": "gfx/Coin.png",
-	"type": "Bonus",
+	"type": "Prop",
 	"id": "3",
 
 	"states": {

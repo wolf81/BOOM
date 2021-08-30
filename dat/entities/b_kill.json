@@ -1,0 +1,17 @@
+{
+	"texture": "gfx/Bonuses.png",
+	"type": "Bonus",
+	"id": "b_kill",
+
+	"spawnChance": 4,
+
+	"states": {
+		"idle": {
+			"anim": {
+				"frames": [2, 1],
+				"duration": 7.0,
+			},
+		},
+		"destroy": {}
+	}
+}
