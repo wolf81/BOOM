@@ -26,6 +26,10 @@ local function configureBonusProbabilities()
     end
 end
 
+function Level:time()
+	return math.ceil(self._time)
+end
+
 function Level:new(index)
 	print('load level ' .. index)
 
@@ -92,6 +96,8 @@ function Level:players()
 end
 
 function Level:update(dt)
+	self._time = math.max(self._time - dt, 0)
+
 	for id, bomb in pairs(self._bombs) do
 		bomb:update(dt)
 

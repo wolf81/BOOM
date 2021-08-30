@@ -5,8 +5,6 @@ local function getRandomNoiseDelay()
 end
 
 function Monster:new(data)
-	print('init monster')
-
 	Monster.super.new(self, data)
 end
 
