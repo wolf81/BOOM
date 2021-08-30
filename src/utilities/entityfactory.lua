@@ -50,9 +50,7 @@ function EntityFactory:create(level, id, position)
 	assert(prototype ~= nil, 'id not registered: ' .. id)
 
 	local instance = clone(prototype)
-	instance:setLevel(level)
-	instance:setPosition(position)
-	instance:idle()
+	instance:init(level, position)
 
 	return instance
 end

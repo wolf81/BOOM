@@ -3,6 +3,8 @@
 	"type": "Monster",
 	"id": "A",
 
+	"noise": "SoldierNoise", 
+
 	"states": {
 		"idle": {},
 		"move": {

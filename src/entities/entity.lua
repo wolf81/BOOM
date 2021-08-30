@@ -40,8 +40,10 @@ function Entity:setPosition(position)
 	self._position = position or vector(1, 1)
 end
 
-function Entity:setLevel(level)
+function Entity:init(level, position)
 	self._level = level
+	self:setPosition(position)
+	self:idle()
 end
 
 function Entity:level()
