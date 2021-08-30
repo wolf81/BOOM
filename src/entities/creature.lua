@@ -10,23 +10,10 @@ function Creature:new(data)
 	}
 end
 
-function Creature:init(level, position)
-	Creature.super.init(self, level, position)
-
-	self._noiseDelay = love.math.random(7, 40)
-end
-
 function Creature:update(dt)
 	Creature.super.update(self, dt)
 	
 	self._control:update(dt)
-
-	self._noiseDelay = math.max(self._noiseDelay - dt, 0)
-	if self._data.noise ~= nil and self._noiseDelay == 0 then
-		print('play noise')
-		AudioPlayer.playSound(self._data.noise)
-		self._noiseDelay = love.math.random(7, 40)
-	end
 end
 
 function Creature:setControl(control)
