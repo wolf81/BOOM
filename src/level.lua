@@ -236,7 +236,7 @@ function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
 
 	local block = self._blocks[tostring(gridPosition)]
 	if block ~= nil then
-		if block:isBreakable() == false then 
+		if not block:isBreakable() then 
 			return
 		elseif destroyAdjacentWalls then 
 			size = 1
