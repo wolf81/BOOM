@@ -18,6 +18,10 @@ function PlayerStatus:new(playerIndex)
 	self._extraBar = ExtraBar()
 end
 
+function PlayerStatus:updatePlayerStatus(player)
+	self._healthBar:updateHealth(player:health())
+end
+
 function PlayerStatus:update(dt)
 	-- body
 end

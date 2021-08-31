@@ -47,7 +47,7 @@ end
 
 function Game:update(dt)
 	self._level:update(dt)
-	self._panel:setTime(self._level:time())
+	self._panel:update(self._level:time(), self._level:players())
 end
 
 function Game:draw()

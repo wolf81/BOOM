@@ -18,13 +18,17 @@ function Panel:getDimensions()
 	return self._background:getDimensions()
 end
 
-function Panel:setTime(time)
+function Panel:update(time, players)
 	self._seconds = time % 60
 	self._minutes = math.floor(time / 60)
-end
 
-function Panel:update(dt)
-	-- body
+	for _, player in ipairs(players) do
+		if player:index() == 1 then
+			self._playerStatus1:updatePlayerStatus(player)
+		else
+			self._playerStatus2:updatePlayerStatus(player)
+		end
+	end
 end
 
 function Panel:draw()

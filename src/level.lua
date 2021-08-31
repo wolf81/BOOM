@@ -26,6 +26,10 @@ local function configureBonusProbabilities()
     end
 end
 
+function Level:players()
+	return self._players
+end
+
 function Level:time()
 	return math.ceil(self._time)
 end
