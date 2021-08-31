@@ -1,20 +1,31 @@
 BonusBar = Object:extend()
 
+local font = {
+	BONUS = love.graphics.newFont('fnt/pf_tempesta_seven_bold.ttf', 20),
+}
+
 function BonusBar:new()
 	self._bonusIcons = love.graphics.newImage('gfx/Bonus Icons.png')
 	self._quads = generateQuads(self._bonusIcons, 15, 15)
+	self._bonuses = { 
+		0, 0, 0, 0, 0,
+	}
 end
 
-function BonusBar:update(dt)
-	-- body
+function BonusBar:updateBonuses(bonuses)
+	self._bonuses = bonuses
 end
 
 function BonusBar:draw()
-	love.graphics.setColor(0.5, 0.5, 0.5, 1.0)
-	
 	for i = 0, 4 do
-		love.graphics.draw(self._bonusIcons, self._quads[i + 1], i * 13, 50)
-	end
+		local count = self._bonuses[i + 1]
+		local quadIdx = count == 0 and i + 6 or i + 1
+		love.graphics.draw(self._bonusIcons, self._quads[quadIdx], i * 13, 48)
 
-	love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+		love.graphics.setFont(font.BONUS)
+
+		if count > 1 then
+			love.graphics.printf('x' .. count, i * 13, 60, 50, 'left', 0, 0.4, 0.4)
+		end
+	end
 end

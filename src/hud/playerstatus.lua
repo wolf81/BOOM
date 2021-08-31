@@ -3,6 +3,7 @@ PlayerStatus = Object:extend()
 local font = {
 	SCORE = love.graphics.newFont('fnt/pf_tempesta_seven_bold.ttf', 16),
 	POINTS = love.graphics.newFont('fnt/pf_tempesta_seven_bold.ttf', 14),
+	LIVES = love.graphics.newImageFont('gfx/BigLettersFont.png', ' !"#$%&\'()*+,-./0123456789:;')
 }
 
 function PlayerStatus:new(playerIndex)
@@ -16,10 +17,14 @@ function PlayerStatus:new(playerIndex)
 	self._healthBar = HealthBar()
 	self._bonusBar = BonusBar()
 	self._extraBar = ExtraBar()
+	self._lives = 3
 end
 
 function PlayerStatus:updatePlayerStatus(player)
+	self._lives = player:lives()
+
 	self._healthBar:updateHealth(player:health())
+	self._bonusBar:updateBonuses(player:bonuses())
 end
 
 function PlayerStatus:update(dt)
@@ -34,6 +39,9 @@ function PlayerStatus:draw()
 
 	love.graphics.setFont(font.POINTS)
 	love.graphics.print('000000', 12, 192)
+
+	love.graphics.setFont(font.LIVES)
+	love.graphics.print('*' .. self._lives, 51, 64)
 
 	love.graphics.push()
 	love.graphics.translate(16, 90)

@@ -12,6 +12,8 @@ function Panel:new()
 
 	self._seconds = 0
 	self._minutes = 0
+
+	self._lives = 3
 end
 
 function Panel:getDimensions()
@@ -35,9 +37,9 @@ function Panel:draw()
 	love.graphics.draw(self._background)
 
 	love.graphics.setFont(font.TIME)
-	love.graphics.print(string.format('%02d', self._minutes), 20, 228)
-	love.graphics.print(':', 46, 228)
-	love.graphics.print(string.format('%02d', self._seconds), 52, 228)
+	love.graphics.print(string.format('%02d', self._minutes), 22, 229)
+	love.graphics.print(':', 45, 229)
+	love.graphics.print(string.format('%02d', self._seconds), 52, 229)
 
 	self._playerStatus1:draw()
 

@@ -14,6 +14,10 @@ function Player:new(data)
 	self._health = HEALTH_MAX
 	self._speed = SPEED_DEFAULT
 	self._lives = LIVES_DEFAULT
+
+	self._bonuses = {
+		0, 0, 0, 0, 0,
+	}
 end
 
 function Player:health()
@@ -22,6 +26,10 @@ end
 
 function Player:lives()
 	return self._lives
+end
+
+function Player:bonuses()
+	return self._bonuses
 end
 
 function Player:index()
