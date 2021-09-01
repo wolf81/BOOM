@@ -150,7 +150,9 @@ function Level:update(dt)
 		end
 
 		for _, bonus in pairs(self._bonuses) do
-			if playerFrame:intersects(bonus:frame()) then
+			if not bonus:isApplied() and playerFrame:intersects(bonus:frame()) then
+				player:applyBonus(bonus)
+				bonus:setApplied()
 				bonus:destroy()
 			end
 		end

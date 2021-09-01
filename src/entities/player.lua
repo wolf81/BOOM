@@ -20,6 +20,28 @@ function Player:new(data)
 	}
 end
 
+function Player:applyBonus(bonus)
+	local bonusId = bonus._data.id
+
+	print('apply bonus: ' .. bonus._data.id)
+
+	if bonusId == 'b_bombs' then
+		self._bonuses[1] = self._bonuses[1] + 1
+	elseif bonusId == 'b_explode_radius' then
+		self._bonuses[3] = self._bonuses[3] + 1
+	elseif bonusId == 'b_shield' then
+	elseif bonusId == 'b_speed' then
+	elseif bonusId == 'b_heal_big' then
+		self._health = HEALTH_MAX
+	elseif bonusId == 'b_heal_small' then
+		self._health = math.min(self._health + 1, HEALTH_MAX)
+	elseif bonusId == 'b_fuse' then
+		self._bonuses[2] = self._bonuses[2] + 1
+	elseif bonusId == 'b_kill' then
+	elseif bonusId == 'b_zap' then
+	end
+end
+
 function Player:health()
 	return self._health
 end
