@@ -21,6 +21,9 @@ function Player:new(data)
 end
 
 function Player:applyBonus(bonus)
+	if bonus:isApplied() then return end
+	bonus:setApplied()
+
 	local bonusId = bonus._data.id
 
 	print('apply bonus: ' .. bonus._data.id)
