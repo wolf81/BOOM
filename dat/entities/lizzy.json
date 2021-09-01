@@ -3,7 +3,43 @@
 	"type": "Monster",
 	"id": "C",
 
+	"noise": "LizzyNoise", 
+
 	"states": {
-		"idle": {},		
+		"idle": {},
+		"move": {
+			"up": {
+				"anim": {
+					"frames": [5, 4],
+					"duration": 1.0,
+				},			
+			},
+			"down": {
+				"anim": {
+					"frames": [1, 4],
+					"duration": 1.0,
+				},			
+			},
+			"left": {
+				"anim": {
+					"frames": [13, 4],
+					"duration": 1.0,
+				},			
+			},
+			"right": {
+				"anim": {
+					"frames": [9, 4],
+					"duration": 1.0,
+				},			
+			}
+		},		
+		"destroy": {
+			"sound": "LizzyDeath",
+			"anim": {
+				"frames": [21, 2],
+				"duration": 0.2,
+				"iterate": 10,
+			}
+		},		
 	}
 }

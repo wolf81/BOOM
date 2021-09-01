@@ -12,5 +12,12 @@
 				"duration": 0,
 			},			
 		},
+		"destroy": {
+			"sound": "BlockDestruction",
+			"anim": {
+				"frames": [14, 3],
+				"duration": 0.5,
+			},						
+		},
 	}
 }

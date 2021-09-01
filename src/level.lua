@@ -52,6 +52,7 @@ function Level:new(index)
 	self._monsters = {}
 	self._coins = {}
 	self._bonuses = {}
+	self._props = {}
 
 	local fixedBlockId = 'fblock' .. levelData['FixedBlockID']
 	local breakableBlockId = 'bblock' .. levelData['BreakableBlockID']
@@ -87,6 +88,9 @@ function Level:new(index)
 		elseif entityInfo.id == 'X' or entityInfo.id == 'Y' then
 			local player = EntityFactory:create(self, entityInfo.id, pos)
 			self._players[#self._players + 1] = player
+		elseif entityInfo.id == '+' then
+			local prop = EntityFactory:create(self, entityInfo.id, pos)
+			self._props[#self._props + 1] = prop
 		else
 			local monster = EntityFactory:create(self, entityInfo.id, pos)
 			self._monsters[#self._monsters + 1] = monster
@@ -101,6 +105,10 @@ end
 
 function Level:update(dt)
 	self._time = math.max(self._time - dt, 0)
+
+	for _, prop in pairs(self._props) do
+		prop:update(dt)
+	end
 
 	for id, bomb in pairs(self._bombs) do
 		bomb:update(dt)
@@ -177,6 +185,10 @@ end
 function Level:draw()
 	self._background:draw()
 
+	for _, prop in pairs(self._props) do
+		prop:draw()
+	end
+
 	for _, bomb in pairs(self._bombs) do
 		bomb:draw()
 	end
@@ -193,12 +205,12 @@ function Level:draw()
 		explosion:draw()
 	end
 
-	for _, monster in ipairs(self._monsters) do
-		monster:draw()
-	end
-
 	for _, player in ipairs(self._players) do
 		player:draw()
+	end
+
+	for _, monster in ipairs(self._monsters) do
+		monster:draw()
 	end
 
 	for _, block in pairs(self._blocks) do

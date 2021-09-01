@@ -5,6 +5,21 @@
 	"id": "*",
 
 	"states": {
-		"idle": {},		
+		"idle": {},
+		"move": {
+			"up": {
+				"anim": {},
+			},
+			"down": {
+				"anim": {},				
+			},
+			"left": {
+				"anim": {},				
+			},
+			"right": {
+				"anim": {},				
+			},
+		},
+		"destroy": {},
 	}
 }
