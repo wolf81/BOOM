@@ -12,6 +12,8 @@
 				"duration": 7.0,
 			},
 		},
-		"destroy": {}
+		"destroy": {
+			"sound": "sfx/GetBonus.wav",
+		}
 	}
 }

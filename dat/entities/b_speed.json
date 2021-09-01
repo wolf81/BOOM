@@ -13,7 +13,7 @@
 			},
 		},
 		"destroy": {
-			"sound": "GetBonus",
+			"sound": "sfx/GetBonus.wav",
 		}
 	}
 }

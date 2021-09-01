@@ -7,7 +7,7 @@
 	"states": {
 		"idle": {},
 		"fuse": {
-			"sound": "LightTheFuse",
+			"sound": "sfx/LightTheFuse.wav",
 			"anim": {
 				"frames": [1, 2],
 				"duration": 0.2,
@@ -21,6 +21,8 @@
 				"iterate": 12.5,
 			},
 		},
-		"destroy": {}
+		"destroy": {
+			"sound": "sfx/Explosion.wav",			
+		}
 	}
 }

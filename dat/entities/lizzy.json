@@ -3,7 +3,7 @@
 	"type": "Monster",
 	"id": "C",
 
-	"noise": "LizzyNoise", 
+	"noise": "sfx/LizzyNoise.wav", 
 
 	"states": {
 		"idle": {},
@@ -34,7 +34,7 @@
 			}
 		},		
 		"destroy": {
-			"sound": "LizzyDeath",
+			"sound": "sfx/LizzyDeath.wav",
 			"anim": {
 				"frames": [21, 2],
 				"duration": 0.2,

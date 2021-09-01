@@ -13,7 +13,7 @@
 			},			
 		},
 		"destroy": {
-			"sound": "BlockDestruction",
+			"sound": "sfx/BlockDestruction.wav",
 			"anim": {
 				"frames": [6, 3],
 				"duration": 0.5,

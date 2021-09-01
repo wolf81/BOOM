@@ -6,9 +6,7 @@
 	"states": {
 		"idle": {},		
 		"explode": {						
-			"center": {
-				"sound": "Explosion",
-				
+			"center": {				
 				"anim": {
 					"frames": [1, 4],
 					"duration": 0.5,

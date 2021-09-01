@@ -3,7 +3,7 @@
 	"type": "Monster",
 	"id": "D",
 
-	"noise": "TaurNoise", 
+	"noise": "sfx/TaurNoise.wav", 
 
 	"states": {
 		"idle": {},		
@@ -34,7 +34,7 @@
 			}
 		},		
 		"destroy": {
-			"sound": "TaurDeath",
+			"sound": "sfx/TaurDeath.wav",
 			"anim": {
 				"frames": [21, 2],
 				"duration": 0.2,

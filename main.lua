@@ -29,35 +29,17 @@ borders = {
     ['7'] = love.graphics.newImage('gfx/Border 08.png'),
 }
 
-local function prepareAudioPlayer()
-    -- register music with audio player
-    local musicFiles = love.filesystem.getDirectoryItems('mus')
-    for _, musicFile in ipairs(musicFiles) do
-        local name = musicFile:gsub('%.wav', '')
-        local path = 'mus/' .. musicFile
-        AudioPlayer.registerMusic(name, path)
-    end
-
-    -- register sounds with audio player
-    local soundFiles = love.filesystem.getDirectoryItems('sfx')
-    for _, soundFile in ipairs(soundFiles) do
-        local name = soundFile:gsub('%.wav', '')
-        local path = 'sfx/' .. soundFile
-        AudioPlayer.registerSound(name, path)
-    end
-
-end
-
 function love.load(args)
     love.math.setRandomSeed(love.timer.getTime())
+
+    AudioPlayer.setMusicVolume(0.2)
+    AudioPlayer.setSoundVolume(1.0)
 
     local contents, size = love.filesystem.read('version.txt')
     local version = contents:gsub('_', '.')
 
     scale.x = love.graphics.getWidth()/1280
     scale.y = love.graphics.getHeight()/720
-
-    prepareAudioPlayer()
 
     --[[
     local modes = love.window.getFullscreenModes(1)
@@ -72,7 +54,7 @@ function love.load(args)
         EntityFactory:register(data)
     end)
 
-    game = Game(21)
+    game = Game(1)
 end
 
 function love.update(dt)

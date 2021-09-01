@@ -13,8 +13,7 @@ local p1Input = baton.new({
 })
 
 local function playMusic()
-	AudioPlayer.setMusicVolume(0.2)
-	AudioPlayer.playMusic('BOOM Music 1')
+	AudioPlayer.playMusic('mus/BOOM Music 1.wav')
 end
 
 function Game:new(levelIndex)

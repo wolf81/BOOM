@@ -70,8 +70,6 @@ end
 function Entity:destroy()
 	if self._stateMachine:currentStateName() == 'destroy' then return false end
 
-	print(self._data.id)
-
 	-- add a default destroy animation if none is defined
 	local stateInfo = self._data.states.destroy
 	if stateInfo.anim == nil then

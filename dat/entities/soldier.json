@@ -3,7 +3,7 @@
 	"type": "Monster",
 	"id": "A",
 
-	"noise": "SoldierNoise", 
+	"noise": "sfx/SoldierNoise.wav", 
 
 	"states": {
 		"idle": {},
@@ -34,7 +34,7 @@
 			}
 		},		
 		"destroy": {
-			"sound": "SoldierDeath",
+			"sound": "sfx/SoldierDeath.wav",
 			"anim": {
 				"frames": [21, 2],
 				"duration": 0.2,
