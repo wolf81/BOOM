@@ -53,6 +53,8 @@ function Level:new(index)
 	self._coins = {}
 	self._bonuses = {}
 	self._props = {}
+	self._finished = false
+	self._finishDuration = 2.0
 
 	local fixedBlockId = 'fblock' .. levelData['FixedBlockID']
 	local breakableBlockId = 'bblock' .. levelData['BreakableBlockID']
@@ -103,9 +105,11 @@ function Level:players()
 	return self._players
 end
 
-function Level:update(dt)
-	self._time = math.max(self._time - dt, 0)
+function Level:finished()
+	return self._finished and self._finishDuration == 0
+end
 
+function Level:update(dt)
 	for _, prop in pairs(self._props) do
 		prop:update(dt)
 	end
@@ -179,6 +183,16 @@ function Level:update(dt)
 		if explosion:isRemoved() then
 			table.remove(self._explosions, idx)
 		end
+	end
+
+	if self._finished then
+		self._finishDuration = math.max(self._finishDuration - dt, 0)
+		for _, player in ipairs(self._players) do
+			player:cheer()
+		end
+	else
+		self._finished = #self._monsters == 0
+		self._time = math.max(self._time - dt, 0)
 	end
 end
 

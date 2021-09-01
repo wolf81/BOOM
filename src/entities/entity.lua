@@ -17,6 +17,7 @@ function Entity:new(data)
 		['detonate'] = function() return Detonate() end,
 		['explode'] = function() return Explode() end,
 		['destroy'] = function() return Destroy() end,
+		['cheer'] = function() return Cheer() end,
 	})
 end
 

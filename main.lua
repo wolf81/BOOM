@@ -5,8 +5,6 @@ io.stdout:setvbuf("no")
 
 local game = nil
 
-local scale = {}
-
 backgroundPatterns = {
     ['1'] = love.graphics.newImage('gfx/BGPattern 02.png'),
     ['2'] = love.graphics.newImage('gfx/BGPattern 03.png'),
@@ -37,9 +35,6 @@ function love.load(args)
 
     local contents, size = love.filesystem.read('version.txt')
     local version = contents:gsub('_', '.')
-
-    scale.x = love.graphics.getWidth()/1280
-    scale.y = love.graphics.getHeight()/720
 
     --[[
     local modes = love.window.getFullscreenModes(1)

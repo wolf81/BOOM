@@ -32,6 +32,7 @@ require 'src/states/fuse'
 require 'src/states/detonate'
 require 'src/states/destroy'
 require 'src/states/explode'
+require 'src/states/cheer'
 
 -- entities
 require 'src/entities/entity'
@@ -53,6 +54,7 @@ require 'src/hud/playerstatus'
 
 -- game
 require 'src/constants'
+require 'src/finish'
 require 'src/level'
 require 'src/game'
 require 'src/map'

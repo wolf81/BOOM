@@ -55,6 +55,21 @@ function Player:lives()
 	return self._lives
 end
 
+function Player:move(direction)
+	if self._stateMachine:currentStateName() == 'cheer' then return false end
+
+	Player.super.move(self, direction)
+end
+
+function Player:cheer()
+	if self._stateMachine:currentStateName() == 'cheer' then return false end
+
+	local stateInfo = self._data.states.cheer
+	local params = { entity = self, stateInfo = stateInfo }
+
+	self._stateMachine:change('cheer', params)
+end
+
 function Player:bonuses()
 	return self._bonuses
 end
