@@ -33,6 +33,32 @@
 				},			
 			}
 		},		
+		"shoot": {
+			"up": {
+				"anim": {
+					"frames": [18, 1],
+					"duration": 1.0,
+				},			
+			},
+			"down": {
+				"anim": {
+					"frames": [17, 1],
+					"duration": 1.0,
+				},			
+			},
+			"left": {
+				"anim": {
+					"frames": [19, 1],
+					"duration": 1.0,
+				},			
+			},
+			"right": {
+				"anim": {
+					"frames": [20, 1],
+					"duration": 1.0,
+				},			
+			}			
+		},
 		"destroy": {
 			"sound": "sfx/SoldierDeath.wav",
 			"anim": {

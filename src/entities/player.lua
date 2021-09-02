@@ -58,7 +58,7 @@ end
 function Player:move(direction)
 	if self._stateMachine:currentStateName() == 'cheer' then return false end
 
-	Player.super.move(self, direction)
+	return Player.super.move(self, direction)
 end
 
 function Player:cheer()
@@ -68,6 +68,8 @@ function Player:cheer()
 	local params = { entity = self, stateInfo = stateInfo }
 
 	self._stateMachine:change('cheer', params)
+
+	return true
 end
 
 function Player:bonuses()

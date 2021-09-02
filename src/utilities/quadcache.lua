@@ -3,11 +3,11 @@ QuadCache = {}
 local cache = {}
 
 function QuadCache:register(entity, spriteSize)
-	print(spriteSize[1], spriteSize[2])
+	print(spriteSize)
 
 	if cache[entity._data.id] == nil then
 		local texture = love.graphics.newImage(entity:texture())
-		local quads = generateQuads(texture, spriteSize[1], spriteSize[2])
+		local quads = generateQuads(texture, spriteSize.x, spriteSize.y)
 		cache[entity._data.id] = { texture, quads }
 	end
 end

@@ -6,9 +6,10 @@ function Entity:new(data)
 	self._position = vector(1, 1)
 	self._removed = false
 
-	self._spriteSize = data.spriteSize or { 32, 32 }
+	local size = data.spriteSize or { 32, 32 }
+	self._size = vector(unpack(size))
 
-	QuadCache:register(self, self._spriteSize)
+	QuadCache:register(self, self._size)
 
 	self._stateMachine = StateMachine({ 
 		['idle'] = function() return Idle() end, 
@@ -18,7 +19,12 @@ function Entity:new(data)
 		['explode'] = function() return Explode() end,
 		['destroy'] = function() return Destroy() end,
 		['cheer'] = function() return Cheer() end,
+		['shoot'] = function() return Shoot() end,
 	})
+end
+
+function Entity:size()
+	return self._size
 end
 
 function Entity:isRemoved()
@@ -52,7 +58,7 @@ function Entity:level()
 end
 
 function Entity:frame()
-	return Frame(self._position.x, self._position.y, self._spriteSize[1], self._spriteSize[2])
+	return Frame(self._position.x, self._position.y, self._size.x, self._size.y)
 end
 
 function Entity:gridPosition()
@@ -71,16 +77,7 @@ end
 function Entity:destroy()
 	if self._stateMachine:currentStateName() == 'destroy' then return false end
 
-	-- add a default destroy animation if none is defined
-	local stateInfo = self._data.states.destroy
-	if stateInfo.anim == nil then
-		stateInfo.anim = {
-			duration = -1,
-		}
-	end
-
-	local params = { entity = self, stateInfo = stateInfo }
-
+	local params = { entity = self, stateInfo = self._data.states.destroy }
 	self._stateMachine:change('destroy', params)
 
 	return true
@@ -89,17 +86,7 @@ end
 function Entity:idle()
 	if self._stateMachine:currentStateName() == 'idle' then return false end
 
-	-- add a default idle animation if none is defined
-	local stateInfo = self._data.states.idle
-	if stateInfo.anim == nil then
-		stateInfo.anim = {
-			['frames'] = {1, 1},
-			['duration'] = 0.0,
-		}
-	end
-
-	local params = { entity = self, stateInfo = stateInfo }
-
+	local params = { entity = self, stateInfo = self._data.states.idle }
 	self._stateMachine:change('idle', params)
 
 	return true

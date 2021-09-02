@@ -26,7 +26,7 @@ require 'src/control/cpucontrol'
 -- states
 require 'src/states/state'
 require 'src/states/idle'
-require 'src/states/attack'
+require 'src/states/shoot'
 require 'src/states/move'
 require 'src/states/fuse'
 require 'src/states/detonate'

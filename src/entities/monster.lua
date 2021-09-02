@@ -14,6 +14,15 @@ function Monster:init(level, position)
 	self._noiseDelay = getRandomNoiseDelay()
 end
 
+function Monster:shoot()
+	if self._stateMachine:currentStateName() == 'shoot' then return false end
+
+	local params = { entity = self, stateInfo = self._data.states.move }
+	self._stateMachine:change('shoot', params)
+
+	return true
+end
+
 function Monster:update(dt)
 	Monster.super.update(self, dt)
 
