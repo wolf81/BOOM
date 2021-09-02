@@ -37,25 +37,25 @@
 			"up": {
 				"anim": {
 					"frames": [18, 1],
-					"duration": 1.0,
+					"duration": 0.5,
 				},			
 			},
 			"down": {
 				"anim": {
 					"frames": [17, 1],
-					"duration": 1.0,
+					"duration": 0.5,
 				},			
 			},
 			"left": {
 				"anim": {
-					"frames": [19, 1],
-					"duration": 1.0,
+					"frames": [20, 1],
+					"duration": 0.5,
 				},			
 			},
 			"right": {
 				"anim": {
-					"frames": [20, 1],
-					"duration": 1.0,
+					"frames": [19, 1],
+					"duration": 0.5,
 				},			
 			}			
 		},

@@ -38,7 +38,7 @@ function CpuControl:update(dt)
 		local success = self._monster:shoot()
 	end
 	
-	if self._monster:isMoving() == false then
+	if not self._monster:isMoving() and not self._monster:isShooting() then
 		local gridPos = self._monster:gridPosition()
 
 		local directions = {
