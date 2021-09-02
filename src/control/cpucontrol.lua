@@ -29,24 +29,36 @@ end
 function CpuControl:new(level, monster)
 	self._level = level
 	self._monster = monster
+	self._shootDelay = self._monster:shootDelay()
 end
 
 function CpuControl:update(dt)
 	if self._monster:isDestroyed() then return false end
 
-	if isPlayerInLOS(self._level, self._monster) then
+	self._shootDelay = math.max(self._shootDelay - dt, 0)
+
+	if self._shootDelay == 0 and isPlayerInLOS(self._level, self._monster) then
 		local success = self._monster:shoot()
+		if success then
+			self._shootDelay = self._monster:shootDelay()
+		end
 	end
-	
+
 	if not self._monster:isMoving() and not self._monster:isShooting() then
 		local gridPos = self._monster:gridPosition()
+		local position = self._monster:position()
 
-		local directions = {
-			Direction.UP,
-			Direction.DOWN,
-			Direction.LEFT,
-			Direction.RIGHT
-		}
+		local directions = {}
+		if position.x % TileSize.x == 0 then
+			directions[#directions + 1] = Direction.UP
+			directions[#directions + 1] = Direction.DOWN
+		end
+
+		if position.y % TileSize.y == 0 then
+			directions[#directions + 1] = Direction.LEFT
+			directions[#directions + 1] = Direction.RIGHT
+		end
+
 		directions = lume.shuffle(directions)
 
 		for _, direction in ipairs(directions) do

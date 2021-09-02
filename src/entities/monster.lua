@@ -12,6 +12,17 @@ function Monster:init(level, position)
 	Monster.super.init(self, level, position)
 
 	self._noiseDelay = getRandomNoiseDelay()
+
+	-- TODO: would be cleaner if the following is part of shoot state, but how 
+	-- to access from CpuControl?
+	self._shootDelay = -1
+	if self._data.states.shoot then
+		self._shootDelay = self._data.states.shoot.delay or 1.0
+	end
+end
+
+function Monster:shootDelay()
+	return self._shootDelay
 end
 
 function Monster:isShooting()

@@ -34,6 +34,10 @@
 			}
 		},		
 		"shoot": {
+			"sound": "sfx/Shot.wav",
+			
+			"delay": 3.0,
+
 			"up": {
 				"anim": {
 					"frames": [18, 1],
