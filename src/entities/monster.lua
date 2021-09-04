@@ -40,14 +40,14 @@ function Monster:shoot()
 
 	offset = size:permul(offset)
 	offset = vector(math.floor(offset.x), math.floor(offset.y))
-	print(offset)
 	local position = self:position() + offset
 
 	local projectile = EntityFactory:create(self:level(), projectileInfo.id, position)
 	projectile:setVelocity(self:direction())
-	self:level():addProjectile(projectile)
+	projectile:setOffset(offset)
+	self:level():addProjectile(projectile)	
 
-	local params = { entity = self, stateInfo = self._data.states.shoot }
+	local params = { entity = self, stateInfo = self._data.states.shoot, }
 	self._stateMachine:change('shoot', params)
 
 	return true

@@ -9,21 +9,15 @@ function Propel:update(dt)
 
 	local entity = self.entity
 
-	local gridPos = entity:gridPosition()
 	local dxy = entity:velocity():permul(TileSize) * dt * entity:speed()
 	local pos = entity:position() + dxy
 	entity:setPosition(pos)
 
-	--[[
-		-1
-	-1	 0	 1
-		 1
-	]]
-
-	local toGridPos = entity:gridPosition()
-	if entity:level():isBlocked(toGridPos) then
-		local offset = entity:velocity():permul(vector(-TileSize.x, -TileSize.y))
-		local toPos = toPosition(toGridPos) + offset
+	local gridPos = entity:gridPosition()
+	if entity:level():isBlocked(gridPos) then
+		local offset = entity:offset() - TileSize
+		offset = entity:velocity():permul(offset)
+		local toPos = toPosition(gridPos) + offset
 		entity:setPosition(toPos)
 		entity:destroy()
 	end

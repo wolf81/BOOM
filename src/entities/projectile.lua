@@ -4,6 +4,7 @@ function Projectile:new(data)
 	Projectile.super.new(self, data)
 
 	self._speed = data.speed or 1.0
+	self._offset = vector(0, 0)
 end
 
 function Projectile:speed()
@@ -12,6 +13,14 @@ end
 
 function Projectile:velocity()
 	return self._velocity
+end
+
+function Projectile:setOffset(offset)
+	self._offset = offset
+end
+
+function Projectile:offset()
+	return self._offset
 end
 
 function Projectile:setVelocity(velocity)
