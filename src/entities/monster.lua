@@ -36,14 +36,15 @@ function Monster:shoot()
 	assert(projectileInfo ~= nil, "no projectile defined")
 
 	local offset = vector(unpack(projectileInfo.offset or {0, 0}))
-	offset = 
-	print(TileSize:permul(offset))
+	local size = self:size()
 
+	offset = size:permul(offset)
+	offset = vector(math.floor(offset.x), math.floor(offset.y))
+	print(offset)
+	local position = self:position() + offset
 
-	--local position = self:position() + TileSize()
-
-
-	local projectile = EntityFactory:create(self:level(), projectileInfo.id, self:position())
+	local projectile = EntityFactory:create(self:level(), projectileInfo.id, position)
+	projectile:setVelocity(self:direction())
 	self:level():addProjectile(projectile)
 
 	local params = { entity = self, stateInfo = self._data.states.shoot }

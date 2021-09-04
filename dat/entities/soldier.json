@@ -38,7 +38,7 @@
 
 			"projectile": {
 				"id": "shot",
-				"offset": [0.5, 0.4],
+				"offset": [0.45, 0.55],
 			},
 
 			"delay": 3.0,

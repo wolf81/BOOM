@@ -20,6 +20,7 @@ function Entity:new(data)
 		['destroy'] = function() return Destroy() end,
 		['cheer'] = function() return Cheer() end,
 		['shoot'] = function() return Shoot() end,
+		['propel'] = function() return Propel() end,
 	})
 end
 
@@ -70,8 +71,8 @@ function Entity:update(dt)
 	self._stateMachine:update(dt)
 end
 
-function Entity:draw(offset)
-	self._stateMachine:draw(offset)
+function Entity:draw()
+	self._stateMachine:draw()
 end
 
 function Entity:destroy()

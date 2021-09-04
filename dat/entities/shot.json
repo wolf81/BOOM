@@ -2,13 +2,15 @@
 	"texture": "gfx/Shot.png",
 	"type": "Projectile",
 	"id": "shot",
+	"speed": 3.0,
 
 	"states": {
 		"idle": {},
 		"propel": {
-			"velocity": 2.0,
-			"anim": [1, 1],
-			"duration": 1.0,
+			"anim": {
+				"frames": [1, 1],
+				"duration": 0.0,
+			}
 		},
 		"destroy": {}
 	}
