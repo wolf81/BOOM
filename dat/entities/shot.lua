@@ -5,9 +5,11 @@
 
 	"states": {
 		"idle": {},
-		"move": {
+		"propel": {
+			"velocity": 2.0,
 			"anim": [1, 1],
 			"duration": 1.0,
-		}
+		},
+		"destroy": {}
 	}
 }

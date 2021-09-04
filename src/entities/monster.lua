@@ -32,6 +32,20 @@ end
 function Monster:shoot()
 	if self._stateMachine:currentStateName() == 'shoot' then return false end
 
+	local projectileInfo = self._data.states.shoot.projectile
+	assert(projectileInfo ~= nil, "no projectile defined")
+
+	local offset = vector(unpack(projectileInfo.offset or {0, 0}))
+	offset = 
+	print(TileSize:permul(offset))
+
+
+	--local position = self:position() + TileSize()
+
+
+	local projectile = EntityFactory:create(self:level(), projectileInfo.id, self:position())
+	self:level():addProjectile(projectile)
+
 	local params = { entity = self, stateInfo = self._data.states.shoot }
 	self._stateMachine:change('shoot', params)
 

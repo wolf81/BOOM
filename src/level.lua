@@ -53,6 +53,7 @@ function Level:new(index)
 	self._coins = {}
 	self._bonuses = {}
 	self._props = {}
+	self._projectiles = {}
 	self._finished = false
 	self._finishDuration = 2.0
 
@@ -109,9 +110,21 @@ function Level:finished()
 	return self._finished and self._finishDuration == 0
 end
 
+function Level:addProjectile(projectile)
+	self._projectiles[#self._projectiles + 1] = projectile
+end
+
 function Level:update(dt)
 	for _, prop in pairs(self._props) do
 		prop:update(dt)
+	end
+
+	for idx, projectile in lume.ripairs(self._projectiles) do
+		projectile:update(dt)
+
+		if projectile:isRemoved() then
+			table.remove(self._projectiles, idx)
+		end
 	end
 
 	for id, bomb in pairs(self._bombs) do
@@ -198,6 +211,10 @@ end
 
 function Level:draw()
 	self._background:draw()
+
+	for _, projectile in ipairs(self._projectiles) do
+		projectile:draw()
+	end
 
 	for _, prop in pairs(self._props) do
 		prop:draw()

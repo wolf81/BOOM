@@ -35,8 +35,12 @@
 		},		
 		"shoot": {
 			"sound": "sfx/Shot.wav",
-			
-			"projectile": "shot",
+
+			"projectile": {
+				"id": "shot",
+				"offset": [0.5, 0.4],
+			},
+
 			"delay": 3.0,
 
 			"up": {

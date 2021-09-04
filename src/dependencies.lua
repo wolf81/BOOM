@@ -32,6 +32,7 @@ require 'src/states/fuse'
 require 'src/states/detonate'
 require 'src/states/destroy'
 require 'src/states/explode'
+require 'src/states/propel'
 require 'src/states/cheer'
 
 -- entities
