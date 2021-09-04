@@ -44,6 +44,7 @@ require 'src/entities/bonus'
 require 'src/entities/prop'
 require 'src/entities/bomb'
 require 'src/entities/explosion'
+require 'src/entities/projectile'
 
 -- hud
 require 'src/hud/panel'

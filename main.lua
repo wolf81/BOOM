@@ -30,8 +30,8 @@ borders = {
 function love.load(args)
     love.math.setRandomSeed(love.timer.getTime())
 
-    AudioPlayer.setMusicVolume(0.2)
-    AudioPlayer.setSoundVolume(1.0)
+    AudioPlayer.setMusicVolume(0.0)
+    AudioPlayer.setSoundVolume(0.01)
 
     local contents, size = love.filesystem.read('version.txt')
     local version = contents:gsub('_', '.')

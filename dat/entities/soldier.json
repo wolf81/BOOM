@@ -36,6 +36,7 @@
 		"shoot": {
 			"sound": "sfx/Shot.wav",
 			
+			"projectile": "shot",
 			"delay": 3.0,
 
 			"up": {
