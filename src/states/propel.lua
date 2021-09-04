@@ -14,9 +14,16 @@ function Propel:update(dt)
 	local pos = entity:position() + dxy
 	entity:setPosition(pos)
 
+	--[[
+		-1
+	-1	 0	 1
+		 1
+	]]
+
 	local toGridPos = entity:gridPosition()
 	if entity:level():isBlocked(toGridPos) then
-		toPos = toPosition(toGridPos) + vector(16, 8)
+		local offset = entity:velocity():permul(vector(-TileSize.x, -TileSize.y))
+		local toPos = toPosition(toGridPos) + offset
 		entity:setPosition(toPos)
 		entity:destroy()
 	end

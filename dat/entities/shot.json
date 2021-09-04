@@ -15,7 +15,7 @@
 		"destroy": {
 			"anim": {
 				"frames": [2, 4],
-				"duration": 1.0,
+				"duration": 0.5,
 			},
 		}
 	}
