@@ -114,6 +114,25 @@ function Level:addProjectile(projectile)
 	self._projectiles[#self._projectiles + 1] = projectile
 end
 
+function Level:destroyMonsters()
+	for _, monster in ipairs(self._monsters) do
+		monster:destroy()
+	end
+end
+
+function Level:destroyBlocks()
+	local delay = 0
+	for x = 1, Map.WIDTH + 2 do
+		for y = 1, Map.HEIGHT + 2 do
+			local key = tostring(vector(x, y))
+			local block = self._blocks[key]
+			if block ~= nil then block:destroyAfter(delay) end
+
+			delay = delay + 0.02
+		end
+	end
+end
+
 function Level:update(dt)
 	for _, prop in pairs(self._props) do
 		prop:update(dt)

@@ -43,7 +43,9 @@ function Player:applyBonus(bonus)
 	elseif bonusId == 'b_heal_small' then
 		self._health = math.min(self._health + 1, HEALTH_MAX)
 	elseif bonusId == 'b_kill' then
+		self:level():destroyMonsters()
 	elseif bonusId == 'b_zap' then
+		self:level():destroyBlocks()
 	end
 end
 
