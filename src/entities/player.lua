@@ -22,6 +22,11 @@ function Player:new(data)
 	}
 end
 
+function Player:speed()
+	local multiplier = self._bonuses[5] * 2 + 1
+	return self._speed * multiplier
+end
+
 function Player:applyBonus(bonus)
 	if bonus:isApplied() then return end
 	bonus:setApplied()
@@ -37,9 +42,9 @@ function Player:applyBonus(bonus)
 	elseif bonusId == 'b_explode_radius' then
 		self._bonuses[3] = self._bonuses[3] + 1
 	elseif bonusId == 'b_shield' then
-		self._bonuses[4] = math.max(self._bonuses[4] + 1, 1)
+		self._bonuses[4] = math.min(self._bonuses[4] + 1, 1)
 	elseif bonusId == 'b_speed' then
-		self._bonuses[5] = math.max(self._bonuses[5] + 1, 1)
+		self._bonuses[5] = math.min(self._bonuses[5] + 1, 1)
 	elseif bonusId == 'b_heal_big' then
 		self._health = HEALTH_MAX
 	elseif bonusId == 'b_heal_small' then
