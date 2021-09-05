@@ -1,7 +1,7 @@
 CpuControl = Object:extend()
 
 function isPlayerInLOS(level, monster)
-	local position = monster:position() + monster:size() / 2
+	local position = monster:position() + monster:spriteSize() / 2
 	local direction = monster:direction()
 	local lw, lh = level:getDimensions()
 
