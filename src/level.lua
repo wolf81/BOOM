@@ -132,8 +132,8 @@ function Level:update(dt)
 
 		if bomb:isRemoved() then
 			local gridPos = bomb:gridPosition()
-			local size = bomb:size() + 2
-			self:addExplosion(gridPos, Direction.NONE, size)
+			local radius = bomb:radius() + 2
+			self:addExplosion(gridPos, Direction.NONE, radius)
 
 			self._bombs[id] = nil
 		end

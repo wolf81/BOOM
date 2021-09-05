@@ -38,13 +38,12 @@ function Monster:shoot()
 	local offset = vector(unpack(projectileInfo.offset or {0, 0}))
 	local size = self:spriteSize()
 
-	offset = size:permul(offset)
-	offset = vector(math.floor(offset.x), math.floor(offset.y))
-	local position = self:position() + offset
-
+	local position = self:position() + TileSize / 2
 	local projectile = EntityFactory:create(self:level(), projectileInfo.id, position)
 	projectile:setVelocity(self:direction())
-	projectile:setOffset(offset)
+	local size = projectile:size()
+	position.x = position.x - size.x
+	projectile:setPosition(position)
 	self:level():addProjectile(projectile)	
 
 	local params = { entity = self, stateInfo = self._data.states.shoot, }

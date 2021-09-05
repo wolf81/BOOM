@@ -18,6 +18,6 @@ function Bomb:detonate()
 	return true
 end
 
-function Bomb:size()
-	return self._data.size or 0
+function Bomb:radius()
+	return self._data.radius or 0
 end

@@ -15,8 +15,8 @@ function Propel:update(dt)
 
 	local gridPos = entity:gridPosition()
 	if entity:level():isBlocked(gridPos) then
-		local offset = entity:offset() - TileSize
-		offset = entity:velocity():permul(offset)
+		local size = entity:size()
+		local offset = entity:velocity():permul(-TileSize / 2) + vector(0, size.y)
 		local toPos = toPosition(gridPos) + offset
 		entity:setPosition(toPos)
 		entity:destroy()

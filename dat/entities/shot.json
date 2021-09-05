@@ -3,6 +3,7 @@
 	"type": "Projectile",
 	"id": "shot",
 	"speed": 3.0,
+	"size": [7, 7],
 
 	"states": {
 		"idle": {},
