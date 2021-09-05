@@ -20,10 +20,6 @@ function Creature:setControl(control)
 	self._control = control
 end
 
-function Creature:isDestroyed()
-	return self._stateMachine:currentStateName() == 'destroy'
-end
-
 function Creature:isMoving()
 	return self._stateMachine:currentStateName() == 'move'
 end

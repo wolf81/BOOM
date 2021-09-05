@@ -75,6 +75,10 @@ function Entity:draw()
 	self._stateMachine:draw()
 end
 
+function Entity:isDestroyed()
+	return self._stateMachine:currentStateName() == 'destroy'
+end
+
 function Entity:destroy()
 	if self._stateMachine:currentStateName() == 'destroy' then return false end
 
