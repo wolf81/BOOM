@@ -6,6 +6,14 @@ local SPEED_DEFAULT = 2
 local HEALTH_MAX = 16
 local LIVES_DEFAULT = 3
 
+local function newBonus(name, duration)
+	return {
+		name = name,
+		amount = 0,
+		duration = duration or -1
+	}
+end
+
 function Player:new(data)
 	Player.super.new(self, data)
 
@@ -18,12 +26,17 @@ function Player:new(data)
 	self._bombsInPlay = {}
 
 	self._bonuses = {
-		0, 0, 0, 0, 0,
+		newBonus('bombs'), 
+		newBonus('fuse'), 
+		newBonus('radius'), 
+		newBonus('shield'), 
+		newBonus('speed'),
 	}
 end
 
 function Player:speed()
-	local multiplier = self._bonuses[5] * 2 + 1
+	local speed = self._bonuses[5]
+	local multiplier = speed.amount * 2 + 1
 	return self._speed * multiplier
 end
 
@@ -42,9 +55,11 @@ function Player:applyBonus(bonus)
 	elseif bonusId == 'b_explode_radius' then
 		self._bonuses[3] = self._bonuses[3] + 1
 	elseif bonusId == 'b_shield' then
-		self._bonuses[4] = math.min(self._bonuses[4] + 1, 1)
+		self._bonuses[4].amount = 1
+		self._bonuses[4].duration = 20
 	elseif bonusId == 'b_speed' then
-		self._bonuses[5] = math.min(self._bonuses[5] + 1, 1)
+		self._bonuses[5].amount = 1
+		self._bonuses[5].duration = 20
 	elseif bonusId == 'b_heal_big' then
 		self._health = HEALTH_MAX
 	elseif bonusId == 'b_heal_small' then
@@ -92,6 +107,22 @@ function Player:update(dt)
 		self:cheer()
 	end
 
+	local speedBonus = self._bonuses[5]
+	if speedBonus.amount > 0 then
+		speedBonus.duration = math.max(speedBonus.duration - dt, 0)
+		if speedBonus.duration == 0 then
+			speedBonus.amount = 0
+		end
+	end
+
+	local shieldBonus = self._bonuses[4]
+	if shieldBonus.amount > 0 then
+		shieldBonus.duration = math.max(shieldBonus.duration - dt, 0)
+		if shieldBonus.duration == 0 then
+			shieldBonus.amount = 0
+		end
+	end
+
 	for idx, bomb in ipairs(self._bombsInPlay) do
 		if bomb:removed() then
 			table.remove(self._bombsInPlay, idx)
@@ -100,7 +131,7 @@ function Player:update(dt)
 end
 
 function Player:dropBomb()
-	local maxBombsInPlay = BOMB_COUNT_DEFAULT + self._bonuses[1]
+	local maxBombsInPlay = BOMB_COUNT_DEFAULT + self._bonuses[1].amount
 	if #self._bombsInPlay == maxBombsInPlay then return end
 
 	local position = self:position() + TileSize / 2

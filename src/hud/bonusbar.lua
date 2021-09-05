@@ -13,7 +13,9 @@ function BonusBar:new()
 end
 
 function BonusBar:updateBonuses(bonuses)
-	self._bonuses = bonuses
+	for idx, bonus in ipairs(bonuses) do
+		self._bonuses[idx] = bonus.amount
+	end
 end
 
 function BonusBar:draw()
