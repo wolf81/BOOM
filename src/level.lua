@@ -200,9 +200,6 @@ function Level:update(dt)
 
 	if self._finished then
 		self._finishDuration = math.max(self._finishDuration - dt, 0)
-		for _, player in ipairs(self._players) do
-			player:cheer()
-		end
 	else
 		self._finished = #self._monsters == 0
 		self._time = math.max(self._time - dt, 0)
@@ -211,10 +208,6 @@ end
 
 function Level:draw()
 	self._background:draw()
-
-	for _, projectile in ipairs(self._projectiles) do
-		projectile:draw()
-	end
 
 	for _, prop in pairs(self._props) do
 		prop:draw()
@@ -242,6 +235,10 @@ function Level:draw()
 
 	for _, monster in ipairs(self._monsters) do
 		monster:draw()
+	end
+
+	for _, projectile in ipairs(self._projectiles) do
+		projectile:draw()
 	end
 
 	for _, block in pairs(self._blocks) do

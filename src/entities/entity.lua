@@ -84,6 +84,10 @@ function Entity:destroy()
 	return true
 end
 
+function Entity:idling()
+	return self._stateMachine:currentStateName() == 'idle'
+end
+
 function Entity:idle()
 	if self._stateMachine:currentStateName() == 'idle' then return false end
 

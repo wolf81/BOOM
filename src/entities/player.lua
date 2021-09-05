@@ -56,17 +56,13 @@ function Player:lives()
 end
 
 function Player:move(direction)
-	if self._stateMachine:currentStateName() == 'cheer' then return false end
-
 	return Player.super.move(self, direction)
 end
 
 function Player:cheer()
 	if self._stateMachine:currentStateName() == 'cheer' then return false end
 
-	local stateInfo = self._data.states.cheer
-	local params = { entity = self, stateInfo = stateInfo }
-
+	local params = { entity = self, stateInfo = self._data.states.cheer }
 	self._stateMachine:change('cheer', params)
 
 	return true
@@ -81,7 +77,11 @@ function Player:index()
 end
 
 function Player:update(dt)
-	Player.super.update(self, dt)	
+	Player.super.update(self, dt)
+
+	if self:idling() and self:level():finished() then
+		self:cheer()
+	end
 end
 
 function Player:dropBomb()
