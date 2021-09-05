@@ -15,6 +15,8 @@ function Player:new(data)
 	self._speed = SPEED_DEFAULT
 	self._lives = LIVES_DEFAULT
 
+	self._bombsInPlay = {}
+
 	self._bonuses = {
 		0, 0, 0, 0, 0,
 	}
@@ -29,7 +31,7 @@ function Player:applyBonus(bonus)
 	print('apply bonus: ' .. bonus._data.id)
 
 	if bonusId == 'b_bombs' then
-		self._bonuses[1] = self._bonuses[1] + 1
+		self._bonuses[1] = math.min(self._bonuses[1] + 1, BOMB_COUNT_MAX - BOMB_COUNT_DEFAULT)
 	elseif bonusId == 'b_fuse' then
 		self._bonuses[2] = self._bonuses[2] + 1
 	elseif bonusId == 'b_explode_radius' then
@@ -84,9 +86,27 @@ function Player:update(dt)
 	if self:idling() and self:level():finished() then
 		self:cheer()
 	end
+
+	for idx, bomb in ipairs(self._bombsInPlay) do
+		if bomb:removed() then
+			table.remove(self._bombsInPlay, idx)
+		end
+	end
 end
 
 function Player:dropBomb()
+	local maxBombsInPlay = BOMB_COUNT_DEFAULT + self._bonuses[1]
+	if #self._bombsInPlay == maxBombsInPlay then return end
+
 	local position = self:position() + TileSize / 2
-	self:level():addBomb(position)
+	local gridPosition = toGridPosition(position)
+	local level = self:level()
+
+	if level:hasBomb(gridPosition) then return end
+	
+	local bomb = EntityFactory:create(self, 'bomb', toPosition(gridPosition))
+	bomb:fuse()
+	level:addBomb(bomb)
+
+	self._bombsInPlay[#self._bombsInPlay + 1] = bomb
 end

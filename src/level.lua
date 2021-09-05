@@ -141,7 +141,7 @@ function Level:update(dt)
 	for idx, projectile in lume.ripairs(self._projectiles) do
 		projectile:update(dt)
 
-		if projectile:isRemoved() then
+		if projectile:removed() then
 			table.remove(self._projectiles, idx)
 		end
 	end
@@ -149,7 +149,7 @@ function Level:update(dt)
 	for id, bomb in pairs(self._bombs) do
 		bomb:update(dt)
 
-		if bomb:isRemoved() then
+		if bomb:removed() then
 			local gridPos = bomb:gridPosition()
 			local radius = bomb:radius() + 2
 			self:addExplosion(gridPos, Direction.NONE, radius)
@@ -161,7 +161,7 @@ function Level:update(dt)
 	for id, coin in pairs(self._coins) do
 		coin:update(dt)
 
-		if coin:isRemoved() then
+		if coin:removed() then
 			self._coins[id] = nil
 		end 
 	end
@@ -169,7 +169,7 @@ function Level:update(dt)
 	for id, bonus in pairs(self._bonuses) do
 		bonus:update(dt)
 
-		if bonus:isRemoved() then
+		if bonus:removed() then
 			self._bonuses[id] = nil
 		end
 	end
@@ -177,7 +177,7 @@ function Level:update(dt)
 	for idx, monster in lume.ripairs(self._monsters) do
 		monster:update(dt)
 
-		if monster:isRemoved() then
+		if monster:removed() then
 			table.remove(self._monsters, idx)
 		end
 	end
@@ -204,7 +204,7 @@ function Level:update(dt)
 	for id, block in pairs(self._blocks) do
 		block:update(dt)
 
-		if block:isRemoved() then
+		if block:removed() then
 			self._blocks[id] = nil
 		end
 	end
@@ -212,7 +212,7 @@ function Level:update(dt)
 	for idx, explosion in lume.ripairs(self._explosions) do
 		explosion:update(dt)
 
-		if explosion:isRemoved() then
+		if explosion:removed() then
 			table.remove(self._explosions, idx)
 		end
 	end
@@ -285,12 +285,11 @@ function Level:isBlocked(gridPosition)
 	return false
 end
 
-function Level:addBomb(position)
-	local gridPosition = toGridPosition(position)
-	if self._bombs[tostring(gridPosition)] ~= nil then return end
-	
-	local bomb = EntityFactory:create(self, 'bomb', toPosition(gridPosition))
-	bomb:fuse()
+function Level:hasBomb(gridPosition)
+	return self._bombs[tostring(gridPosition)]
+end
+
+function Level:addBomb(bomb)
 	self._bombs[tostring(bomb:gridPosition())] = bomb
 end
 

@@ -1,5 +1,13 @@
 Bomb = Entity:extend()
 
+function Bomb:setPlayer(player)
+	self._player = player
+end
+
+function Bomb:player()
+	return self._player
+end
+
 function Bomb:fuse()
 	if self._stateMachine:currentStateName() == 'fuse' then return false end
 

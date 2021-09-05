@@ -15,5 +15,5 @@ function Bonus:isApplied()
 end
 
 function Bonus:update(dt)
-	
+	-- body
 end

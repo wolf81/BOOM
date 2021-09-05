@@ -28,7 +28,7 @@ function Entity:spriteSize()
 	return self._spriteSize
 end
 
-function Entity:isRemoved()
+function Entity:removed()
 	return self._removed
 end
 
