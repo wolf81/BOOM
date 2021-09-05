@@ -14,7 +14,7 @@ end
 
 function BonusBar:updateBonuses(bonuses)
 	for idx, bonus in ipairs(bonuses) do
-		self._bonuses[idx] = bonus.amount
+		self._bonuses[idx] = bonus:amount()
 	end
 end
 

@@ -1,18 +1,9 @@
 Player = Creature:extend()
 
-local BOMB_COUNT_DEFAULT = 5
-local BOMB_COUNT_MAX = 8
 local SPEED_DEFAULT = 2
 local HEALTH_MAX = 16
 local LIVES_DEFAULT = 3
-
-local function newBonus(name, duration)
-	return {
-		name = name,
-		amount = 0,
-		duration = duration or -1
-	}
-end
+local BOMB_COUNT_DEFAULT = 5
 
 function Player:new(data)
 	Player.super.new(self, data)
@@ -26,22 +17,22 @@ function Player:new(data)
 	self._bombsInPlay = {}
 
 	self._bonuses = {
-		newBonus('bombs'), 
-		newBonus('fuse'), 
-		newBonus('radius'), 
-		newBonus('shield'), 
-		newBonus('speed'),
+		StatusEffect(3), -- bombs
+		StatusEffect(1), -- fuse
+		StatusEffect(3), -- radius
+		StatusEffect(), -- shield
+		StatusEffect(), -- speed
 	}
 end
 
 function Player:speed()
 	local speed = self._bonuses[5]
-	local multiplier = speed.amount * 2 + 1
+	local multiplier = speed:amount() * 2 + 1
 	return self._speed * multiplier
 end
 
 function Player:applyBonus(bonus)
-	if bonus:isApplied() then return end
+	if bonus:applied() then return end
 	bonus:setApplied()
 
 	local bonusId = bonus._data.id
@@ -49,17 +40,15 @@ function Player:applyBonus(bonus)
 	print('apply bonus: ' .. bonus._data.id)
 
 	if bonusId == 'b_bombs' then
-		self._bonuses[1] = math.min(self._bonuses[1] + 1, BOMB_COUNT_MAX - BOMB_COUNT_DEFAULT)
+		self._bonuses[1]:increment()
 	elseif bonusId == 'b_fuse' then
-		self._bonuses[2] = self._bonuses[2] + 1
+		self._bonuses[2]:increment()
 	elseif bonusId == 'b_explode_radius' then
-		self._bonuses[3] = self._bonuses[3] + 1
+		self._bonuses[3]:increment()
 	elseif bonusId == 'b_shield' then
-		self._bonuses[4].amount = 1
-		self._bonuses[4].duration = 20
+		self._bonuses[4]:setDuration(20)
 	elseif bonusId == 'b_speed' then
-		self._bonuses[5].amount = 1
-		self._bonuses[5].duration = 20
+		self._bonuses[5]:setDuration(20)
 	elseif bonusId == 'b_heal_big' then
 		self._health = HEALTH_MAX
 	elseif bonusId == 'b_heal_small' then
@@ -107,20 +96,8 @@ function Player:update(dt)
 		self:cheer()
 	end
 
-	local speedBonus = self._bonuses[5]
-	if speedBonus.amount > 0 then
-		speedBonus.duration = math.max(speedBonus.duration - dt, 0)
-		if speedBonus.duration == 0 then
-			speedBonus.amount = 0
-		end
-	end
-
-	local shieldBonus = self._bonuses[4]
-	if shieldBonus.amount > 0 then
-		shieldBonus.duration = math.max(shieldBonus.duration - dt, 0)
-		if shieldBonus.duration == 0 then
-			shieldBonus.amount = 0
-		end
+	for _, bonus in ipairs(self._bonuses) do
+		bonus:update(dt)
 	end
 
 	for idx, bomb in ipairs(self._bombsInPlay) do
@@ -131,7 +108,7 @@ function Player:update(dt)
 end
 
 function Player:dropBomb()
-	local maxBombsInPlay = BOMB_COUNT_DEFAULT + self._bonuses[1].amount
+	local maxBombsInPlay = BOMB_COUNT_DEFAULT + self._bonuses[1]:amount()
 	if #self._bombsInPlay == maxBombsInPlay then return end
 
 	local position = self:position() + TileSize / 2

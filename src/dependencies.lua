@@ -13,6 +13,7 @@ require 'src/utilities/dataloader'
 require 'src/utilities/entityfactory'
 require 'src/utilities/frame'
 require 'src/utilities/probability'
+require 'src/utilities/statuseffect'
 
 require 'src/utilities/audioplayer'
 require 'src/utilities/animation'

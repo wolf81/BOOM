@@ -15,7 +15,7 @@ function Bonus:setApplied()
 	self._applied = true
 end
 
-function Bonus:isApplied()
+function Bonus:applied()
 	return self._applied
 end
 
