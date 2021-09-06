@@ -31,6 +31,7 @@ function toPosition(gridPosition)
 end
 
 function generateQuads(texture, spriteWidth, spriteHeight)
+	assert(spriteWidth > 0 and spriteHeight > 0, 'spriteWidth and spriteHeight should be greater than 0')
 	local tw, th = texture:getDimensions()
 
 	local quads = {}

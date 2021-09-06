@@ -90,6 +90,7 @@ function Level:new(index)
 			self._coins[tostring(coin:gridPosition())] = coin
 		elseif entityInfo.id == 'X' or entityInfo.id == 'Y' then
 			local player = EntityFactory:create(self, entityInfo.id, pos)
+			player:configure()
 			self._players[#self._players + 1] = player
 		elseif entityInfo.id == '+' then
 			local prop = EntityFactory:create(self, entityInfo.id, pos)

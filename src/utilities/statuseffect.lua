@@ -33,3 +33,38 @@ end
 function StatusEffect:draw()
 	-- body
 end
+
+--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]--[[--]]
+
+ShieldStatusEffect = StatusEffect:extend()
+
+function ShieldStatusEffect:new(maxAmount)
+	ShieldStatusEffect.super.new(self, maxAmount)
+
+	self._texture = love.graphics.newImage("gfx/Shield.png")
+	self._quads = generateQuads(self._texture, 32, 32)
+end
+
+function ShieldStatusEffect:setPlayer(player)
+	self._player = player
+end
+
+function ShieldStatusEffect:draw()
+	if self._amount == 0 then return end
+	
+	local quad = self._quads[1]
+
+	local direction = self._player:direction()
+	if direction == Direction.LEFT then
+		quad = self._quads[3]
+	elseif direction == Direction.RIGHT then
+		quad = self._quads[2]
+	end
+
+	local pos = self._player:position()
+
+	love.graphics.setColor(1, 1, 1, 0.4)
+	love.graphics.draw(self._texture, quad, pos.x, pos.y)
+	love.graphics.setColor(1, 1, 1, 1)
+end
+

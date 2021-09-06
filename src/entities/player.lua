@@ -20,9 +20,13 @@ function Player:new(data)
 		StatusEffect(3), -- bombs
 		StatusEffect(1), -- fuse
 		StatusEffect(3), -- radius
-		StatusEffect(), -- shield
-		StatusEffect(), -- speed
+		ShieldStatusEffect(1), -- shield
+		StatusEffect(1), -- speed
 	}
+end
+
+function Player:configure()
+	self._bonuses[4]:setPlayer(self)
 end
 
 function Player:speed()
@@ -104,6 +108,14 @@ function Player:update(dt)
 		if bomb:removed() then
 			table.remove(self._bombsInPlay, idx)
 		end
+	end
+end
+
+function Player:draw()
+	Player.super.draw(self)
+
+	for _, bonus in ipairs(self._bonuses) do
+		bonus:draw()
 	end
 end
 
