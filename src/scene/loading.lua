@@ -5,7 +5,8 @@ function Loading:init()
 end
 
 function Loading:enter(previous, level_idx)
-	Transition.crossfade(self, Game(), level_idx)
+	local level = Level(level_idx)
+	Transition.crossfade(self, Game, level)
 end
 
 function Loading:update(dt)

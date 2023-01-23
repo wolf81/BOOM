@@ -1,5 +1,7 @@
 Transition = {}
 
+local FADE_DURATION = 0.5
+
 local fade = { 
 	alpha = 1.0,
 	from_scene = nil,
@@ -26,9 +28,14 @@ local function startTransition(imageData)
 	end
 
 	-- tween fade alpha value
-	Timer.tween(0.5, fade, { alpha = 0.0 }, 'in-out-quad', function()
+	Timer.tween(FADE_DURATION, fade, { alpha = 0.0 }, 'in-out-quad', function()
 		-- replace drawing function in next scene with the original drawing function
 		love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+		fade.alpha = 1.0
+	end)
+
+	-- restore original draw function when fade is completed
+	Timer.after(FADE_DURATION, function() 
 		fade.to_scene.draw = to_scene_draw
 	end)
 	
@@ -36,8 +43,10 @@ local function startTransition(imageData)
 	Gamestate.switch(fade.to_scene, unpack(fade.to_args))
 end
 
+-- FIXME: currently if the crossfade function is called in quick succession, property values in fade table
+-- get overwritten, causing weird bugs - either create a stack or a class that is instantiated for every 
+-- transition
 Transition.crossfade = function(scene1, scene2, ...)
-	fade.alpha = 1.0
 	fade.from_scene = scene1
 	fade.to_scene = scene2
 	fade.to_args = {...}

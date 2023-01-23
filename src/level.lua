@@ -67,14 +67,33 @@ local function generateBackground(bg_pattern_id, border_id)
 	return canvas
 end
 
-function Level:init(index)
-	local contents, size = love.filesystem.read('dat/levels.json')
-	
-	local levels_data = json.decode(contents)
-	local level_data = levels_data['LevelDescription'][index]
-	for k,v in pairs(level_data) do
-		print(k, v)
+function getMonsterTexture(char)
+	if char == 'A' then return 'gfx/Soldier.png'
+	elseif char == 'B' then return 'gfx/Lizzy.png'
+	elseif char == 'C' then return 'gfx/Sarge.png'
+	elseif char == 'D' then return 'gfx/Taur.png'
+	elseif char == 'E' then return 'gfx/Gunner.png'
+	elseif char == 'F' then return 'gfx/Giggler.png'
+	elseif char == 'G' then return 'gfx/Ghost.png'
+	elseif char == 'H' then return 'gfx/Skully.png'
+	elseif char == 'I' then return 'gfx/Smoulder.png'
+	elseif char == 'J' then return 'gfx/Thing.png'
+	elseif char == '*' then return 'gfx/Head Boss.png'
+	else error('not implemented ' .. char)
 	end
+end
+
+function Level:init(index)
+	self.entities = {}
+
+	if not levels_data then
+		local contents, _ = love.filesystem.read('dat/levels.json')
+		levels_data = json.decode(contents)['LevelDescription']
+	end
+
+	self.index = index < #levels_data and index or 1
+
+	local level_data = levels_data[index]
 
 	local bg_pattern_id = level_data['BGPatternID']
 	local border_id = level_data['BorderID']
@@ -92,13 +111,33 @@ function Level:init(index)
 
 	for i = 1, #grid_desc_str do
 		local c = string.sub(grid_desc_str, i, i)
-		print(c)
 
-		if c == 'X' then
-			map[y][x] = 'P'
+		if c == '0' then 
+			goto continue 
+		elseif c == 'X' then
+			map[y][x] = Player({ texture = 'gfx/Player1.png', x = x * TILE_W, y = y * TILE_H })
+			table.insert(self.entities, map[y][x])
+		elseif c == 'Y' then
+			map[y][x] = Player({ texture = 'gfx/Player2.png', x = x * TILE_W, y = y * TILE_H })
+			table.insert(self.entities, map[y][x])
+		elseif c == '+' then
+			map[y][x] = Teleporter({ texture = 'gfx/Teleporter.png', x = x * TILE_W, y = y * TILE_H })
+			table.insert(self.entities, map[y][x])
+		elseif c == '1' then
+			map[y][x] = FixedBlock({ texture = 'gfx/Fixed Blocks.png', x = x * TILE_W, y = y * TILE_H })
+			table.insert(self.entities, map[y][x])
+		elseif c == '2' then
+			map[y][x] = BreakableBlock({ texture = 'gfx/Breakable Blocks.png', x = x * TILE_W, y = y * TILE_H })
+			table.insert(self.entities, map[y][x])
+		elseif c == '3' then
+			map[y][x] = Coin({ texture = 'gfx/Coin.png', x = x * TILE_W, y = y * TILE_H })
+			table.insert(self.entities, map[y][x])
 		else
-			map[y][x] = '.'
+			map[y][x] = Monster({ texture = getMonsterTexture(c), x = x * TILE_W, y = y * TILE_H })
+			table.insert(self.entities, map[y][x])			
 		end
+
+		::continue::
 
 		x = x + 1
 
@@ -107,13 +146,16 @@ function Level:init(index)
 			x = 1
 
 			map[y] = {}
-			print('add row', y)
 		end
 	end
 end
 
 function Level:draw()
 	love.graphics.draw(self.background)
+
+	for _, entity in ipairs(self.entities) do
+		entity:draw()
+	end
 end
 
 function Level:update(dt)

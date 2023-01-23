@@ -10,3 +10,11 @@ require 'src.scene.game'
 
 require 'src.level'
 require 'src.transition'
+
+require 'src.entities.entity'
+require 'src.entities.breakable_block'
+require 'src.entities.fixed_block'
+require 'src.entities.teleporter'
+require 'src.entities.monster'
+require 'src.entities.player'
+require 'src.entities.coin'
