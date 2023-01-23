@@ -1,351 +1,121 @@
-Level = Object:extend()
+local json = require 'lib.json.json'
 
-local function getLevelData(index)
-	local contents, _ = love.filesystem.read('dat/levels.json')
-	local json, _ = json.decode(contents)
+Level = Class {}
 
-	for _, levelsData in pairs(json) do
-		return levelsData[index]
+local function generateBackground(bg_pattern_id, border_id)
+	local canvas = love.graphics.newCanvas(WINDOW_W, WINDOW_H)
+	love.graphics.setCanvas(canvas)
+
+	love.graphics.clear(0, 0, 0, 0)
+	love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+
+	-- draw background
+	local bg_tile = love.graphics.newImage('gfx/BGPattern ' .. string.format('%02d', bg_pattern_id + 1) .. '.png')
+
+	for y = 1, MAP_H do
+		for x = 1, MAP_W do
+			love.graphics.draw(bg_tile, x * TILE_W, y * TILE_W)
+		end
 	end
 
-	return nil
-end
+	-- draw borders
+	local border_tiles = love.graphics.newImage('gfx/Border ' .. string.format('%02d', border_id + 1) .. '.png')
 
-function Level:getDimensions()
-	return (Map.WIDTH + 2) * TileSize.w, (Map.HEIGHT + 2) * TileSize.h
-end
-
-local bonusProbabilities = nil
-
-local function configureBonusProbabilities()
-	bonusProbabilities = Probability()
-
-	local bonuses = EntityFactory:getEntitiesOfType(Bonus)
-    for _, bonus in ipairs(bonuses) do
-    	bonusProbabilities:add(bonus._data.id, bonus._data.spawnChance)       
-    end
-end
-
-function Level:players()
-	return self._players
-end
-
-function Level:time()
-	return math.ceil(self._time)
-end
-
-function Level:new(index)
-	print('load level ' .. index)
-
-	if bonusProbabilities == nil then
-		configureBonusProbabilities()
+	-- top 
+	local quad = love.graphics.newQuad(TILE_W * 0, 0, TILE_W, TILE_H, border_tiles)
+	for y = 1, MAP_H do
+		love.graphics.draw(border_tiles, quad, 0, y * TILE_H)
 	end
-
-	local levelData = getLevelData(index)
 	
-	self._index = index
-	self._time = levelData['Time'] or 0
-	self._explosions = {}
-	self._bombs = {}
-	self._blocks = {}
-	self._players = {}
-	self._monsters = {}
-	self._coins = {}
-	self._bonuses = {}
-	self._props = {}
-	self._projectiles = {}
-	self._finished = false
-	self._finishDuration = 2.0
+	-- bottom
+	quad = love.graphics.newQuad(TILE_W * 1, 0, TILE_W, TILE_H, border_tiles)
+	for y = 1, MAP_H do
+		love.graphics.draw(border_tiles, quad, (MAP_W + 1) * TILE_W, y * TILE_H)
+	end
 
-	local fixedBlockId = 'fblock' .. levelData['FixedBlockID']
-	local breakableBlockId = 'bblock' .. levelData['BreakableBlockID']
+	-- left
+	quad = love.graphics.newQuad(TILE_W * 2, 0, TILE_W, TILE_H, border_tiles)
+	for x = 1, MAP_W do
+		love.graphics.draw(border_tiles, quad, x * TILE_W, 0)
+	end
 
-	local gridDescString = levelData['GridDescString']
-	local map = Map(gridDescString)
+	-- right
+	quad = love.graphics.newQuad(TILE_W * 3, 0, TILE_W, TILE_H, border_tiles)
+	for x = 1, MAP_W do
+		love.graphics.draw(border_tiles, quad, x * TILE_W, (MAP_H + 1) * TILE_H)
+	end
+	
+	-- bottom-left
+	quad = love.graphics.newQuad(TILE_W * 4, 0, TILE_W, TILE_H, border_tiles)
+	love.graphics.draw(border_tiles, quad, 0 * TILE_W, 14 * TILE_H)	
 
-	-- create background canvas
-	local backgroundPatternId = levelData['BGPatternID']
-	local borderId = levelData['BorderID']
+	-- bottom-right
+	quad = love.graphics.newQuad(TILE_W * 5, 0, TILE_W, TILE_H, border_tiles)
+	love.graphics.draw(border_tiles, quad, 16 * TILE_W, 14 * TILE_H)	
 
-	print('fixedBlockId: ' .. fixedBlockId)
-	print('BreakableBlockID: ' .. breakableBlockId)
-	print('backgroundPatternId: ' .. backgroundPatternId)
-	print('borderId: ' .. borderId)
+	-- top-right
+	quad = love.graphics.newQuad(TILE_W * 6, 0, TILE_W, TILE_H, border_tiles)
+	love.graphics.draw(border_tiles, quad, 16 * TILE_W, 0 * TILE_H)	
 
-	self._background = Background(backgroundPatternId, borderId)
+	-- top-left
+	quad = love.graphics.newQuad(TILE_W * 7, 0, TILE_W, TILE_H, border_tiles)
+	love.graphics.draw(border_tiles, quad, 0 * TILE_W, 0 * TILE_H)	
 
-	for _, entityInfo in ipairs(map:entityInfos()) do
-		local entity = nil
+	-- reset canvas
+	love.graphics.setCanvas()
 
-		local pos = entityInfo.pos:permul(TileSize)
+	return canvas
+end
 
-		if entityInfo.id == '1' then
-			local block = EntityFactory:create(self, fixedBlockId, pos)
-			self._blocks[tostring(block:gridPosition())] = block
-		elseif entityInfo.id == '2' then
-			local block = EntityFactory:create(self, breakableBlockId, pos)
-			self._blocks[tostring(block:gridPosition())] = block
-		elseif entityInfo.id == '3' then
-			local coin = EntityFactory:create(self, entityInfo.id, pos)
-			self._coins[tostring(coin:gridPosition())] = coin
-		elseif entityInfo.id == 'X' or entityInfo.id == 'Y' then
-			local player = EntityFactory:create(self, entityInfo.id, pos)
-			player:configure()
-			self._players[#self._players + 1] = player
-		elseif entityInfo.id == '+' then
-			local prop = EntityFactory:create(self, entityInfo.id, pos)
-			self._props[#self._props + 1] = prop
+function Level:init(index)
+	local contents, size = love.filesystem.read('dat/levels.json')
+	
+	local levels_data = json.decode(contents)
+	local level_data = levels_data['LevelDescription'][index]
+	for k,v in pairs(level_data) do
+		print(k, v)
+	end
+
+	local bg_pattern_id = level_data['BGPatternID']
+	local border_id = level_data['BorderID']
+	local fixed_block_id = level_data['FixedBlockID']
+	local breakable_block_id = level_data['BreakableBlockID']
+
+	self.background = generateBackground(bg_pattern_id, border_id)
+
+	local time = level_data['Time']
+
+	local grid_desc_str = level_data['GridDescString']
+	local x, y = 1, 1
+
+	local map = {{}}
+
+	for i = 1, #grid_desc_str do
+		local c = string.sub(grid_desc_str, i, i)
+		print(c)
+
+		if c == 'X' then
+			map[y][x] = 'P'
 		else
-			local monster = EntityFactory:create(self, entityInfo.id, pos)
-			self._monsters[#self._monsters + 1] = monster
-			monster:setControl(CpuControl(self, monster))
-		end
-	end
-end
-
-function Level:players()
-	return self._players
-end
-
-function Level:finished()
-	return self._finished and self._finishDuration == 0
-end
-
-function Level:addProjectile(projectile)
-	self._projectiles[#self._projectiles + 1] = projectile
-end
-
-function Level:destroyMonsters()
-	for _, monster in ipairs(self._monsters) do
-		monster:destroy()
-	end
-end
-
-function Level:destroyBlocks()
-	local delay = 0
-	for x = 1, Map.WIDTH + 2 do
-		for y = 1, Map.HEIGHT + 2 do
-			local key = tostring(vector(x, y))
-			local block = self._blocks[key]
-			if block ~= nil then block:destroyAfter(delay) end
-
-			delay = delay + 0.02
-		end
-	end
-end
-
-function Level:update(dt)
-	for _, prop in pairs(self._props) do
-		prop:update(dt)
-	end
-
-	for idx, projectile in lume.ripairs(self._projectiles) do
-		projectile:update(dt)
-
-		if projectile:removed() then
-			table.remove(self._projectiles, idx)
-		end
-	end
-
-	for id, bomb in pairs(self._bombs) do
-		bomb:update(dt)
-
-		if bomb:removed() then
-			local gridPos = bomb:gridPosition()
-			local radius = bomb:radius() + 2
-			self:addExplosion(gridPos, Direction.NONE, radius)
-
-			self._bombs[id] = nil
-		end
-	end
-
-	for id, coin in pairs(self._coins) do
-		coin:update(dt)
-
-		if coin:removed() then
-			self._coins[id] = nil
-		end 
-	end
-
-	for id, bonus in pairs(self._bonuses) do
-		bonus:update(dt)
-
-		if bonus:removed() then
-			self._bonuses[id] = nil
-		end
-	end
-
-	for idx, monster in lume.ripairs(self._monsters) do
-		monster:update(dt)
-
-		if monster:removed() then
-			table.remove(self._monsters, idx)
-		end
-	end
-
-	for _, player in ipairs(self._players) do
-		player:update(dt)
-
-		local playerFrame = player:frame()
-
-		for _, coin in pairs(self._coins) do
-			if playerFrame:intersects(coin:frame()) then
-				coin:destroy()
-			end
+			map[y][x] = '.'
 		end
 
-		for _, bonus in pairs(self._bonuses) do
-			if playerFrame:intersects(bonus:frame()) then
-				player:applyBonus(bonus)
-				bonus:destroy()
-			end
+		x = x + 1
+
+		if x > MAP_W then
+			y = y + 1
+			x = 1
+
+			map[y] = {}
+			print('add row', y)
 		end
-	end
-
-	for id, block in pairs(self._blocks) do
-		block:update(dt)
-
-		if block:removed() then
-			self._blocks[id] = nil
-		end
-	end
-
-	for idx, explosion in lume.ripairs(self._explosions) do
-		explosion:update(dt)
-
-		if explosion:removed() then
-			table.remove(self._explosions, idx)
-		end
-	end
-
-	if self._finished then
-		self._finishDuration = math.max(self._finishDuration - dt, 0)
-	else
-		self._finished = #self._monsters == 0
-		self._time = math.max(self._time - dt, 0)
 	end
 end
 
 function Level:draw()
-	self._background:draw()
-
-	for _, prop in pairs(self._props) do
-		prop:draw()
-	end
-
-	for _, bomb in pairs(self._bombs) do
-		bomb:draw()
-	end
-
-	for _, coin in pairs(self._coins) do
-		coin:draw()
-	end
-
-	for _, bonus in pairs(self._bonuses) do
-		bonus:draw()
-	end
-
-	for _, explosion in ipairs(self._explosions) do
-		explosion:draw()
-	end
-
-	for _, player in ipairs(self._players) do
-		player:draw()
-	end
-
-	for _, monster in ipairs(self._monsters) do
-		monster:draw()
-	end
-
-	for _, projectile in ipairs(self._projectiles) do
-		projectile:draw()
-	end
-
-	for _, block in pairs(self._blocks) do
-		block:draw()
-	end
+	love.graphics.draw(self.background)
 end
 
-function Level:trySpawnBonus(gridPosition)
-	local bonusId = bonusProbabilities:random()
-
-	if bonusId == 'b_dummy' then return end
-	
-	local bonus = EntityFactory:create(self, bonusId, toPosition(gridPosition))
-	self._bonuses[tostring(gridPosition)] = bonus
-end
-
-function Level:isBlocked(gridPosition)
-	if gridPosition.x < 1 or gridPosition.y < 1 then return true end
-	if gridPosition.x > Map.WIDTH or gridPosition.y > Map.HEIGHT then return true end
-
-	if self._blocks[tostring(gridPosition)] ~= nil then
-		return true
-	end
-
-	return false
-end
-
-function Level:hasBomb(gridPosition)
-	return self._bombs[tostring(gridPosition)]
-end
-
-function Level:addBomb(bomb)
-	self._bombs[tostring(bomb:gridPosition())] = bomb
-end
-
-function Level:addExplosion(gridPosition, direction, size, destroyAdjacentWalls)
-	if gridPosition.x < 1 or gridPosition.x > Map.WIDTH then return end
-	if gridPosition.y < 1 or gridPosition.y > Map.HEIGHT then return end
-
-	local block = self._blocks[tostring(gridPosition)]
-	if block ~= nil then
-		if not block:isBreakable() then 
-			return
-		elseif destroyAdjacentWalls then 
-			size = 1
-			block:destroy()
-		else return end
-	end
-
-	local bomb = self._bombs[tostring(gridPosition)]
-	if bomb ~= nil then
-		bomb:destroy()
-	end
-
-	local explosion = EntityFactory:create(self, 'explosion', toPosition(gridPosition))
-
-	for idx, monster in ipairs(self._monsters) do
-		if monster:frame():intersects(explosion:frame()) then
-			monster:destroy()
-		end
-	end
-
-	local orientation = nil
-	if direction == Direction.LEFT or direction == Direction.RIGHT then
-		orientation = Orientation.HORIZONTAL
-	elseif direction == Direction.UP or direction == Direction.DOWN then
-		orientation = Orientation.VERTICAL		
-	end
-
-	explosion:explode(orientation)
-	self._explosions[#self._explosions + 1] = explosion
-
-	size = size - 1
-	if size == 0 then return end
-
-	if direction == Direction.NONE then		
-		self:addExplosion(gridPosition + vector(-1, 0), Direction.LEFT, size, true)
-		self:addExplosion(gridPosition + vector(1, 0), Direction.RIGHT, size, true)
-		self:addExplosion(gridPosition + vector(0, 1), Direction.UP, size, true)
-		self:addExplosion(gridPosition + vector(0, -1), Direction.DOWN, size, true)
-	elseif direction == Direction.LEFT then
-		self:addExplosion(gridPosition + vector(-1, 0), Direction.LEFT, size)
-	elseif direction == Direction.RIGHT then
-		self:addExplosion(gridPosition + vector(1, 0), Direction.RIGHT, size)
-	elseif direction == Direction.UP then
-		self:addExplosion(gridPosition + vector(0, 1), Direction.UP, size)
-	elseif direction == Direction.DOWN then
-		self:addExplosion(gridPosition + vector(0, -1), Direction.DOWN, size)
-	end
+function Level:update(dt)
+	-- body
 end

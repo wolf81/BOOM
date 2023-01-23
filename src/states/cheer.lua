@@ -1,2 +1,0 @@
-Cheer = State:extend()
-
