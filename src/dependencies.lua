@@ -5,16 +5,17 @@ Gamestate = require 'lib.hump.gamestate'
 
 require 'src.constants'
 
-require 'src.scene.loading'
-require 'src.scene.game'
-
 require 'src.level'
 require 'src.transition'
 
-require 'src.entities.entity'
-require 'src.entities.breakable_block'
-require 'src.entities.fixed_block'
-require 'src.entities.teleporter'
-require 'src.entities.monster'
-require 'src.entities.player'
-require 'src.entities.coin'
+require 'src.scene.scene_base'
+require 'src.scene.loading'
+require 'src.scene.game'
+
+require 'src.entity.entity_base'
+require 'src.entity.breakable_block'
+require 'src.entity.fixed_block'
+require 'src.entity.teleporter'
+require 'src.entity.monster'
+require 'src.entity.player'
+require 'src.entity.coin'

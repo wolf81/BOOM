@@ -1,17 +1,35 @@
 Transition = {}
 
+-- duration of fade animation
 local FADE_DURATION = 0.5
 
-local fade = { 
-	alpha = 1.0,
-	from_scene = nil,
-	to_scene = nil,
-	to_args = nil, 
-}
+-- a flag to check whether initial Gamestate is set
+local is_initialized = false
 
+-- a list of pending transitions
+local transitions = {}
+
+-- validate a scene by ensuring all methods from SceneBase are included
+local function assertScene(scene)
+	assert(scene ~= nil, 'scene should be defined')
+	for k, v in pairs(SceneBase) do
+		-- ensure property is defined
+		assert(scene[k] ~= nil, 'scene should inherit from SceneBase')
+		-- ensure property type of scene is equal to property type of SceneBase
+		assert(type(scene[k]) == type(v), 'scene should inherit from SceneBase')
+	end
+end
+
+-- this callback is invoked when screenshot capture is completed
 local function startTransition(imageData)
 	-- create an image from original scene
 	local image = love.graphics.newImage(imageData)
+
+	-- remove transition from pending transitions list
+	local fade = table.remove(transitions, 1)
+
+	-- notify next scene we are starting the transition
+	fade.to_scene:onStartTransition()
 
 	-- store drawing function for next scene in local variable
 	local to_scene_draw = fade.to_scene.draw
@@ -29,27 +47,51 @@ local function startTransition(imageData)
 
 	-- tween fade alpha value
 	Timer.tween(FADE_DURATION, fade, { alpha = 0.0 }, 'in-out-quad', function()
-		-- replace drawing function in next scene with the original drawing function
-		love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
-		fade.alpha = 1.0
-	end)
-
-	-- restore original draw function when fade is completed
-	Timer.after(FADE_DURATION, function() 
+		-- restore original draw function when fade is completed
 		fade.to_scene.draw = to_scene_draw
+
+		-- ensure colors are drawn normally on subsequent draw calls
+		love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+
+		-- notify next scene the transition is completed
+		fade.to_scene.onFinishTransition(fade.to_scene)
 	end)
 	
 	-- start switch to next scene
 	Gamestate.switch(fade.to_scene, unpack(fade.to_args))
 end
 
--- FIXME: currently if the crossfade function is called in quick succession, property values in fade table
--- get overwritten, causing weird bugs - either create a stack or a class that is instantiated for every 
--- transition
-Transition.crossfade = function(scene1, scene2, ...)
-	fade.from_scene = scene1
-	fade.to_scene = scene2
-	fade.to_args = {...}
+-- the initialize function should be called to load initial scene
+Transition.init = function(to, ...)
+	-- create a black dummy scene for fade in animation
+	local DummyScene = Class { __includes = SceneBase }
+	DummyScene.draw = function()
+		love.graphics.setColor(0.0, 0.0, 0.0, 1.0)
+		local window_w, window_h = love.window.getMode()
+		love.graphics.rectangle('fill', 0, 0, window_w, window_h)
+	end
+
+	-- initialize Gamestate with the black dummy scene
+	Gamestate.switch(DummyScene)
+	is_initialized = true
+
+	-- start a cross fade animation to target scene
+	Transition.crossfade(DummyScene, to, ...)
+end
+
+-- perform a crossfade transition between scenes with optional arguments
+Transition.crossfade = function(from, to, ...)
+	assert(is_initialized, 'Transitions not initialized, ensure init is called first')
+	assertScene(from)
+	assertScene(to)
+
+	-- add transition to pending transitions list
+	transitions[#transitions + 1] = {
+		from_scene = from,
+		to_scene = to,
+		to_args = {...},
+		alpha = 1.0,
+	}
 
 	-- capture a screenshot of the current scene, callback is invoked on image captured
 	love.graphics.captureScreenshot(startTransition)

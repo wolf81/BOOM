@@ -1,11 +1,15 @@
-Loading = Class {}
+Loading = Class { __includes = SceneBase }
 
 function Loading:init() 
-	-- body
+	SceneBase.init(self)
 end
 
 function Loading:enter(previous, level_idx)
-	local level = Level(level_idx)
+	self.level_idx = level_idx
+end
+
+function Loading:onFinishTransition()
+	local level = Level(self.level_idx)
 	Transition.crossfade(self, Game, level)
 end
 

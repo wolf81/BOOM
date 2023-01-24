@@ -20,7 +20,7 @@ function love.load(args)
     -- end)
 
     Gamestate.registerEvents()
-    Gamestate.switch(Loading(), 1)
+    Transition.init(Loading, 1)
 end
 
 function love.update(dt)

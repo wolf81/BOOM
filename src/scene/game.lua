@@ -1,7 +1,7 @@
-Game = Class {}
+Game = Class { __includes = SceneBase }
 
 function Game:init()
-	-- body
+	SceneBase.init(self)
 end
 
 function Game:enter(previous, level)
