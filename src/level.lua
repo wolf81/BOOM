@@ -9,7 +9,9 @@ function Level:init(index, background, entities, map, time)
 end
 
 function Level:update(dt)
-	-- body
+	for _, entity in ipairs(self.entities) do
+		entity:update(dt)
+	end
 end
 
 function Level:draw()

@@ -1,3 +1,5 @@
+local Gamestate = require 'lib.hump.gamestate'
+
 Transition = {}
 
 -- duration of fade animation
@@ -63,6 +65,8 @@ end
 
 -- the initialize function should be called to load initial scene
 Transition.init = function(to, ...)
+	assert(is_initialized == false, 'already initialized')
+
 	-- create a black dummy scene for fade in animation
 	local DummyScene = Class { __includes = SceneBase }
 	DummyScene.draw = function()
@@ -70,6 +74,9 @@ Transition.init = function(to, ...)
 		local window_w, window_h = love.window.getMode()
 		love.graphics.rectangle('fill', 0, 0, window_w, window_h)
 	end
+
+	-- make Gamestate respond to draw() & update() calls
+	Gamestate.registerEvents()
 
 	-- initialize Gamestate with the black dummy scene
 	Gamestate.switch(DummyScene)

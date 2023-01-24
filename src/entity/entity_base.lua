@@ -1,17 +1,21 @@
+local anim8 = require 'lib.anim8.anim8'
+
 EntityBase = Class {}
 
 function EntityBase:init(def)
 	self.x = def.x
 	self.y = def.y
 
-	self.texture = ImageCache.load(def.texture)
-	self.quad = love.graphics.newQuad(0, 0, TILE_W, TILE_H, self.texture)
+	self.image = ImageCache.load(def.texture)
+
+	local grid = anim8.newGrid(TILE_W, TILE_H, self.image:getWidth(), self.image:getHeight())
+	self.animation = anim8.newAnimation(grid('1-1', 1), 0.1)
 end
 
 function EntityBase:update(dt)
-	-- body
+	self.animation:update(dt)
 end
 
 function EntityBase:draw()
-	love.graphics.draw(self.texture, self.quad, self.x, self.y)
+	self.animation:draw(self.image, self.x, self.y)
 end

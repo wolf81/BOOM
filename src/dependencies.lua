@@ -1,7 +1,5 @@
 Class = require 'lib.hump.class'
 Timer = require 'lib.hump.timer'
-Gamestate = require 'lib.hump.gamestate'
--- anim8 = require 'lib.anim8.anim8'
 
 require 'src.constants'
 
@@ -9,6 +7,7 @@ require 'src.level'
 require 'src.level_loader'
 require 'src.transition'
 require 'src.image_cache'
+require 'src.audio_player'
 
 require 'src.scene.scene_base'
 require 'src.scene.loading'
