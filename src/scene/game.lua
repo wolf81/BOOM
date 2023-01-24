@@ -34,6 +34,8 @@ end
 function Game:keyreleased(key, code)
 	if not self.accept_input then return end
 
+	self.level:keyreleased(key, code)
+
     if key == 'return' then
     	proceedNextLevel(self)
     end

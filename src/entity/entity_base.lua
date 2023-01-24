@@ -1,5 +1,3 @@
-local anim8 = require 'lib.anim8.anim8'
-
 EntityBase = Class {}
 
 function EntityBase:init(def)
@@ -8,14 +6,23 @@ function EntityBase:init(def)
 
 	self.image = ImageCache.load(def.texture)
 
-	local grid = anim8.newGrid(TILE_W, TILE_H, self.image:getWidth(), self.image:getHeight())
-	self.animation = anim8.newAnimation(grid('1-1', 1), 0.1)
+	self.anim_grid = anim8.newGrid(TILE_W, TILE_H, self.image:getWidth(), self.image:getHeight())
+
+	self.state_machine = StateMachine {
+		['idle'] = function() return Idle(self) end,
+		['move'] = function() return Move(self) end,
+	}
+	self.state_machine:change('idle')
 end
 
 function EntityBase:update(dt)
-	self.animation:update(dt)
+	self.state_machine:update(dt)
+end
+
+function EntityBase:changeState(name, ...)
+	self.state_machine:change(name, ...)
 end
 
 function EntityBase:draw()
-	self.animation:draw(self.image, self.x, self.y)
+	self.state_machine:draw()
 end

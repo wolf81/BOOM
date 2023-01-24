@@ -1,5 +1,6 @@
 Class = require 'lib.hump.class'
 Timer = require 'lib.hump.timer'
+anim8 = require 'lib.anim8.anim8'
 
 require 'src.constants'
 
@@ -13,6 +14,10 @@ require 'src.state_machine'
 require 'src.scene.scene_base'
 require 'src.scene.loading'
 require 'src.scene.game'
+
+require 'src.state.state_base'
+require 'src.state.idle'
+require 'src.state.move'
 
 require 'src.entity.entity_base'
 require 'src.entity.breakable_block'
