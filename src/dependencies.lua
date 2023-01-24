@@ -8,6 +8,7 @@ require 'src.constants'
 require 'src.level'
 require 'src.level_loader'
 require 'src.transition'
+require 'src.image_cache'
 
 require 'src.scene.scene_base'
 require 'src.scene.loading'

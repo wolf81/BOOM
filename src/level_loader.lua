@@ -13,7 +13,7 @@ local function generateBackground(bg_pattern_id, border_id)
 	love.graphics.clear(0, 0, 0, 0)
 	love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
 
-	-- draw background
+	-- draw background pattern
 	local bg_tile = love.graphics.newImage('gfx/BGPattern ' .. string.format('%02d', bg_pattern_id + 1) .. '.png')
 
 	for y = 1, MAP_H do

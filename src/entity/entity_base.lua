@@ -4,7 +4,7 @@ function EntityBase:init(def)
 	self.x = def.x
 	self.y = def.y
 
-	self.texture = love.graphics.newImage(def.texture)
+	self.texture = ImageCache.load(def.texture)
 	self.quad = love.graphics.newQuad(0, 0, TILE_W, TILE_H, self.texture)
 end
 

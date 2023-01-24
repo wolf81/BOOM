@@ -6,9 +6,10 @@ end
 
 function Loading:enter(previous, level_idx)
 	self.level_idx = level_idx
+	ImageCache.clear()
 end
 
-function Loading:onFinishTransition()
+function Loading:onFinishTransition()	
 	local level = LevelLoader.load(self.level_idx)
 	Transition.crossfade(self, Game, level)
 end
