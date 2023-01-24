@@ -9,7 +9,7 @@ function Loading:enter(previous, level_idx)
 end
 
 function Loading:onFinishTransition()
-	local level = Level(self.level_idx)
+	local level = LevelLoader.load(self.level_idx)
 	Transition.crossfade(self, Game, level)
 end
 

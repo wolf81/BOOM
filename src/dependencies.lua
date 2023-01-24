@@ -6,6 +6,7 @@ Gamestate = require 'lib.hump.gamestate'
 require 'src.constants'
 
 require 'src.level'
+require 'src.level_loader'
 require 'src.transition'
 
 require 'src.scene.scene_base'
