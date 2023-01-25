@@ -1,9 +1,0 @@
-{
-	"texture": "gfx/Giggler.png",
-	"type": "Monster",
-	"id": "J",
-
-	"states": {
-		"idle": {},		
-	}
-}

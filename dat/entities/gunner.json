@@ -1,9 +1,0 @@
-{
-	"texture": "gfx/Gunner.png",
-	"type": "Monster",
-	"id": "E",
-
-	"states": {
-		"idle": {},		
-	}
-}

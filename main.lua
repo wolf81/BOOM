@@ -12,10 +12,6 @@ function love.load(args)
     local version = contents:gsub('_', '.')
 	love.window.setTitle('BOOM (' .. version .. ')')
 
-    -- DataLoader:load('dat/entities', function(data)
-    --     EntityFactory:register(data)
-    -- end)
-
     AudioPlayer.setMusicVolume(0.0)
     AudioPlayer.setSoundVolume(0.01)
 

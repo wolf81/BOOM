@@ -1,7 +1,0 @@
-{
-	"texture": "gfx/Bonuses.png",
-	"type": "Bonus",
-	"id": "b_dummy",
-
-	"spawnChance": 1380,
-}

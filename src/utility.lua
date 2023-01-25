@@ -17,3 +17,8 @@ function ParseAnimations(animation_defs)
 	end
 	return animations
 end
+
+function ParseSpriteSize(size)
+	if size then return size[1], size[2] end
+	return TILE_W, TILE_H
+end

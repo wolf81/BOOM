@@ -5,7 +5,9 @@ function EntityBase:init(def, x, y)
 	self.y = y or 0
 
 	self.image = ImageCache.load(def.texture)
-	self.quads = GenerateQuads(self.image, TILE_W, TILE_H)
+
+	local sprite_w, sprite_h = ParseSpriteSize(def.size)
+	self.quads = GenerateQuads(self.image, sprite_w, sprite_h)
 end
 
 function EntityBase:update(dt)

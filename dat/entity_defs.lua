@@ -62,4 +62,114 @@ return {
 			}
 		},
 	},
+	['soldier'] = {
+		texture = 'gfx/Soldier.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['thing'] = {
+		texture = 'gfx/Thing.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['taur'] = {
+		texture = 'gfx/Taur.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['smoulder'] = {
+		texture = 'gfx/Smoulder.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['skully'] = {
+		texture = 'gfx/Skully.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['sarge'] = {
+		texture = 'gfx/Sarge.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['lizzy'] = {
+		texture = 'gfx/Lizzy.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['gunner'] = {
+		texture = 'gfx/Gunner.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['giggler'] = {
+		texture = 'gfx/Giggler.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['ghost'] = {
+		texture = 'gfx/Ghost.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['alien-boss'] = {
+		texture = 'gfx/Alien Boss.png',
+		size = { 160, 160 },
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
+	['head-boss'] = {
+		texture = 'gfx/Head Boss.png',
+		size = { 96, 96 },
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},
 }

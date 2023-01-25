@@ -1,9 +1,0 @@
-{
-	"texture": "gfx/Ghost.png",
-	"type": "Monster",
-	"id": "G",
-
-	"states": {
-		"idle": {},		
-	}
-}

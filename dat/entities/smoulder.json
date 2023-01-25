@@ -1,9 +1,0 @@
-{
-	"texture": "gfx/Smoulder.png",
-	"type": "Monster",
-	"id": "H",
-
-	"states": {
-		"idle": {},		
-	}
-}

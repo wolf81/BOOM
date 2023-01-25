@@ -1,9 +1,0 @@
-{
-	"texture": "gfx/Skully.png",
-	"type": "Monster",
-	"id": "I",
-
-	"states": {
-		"idle": {},		
-	}
-}

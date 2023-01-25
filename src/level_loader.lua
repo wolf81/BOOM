@@ -74,19 +74,19 @@ local function generateBackground(bg_pattern_id, border_id)
 	return canvas
 end
 
--- retrieve monster texture name based on character
-local function getMonsterTexture(char, is_final_level)
-	if char == 'A' then return 'gfx/Soldier.png'
-	elseif char == 'B' then return 'gfx/Lizzy.png'
-	elseif char == 'C' then return 'gfx/Sarge.png'
-	elseif char == 'D' then return 'gfx/Taur.png'
-	elseif char == 'E' then return 'gfx/Gunner.png'
-	elseif char == 'F' then return 'gfx/Giggler.png'
-	elseif char == 'G' then return 'gfx/Ghost.png'
-	elseif char == 'H' then return 'gfx/Skully.png'
-	elseif char == 'I' then return 'gfx/Smoulder.png'
-	elseif char == 'J' then return 'gfx/Thing.png'
-	elseif char == '*' then return is_final_level and 'gfx/Alien Boss.png' or 'gfx/Head Boss.png'
+-- retrieve monster definition based on character
+local function getMonsterDef(char, is_final_level)
+	if char == 'A' then return entity_defs['soldier']
+	elseif char == 'B' then return entity_defs['lizzy']
+	elseif char == 'C' then return entity_defs['sarge']
+	elseif char == 'D' then return entity_defs['taur']
+	elseif char == 'E' then return entity_defs['gunner']
+	elseif char == 'F' then return entity_defs['giggler']
+	elseif char == 'G' then return entity_defs['ghost']
+	elseif char == 'H' then return entity_defs['skully']
+	elseif char == 'I' then return entity_defs['smoulder']
+	elseif char == 'J' then return entity_defs['thing']
+	elseif char == '*' then return is_final_level and entity_defs['alien-boss'] or entity_defs['head-boss']
 	else error('not implemented ' .. char)
 	end
 end
@@ -163,7 +163,7 @@ LevelLoader.load = function(index)
 			map[y][x] = Coin(entity_defs['coin'], x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])
 		else
-			map[y][x] = Monster({ texture = getMonsterTexture(c, is_final_level) }, x * TILE_W, y * TILE_H)
+			map[y][x] = Monster(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])			
 		end
 

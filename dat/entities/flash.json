@@ -1,9 +1,0 @@
-{
-	"texture": "gfx/Flash.png",
-	"type": "Prop",
-	"id": "flash",
-
-	"states": {
-		"idle": {},		
-	}
-}
