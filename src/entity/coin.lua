@@ -1,5 +1,5 @@
 Coin = Class { __includes = EntityBase }
 
-function Coin:init(def)
-	EntityBase.init(self, def)
+function Coin:init(def, x, y)
+	EntityBase.init(self, def, x, y)
 end

@@ -5,6 +5,9 @@ LevelLoader = {}
 -- cache parsed levels data, so we don't need to re-parse for each load
 local levels_data = nil
 
+-- cache entity definitions (perhaps move this code eventually to an EntityFactory class)
+local entity_defs = nil
+
 -- generate a background image based on background pattern image and border image
 local function generateBackground(bg_pattern_id, border_id)
 	local canvas = love.graphics.newCanvas(WINDOW_W, WINDOW_H)
@@ -94,6 +97,13 @@ LevelLoader.load = function(index)
 
 	local entities = {}
 
+	-- ensure entity_defs.lua is loaded
+	if not entity_defs then
+		local dir = love.filesystem.getRealDirectory('/dat/entity_defs.lua')
+		local fn = assert(loadfile(dir .. '/dat/entity_defs.lua'))
+		entity_defs = fn()
+	end
+
 	-- ensure levels.json data file is only parsed once
 	if not levels_data then
 		local contents, _ = love.filesystem.read('dat/levels.json')
@@ -135,25 +145,25 @@ LevelLoader.load = function(index)
 		if c == '0' then 
 			goto continue -- a '0' represents empty coords on grid
 		elseif c == 'X' then
-			map[y][x] = Player({ texture = 'gfx/Player1.png', x = x * TILE_W, y = y * TILE_H })
+			map[y][x] = Player(entity_defs['player1'], x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])
 		elseif c == 'Y' then
-			map[y][x] = Player({ texture = 'gfx/Player2.png', x = x * TILE_W, y = y * TILE_H })
+			map[y][x] = Player(entity_defs['player2'], x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])
 		elseif c == '+' then
-			map[y][x] = Teleporter({ texture = 'gfx/Teleporter.png', x = x * TILE_W, y = y * TILE_H })
+			map[y][x] = Teleporter({ texture = 'gfx/Teleporter.png' }, x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])
 		elseif c == '1' then
-			map[y][x] = FixedBlock({ texture = 'gfx/Fixed Blocks.png', x = x * TILE_W, y = y * TILE_H })
+			map[y][x] = FixedBlock({ texture = 'gfx/Fixed Blocks.png' }, x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])
 		elseif c == '2' then
-			map[y][x] = BreakableBlock({ texture = 'gfx/Breakable Blocks.png', x = x * TILE_W, y = y * TILE_H })
+			map[y][x] = BreakableBlock({ texture = 'gfx/Breakable Blocks.png' }, x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])
 		elseif c == '3' then
-			map[y][x] = Coin({ texture = 'gfx/Coin.png', x = x * TILE_W, y = y * TILE_H })
+			map[y][x] = Coin(entity_defs['coin'], x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])
 		else
-			map[y][x] = Monster({ texture = getMonsterTexture(c, is_final_level), x = x * TILE_W, y = y * TILE_H })
+			map[y][x] = Monster({ texture = getMonsterTexture(c, is_final_level) }, x * TILE_W, y * TILE_H)
 			table.insert(entities, map[y][x])			
 		end
 

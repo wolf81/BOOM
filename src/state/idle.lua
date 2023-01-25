@@ -1,9 +1,7 @@
 Idle = Class { __includes = StateBase }
 
 function Idle:enter()
-	StateBase.enter(self, entity)	
-end
+	StateBase.enter(self)	
 
-function Idle:update(dt)
-	-- body
+	self.entity.anim = self.entity.animations['idle']
 end

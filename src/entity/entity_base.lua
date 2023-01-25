@@ -1,8 +1,8 @@
 EntityBase = Class {}
 
-function EntityBase:init(def)
-	self.x = def.x
-	self.y = def.y
+function EntityBase:init(def, x, y)
+	self.x = x or 0
+	self.y = y or 0
 
 	self.image = ImageCache.load(def.texture)
 	self.quads = GenerateQuads(self.image, TILE_W, TILE_H)

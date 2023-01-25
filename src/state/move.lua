@@ -1,9 +1,7 @@
 Move = Class { __includes = StateBase }
 
 function Move:enter(direction)
-	StateBase.enter(self, entity)
-end
+	StateBase.enter(self)
 
-function Move:update(dt)
-	-- body
+	self.entity.anim = self.entity.animations['move-' .. direction]
 end

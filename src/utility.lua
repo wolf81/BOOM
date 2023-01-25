@@ -9,3 +9,11 @@ function GenerateQuads(image, width, height)
 
     return quads
 end
+
+function ParseAnimations(animation_defs)
+	local animations = {}
+	for k, v in pairs(animation_defs) do
+		animations[k] = Animation(v)
+	end
+	return animations
+end
