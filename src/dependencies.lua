@@ -14,6 +14,7 @@ require 'src.utility'
 require 'src.animation'
 require 'src.grid_graph'
 require 'src.direction'
+require 'src.control'
 
 require 'src.scene.scene_base'
 require 'src.scene.loading'

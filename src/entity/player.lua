@@ -8,9 +8,10 @@ function Player:init(def, x, y)
 	self.velocity = vector(0, 0)
 	self.speed = def.speed
 
-	self.animations = ParseAnimations(def.animations)
+	self.control = Control(self)
 
-	self.anim = self.animations['idle']
+	self.animations = ParseAnimations(def.animations)
+	self.animation = self.animations['idle']
 
 	self.state_machine = StateMachine {
 		['idle'] = function() return Idle(self) end,
@@ -24,20 +25,9 @@ function Player:update(dt)
 
 	self.pos = self.pos + self.velocity * dt * self.speed
 
-	if love.keyboard.isDown('up') then
-		self:changeState('move', Direction.up)
-	elseif love.keyboard.isDown('down') then
-		self:changeState('move', Direction.down)
-	elseif love.keyboard.isDown('left') then
-		self:changeState('move', Direction.left)
-	elseif love.keyboard.isDown('right') then
-		self:changeState('move', Direction.right)
-	else
-		self:changeState('idle') 
-	end
-
+	self.control:update(dt)
 	self.state_machine:update(dt)
-	self.anim:update(dt)	
+	self.animation:update(dt)	
 end
 
 function Player:changeState(name, ...)
@@ -45,5 +35,5 @@ function Player:changeState(name, ...)
 end
 
 function Player:draw()
-	love.graphics.draw(self.image, self.quads[self.anim:getCurrentFrame()], mfloor(self.pos.x), mfloor(self.pos.y))
+	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], mfloor(self.pos.x), mfloor(self.pos.y))
 end
