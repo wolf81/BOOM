@@ -77,15 +77,15 @@ end
 -- retrieve monster definition based on character
 local function getMonsterDef(char, is_final_level)
 	if char == 'A' then return entity_defs['soldier']
-	elseif char == 'B' then return entity_defs['lizzy']
-	elseif char == 'C' then return entity_defs['sarge']
+	elseif char == 'B' then return entity_defs['sarge']
+	elseif char == 'C' then return entity_defs['lizzy']
 	elseif char == 'D' then return entity_defs['taur']
 	elseif char == 'E' then return entity_defs['gunner']
-	elseif char == 'F' then return entity_defs['giggler']
+	elseif char == 'F' then return entity_defs['thing']
 	elseif char == 'G' then return entity_defs['ghost']
-	elseif char == 'H' then return entity_defs['skully']
-	elseif char == 'I' then return entity_defs['smoulder']
-	elseif char == 'J' then return entity_defs['thing']
+	elseif char == 'H' then return entity_defs['smoulder']
+	elseif char == 'I' then return entity_defs['skully']
+	elseif char == 'J' then return entity_defs['giggler']
 	elseif char == '*' then return is_final_level and entity_defs['alien-boss'] or entity_defs['head-boss']
 	else error('not implemented ' .. char)
 	end
