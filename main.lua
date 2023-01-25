@@ -19,13 +19,21 @@ function love.load(args)
     AudioPlayer.setMusicVolume(0.0)
     AudioPlayer.setSoundVolume(0.01)
 
+    love.keyboard.keysPressed = {}
+
     Transition.init(Loading, 1)
 end
 
 function love.update(dt)
     Timer.update(dt)
+
+    if key == 'escape' then
+        love.event.quit()
+    end
+
+    love.keyboard.keysPressed = {}
 end
 
-function love.draw()
-    -- body
+function love.keypressed(key, code)
+    love.keyboard.keysPressed[key] = true    
 end

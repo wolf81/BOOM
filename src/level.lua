@@ -27,17 +27,3 @@ function Level:draw()
 		entity:draw()
 	end
 end
-
-function Level:keyreleased(key, code)
-	if key == 'up' then
-		self.player:changeState('move', 'up')
-	elseif key == 'down' then
-		self.player:changeState('move', 'down')
-	elseif key == 'left' then
-		self.player:changeState('move', 'left')
-	elseif key == 'right' then
-		self.player:changeState('move', 'right')
-	else
-		self.player:changeState('idle')		
-	end
-end
