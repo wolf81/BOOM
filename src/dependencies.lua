@@ -10,6 +10,7 @@ require 'src.transition'
 require 'src.image_cache'
 require 'src.audio_player'
 require 'src.state_machine'
+require 'src.utility'
 
 require 'src.scene.scene_base'
 require 'src.scene.loading'

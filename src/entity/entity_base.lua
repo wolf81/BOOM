@@ -5,24 +5,13 @@ function EntityBase:init(def)
 	self.y = def.y
 
 	self.image = ImageCache.load(def.texture)
-
-	self.anim_grid = anim8.newGrid(TILE_W, TILE_H, self.image:getWidth(), self.image:getHeight())
-
-	self.state_machine = StateMachine {
-		['idle'] = function() return Idle(self) end,
-		['move'] = function() return Move(self) end,
-	}
-	self.state_machine:change('idle')
+	self.quads = GenerateQuads(self.image, TILE_W, TILE_H)
 end
 
 function EntityBase:update(dt)
-	self.state_machine:update(dt)
-end
-
-function EntityBase:changeState(name, ...)
-	self.state_machine:change(name, ...)
+	-- body
 end
 
 function EntityBase:draw()
-	self.state_machine:draw()
+	love.graphics.draw(self.image, self.quads[1], self.x, self.y)
 end
