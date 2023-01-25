@@ -1,8 +1,7 @@
 EntityBase = Class {}
 
 function EntityBase:init(def, x, y)
-	self.x = x or 0
-	self.y = y or 0
+	self.pos = vector(x, y)
 
 	self.image = ImageCache.load(def.texture)
 
@@ -15,5 +14,5 @@ function EntityBase:update(dt)
 end
 
 function EntityBase:draw()
-	love.graphics.draw(self.image, self.quads[1], self.x, self.y)
+	love.graphics.draw(self.image, self.quads[1], self.pos.x, self.pos.y)
 end

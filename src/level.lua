@@ -1,17 +1,11 @@
 Level = Class {}
 
-function Level:init(index, background, entities, map, time)
+function Level:init(index, background, entities, graph, time)
 	self.index = index
 	self.background = background
 	self.entities = entities
-	self.map = map
+	self.graph = graph
 	self.time = time
-
-	for _, entity in ipairs(entities) do
-		if not self.player and getmetatable(entity) == Player then
-			self.player = entity
-		end
-	end
 end
 
 function Level:update(dt)

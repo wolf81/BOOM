@@ -25,5 +25,5 @@ function Coin:changeState(name, ...)
 end
 
 function Coin:draw()
-	love.graphics.draw(self.image, self.quads[self.anim:getCurrentFrame()], self.x, self.y)
+	love.graphics.draw(self.image, self.quads[self.anim:getCurrentFrame()], self.pos.x, self.pos.y)
 end

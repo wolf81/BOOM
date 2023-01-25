@@ -131,8 +131,8 @@ LevelLoader.load = function(index)
 	local fixed_block_id = level_data['FixedBlockID']
 	local breakable_block_id = level_data['BreakableBlockID']
 
-	-- the map is a 2-dimensional array that represents the grid
-	local map = {{}}
+	-- the movement graph for the player - we exclude blocked tiles
+	local graph = GridGraph(MAP_W, MAP_H)
 
 	-- keep track of current coord on map using x & y variables
 	local x, y = 1, 1
@@ -145,26 +145,24 @@ LevelLoader.load = function(index)
 		if c == '0' then 
 			goto continue -- a '0' represents empty coords on grid
 		elseif c == 'X' then
-			map[y][x] = Player(entity_defs['player1'], x * TILE_W, y * TILE_H)
-			table.insert(entities, map[y][x])
+			entities[#entities + 1] = Player(entity_defs['player1'], x * TILE_W, y * TILE_H)
 		elseif c == 'Y' then
-			map[y][x] = Player(entity_defs['player2'], x * TILE_W, y * TILE_H)
-			table.insert(entities, map[y][x])
+			entities[#entities + 1] = Player(entity_defs['player2'], x * TILE_W, y * TILE_H)
 		elseif c == '+' then
-			map[y][x] = Teleporter({ texture = 'gfx/Teleporter.png' }, x * TILE_W, y * TILE_H)
-			table.insert(entities, map[y][x])
+			entities[#entities + 1] = Teleporter({ texture = 'gfx/Teleporter.png' }, x * TILE_W, y * TILE_H)
 		elseif c == '1' then
-			map[y][x] = FixedBlock({ texture = 'gfx/Fixed Blocks.png' }, x * TILE_W, y * TILE_H)
-			table.insert(entities, map[y][x])
+			entities[#entities + 1] = FixedBlock({ texture = 'gfx/Fixed Blocks.png' }, x * TILE_W, y * TILE_H)
 		elseif c == '2' then
-			map[y][x] = BreakableBlock({ texture = 'gfx/Breakable Blocks.png' }, x * TILE_W, y * TILE_H)
-			table.insert(entities, map[y][x])
+			entities[#entities + 1] = BreakableBlock({ texture = 'gfx/Breakable Blocks.png' }, x * TILE_W, y * TILE_H)
 		elseif c == '3' then
-			map[y][x] = Coin(entity_defs['coin'], x * TILE_W, y * TILE_H)
-			table.insert(entities, map[y][x])
+			entities[#entities + 1] = Coin(entity_defs['coin'], x * TILE_W, y * TILE_H)
 		else
-			map[y][x] = Monster(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H)
-			table.insert(entities, map[y][x])			
+			entities[#entities + 1] = Monster(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H)
+		end
+
+		-- remove blocked tiles from the movement graph
+		if c == '1' or c == '2' then
+			graph:removeNode(x, y)
 		end
 
 		::continue::
@@ -174,10 +172,9 @@ LevelLoader.load = function(index)
 		if x > MAP_W then
 			y = y + 1
 			x = 1
-			map[y] = {}
 		end
 	end
 
 	-- finally return the level
-	return Level(index, background, entities, map, time)
+	return Level(index, background, entities, graph, time)
 end

@@ -1,7 +1,12 @@
+local mfloor = math.floor
+
 Player = Class { __includes = EntityBase }
 
 function Player:init(def, x, y)
 	EntityBase.init(self, def, x, y)
+
+	self.velocity = vector(0, 0)
+	self.speed = def.speed
 
 	self.animations = ParseAnimations(def.animations)
 
@@ -17,14 +22,16 @@ end
 function Player:update(dt)
 	EntityBase.update(self, dt)
 
+	self.pos = self.pos + self.velocity * dt * self.speed
+
 	if love.keyboard.isDown('up') then
-		self:changeState('move', 'up')
+		self:changeState('move', Direction.up)
 	elseif love.keyboard.isDown('down') then
-		self:changeState('move', 'down')
+		self:changeState('move', Direction.down)
 	elseif love.keyboard.isDown('left') then
-		self:changeState('move', 'left')
+		self:changeState('move', Direction.left)
 	elseif love.keyboard.isDown('right') then
-		self:changeState('move', 'right')
+		self:changeState('move', Direction.right)
 	else
 		self:changeState('idle') 
 	end
@@ -38,5 +45,5 @@ function Player:changeState(name, ...)
 end
 
 function Player:draw()
-	love.graphics.draw(self.image, self.quads[self.anim:getCurrentFrame()], self.x, self.y)
+	love.graphics.draw(self.image, self.quads[self.anim:getCurrentFrame()], mfloor(self.pos.x), mfloor(self.pos.y))
 end

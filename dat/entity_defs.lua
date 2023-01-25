@@ -1,6 +1,7 @@
 return {
 	['player1'] = {
 		texture = 'gfx/Player1.png',
+		speed = 30,
 		animations = {
 			['idle'] = {
 				frames = { 1 },
@@ -26,6 +27,7 @@ return {
 	},
 	['player2'] = {
 		texture = 'gfx/Player2.png',
+		speed = 0,
 		animations = {
 			['idle'] = {
 				frames = { 1 },
