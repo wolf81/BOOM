@@ -131,8 +131,8 @@ LevelLoader.load = function(index)
 	local fixed_block_id = level_data['FixedBlockID']
 	local breakable_block_id = level_data['BreakableBlockID']
 
-	-- the movement graph for the player - we exclude blocked tiles
-	local graph = GridGraph(MAP_W, MAP_H)
+	-- the movement grid for the player - we exclude blocked tiles
+	local grid = Grid(MAP_W, MAP_H)
 
 	-- keep track of current coord on map using x & y variables
 	local x, y = 1, 1
@@ -162,7 +162,7 @@ LevelLoader.load = function(index)
 
 		-- remove blocked tiles from the movement graph
 		if c == '1' or c == '2' then
-			graph:removeNode(x, y)
+			grid:block(x, y)
 		end
 
 		::continue::
@@ -176,5 +176,5 @@ LevelLoader.load = function(index)
 	end
 
 	-- finally return the level
-	return Level(index, background, entities, graph, time)
+	return Level(index, background, entities, grid, time)
 end

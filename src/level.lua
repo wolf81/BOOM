@@ -1,11 +1,21 @@
 Level = Class {}
 
-function Level:init(index, background, entities, graph, time)
+function Level:init(index, background, entities, grid, time)
 	self.index = index
 	self.background = background
 	self.entities = entities
-	self.graph = graph
+	self.grid = grid
 	self.time = time
+
+	print('level ' .. self.index)
+	print(self.grid)
+
+	for _, entity in ipairs(self.entities) do
+		if getmetatable(entity) == Player or getmetatable(entity) == Monster then
+			print('assign level to ', entity)
+			entity.level = self
+		end
+	end
 end
 
 function Level:update(dt)

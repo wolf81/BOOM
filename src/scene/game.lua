@@ -16,7 +16,6 @@ end
 
 function Game:enter(previous, level)
 	self.level = level
-	print('level ' .. level.index)
 end
 
 function Game:onFinishTransition()
