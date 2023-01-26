@@ -1,6 +1,6 @@
 local math_floor = math.floor
 
-Control = Class {}
+PlayerControl = Class {}
 
 -- TODO: it feels better to keep showing movement animation even if walking towards blocked position
 -- perhaps we can achieve this by checking to target pos in Move state instead of here
@@ -13,11 +13,11 @@ local function getDirection(self, direction)
 	return direction
 end
 
-function Control:init(entity)
+function PlayerControl:init(entity)
 	self.entity = entity
 end
 
-function Control:update(dt)	
+function PlayerControl:update(dt)	
 	local direction = Direction.NONE	
 
 	-- if vertically aligned with tiles, allow movement in horizontal directions

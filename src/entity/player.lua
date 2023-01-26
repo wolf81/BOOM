@@ -1,4 +1,4 @@
-local mfloor = math.floor
+local math_floor = math.floor
 
 Player = Class { __includes = { EntityBase, Movable } }
 
@@ -7,7 +7,7 @@ function Player:init(def, x, y)
 
 	self.speed = def.speed
 
-	self.control = Control(self)
+	self.control = PlayerControl(self)
 
 	self.animations = ParseAnimations(def.animations)
 	self.animation = self.animations['idle']
@@ -28,7 +28,7 @@ function Player:update(dt)
 end
 
 function Player:draw()
-	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], mfloor(self.pos.x), mfloor(self.pos.y))
+	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], math_floor(self.pos.x), math_floor(self.pos.y))
 end
 
 function Player:changeState(name, ...)
