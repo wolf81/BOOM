@@ -190,4 +190,22 @@ return {
 			},
 		},
 	},
+	['bomb'] = {
+		texture = 'gfx/Bomb.png',
+		animations = {
+			['idle'] = {
+				frames = { 1, 2, 3 },
+				interval = 0.1,
+			},
+		},
+	},
+	['flash'] = {
+		texture = 'gfx/Flash.png',
+		animations = {
+			['idle'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+		},
+	},
 }
