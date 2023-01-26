@@ -5,27 +5,27 @@ function Control:init(entity)
 end
 
 function Control:update(dt)	
-	local direction = Direction.none
+	local direction = Direction.NONE
 
 	-- if vertically aligned with tiles, allow movement in horizontal directions
 	if self.entity.pos.y % TILE_H == 0 then
-		if love.keyboard.isDown('left') then direction = Direction.left
-		elseif love.keyboard.isDown('right') then direction = Direction.right
+		if love.keyboard.isDown('left') then direction = Direction.LEFT
+		elseif love.keyboard.isDown('right') then direction = Direction.RIGHT
 		end
 	end
 
 	-- if horizontally aligned with tiles, allow movement in vertical directions
 	if self.entity.pos.x % TILE_W == 0 then
-		if love.keyboard.isDown('up') then direction = Direction.up
-		elseif love.keyboard.isDown('down') then direction = Direction.down
+		if love.keyboard.isDown('up') then direction = Direction.UP
+		elseif love.keyboard.isDown('down') then direction = Direction.DOWN
 		end
 	end
 
-	if direction ~= Direction.none then
+	if direction ~= Direction.NONE then
 		self.entity:move(direction)
 	else
 		-- if direction is none, don't stop immediately, but make entity stop moving when 
 		-- reaching target position for current move
-		self.entity.direction = Direction.none
+		self.entity.direction = Direction.NONE
 	end
 end

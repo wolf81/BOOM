@@ -1,6 +1,6 @@
 local mfloor = math.floor
 
-Player = Class { __includes = EntityBase }
+Player = Class { __includes = { EntityBase, Movable } }
 
 function Player:init(def, x, y)
 	EntityBase.init(self, def, x, y)
@@ -8,7 +8,6 @@ function Player:init(def, x, y)
 	self.speed = def.speed
 
 	self.control = Control(self)
-	self.direction = Direction.none
 
 	self.animations = ParseAnimations(def.animations)
 	self.animation = self.animations['idle']
@@ -36,19 +35,9 @@ function Player:changeState(name, ...)
 	self.state_machine:change(name, ...)
 end
 
-function Player:move(direction)
-	self.direction = direction
-
-	local state_name = direction == Direction.none and 'idle' or 'move'
-	self.state_machine:change(state_name, direction)
-end
-
 function Player:idle()
+	self.direction = Direction.NONE
 	self.state_machine:change('idle')
-end
-
-function Player:isMoving()
-	return getmetatable(self.state_machine.current) == Move
 end
 
 function Player:isIdling()

@@ -1,6 +1,10 @@
 EntityBase = Class {}
 
 function EntityBase:init(def, x, y)
+	assert(def ~= nil, 'definition is required')
+	assert(x ~= nil, 'x position is required')
+	assert(y ~= nil, 'y position is required')
+	
 	self.pos = vector(x, y)
 
 	self.image = ImageCache.load(def.texture)

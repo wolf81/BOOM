@@ -1,8 +1,10 @@
 Class = require 'lib.hump.class'
 Timer = require 'lib.hump.timer'
 vector = require 'lib.hump.vector'
+lume = require 'lib.lume.lume'
 
 require 'src.constants'
+require 'src.enum'
 
 require 'src.level'
 require 'src.level_loader'
@@ -15,6 +17,8 @@ require 'src.animation'
 require 'src.direction'
 require 'src.control'
 require 'src.grid'
+
+require 'src.movable'
 
 require 'src.scene.scene_base'
 require 'src.scene.loading'

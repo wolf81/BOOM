@@ -25,6 +25,7 @@ function ParseSpriteSize(size)
 	return TILE_W, TILE_H
 end
 
+--[[
 -- convert a world position to a grid position, based on tile size
 function ToGridPosition(world_pos)
 	return vector(mfloor(world_pos.x / TILE_W) , mfloor(world_pos.y / TILE_H))	
@@ -34,3 +35,4 @@ end
 function ToWorldPosition(grid_pos)
 	return grid_pos:permul(TILE_SIZE)
 end
+--]]
