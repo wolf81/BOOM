@@ -1,5 +1,8 @@
 Level = Class {}
 
+-- TODO: use skip list for drawing entities based on z-position
+-- see: https://love2d.org/wiki/Skip_list:Drawing_Order
+
 function Level:init(index, background, entities, grid, time)
 	self.index = index
 	self.background = background
@@ -16,6 +19,10 @@ function Level:init(index, background, entities, grid, time)
 			entity.level = self
 		end
 	end
+end
+
+function Level:isBlocked(x, y)
+	return self.grid:isBlocked(x, y)
 end
 
 function Level:update(dt)
