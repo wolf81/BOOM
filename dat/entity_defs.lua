@@ -1,7 +1,7 @@
 return {
 	['player1'] = {
 		texture = 'gfx/Player1.png',
-		speed = 30,
+		speed = 2,
 		animations = {
 			['idle'] = {
 				frames = { 1 },

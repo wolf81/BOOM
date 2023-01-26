@@ -1,3 +1,5 @@
+local mfloor = math.floor
+
 function GenerateQuads(image, width, height)
 	local quads = {}
 
@@ -21,4 +23,14 @@ end
 function ParseSpriteSize(size)
 	if size then return size[1], size[2] end
 	return TILE_W, TILE_H
+end
+
+-- convert a world position to a grid position, based on tile size
+function ToGridPosition(world_pos)
+	return vector(mfloor(world_pos.x / TILE_W) , mfloor(world_pos.y / TILE_H))	
+end
+
+-- convert a grid position (based on tile size) to a world position
+function ToWorldPosition(grid_pos)
+	return grid_pos:permul(TILE_SIZE)
 end

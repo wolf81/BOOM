@@ -4,5 +4,4 @@ function Idle:enter()
 	StateBase.enter(self)	
 
 	self.entity.animation = self.entity.animations['idle']
-	self.entity.velocity = vector.zero
 end
