@@ -11,9 +11,8 @@ function Move:enter(direction)
 
 	self.entity.animation = self.entity.animations['move-' .. string.lower(GetDirectionName(self.direction))]
 
-	-- calculate target position - when we reach this position and if no direction set, we can change to idle state
-	local to_pos = self.entity.pos + self.direction:permul(TILE_SIZE)
-	self.to_pos = vector(lume.round(to_pos.x, TILE_W), lume.round(to_pos.y, TILE_H))
+	-- calculate target position
+	self.to_pos = GetAdjacentPosition(self.entity.pos, self.direction)
 end
 
 function Move:update(dt)

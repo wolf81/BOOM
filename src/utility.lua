@@ -1,17 +1,17 @@
-local mfloor = math.floor
+local lume_round = lume.round
 
+-- generate a list of quads for a given image, tile width & tile height
 function GenerateQuads(image, width, height)
 	local quads = {}
-
     for y = 0, image:getHeight() - height, height do
         for x = 0, image:getWidth() - width, width do
         	quads[#quads + 1] = love.graphics.newQuad(x, y, width, height, image:getDimensions())
         end
     end
-
     return quads
 end
 
+-- parse an animation definition, converting it to an Animation instance
 function ParseAnimations(animation_defs)
 	local animations = {}
 	for k, v in pairs(animation_defs) do
@@ -20,19 +20,16 @@ function ParseAnimations(animation_defs)
 	return animations
 end
 
+-- given a table with 2 int values, return first value as width, second as height
+-- otherwise return default tile size as defined in constants
 function ParseSpriteSize(size)
-	if size then return size[1], size[2] end
-	return TILE_W, TILE_H
+	local size = size or { TILE_W, TILE_H }
+	return size[1], size[2]
 end
 
---[[
--- convert a world position to a grid position, based on tile size
-function ToGridPosition(world_pos)
-	return vector(mfloor(world_pos.x / TILE_W) , mfloor(world_pos.y / TILE_H))	
+-- get a position adjacent to the given position, but constrained to grid positions
+-- e.g. with TILE_W of 32, x-values in range 0, 32, 64, 96, ...
+function GetAdjacentPosition(pos, direction)
+	local to_pos = pos + (direction or Direction.NONE):permul(TILE_SIZE)
+	return vector(lume_round(to_pos.x, TILE_W), lume_round(to_pos.y, TILE_H))
 end
-
--- convert a grid position (based on tile size) to a world position
-function ToWorldPosition(grid_pos)
-	return grid_pos:permul(TILE_SIZE)
-end
---]]
