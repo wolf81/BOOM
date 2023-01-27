@@ -136,6 +136,8 @@ LevelLoader.load = function(index)
 	-- keep track of current coord on map using x & y variables
 	local x, y = 1, 1
 
+	-- TODO: should reset IdGenerator starting value to 0 here
+
 	-- parse grid description, generating entities on map for each character
 	local entities = SkipList:new()
 	local grid_desc_str = level_data['GridDescString']

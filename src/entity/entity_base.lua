@@ -14,6 +14,7 @@ function EntityBase:init(def, x, y)
 	self.name = def.name
 	self.description = def.description or ''
 	self.z_index = def.z_index or 0
+	self.id = nil -- id will be assigned when created using EntityFactory
 	
 	self.pos = vector(x or 0, y or 0)
 	self.size = vector(ParseSpriteSize(def.size))
@@ -34,6 +35,7 @@ function EntityBase:draw()
 	love.graphics.draw(self.image, self.quads[1], self.pos.x, self.pos.y)
 end
 
+-- the skip list uses the less-than operator to determine drawing order based on z_index
 function EntityBase:__lt(other)
 	return self.z_index < other.z_index
 end

@@ -5,7 +5,13 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
+local IdGenerator = require 'src.utility.id_generator'
+
 EntityFactory = {}
+
+-- TODO: would be cleaner to call something like IdGenerator.new()
+-- in line with rest of the code base
+local id_generator = IdGenerator()
 
 local prototypes = {}
 
@@ -13,8 +19,6 @@ local prototypes = {}
 -- will also preload images for all entities
 function EntityFactory.register(path)
 	assert(path ~= nil, 'path to definition file required')
-
-	print('load entities')
 
 	-- ensure entity_defs.lua is loaded
 	local dir = love.filesystem.getRealDirectory(path)
@@ -49,5 +53,6 @@ function EntityFactory.create(key, x, y)
 
 	local entity = CopyTable(prototypes[key])
 	entity.pos = vector(x, y)
+	entity.id = id_generator.next()
 	return entity
 end
