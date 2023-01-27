@@ -33,3 +33,17 @@ function GetAdjacentPosition(pos, direction)
 	local to_pos = pos + (direction or Direction.NONE):permul(TILE_SIZE)
 	return vector(lume_round(to_pos.x, TILE_W), lume_round(to_pos.y, TILE_H))
 end
+
+function GetKeys(tbl, filter)
+	local keys = {}
+	for key, _ in pairs(tbl) do
+		if filter then
+			if string.find(key, filter) then
+				keys[#keys + 1] = key
+			end
+		else
+			keys[#keys + 1] = key
+		end
+	end
+	return keys
+end

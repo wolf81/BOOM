@@ -2,11 +2,11 @@ local math_floor = math.floor
 
 CpuControl = Class {}
 
-function CpuControl:init(entity)
-	self.entity = entity
+local function idling(self, dt)
+	-- body
 end
 
-function CpuControl:update(dt)	
+local function roaming(self, dt)
 	if self.entity.pos.y % TILE_H == 0 and self.entity.pos.x % TILE_W == 0 then
 		local dirs = lume.shuffle({
 			Direction.UP, 
@@ -18,6 +18,8 @@ function CpuControl:update(dt)
 		local dir = Direction.NONE
 
 		while #dirs > 0 do
+			-- TODO: for alien boss at level 80, we also need to take into
+			-- account the sprite size, to see whether we hit a block
 			local direction = table.remove(dirs)
 			local to_x = math_floor(self.entity.pos.x / TILE_W + 0.5) + direction.x
 			local to_y = math_floor(self.entity.pos.y / TILE_H + 0.5) + direction.y
@@ -29,5 +31,16 @@ function CpuControl:update(dt)
 		end
 
 		self.entity:move(dir)
-	end
+	end	
+end
+
+function CpuControl:init(entity)
+	self.entity = entity
+
+	local keys = GetKeys(entity.animations, 'move')
+	self.update = #keys > 0 and roaming or idling
+end
+
+function CpuControl:update(dt)	
+	-- an update function is assigned on initialization
 end

@@ -15,7 +15,6 @@ function Level:init(index, background, entities, grid, time)
 
 	for _, entity in ipairs(self.entities) do
 		if getmetatable(entity) == Player or getmetatable(entity) == Monster then
-			print('assign level to ', entity)
 			entity.level = self
 		end
 	end
