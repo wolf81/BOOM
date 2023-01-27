@@ -1,5 +1,12 @@
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
 return {
-	['player1'] = {
+	['X'] = {
 		texture = 'gfx/Player1.png',
 		speed = 2,
 		animations = {
@@ -25,7 +32,7 @@ return {
 			},
 		},
 	},
-	['player2'] = {
+	['Y'] = {
 		texture = 'gfx/Player2.png',
 		speed = 0,
 		animations = {
@@ -51,7 +58,13 @@ return {
 			},
 		},
 	},
-	['coin'] = {
+	['1'] = {
+		texture = 'gfx/Fixed Blocks.png',
+	},
+	['2'] = {
+		texture = 'gfx/Breakable Blocks.png',
+	},
+	['3'] = {
 		texture = 'gfx/Coin.png',
 		animations = {
 			['idle'] = {
@@ -64,7 +77,10 @@ return {
 			}
 		},
 	},
-	['soldier'] = {
+	['+'] = {
+		texture = 'gfx/Teleporter.png',
+	},
+	['A'] = {
 		name = 'Soldier',
 		description = 'This only apparently human creature is pretty stupid. Moves erratically. Almost harmless.',
 		texture = 'gfx/Soldier.png',
@@ -91,116 +107,7 @@ return {
 			},
 		},
 	},
-	['thing'] = {
-		name = 'The \"Thing\"',
-		description = 'The aliens\' favorite pet. Luckily our dogs don\'t spit energy bolts.',
-		texture = 'gfx/Thing.png',
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-			['move-down'] = {
-				frames = { 1, 2, 3, 4 },
-				interval = 0.1,
-			},
-			['move-up'] = {
-				frames = { 5, 6, 7, 8 },
-				interval = 0.1,
-			},
-			['move-right'] = {
-				frames = { 9, 10, 11, 12 },
-				interval = 0.1,
-			},		
-			['move-left'] = {
-				frames = { 13, 14, 15, 16 },
-				interval = 0.1,
-			},
-		},
-	},
-	['taur'] = {
-		name = 'Mean-o-Taur',
-		description = 'A sort of a cross between a man and a bull on steroids. Fast and extremely vicious.',
-		speed = 2.0,
-		texture = 'gfx/Taur.png',
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-			['move-down'] = {
-				frames = { 1, 2, 3, 4 },
-				interval = 0.1,
-			},
-			['move-up'] = {
-				frames = { 5, 6, 7, 8 },
-				interval = 0.1,
-			},
-			['move-right'] = {
-				frames = { 9, 10, 11, 12 },
-				interval = 0.1,
-			},		
-			['move-left'] = {
-				frames = { 13, 14, 15, 16 },
-				interval = 0.1,
-			},
-		},
-	},
-	['smoulder'] = {
-		name = 'Smoulder',
-		description = 'A fat and ugly psycho killer. Keep away from his lethal flamethrower if you want to survive.',
-		texture = 'gfx/Smoulder.png',
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-			['move-down'] = {
-				frames = { 1, 2, 3, 4 },
-				interval = 0.1,
-			},
-			['move-up'] = {
-				frames = { 5, 6, 7, 8 },
-				interval = 0.1,
-			},
-			['move-right'] = {
-				frames = { 9, 10, 11, 12 },
-				interval = 0.1,
-			},		
-			['move-left'] = {
-				frames = { 13, 14, 15, 16 },
-				interval = 0.1,
-			},
-		},
-	},
-	['skully'] = {
-		name = 'Skully',
-		description = 'A biomechanical creature. Its plasma cannon will wipe you out in seconds.',
-		texture = 'gfx/Skully.png',
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-			['move-down'] = {
-				frames = { 1, 2, 3, 4 },
-				interval = 0.1,
-			},
-			['move-up'] = {
-				frames = { 5, 6, 7, 8 },
-				interval = 0.1,
-			},
-			['move-right'] = {
-				frames = { 9, 10, 11, 12 },
-				interval = 0.1,
-			},		
-			['move-left'] = {
-				frames = { 13, 14, 15, 16 },
-				interval = 0.1,
-			},
-		},
-	},
-	['sarge'] = {
+	['B'] = {
 		name = 'Sgt. Cool',
 		description = 'He\'s tough, he\'s mean, he wears shades. In fact, the only difference with the soldier is a slightly higher fire rate.',
 		texture = 'gfx/Sarge.png',
@@ -227,7 +134,7 @@ return {
 			},
 		},
 	},
-	['lizzy'] = {
+	['C'] = {
 		name = 'Thick Lizzy',
 		description = 'Part man, part reptile, all nastiness. This ugly beast casts deadly fireballs.',
 		texture = 'gfx/Lizzy.png',
@@ -254,7 +161,35 @@ return {
 			},
 		},
 	},
-	['gunner'] = {
+	['D'] = {
+		name = 'Mean-o-Taur',
+		description = 'A sort of a cross between a man and a bull on steroids. Fast and extremely vicious.',
+		speed = 2.0,
+		texture = 'gfx/Taur.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['move-down'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['move-up'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['move-right'] = {
+				frames = { 9, 10, 11, 12 },
+				interval = 0.1,
+			},		
+			['move-left'] = {
+				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+		},
+	},	
+	['E'] = {
 		name = 'Gunner',
 		description = 'Another former human being. He holds a rapid-fire pulse rifle. Veeery dangerous!',
 		texture = 'gfx/Gunner.png',
@@ -281,10 +216,10 @@ return {
 			},
 		},
 	},
-	['giggler'] = {
-		name = 'H.R. Giggler',
-		description = 'Your worst nightmare. The ultimate biological weapon. Throws radioactive magma and runs like a demon.',
-		texture = 'gfx/Giggler.png',
+	['F'] = {
+		name = 'The \"Thing\"',
+		description = 'The aliens\' favorite pet. Luckily our dogs don\'t spit energy bolts.',
+		texture = 'gfx/Thing.png',
 		animations = {
 			['idle'] = {
 				frames = { 1 },
@@ -308,11 +243,92 @@ return {
 			},
 		},
 	},
-	['ghost'] = {
+	['G'] = {
 		name = 'Ghost',
 		description = 'This creature from beyond is unarmed but his fast and incessant attacks can be very annoying.',
 		speed = 2.5,
 		texture = 'gfx/Ghost.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['move-down'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['move-up'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['move-right'] = {
+				frames = { 9, 10, 11, 12 },
+				interval = 0.1,
+			},		
+			['move-left'] = {
+				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+		},
+	},
+	['H'] = {
+		name = 'Smoulder',
+		description = 'A fat and ugly psycho killer. Keep away from his lethal flamethrower if you want to survive.',
+		texture = 'gfx/Smoulder.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['move-down'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['move-up'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['move-right'] = {
+				frames = { 9, 10, 11, 12 },
+				interval = 0.1,
+			},		
+			['move-left'] = {
+				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+		},
+	},
+	['I'] = {
+		name = 'Skully',
+		description = 'A biomechanical creature. Its plasma cannon will wipe you out in seconds.',
+		texture = 'gfx/Skully.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['move-down'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['move-up'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['move-right'] = {
+				frames = { 9, 10, 11, 12 },
+				interval = 0.1,
+			},		
+			['move-left'] = {
+				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+		},
+	},
+	['J'] = {
+		name = 'H.R. Giggler',
+		description = 'Your worst nightmare. The ultimate biological weapon. Throws radioactive magma and runs like a demon.',
+		texture = 'gfx/Giggler.png',
 		animations = {
 			['idle'] = {
 				frames = { 1 },
@@ -362,7 +378,7 @@ return {
 			},
 		},
 	},
-	['head-boss'] = {
+	['*'] = {
 		texture = 'gfx/Head Boss.png',
 		size = { 96, 96 },
 		animations = {

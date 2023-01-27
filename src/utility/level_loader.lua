@@ -7,6 +7,7 @@
 
 local json = require 'lib.json.json'
 local SkipList = require 'lib.skip_list.skip_list'
+local string_sub = string.sub
 
 LevelLoader = {}
 
@@ -84,19 +85,11 @@ end
 
 -- retrieve monster definition based on character
 local function getMonsterDef(char, is_final_level)
-	if char == 'A' then return entity_defs['soldier']
-	elseif char == 'B' then return entity_defs['sarge']
-	elseif char == 'C' then return entity_defs['lizzy']
-	elseif char == 'D' then return entity_defs['taur']
-	elseif char == 'E' then return entity_defs['gunner']
-	elseif char == 'F' then return entity_defs['thing']
-	elseif char == 'G' then return entity_defs['ghost']
-	elseif char == 'H' then return entity_defs['smoulder']
-	elseif char == 'I' then return entity_defs['skully']
-	elseif char == 'J' then return entity_defs['giggler']
-	elseif char == '*' then return is_final_level and entity_defs['alien-boss'] or entity_defs['head-boss']
-	else error('not implemented ' .. char)
+	if char == '*' and is_final_level then 
+		return entity_defs['alien-boss']
 	end
+
+	return entity_defs[char]
 end
 
 -- load a level - will return false if index is greater than amount of levels
@@ -147,22 +140,22 @@ LevelLoader.load = function(index)
 	local entities = SkipList:new()
 	local grid_desc_str = level_data['GridDescString']
 	for i = 1, #grid_desc_str do
-		local c = string.sub(grid_desc_str, i, i)
+		local c = string_sub(grid_desc_str, i, i)
 
 		if c == '0' then 
 			goto continue -- a '0' represents empty coords on grid
 		elseif c == 'X' then
-			entities:insert(Player(entity_defs['player1'], x * TILE_W, y * TILE_H))
+			entities:insert(Player(entity_defs[c], x * TILE_W, y * TILE_H))
 		elseif c == 'Y' then
-			entities:insert(Player(entity_defs['player2'], x * TILE_W, y * TILE_H))
+			entities:insert(Player(entity_defs[c], x * TILE_W, y * TILE_H))
 		elseif c == '+' then
-			entities:insert(Teleporter({ texture = 'gfx/Teleporter.png' }, x * TILE_W, y * TILE_H))
+			entities:insert(Teleporter(entity_defs[c], x * TILE_W, y * TILE_H))
 		elseif c == '1' then
-			entities:insert(FixedBlock({ texture = 'gfx/Fixed Blocks.png' }, x * TILE_W, y * TILE_H))
+			entities:insert(FixedBlock(entity_defs[c], x * TILE_W, y * TILE_H))
 		elseif c == '2' then
-			entities:insert(BreakableBlock({ texture = 'gfx/Breakable Blocks.png' }, x * TILE_W, y * TILE_H))
+			entities:insert(BreakableBlock(entity_defs[c], x * TILE_W, y * TILE_H))
 		elseif c == '3' then
-			entities:insert(Coin(entity_defs['coin'], x * TILE_W, y * TILE_H))
+			entities:insert(Coin(entity_defs[c], x * TILE_W, y * TILE_H))
 		else
 			entities:insert(Monster(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H))
 		end
