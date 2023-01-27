@@ -1,3 +1,10 @@
+--
+-- Grid
+-- 
+-- A representation of a 2-dimensional grid
+-- Grid positions can be either open or closed
+--
+
 Grid = Class {}
 
 function Grid:init(width, height)

@@ -6,6 +6,7 @@ function Monster:init(def, x, y)
 	EntityBase.init(self, def, x, y)
 
 	self.speed = def.speed or 1.0
+	self.z_index = 5
 
 	self.animations = ParseAnimations(def.animations)
 	self.animation = self.animations['idle']
