@@ -3,11 +3,12 @@ local lume_round = lume.round
 -- generate a list of quads for a given image, tile width & tile height
 function GenerateQuads(image, width, height)
 	local quads = {}
+	local image_w, image_h = image:getDimensions()
     for y = 0, image:getHeight() - height, height do
         for x = 0, image:getWidth() - width, width do
-        	quads[#quads + 1] = love.graphics.newQuad(x, y, width, height, image:getDimensions())
+        	quads[#quads + 1] = love.graphics.newQuad(x, y, width, height, image_w, image_h)
         end
-    end
+    end    
     return quads
 end
 
@@ -27,23 +28,14 @@ function ParseSpriteSize(size)
 	return size[1], size[2]
 end
 
--- get a position adjacent to the given position, but constrained to grid positions
--- e.g. with TILE_W of 32, x-values in range 0, 32, 64, 96, ...
+-- get a world position adjacent to the given position, the position is constrained 
+-- to grid positions, e.g. with TILE_W of 32, x-values in set 0, 32, 64, 96, ...
 function GetAdjacentPosition(pos, direction)
 	local to_pos = pos + (direction or Direction.NONE):permul(TILE_SIZE)
 	return vector(lume_round(to_pos.x, TILE_W), lume_round(to_pos.y, TILE_H))
 end
 
-function GetKeys(tbl, filter)
-	local keys = {}
-	for key, _ in pairs(tbl) do
-		if filter then
-			if string.find(key, filter) then
-				keys[#keys + 1] = key
-			end
-		else
-			keys[#keys + 1] = key
-		end
-	end
-	return keys
+-- convert a world position into a grid position based on tile size
+function ToGridPosition(pos)
+	return vector(lume_round(pos.x / TILE_W), lume_round(pos.y / TILE_H))
 end

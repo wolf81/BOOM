@@ -5,11 +5,6 @@ PlayerControl = Class {}
 -- TODO: it feels better to keep showing movement animation even if walking towards blocked position
 -- perhaps we can achieve this by checking to target pos in Move state instead of here
 local function getDirection(self, direction)
-	local to_x = math_floor(self.entity.pos.x / TILE_W + 0.5) + direction.x
-	local to_y = math_floor(self.entity.pos.y / TILE_H + 0.5) + direction.y
-	
-	if self.entity.level:isBlocked(to_x, to_y) then return Direction.NONE end
-
 	return direction
 end
 
