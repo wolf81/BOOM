@@ -7,6 +7,19 @@
 
 Level = Class {}
 
+local function isBlock(entity)
+	local entity_type = getmetatable(entity)
+	return entity_type == FixedBlock or entity_type == BreakableBlock
+end
+
+-- FIXME: since Player is a subclass of Creature, we should be able to just
+-- check if entity type is Creature without needing to check for Player
+-- however it seems hump.class doesn't include that functionality
+local function isCreature(entity)
+	local entity_type = getmetatable(entity)
+	return entity_type == Creature or entity_type == Player
+end
+
 function Level:init(index, background, entities, grid, time)
 	self.index = index
 	self.background = background
@@ -18,9 +31,11 @@ function Level:init(index, background, entities, grid, time)
 	print(self.grid)
 
 	for entity in self.entities:iterate() do
-		if getmetatable(entity) == Player or getmetatable(entity) == Monster then
-			entity.level = self
-		end
+		local entity_type = getmetatable(entity)
+
+		-- give creatures a reference to the level, so
+		-- they can check for blocked tiles when moving
+		if isCreature(entity) then entity.level = self end
 	end
 end
 

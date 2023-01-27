@@ -15,14 +15,17 @@ function EntityBase:init(def, x, y)
 
 	self.name = def.name
 	self.description = def.description or ''
+	self.z_index = def.z_index or 0
 	
 	self.pos = vector(x, y)
+	self.size = vector(ParseSpriteSize(def.size))
 
 	self.image = ImageCache.load(def.texture)
-	self.z_index = 0
+	self.quads = GenerateQuads(self.image, self.size.x, self.size.y)
+end
 
-	local sprite_w, sprite_h = ParseSpriteSize(def.size)
-	self.quads = GenerateQuads(self.image, sprite_w, sprite_h)
+function EntityBase:getFrame()
+	return self.pos.x, self.pos.y, self.size.x, self.size.y
 end
 
 function EntityBase:update(dt)

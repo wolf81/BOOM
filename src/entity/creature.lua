@@ -7,22 +7,15 @@
 
 local math_floor = math.floor
 
-Monster = Class { __includes = { EntityBase, Movable } }
+Creature = Class { __includes = { EntityBase, Movable } }
 
-function Monster:init(def, x, y)
+function Creature:init(def, x, y)
 	EntityBase.init(self, def, x, y)
 
 	self.speed = def.speed or 1.0
-	self.z_index = 5
-
-	if self.name ~= nil then
-		print(self.name)
-		print(self.description)
-	end
-
 	self.animations = ParseAnimations(def.animations)
 	self.animation = self.animations['idle']
-
+	self.z_index = def.z_index or 5
 	self.control = CpuControl(self)
 
 	self.state_machine = StateMachine {
@@ -32,7 +25,7 @@ function Monster:init(def, x, y)
 	self.state_machine:change('idle')		
 end
 
-function Monster:update(dt)
+function Creature:update(dt)
 	EntityBase.update(self, dt)
 
 	self.control:update(dt)
@@ -40,19 +33,19 @@ function Monster:update(dt)
 	self.animation:update(dt)	
 end
 
-function Monster:draw()
+function Creature:draw()
 	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], math_floor(self.pos.x), math_floor(self.pos.y))
 end
 
-function Monster:changeState(name, ...)
+function Creature:changeState(name, ...)
 	self.state_machine:change(name, ...)
 end
 
-function Monster:idle()
+function Creature:idle()
 	self.direction = Direction.NONE
 	self.state_machine:change('idle')
 end
 
-function Monster:isIdling()
+function Creature:isIdling()
 	return getmetatable(self.state_machine.current) == Idle
 end

@@ -144,9 +144,7 @@ LevelLoader.load = function(index)
 
 		if c == '0' then 
 			goto continue -- a '0' represents empty coords on grid
-		elseif c == 'X' then
-			entities:insert(Player(entity_defs[c], x * TILE_W, y * TILE_H))
-		elseif c == 'Y' then
+		elseif c == 'X' or c == 'Y' then
 			entities:insert(Player(entity_defs[c], x * TILE_W, y * TILE_H))
 		elseif c == '+' then
 			entities:insert(Teleporter(entity_defs[c], x * TILE_W, y * TILE_H))
@@ -157,7 +155,7 @@ LevelLoader.load = function(index)
 		elseif c == '3' then
 			entities:insert(Coin(entity_defs[c], x * TILE_W, y * TILE_H))
 		else
-			entities:insert(Monster(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H))
+			entities:insert(Creature(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H))
 		end
 
 		-- remove blocked tiles from the movement graph
