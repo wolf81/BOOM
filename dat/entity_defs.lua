@@ -65,6 +65,8 @@ return {
 		},
 	},
 	['soldier'] = {
+		name = 'Soldier',
+		description = 'This only apparently human creature is pretty stupid. Moves erratically. Almost harmless.',
 		texture = 'gfx/Soldier.png',
 		animations = {
 			['idle'] = {
@@ -90,6 +92,8 @@ return {
 		},
 	},
 	['thing'] = {
+		name = 'The \"Thing\"',
+		description = 'The aliens\' favorite pet. Luckily our dogs don\'t spit energy bolts.',
 		texture = 'gfx/Thing.png',
 		animations = {
 			['idle'] = {
@@ -115,6 +119,9 @@ return {
 		},
 	},
 	['taur'] = {
+		name = 'Mean-o-Taur',
+		description = 'A sort of a cross between a man and a bull on steroids. Fast and extremely vicious.',
+		speed = 2.0,
 		texture = 'gfx/Taur.png',
 		animations = {
 			['idle'] = {
@@ -140,6 +147,8 @@ return {
 		},
 	},
 	['smoulder'] = {
+		name = 'Smoulder',
+		description = 'A fat and ugly psycho killer. Keep away from his lethal flamethrower if you want to survive.',
 		texture = 'gfx/Smoulder.png',
 		animations = {
 			['idle'] = {
@@ -165,6 +174,8 @@ return {
 		},
 	},
 	['skully'] = {
+		name = 'Skully',
+		description = 'A biomechanical creature. Its plasma cannon will wipe you out in seconds.',
 		texture = 'gfx/Skully.png',
 		animations = {
 			['idle'] = {
@@ -190,6 +201,8 @@ return {
 		},
 	},
 	['sarge'] = {
+		name = 'Sgt. Cool',
+		description = 'He\'s tough, he\'s mean, he wears shades. In fact, the only difference with the soldier is a slightly higher fire rate.',
 		texture = 'gfx/Sarge.png',
 		animations = {
 			['idle'] = {
@@ -215,6 +228,8 @@ return {
 		},
 	},
 	['lizzy'] = {
+		name = 'Thick Lizzy',
+		description = 'Part man, part reptile, all nastiness. This ugly beast casts deadly fireballs.',
 		texture = 'gfx/Lizzy.png',
 		animations = {
 			['idle'] = {
@@ -240,6 +255,8 @@ return {
 		},
 	},
 	['gunner'] = {
+		name = 'Gunner',
+		description = 'Another former human being. He holds a rapid-fire pulse rifle. Veeery dangerous!',
 		texture = 'gfx/Gunner.png',
 		animations = {
 			['idle'] = {
@@ -265,6 +282,8 @@ return {
 		},
 	},
 	['giggler'] = {
+		name = 'H.R. Giggler',
+		description = 'Your worst nightmare. The ultimate biological weapon. Throws radioactive magma and runs like a demon.',
 		texture = 'gfx/Giggler.png',
 		animations = {
 			['idle'] = {
@@ -290,6 +309,9 @@ return {
 		},
 	},
 	['ghost'] = {
+		name = 'Ghost',
+		description = 'This creature from beyond is unarmed but his fast and incessant attacks can be very annoying.',
+		speed = 2.5,
 		texture = 'gfx/Ghost.png',
 		animations = {
 			['idle'] = {

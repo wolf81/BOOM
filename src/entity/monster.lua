@@ -15,6 +15,14 @@ function Monster:init(def, x, y)
 	self.speed = def.speed or 1.0
 	self.z_index = 5
 
+	self.name = def.name
+	self.description = def.description
+
+	if self.name ~= nil then
+		print(self.name)
+		print(self.description)
+	end
+
 	self.animations = ParseAnimations(def.animations)
 	self.animation = self.animations['idle']
 
