@@ -6,65 +6,16 @@
 --]]
 
 return {
-	['X'] = {
-		texture = 'gfx/Player1.png',
-		speed = 2,
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-			['move-down'] = {
-				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
-				interval = 0.1,
-			},
-			['move-up'] = {
-				frames = { 9, 10, 11, 12, 13, 14, 15, 16 },
-				interval = 0.1,
-			},
-			['move-right'] = {
-				frames = { 17, 18, 19, 20, 21, 22, 23, 24 },
-				interval = 0.1,
-			},
-			['move-left'] = {
-				frames = { 25, 26, 27, 28, 29, 30, 31, 32 },
-				interval = 0.1,
-			},
-		},
-	},
-	['Y'] = {
-		texture = 'gfx/Player2.png',
-		speed = 0,
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-			['move-down'] = {
-				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
-				interval = 0.1,
-			},
-			['move-up'] = {
-				frames = { 9, 10, 11, 12, 13, 14, 15, 16 },
-				interval = 0.1,
-			},
-			['move-right'] = {
-				frames = { 17, 18, 19, 20, 21, 22, 23, 24 },
-				interval = 0.1,
-			},
-			['move-left'] = {
-				frames = { 25, 26, 27, 28, 29, 30, 31, 32 },
-				interval = 0.1,
-			},
-		},
-	},
 	['1'] = {
+		name = 'Fixed Block',
 		texture = 'gfx/Fixed Blocks.png',
 	},
 	['2'] = {
+		name = 'Breakable Block',
 		texture = 'gfx/Breakable Blocks.png',
 	},
 	['3'] = {
+		name = 'Coin',
 		texture = 'gfx/Coin.png',
 		animations = {
 			['idle'] = {
@@ -76,9 +27,6 @@ return {
 				interval = 0.025,				
 			}
 		},
-	},
-	['+'] = {
-		texture = 'gfx/Teleporter.png',
 	},
 	['A'] = {
 		name = 'Soldier',
@@ -352,7 +300,73 @@ return {
 			},
 		},
 	},
+	['X'] = {
+		name = 'Player 1',
+		texture = 'gfx/Player1.png',
+		speed = 2,
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['move-down'] = {
+				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['move-up'] = {
+				frames = { 9, 10, 11, 12, 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+			['move-right'] = {
+				frames = { 17, 18, 19, 20, 21, 22, 23, 24 },
+				interval = 0.1,
+			},
+			['move-left'] = {
+				frames = { 25, 26, 27, 28, 29, 30, 31, 32 },
+				interval = 0.1,
+			},
+		},
+	},
+	['Y'] = {
+		name = 'Player 2',
+		texture = 'gfx/Player2.png',
+		speed = 0,
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['move-down'] = {
+				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['move-up'] = {
+				frames = { 9, 10, 11, 12, 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+			['move-right'] = {
+				frames = { 17, 18, 19, 20, 21, 22, 23, 24 },
+				interval = 0.1,
+			},
+			['move-left'] = {
+				frames = { 25, 26, 27, 28, 29, 30, 31, 32 },
+				interval = 0.1,
+			},
+		},
+	},	
+	['*'] = {
+		name = 'Head Boss',
+		texture = 'gfx/Head Boss.png',
+		size = { 96, 96 },
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+	},	
 	['alien-boss'] = {
+		name = 'Alien Boss',
 		texture = 'gfx/Alien Boss.png',
 		size = { 160, 160 },
 		animations = {
@@ -378,17 +392,12 @@ return {
 			},
 		},
 	},
-	['*'] = {
-		texture = 'gfx/Head Boss.png',
-		size = { 96, 96 },
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-		},
+	['+'] = {
+		name = 'Teleporter',
+		texture = 'gfx/Teleporter.png',
 	},
 	['bomb'] = {
+		name = 'Bomb',
 		texture = 'gfx/Bomb.png',
 		animations = {
 			['idle'] = {
@@ -398,6 +407,7 @@ return {
 		},
 	},
 	['flash'] = {
+		name = 'Flash',
 		texture = 'gfx/Flash.png',
 		animations = {
 			['idle'] = {

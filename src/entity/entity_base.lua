@@ -11,6 +11,10 @@ function EntityBase:init(def, x, y)
 	assert(def ~= nil, 'definition is required')
 	assert(x ~= nil, 'x position is required')
 	assert(y ~= nil, 'y position is required')
+	assert(def.name ~= nil, 'name is required')
+
+	self.name = def.name
+	self.description = def.description or ''
 	
 	self.pos = vector(x, y)
 
