@@ -1,4 +1,11 @@
-local mmax = math.max
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
+local math_max = math.max
 
 Animation = Class {}
 
@@ -15,7 +22,7 @@ function Animation:update(dt)
     self.timer = self.timer + dt
     if self.timer > self.interval then
         self.timer = self.timer % self.interval
-        self.currentFrame = mmax(1, (self.currentFrame + 1) % (#self.frames + 1))
+        self.currentFrame = math_max(1, (self.currentFrame + 1) % (#self.frames + 1))
     end
 end
 

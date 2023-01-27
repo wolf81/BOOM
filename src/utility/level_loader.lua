@@ -1,3 +1,10 @@
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
 local json = require 'lib.json.json'
 local SkipList = require 'lib.skip_list.skip_list'
 

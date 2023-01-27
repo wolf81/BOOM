@@ -1,9 +1,9 @@
---
--- Grid
--- 
--- A representation of a 2-dimensional grid
--- Grid positions can be either open or closed
---
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
 
 Grid = Class {}
 

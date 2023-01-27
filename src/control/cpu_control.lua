@@ -1,3 +1,10 @@
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
 local lume_keys, lume_match, string_find = lume.keys, lume.match, string.find
 
 CpuControl = Class {}

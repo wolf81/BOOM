@@ -1,3 +1,10 @@
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
 Class = require 'lib.hump.class'
 Timer = require 'lib.hump.timer'
 vector = require 'lib.hump.vector'

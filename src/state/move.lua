@@ -1,3 +1,10 @@
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
 local math_min, math_max = math.min, math.max
 
 Move = Class { __includes = StateBase }

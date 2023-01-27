@@ -1,3 +1,10 @@
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
 Direction =  {
 	UP = vector(0, -1),
 	DOWN = vector(0, 1),
@@ -13,4 +20,3 @@ function GetDirectionName(dir)
 
 	return nil
 end
-

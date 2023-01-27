@@ -1,4 +1,11 @@
-StateMachine = Class{}
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
+StateMachine = Class {}
 
 function StateMachine:init(states)
 	self.empty = {
