@@ -9,15 +9,13 @@ EntityBase = Class {}
 
 function EntityBase:init(def, x, y)
 	assert(def ~= nil, 'definition is required')
-	assert(x ~= nil, 'x position is required')
-	assert(y ~= nil, 'y position is required')
 	assert(def.name ~= nil, 'name is required')
 
 	self.name = def.name
 	self.description = def.description or ''
 	self.z_index = def.z_index or 0
 	
-	self.pos = vector(x, y)
+	self.pos = vector(x or 0, y or 0)
 	self.size = vector(ParseSpriteSize(def.size))
 
 	self.image = ImageCache.load(def.texture)

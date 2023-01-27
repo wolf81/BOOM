@@ -17,7 +17,11 @@ function Creature:init(def, x, y)
 	self.animation = self.animations['idle']
 	self.z_index = def.z_index or 5
 	self.control = CpuControl(self)
+end
 
+function Creature:setLevel(level)
+	self.level = level
+	
 	self.state_machine = StateMachine {
 		['idle'] = function() return Idle(self) end,
 		['move'] = function() return Move(self) end,

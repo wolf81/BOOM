@@ -14,6 +14,8 @@ end
 function Loading:enter(previous, level_idx)
 	self.level_idx = level_idx
 	ImageCache.clear()
+
+	EntityFactory.register('/dat/entity_defs.lua')
 end
 
 function Loading:onFinishTransition()	

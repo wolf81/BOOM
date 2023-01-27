@@ -35,7 +35,7 @@ function Level:init(index, background, entities, grid, time)
 
 		-- give creatures a reference to the level, so
 		-- they can check for blocked tiles when moving
-		if isCreature(entity) then entity.level = self end
+		if isCreature(entity) then entity:setLevel(self) end
 	end
 end
 

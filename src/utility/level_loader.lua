@@ -143,19 +143,11 @@ LevelLoader.load = function(index)
 		local c = string_sub(grid_desc_str, i, i)
 
 		if c == '0' then 
-			goto continue -- a '0' represents empty coords on grid
-		elseif c == 'X' or c == 'Y' then
-			entities:insert(Player(entity_defs[c], x * TILE_W, y * TILE_H))
-		elseif c == '+' then
-			entities:insert(Teleporter(entity_defs[c], x * TILE_W, y * TILE_H))
-		elseif c == '1' then
-			entities:insert(FixedBlock(entity_defs[c], x * TILE_W, y * TILE_H))
-		elseif c == '2' then
-			entities:insert(BreakableBlock(entity_defs[c], x * TILE_W, y * TILE_H))
-		elseif c == '3' then
-			entities:insert(Coin(entity_defs[c], x * TILE_W, y * TILE_H))
+			goto continue
+		elseif c == '*' and is_final_level then
+			entities:insert(EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H))			
 		else
-			entities:insert(Creature(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H))
+			entities:insert(EntityFactory.create(c, x * TILE_W, y * TILE_H))
 		end
 
 		-- remove blocked tiles from the movement graph
