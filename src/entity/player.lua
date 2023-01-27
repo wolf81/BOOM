@@ -8,6 +8,7 @@ function Player:init(def, x, y)
 	self.speed = def.speed
 
 	self.control = PlayerControl(self)
+	self.z_index = 9
 
 	self.animations = ParseAnimations(def.animations)
 	self.animation = self.animations['idle']

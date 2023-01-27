@@ -1,4 +1,5 @@
 local json = require 'lib.json.json'
+local SkipList = require 'lib.skip_list.skip_list'
 
 LevelLoader = {}
 
@@ -95,8 +96,6 @@ end
 LevelLoader.load = function(index)
 	assert(index > 0, 'index should be 1 or higher')
 
-	local entities = {}
-
 	-- ensure entity_defs.lua is loaded
 	if not entity_defs then
 		local dir = love.filesystem.getRealDirectory('/dat/entity_defs.lua')
@@ -138,6 +137,7 @@ LevelLoader.load = function(index)
 	local x, y = 1, 1
 
 	-- parse grid description, generating entities on map for each character
+	local entities = SkipList:new()
 	local grid_desc_str = level_data['GridDescString']
 	for i = 1, #grid_desc_str do
 		local c = string.sub(grid_desc_str, i, i)
@@ -145,19 +145,19 @@ LevelLoader.load = function(index)
 		if c == '0' then 
 			goto continue -- a '0' represents empty coords on grid
 		elseif c == 'X' then
-			entities[#entities + 1] = Player(entity_defs['player1'], x * TILE_W, y * TILE_H)
+			entities:insert(Player(entity_defs['player1'], x * TILE_W, y * TILE_H))
 		elseif c == 'Y' then
-			entities[#entities + 1] = Player(entity_defs['player2'], x * TILE_W, y * TILE_H)
+			entities:insert(Player(entity_defs['player2'], x * TILE_W, y * TILE_H))
 		elseif c == '+' then
-			entities[#entities + 1] = Teleporter({ texture = 'gfx/Teleporter.png' }, x * TILE_W, y * TILE_H)
+			entities:insert(Teleporter({ texture = 'gfx/Teleporter.png' }, x * TILE_W, y * TILE_H))
 		elseif c == '1' then
-			entities[#entities + 1] = FixedBlock({ texture = 'gfx/Fixed Blocks.png' }, x * TILE_W, y * TILE_H)
+			entities:insert(FixedBlock({ texture = 'gfx/Fixed Blocks.png' }, x * TILE_W, y * TILE_H))
 		elseif c == '2' then
-			entities[#entities + 1] = BreakableBlock({ texture = 'gfx/Breakable Blocks.png' }, x * TILE_W, y * TILE_H)
+			entities:insert(BreakableBlock({ texture = 'gfx/Breakable Blocks.png' }, x * TILE_W, y * TILE_H))
 		elseif c == '3' then
-			entities[#entities + 1] = Coin(entity_defs['coin'], x * TILE_W, y * TILE_H)
+			entities:insert(Coin(entity_defs['coin'], x * TILE_W, y * TILE_H))
 		else
-			entities[#entities + 1] = Monster(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H)
+			entities:insert(Monster(getMonsterDef(c, is_final_level), x * TILE_W, y * TILE_H))
 		end
 
 		-- remove blocked tiles from the movement graph

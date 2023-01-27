@@ -13,7 +13,7 @@ function Level:init(index, background, entities, grid, time)
 	print('level ' .. self.index)
 	print(self.grid)
 
-	for _, entity in ipairs(self.entities) do
+	for entity in self.entities:iterate() do
 		if getmetatable(entity) == Player or getmetatable(entity) == Monster then
 			entity.level = self
 		end
@@ -25,7 +25,7 @@ function Level:isBlocked(x, y)
 end
 
 function Level:update(dt)
-	for _, entity in ipairs(self.entities) do
+	for entity in self.entities:iterate() do
 		entity:update(dt)
 	end
 end
@@ -33,7 +33,7 @@ end
 function Level:draw()
 	love.graphics.draw(self.background)
 
-	for _, entity in ipairs(self.entities) do
+	for entity in self.entities:iterate() do
 		entity:draw()
 	end
 end
