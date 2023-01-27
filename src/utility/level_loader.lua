@@ -129,6 +129,8 @@ LevelLoader.load = function(index)
 	-- get texture id for fixed & breakable blocks
 	local fixed_block_id = level_data['FixedBlockID']
 	local breakable_block_id = level_data['BreakableBlockID']
+	
+	print('block ids', fixed_block_id, breakable_block_id)
 
 	-- the movement grid for the player - we exclude blocked tiles
 	local grid = Grid(MAP_W, MAP_H)
@@ -146,6 +148,14 @@ LevelLoader.load = function(index)
 
 		if c == '0' then 
 			goto continue
+		elseif c == '1' then
+			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
+			block.quad_offset = fixed_block_id
+			entities:insert(block)
+		elseif c == '2' then
+			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
+			block.quad_offset = breakable_block_id
+			entities:insert(block)			
 		elseif c == '*' and is_final_level then
 			entities:insert(EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H))			
 		else
