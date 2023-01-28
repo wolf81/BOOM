@@ -43,6 +43,13 @@ function Creature:idle()
 	self.state_machine:change('idle')
 end
 
+function Creature:onCollision(entity)
+	if not entity:is(Creature) then return end
+
+	-- move to closest empty grid pos
+	self:move(GetOpposite(self.direction))
+end
+
 function Creature:isIdling()
 	return getmetatable(self.state_machine.current) == Idle
 end

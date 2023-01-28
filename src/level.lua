@@ -5,19 +5,15 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
+local Collider = require 'src.utility.collider'
+
 Level = Class {}
 
-local function isBlock(entity)
-	local entity_type = getmetatable(entity)
-	return entity_type == FixedBlock or entity_type == BreakableBlock
-end
-
--- FIXME: since Player is a subclass of Creature, we should be able to just
--- check if entity type is Creature without needing to check for Player
--- however it seems hump.class doesn't include that functionality
-local function isCreature(entity)
-	local entity_type = getmetatable(entity)
-	return entity_type == Creature or entity_type == Player
+local function onCollide(entity1, entity2)
+	print('collide', entity1.name, entity2.name)
+	if entity1:is(Creature) and entity2:is(Creature) then
+		entity2:onCollision(entity1)
+	end
 end
 
 function Level:init(index, background, entities, grid, time)
@@ -27,15 +23,26 @@ function Level:init(index, background, entities, grid, time)
 	self.grid = grid
 	self.time = time
 
+	self.collider = Collider(onCollide)
+
 	print('level ' .. self.index)
 	print(self.grid)
 
 	for entity in self.entities:iterate() do
-		local entity_type = getmetatable(entity)
-
 		-- give creatures a reference to the level, so
 		-- they can check for blocked tiles when moving
-		if isCreature(entity) then entity:setLevel(self) end
+		-- perhaps could move this to level loader?
+		if entity:is(Creature) or entity:is(Player) then 
+			entity:setLevel(self) 
+		end
+
+		-- TODO: not very efficient, but looks cleaner
+		-- would be more efficient to add collider in 
+		-- isCreature check above and seperate Coin & 
+		-- Teleport check
+		if entity:is(Creature) or entity:is(Player) then
+			self.collider:add(entity)
+		end
 	end
 end
 
@@ -44,6 +51,7 @@ function Level:isBlocked(x, y)
 end
 
 function Level:update(dt)
+	self.collider:update()
 	for entity in self.entities:iterate() do
 		entity:update(dt)
 	end

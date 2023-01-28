@@ -13,6 +13,18 @@ Direction =  {
 	NONE = vector(0, 0),
 }
 
+local oppositeInfo = {
+	[Direction.UP] = Direction.DOWN,
+	[Direction.DOWN] = Direction.UP,
+	[Direction.LEFT] = Direction.RIGHT,
+	[Direction.RIGHT] = Direction.LEFT,
+	[Direction.NONE] = Direction.NONE,
+}
+
+function GetOpposite(dir)
+	return oppositeInfo[dir]
+end
+
 function GetDirectionName(dir)
 	for k, v in pairs(Direction) do
 		if v == dir then return k end

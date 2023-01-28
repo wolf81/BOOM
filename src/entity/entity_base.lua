@@ -37,6 +37,10 @@ function EntityBase:update(dt)
 	self.animation:update(dt)	
 end
 
+function EntityBase:is(T)
+	return getmetatable(self) == T
+end
+
 function EntityBase:draw()
 	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], math_floor(self.pos.x), math_floor(self.pos.y))
 end
