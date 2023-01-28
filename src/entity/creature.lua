@@ -13,8 +13,6 @@ function Creature:init(def, x, y)
 	EntityBase.init(self, def, x, y)
 
 	self.speed = def.speed or 1.0
-	self.animations = ParseAnimations(def.animations)
-	self.animation = self.animations['idle']
 	self.z_index = def.z_index or 5
 	self.control = CpuControl(self)
 end
@@ -34,11 +32,6 @@ function Creature:update(dt)
 
 	self.control:update(dt)
 	self.state_machine:update(dt)
-	self.animation:update(dt)	
-end
-
-function Creature:draw()
-	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], math_floor(self.pos.x), math_floor(self.pos.y))
 end
 
 function Creature:changeState(name, ...)

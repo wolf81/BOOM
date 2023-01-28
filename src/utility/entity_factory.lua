@@ -27,7 +27,7 @@ function EntityFactory.register(path)
 
 	for key, entity_def in pairs(entity_defs) do
 		if key == '1' then 
-			prototypes[key] = FixedBlock(entity_def)
+			prototypes[key] = Block(entity_def)
 		elseif key == '2' then 
 			prototypes[key] = BreakableBlock(entity_def)
 		elseif key == '3' then 

@@ -150,11 +150,11 @@ LevelLoader.load = function(index)
 			goto continue
 		elseif c == '1' then
 			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
-			block.quad_offset = fixed_block_id
+			block:setBlockId(fixed_block_id)
 			entities:insert(block)
 		elseif c == '2' then
 			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
-			block.quad_offset = breakable_block_id
+			block:setBlockId(breakable_block_id)
 			entities:insert(block)			
 		elseif c == '*' and is_final_level then
 			entities:insert(EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H))			

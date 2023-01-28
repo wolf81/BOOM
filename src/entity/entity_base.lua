@@ -5,11 +5,15 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
+local math_floor = math.floor
+
 EntityBase = Class {}
 
 function EntityBase:init(def, x, y)
 	assert(def ~= nil, 'definition is required')
 	assert(def.name ~= nil, 'name is required')
+	assert(def.animations ~= nil, 'definition should contain animations table')
+	assert(def.animations['idle'] ~= nil, 'animation table should contain idle animation')
 
 	self.name = def.name
 	self.description = def.description or ''
@@ -21,6 +25,8 @@ function EntityBase:init(def, x, y)
 
 	self.image = ImageCache.load(def.texture)
 	self.quads = GenerateQuads(self.image, self.size.x, self.size.y)
+	self.animations = ParseAnimations(def.animations)
+	self.animation = self.animations['idle']
 end
 
 function EntityBase:getFrame()
@@ -28,11 +34,11 @@ function EntityBase:getFrame()
 end
 
 function EntityBase:update(dt)
-	-- body
+	self.animation:update(dt)	
 end
 
 function EntityBase:draw()
-	love.graphics.draw(self.image, self.quads[1], self.pos.x, self.pos.y)
+	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], math_floor(self.pos.x), math_floor(self.pos.y))
 end
 
 -- the skip list uses the less-than operator to determine drawing order based on z_index

@@ -9,10 +9,22 @@ return {
 	['1'] = {
 		name = 'Fixed Block',
 		texture = 'gfx/Fixed Blocks.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1
+			},
+		},
 	},
 	['2'] = {
 		name = 'Breakable Block',
 		texture = 'gfx/Breakable Blocks.png',
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1
+			},
+		},
 	},
 	['3'] = {
 		name = 'Coin',
@@ -395,6 +407,12 @@ return {
 	['+'] = {
 		name = 'Teleporter',
 		texture = 'gfx/Teleporter.png',
+		animations = {
+			['idle'] = {
+				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
+				interval = 0.2
+			},
+		},
 	},
 	['bomb'] = {
 		name = 'Bomb',
