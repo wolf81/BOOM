@@ -40,7 +40,5 @@ end
 function Game:keyreleased(key, code)
 	if not self.accept_input then return end
 
-    if key == 'return' then
-    	proceedNextLevel(self)
-    end
+    if key == 'f1' then proceedNextLevel(self) end
 end

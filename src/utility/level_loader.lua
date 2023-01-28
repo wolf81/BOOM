@@ -121,7 +121,7 @@ local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_i
 			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
 			block:setBlockId(breakable_block_id)
 			level:addEntity(block)
-		elseif c == '*' and is_final_level then
+		elseif c == '*' and level.index == 80 then
 			level:addEntity(EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H, level))
 		else
 			level:addEntity(EntityFactory.create(c, x * TILE_W, y * TILE_H, level))
