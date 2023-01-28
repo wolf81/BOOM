@@ -12,6 +12,7 @@ lume = require 'lib.lume.lume'
 
 require 'src.constants'
 require 'src.direction'
+require 'src.category'
 
 require 'src.level'
 
@@ -29,6 +30,7 @@ require 'src.control.player_control'
 require 'src.control.cpu_control'
 
 require 'src.mixin.movable'
+require 'src.mixin.destructable'
 
 require 'src.scene.scene_base'
 require 'src.scene.loading'
@@ -37,6 +39,7 @@ require 'src.scene.game'
 require 'src.state.state_base'
 require 'src.state.idle'
 require 'src.state.move'
+require 'src.state.destroy'
 
 require 'src.entity.entity_base'
 require 'src.entity.block'

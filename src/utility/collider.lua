@@ -27,7 +27,6 @@ end
 
 function Collider:add(entity)
 	table.insert(self.entities, entity)
-	print('add', entity.name)
 	self.entity_info[entity] = #self.entities
 end
 
@@ -63,7 +62,11 @@ function Collider:update()
 			local x2, y2, h2, w2 = entity2:getFrame()
 
 			if checkCollision(x1, y1, h1, w1, x2, y2, h2, w2) then
-				self.on_collision(entity1, entity2)
+				if bit.band(entity1.collision_flags, entity2.category_flags) ~= 0 then
+					self.on_collision(entity1, entity2)
+				elseif bit.band(entity2.collision_flags, entity1.category_flags) ~= 0 then
+					self.on_collision(entity2, entity1)
+				end				
 			end
 		end
 

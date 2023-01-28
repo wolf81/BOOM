@@ -24,7 +24,7 @@ function love.load(args)
 
     love.keyboard.keysPressed = {}
 
-    Transition.init(Loading, 3)
+    Transition.init(Loading, 12)
 end
 
 function love.update(dt)

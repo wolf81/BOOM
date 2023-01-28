@@ -46,13 +46,14 @@ function EntityFactory.register(path)
 end
 
 -- generate an entity based on key and x, y coords
-function EntityFactory.create(key, x, y)
+function EntityFactory.create(key, x, y, ...)
 	assert(key ~= nil, 'key is required')
 	assert(prototypes[key] ~= nil, 'key \"' .. key .. '\" not registered')
 	assert(x ~= nil and y ~= nil, 'x and y value is required')
 
+	local args = { ... }
+
 	local entity = CopyTable(prototypes[key])
-	entity.pos = vector(x, y)
-	entity.id = id_generator.next()
+	entity:config(id_generator.next(), x, y, ...)
 	return entity
 end

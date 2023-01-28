@@ -27,6 +27,19 @@ function EntityBase:init(def, x, y)
 	self.quads = GenerateQuads(self.image, self.size.x, self.size.y)
 	self.animations = ParseAnimations(def.animations)
 	self.animation = self.animations['idle']
+
+	self.category_flags = 0
+	self.collision_flags = 0	
+end
+
+function EntityBase:config(id, x, y)
+	self.pos = vector(x, y)
+	self.id = id
+end
+
+function EntityBase:animate(name)
+	self.animation = self.animations[name]
+	assert(self.animation ~= nil, 'no animation defined named: ' .. name)
 end
 
 function EntityBase:getFrame()

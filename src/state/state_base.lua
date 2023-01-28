@@ -22,7 +22,3 @@ end
 function StateBase:update(dt)
 	-- body
 end
-
-function StateBase:draw()
-	-- body
-end

@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local math_min, math_max = math.min, math.max
+local math_min, math_max, string_lower = math.min, math.max, string.lower
 
 Move = Class { __includes = StateBase }
 
@@ -16,17 +16,17 @@ function Move:enter(direction)
 
 	self.direction = direction
 
-	self.entity.animation = self.entity.animations['move-' .. string.lower(GetDirectionName(self.direction))]
+	self.entity:animate('move-' .. string_lower(GetDirectionName(self.direction)))
 
 	-- calculate target position
 	-- stop movement past current grid position if next grid position is blocked
 	local grid_pos = ToGridPosition(self.entity.pos)
 	local to_grid_pos = grid_pos + direction
-	if self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
-		self.to_pos = grid_pos:permul(TILE_SIZE)
-	else
+	-- if self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
+	-- 	self.to_pos = grid_pos:permul(TILE_SIZE)
+	-- else
 		self.to_pos = GetAdjacentPosition(self.entity.pos, self.direction)		
-	end
+	-- end
 end
 
 function Move:update(dt)

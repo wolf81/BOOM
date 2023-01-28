@@ -6,7 +6,6 @@
 --]]
 
 local json = require 'lib.json.json'
-local SkipList = require 'lib.skip_list.skip_list'
 local string_sub = string.sub
 
 LevelLoader = {}
@@ -83,13 +82,60 @@ local function generateBackground(bg_pattern_id, border_id)
 	return canvas
 end
 
--- retrieve monster definition based on character
-local function getMonsterDef(char, is_final_level)
-	if char == '*' and is_final_level then 
-		return entity_defs['alien-boss']
-	end
+-- generate a movement grid by excluding blocked tiles
+local function GenerateMovementGrid(grid_desc_str)
+	local x, y = 1, 1
+	local grid = Grid(MAP_W, MAP_H)
+	for i = 1, #grid_desc_str do
+		local c = string_sub(grid_desc_str, i, i)
 
-	return entity_defs[char]
+		-- remove blocked tiles from the movement graph
+		if c == '1' or c == '2' then
+			grid:block(x, y)
+		end
+
+		-- update grid coords for each iteration
+		x = x + 1
+		if x > MAP_W then
+			y = y + 1
+			x = 1
+		end		
+	end	
+	return grid
+end
+
+-- parse grid description, generating entities on map for each character
+local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_id, level)
+	local x, y = 1, 1
+	local entities = {}
+	for i = 1, #grid_desc_str do
+		local c = string_sub(grid_desc_str, i, i)
+
+		if c == '0' then 
+			goto continue
+		elseif c == '1' then
+			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
+			block:setBlockId(fixed_block_id)
+			level:addEntity(block)
+		elseif c == '2' then
+			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
+			block:setBlockId(breakable_block_id)
+			level:addEntity(block)
+		elseif c == '*' and is_final_level then
+			level:addEntity(EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H, level))
+		else
+			level:addEntity(EntityFactory.create(c, x * TILE_W, y * TILE_H, level))
+		end
+
+		::continue::
+
+		-- update grid coords for each iteration
+		x = x + 1
+		if x > MAP_W then
+			y = y + 1
+			x = 1
+		end
+	end
 end
 
 -- load a level - will return false if index is greater than amount of levels
@@ -113,8 +159,6 @@ LevelLoader.load = function(index)
 	-- => game finished - don't parse level, return false
 	if index > #levels_data then return false end
 
-	local is_final_level = index == #levels_data
-
 	-- retrieve level from list
 	local level_data = levels_data[index]
 
@@ -132,51 +176,25 @@ LevelLoader.load = function(index)
 	
 	print('block ids', fixed_block_id, breakable_block_id)
 
+	local grid_desc_str = level_data['GridDescString']
+
 	-- the movement grid for the player - we exclude blocked tiles
-	local grid = Grid(MAP_W, MAP_H)
+	-- TODO: would be quicker to do this as part of GenerateEntities call
+	-- or perhaps do this in level itself, since level will need to update
+	-- movement grid anyways as blocks are destroyed
+	local grid = GenerateMovementGrid(grid_desc_str)
 
 	-- keep track of current coord on map using x & y variables
 	local x, y = 1, 1
 
+	-- make level
+	local level = Level(index, background, grid, time)
+
 	-- TODO: should reset IdGenerator starting value to 0 here
 
 	-- parse grid description, generating entities on map for each character
-	local entities = SkipList:new()
-	local grid_desc_str = level_data['GridDescString']
-	for i = 1, #grid_desc_str do
-		local c = string_sub(grid_desc_str, i, i)
-
-		if c == '0' then 
-			goto continue
-		elseif c == '1' then
-			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
-			block:setBlockId(fixed_block_id)
-			entities:insert(block)
-		elseif c == '2' then
-			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
-			block:setBlockId(breakable_block_id)
-			entities:insert(block)			
-		elseif c == '*' and is_final_level then
-			entities:insert(EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H))			
-		else
-			entities:insert(EntityFactory.create(c, x * TILE_W, y * TILE_H))
-		end
-
-		-- remove blocked tiles from the movement graph
-		if c == '1' or c == '2' then
-			grid:block(x, y)
-		end
-
-		::continue::
-
-		-- update grid coords for each iteration
-		x = x + 1
-		if x > MAP_W then
-			y = y + 1
-			x = 1
-		end
-	end
+	GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_id, level)
 
 	-- finally return the level
-	return Level(index, background, entities, grid, time)
+	return level
 end

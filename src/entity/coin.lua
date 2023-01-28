@@ -5,13 +5,20 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-Coin = Class { __includes = EntityBase }
+Coin = Class { __includes = { EntityBase, Destructable } }
 
 function Coin:init(def, x, y)
 	EntityBase.init(self, def, x, y)
 
+	self.category_flags = Category.COIN
+end
+
+function Coin:config(id, x, y)
+	EntityBase.config(self, id, x, y)
+	
 	self.state_machine = StateMachine {
 		['idle'] = function() return Idle(self) end,
+		['destroy'] = function() return Destroy(self) end,
 	}
 	self.state_machine:change('idle')	
 end

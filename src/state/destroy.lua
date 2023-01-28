@@ -5,10 +5,10 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-Idle = Class { __includes = StateBase }
+Destroy = Class { __includes = StateBase }
 
-function Idle:enter()
+function Destroy:enter()
 	StateBase.enter(self)	
 
-	self.entity:animate('idle')
+	self.entity:animate('destroy')
 end

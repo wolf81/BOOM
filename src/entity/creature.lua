@@ -15,11 +15,20 @@ function Creature:init(def, x, y)
 	self.speed = def.speed or 1.0
 	self.z_index = def.z_index or 5
 	self.control = CpuControl(self)
+
+	self.category_flags = Category.MONSTER
+	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
 end
 
-function Creature:setLevel(level)
+function Creature:config(id, x, y, ...)
+	EntityBase.config(self, id, x, y)
+
+	local args = {...}
+	local level = #args > 0 and args[1]
+
+	assert(level ~= nil and getmetatable(level) == Level, 'level is required')
 	self.level = level
-	
+
 	self.state_machine = StateMachine {
 		['idle'] = function() return Idle(self) end,
 		['move'] = function() return Move(self) end,
