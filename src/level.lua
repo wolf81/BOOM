@@ -13,6 +13,7 @@ local function onCollide(entity1, entity2)
 	print('collide', entity1.name, entity2.name)
 	if entity1:is(Creature) and entity2:is(Creature) then
 		entity2:onCollision(entity1)
+		entity1:onCollision(entity2)
 	end
 end
 

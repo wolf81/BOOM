@@ -7,6 +7,7 @@
 
 local Collider = Class {}
 
+-- check collisions using axis-aligned bounding box (AABB)
 local function checkCollision(x1, y1, w1, h1, x2, y2, h2, w2)
 	return (
 		x1 < x2 + w2 and
