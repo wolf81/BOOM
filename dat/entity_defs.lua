@@ -342,7 +342,7 @@ return {
 	['Y'] = {
 		name = 'Player 2',
 		texture = 'gfx/Player2.png',
-		speed = 0,
+		speed = 2,
 		animations = {
 			['idle'] = {
 				frames = { 1 },

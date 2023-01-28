@@ -14,7 +14,6 @@ function Creature:init(def, x, y)
 
 	self.speed = def.speed or 1.0
 	self.z_index = def.z_index or 5
-	self.control = CpuControl(self)
 
 	self.category_flags = Category.MONSTER
 	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
@@ -28,6 +27,7 @@ function Creature:config(id, x, y, ...)
 
 	assert(level ~= nil and getmetatable(level) == Level, 'level is required')
 	self.level = level
+	self.control = CpuControl(self)
 
 	self.state_machine = StateMachine {
 		['idle'] = function() return Idle(self) end,
