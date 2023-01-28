@@ -36,6 +36,8 @@ function EntityFactory.register(path)
 			prototypes[key] = Player(entity_def)
 		elseif key == '+' then 
 			prototypes[key] = Teleporter(entity_def)
+		elseif key == 'bomb' then
+			prototypes[key] = Bomb(entity_def)
 		else
 			prototypes[key] = Creature(entity_def)
 		end			

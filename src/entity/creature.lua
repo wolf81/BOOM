@@ -9,8 +9,8 @@ local lume_remove, lume_randomchoice = lume.remove, lume.randomchoice
 
 Creature = Class { __includes = { EntityBase, Movable } }
 
-function Creature:init(def, x, y)
-	EntityBase.init(self, def, x, y)
+function Creature:init(def)
+	EntityBase.init(self, def)
 
 	self.speed = def.speed or 1.0
 	self.z_index = def.z_index or 5
@@ -73,8 +73,8 @@ function Creature:onCollision(entity)
 	end
 
 	-- exclude direction towards collding entity
-	local grid_pos1 = ToGridPosition(self.pos)
-	local grid_pos2 = ToGridPosition(entity.pos)
+	local grid_pos1 = self:gridPosition()
+	local grid_pos2 = entity:gridPosition()
 	local dxy = grid_pos1 - grid_pos2
 	if dxy.x == 1 then lume_remove(dirs, Direction.LEFT) end
 	if dxy.y == 1 then lume_remove(dirs, Direction.UP) end

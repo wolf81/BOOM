@@ -5,6 +5,8 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
+local bit_band = bit.band
+
 local Collider = Class {}
 
 -- check collisions using axis-aligned bounding box (AABB)
@@ -20,7 +22,7 @@ end
 function Collider:init(fn)
 	assert(fn ~= nil and type(fn) == 'function', 'collision handler function required')
 
-	self.on_collision = fn
+	self.onCollision = fn
 	self.entities = {}
 	self.entity_info = {}
 end
@@ -62,10 +64,10 @@ function Collider:update()
 			local x2, y2, h2, w2 = entity2:getFrame()
 
 			if checkCollision(x1, y1, h1, w1, x2, y2, h2, w2) then
-				if bit.band(entity1.collision_flags, entity2.category_flags) ~= 0 then
-					self.on_collision(entity1, entity2)
-				elseif bit.band(entity2.collision_flags, entity1.category_flags) ~= 0 then
-					self.on_collision(entity2, entity1)
+				if bit_band(entity1.collision_flags, entity2.category_flags) ~= 0 then
+					self.onCollision(entity1, entity2)
+				elseif bit_band(entity2.collision_flags, entity1.category_flags) ~= 0 then
+					self.onCollision(entity2, entity1)
 				end				
 			end
 		end

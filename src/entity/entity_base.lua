@@ -5,11 +5,11 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local math_floor = math.floor
+local math_floor, lume_round = math.floor, lume.round
 
 EntityBase = Class {}
 
-function EntityBase:init(def, x, y)
+function EntityBase:init(def)
 	assert(def ~= nil, 'definition is required')
 	assert(def.name ~= nil, 'name is required')
 	assert(def.animations ~= nil, 'definition should contain animations table')
@@ -20,7 +20,7 @@ function EntityBase:init(def, x, y)
 	self.z_index = def.z_index or 0
 	self.id = nil -- id will be assigned when created using EntityFactory
 	
-	self.pos = vector(x or 0, y or 0)
+	self.pos = vector(0, 0)
 	self.size = vector(ParseSpriteSize(def.size))
 
 	self.image = ImageCache.load(def.texture)
@@ -28,13 +28,17 @@ function EntityBase:init(def, x, y)
 	self.animations = ParseAnimations(def.animations)
 	self.animation = self.animations['idle']
 
-	self.category_flags = 0
-	self.collision_flags = 0	
+	self.category_flags = Category.NONE
+	self.collision_flags = Category.NONE
 end
 
 function EntityBase:config(id, x, y)
 	self.pos = vector(x, y)
 	self.id = id
+end
+
+function EntityBase:gridPosition()
+	return vector(lume_round(self.pos.x / TILE_W), lume_round(self.pos.y / TILE_H))	
 end
 
 function EntityBase:animate(name)

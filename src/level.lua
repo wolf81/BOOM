@@ -30,6 +30,8 @@ function Level:init(index, background, grid, time)
 	self.entities = SkipList:new()
 	self.collider = Collider(onCollide)
 
+	-- TODO: use shash for collision checking, likely more efficient
+
 	print('level ' .. self.index)
 	print(self.grid)
 end
@@ -37,7 +39,7 @@ end
 function Level:addEntity(entity)
 	self.entities:insert(entity)
 
-	if entity.category_flags ~= 0 or entity.collision_flags ~= 0 then
+	if entity.category_flags ~= Category.NONE or entity.collision_flags ~= Category.NONE then
 		self.collider:add(entity)
 	end
 end

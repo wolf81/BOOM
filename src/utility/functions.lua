@@ -42,11 +42,6 @@ function GetAdjacentPosition(pos, direction)
 	return vector(lume_round(to_pos.x, TILE_W), lume_round(to_pos.y, TILE_H))
 end
 
--- convert a world position into a grid position based on tile size
-function ToGridPosition(pos)
-	return vector(lume_round(pos.x / TILE_W), lume_round(pos.y / TILE_H))
-end
-
 -- create a deep copy of a table
 function CopyTable(obj, seen)
 	if type(obj) ~= 'table' then return obj end

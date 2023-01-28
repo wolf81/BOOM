@@ -7,8 +7,8 @@
 
 Coin = Class { __includes = { EntityBase, Destructable } }
 
-function Coin:init(def, x, y)
-	EntityBase.init(self, def, x, y)
+function Coin:init(def)
+	EntityBase.init(self, def)
 
 	self.category_flags = Category.COIN
 end

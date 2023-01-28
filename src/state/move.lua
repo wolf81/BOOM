@@ -20,7 +20,7 @@ function Move:enter(direction)
 
 	-- calculate target position
 	-- stop movement past current grid position if next grid position is blocked
-	local grid_pos = ToGridPosition(self.entity.pos)
+	local grid_pos = self.entity:gridPosition()
 	local to_grid_pos = grid_pos + direction
 	if self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
 		self.to_pos = grid_pos:permul(TILE_SIZE)

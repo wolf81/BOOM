@@ -7,6 +7,8 @@
 
 local baton = require 'lib.baton.baton'
 
+local lume_round = lume.round
+
 local P1_CONFIG = {
 	controls = {
 		left = { 'key:a', 'axis:leftx-', 'button:dpleft' },
@@ -51,7 +53,12 @@ end
 function PlayerControl:update(dt)	
 	self.input:update()
 
-	if self.input:pressed('action') then print('drop bomb') end
+	if self.input:pressed('action') then
+		local grid_pos = self.entity:gridPosition()
+		local x, y = grid_pos.x * TILE_W, grid_pos.y * TILE_H
+		local bomb = EntityFactory.create('bomb', x, y, self.entity.level)
+		self.entity.level:addEntity(bomb)
+	end
 
 	local direction = Direction.NONE
 

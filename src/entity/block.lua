@@ -7,8 +7,8 @@
 
 Block = Class { __includes = EntityBase }
 
-function Block:init(def, x, y)
-	EntityBase.init(self, def, x, y)
+function Block:init(def)
+	EntityBase.init(self, def)
 end
 
 function Block:setBlockId(block_id)

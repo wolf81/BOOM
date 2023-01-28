@@ -30,7 +30,7 @@ local function roaming(self, dt)
 			-- TODO: for alien boss at level 80, we also need to take into
 			-- account the sprite size, to see whether we hit a block
 			local direction = table.remove(dirs)
-			local to_grid_pos = ToGridPosition(self.entity.pos) + direction
+			local to_grid_pos = self.entity:gridPosition() + direction
 			if not self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
 				dir = direction
 				break

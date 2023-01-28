@@ -7,8 +7,8 @@
 
 Player = Class { __includes = Creature }
 
-function Player:init(def, x, y)
-	Creature.init(self, def, x, y)
+function Player:init(def)
+	Creature.init(self, def)
 	
 	self.z_index = 10
 

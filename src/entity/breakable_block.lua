@@ -7,6 +7,6 @@
 
 BreakableBlock = Class { __includes = Block }
 
-function BreakableBlock:init(def, x, y)
-	EntityBase.init(self, def, x, y)
+function BreakableBlock:init(def)
+	EntityBase.init(self, def)
 end
