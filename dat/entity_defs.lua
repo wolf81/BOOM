@@ -134,6 +134,10 @@ return {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				frames = { 21, 22 },
+				interval = 0.1,
+			},
 		},
 	},	
 	['E'] = {
@@ -157,6 +161,10 @@ return {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				frames = { 21, 22 },
+				interval = 0.1,
+			},
 		},
 	},
 	['F'] = {
@@ -178,6 +186,10 @@ return {
 			},		
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+			['destroy'] = {
+				frames = { 21, 22 },
 				interval = 0.1,
 			},
 		},
@@ -204,6 +216,10 @@ return {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				frames = { 21, 22 },
+				interval = 0.1,
+			},
 		},
 	},
 	['H'] = {
@@ -225,6 +241,10 @@ return {
 			},		
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+			['destroy'] = {
+				frames = { 21, 22, 23, 24 },
 				interval = 0.1,
 			},
 		},
@@ -250,6 +270,10 @@ return {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				frames = { 21, 22 },
+				interval = 0.1,
+			},
 		},
 	},
 	['J'] = {
@@ -271,6 +295,10 @@ return {
 			},		
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+			['destroy'] = {
+				frames = { 21, 22 },
 				interval = 0.1,
 			},
 		},
@@ -297,6 +325,10 @@ return {
 				frames = { 25, 26, 27, 28, 29, 30, 31, 32 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				frames = { 33, 34, 35 },
+				interval = 0.1,
+			},
 		},
 	},
 	['Y'] = {
@@ -321,13 +353,22 @@ return {
 				frames = { 25, 26, 27, 28, 29, 30, 31, 32 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				frames = { 33, 34, 35 },
+				interval = 0.1,
+			},
 		},
 	},	
 	['*'] = {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',
 		size = { 96, 96 },
-		animations = {},
+		animations = {
+			['destroy'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},			
+		},
 	},	
 	['alien-boss'] = {
 		name = 'Alien Boss',
@@ -350,6 +391,10 @@ return {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},			
 		},
 	},
 	['+'] = {
