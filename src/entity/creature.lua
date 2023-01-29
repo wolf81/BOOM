@@ -19,11 +19,8 @@ function Creature:init(def)
 	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
 end
 
-function Creature:config(id, x, y, ...)
+function Creature:config(id, x, y,level)
 	EntityBase.config(self, id, x, y)
-
-	local args = {...}
-	local level = #args > 0 and args[1]
 
 	assert(level ~= nil and getmetatable(level) == Level, 'level is required')
 	self.level = level

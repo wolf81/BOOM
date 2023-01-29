@@ -315,7 +315,8 @@ return {
 	['X'] = {
 		name = 'Player 1',
 		texture = 'gfx/Player1.png',
-		speed = 2,
+		speed = 2.0,
+		fuse_time = 3.0,
 		animations = {
 			['idle'] = {
 				frames = { 1 },
@@ -342,7 +343,8 @@ return {
 	['Y'] = {
 		name = 'Player 2',
 		texture = 'gfx/Player2.png',
-		speed = 2,
+		speed = 2.0,
+		fuse_time = 3.0,
 		animations = {
 			['idle'] = {
 				frames = { 1 },

@@ -10,6 +10,10 @@ local SkipList = require 'lib.skip_list.skip_list'
 
 Level = Class {}
 
+local function isCollidable(entity)
+	return entity.category_flags ~= Category.NONE or entity.collision_flags ~= Category.NONE
+end
+
 local function onCollide(entity1, entity2)
 	if entity1:is(Creature) and entity2:is(Creature) then
 		entity2:onCollision(entity1)
@@ -39,8 +43,16 @@ end
 function Level:addEntity(entity)
 	self.entities:insert(entity)
 
-	if entity.category_flags ~= Category.NONE or entity.collision_flags ~= Category.NONE then
+	if isCollidable(entity) then
 		self.collider:add(entity)
+	end
+end
+
+function Level:removeEntity(entity)
+	self.entities:delete(entity)
+
+	if isCollidable(entity) then
+		self.collider:remove(entity)
 	end
 end
 

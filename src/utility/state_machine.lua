@@ -19,7 +19,7 @@ function StateMachine:init(states)
 end
 
 function StateMachine:change(stateName, ...)
-	assert(self.states[stateName]) -- state must exist!
+	assert(self.states[stateName], 'state does not exist: ' .. stateName)
 	self.current:exit()
 	self.current = self.states[stateName]()
 	self.current:enter(...)
