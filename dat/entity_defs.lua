@@ -9,31 +9,17 @@ return {
 	['1'] = {
 		name = 'Fixed Block',
 		texture = 'gfx/Fixed Blocks.png',
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1
-			},
-		},
+		animations = {},
 	},
 	['2'] = {
 		name = 'Breakable Block',
 		texture = 'gfx/Breakable Blocks.png',
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1
-			},
-		},
+		animations = {},
 	},
 	['3'] = {
 		name = 'Coin',
 		texture = 'gfx/Coin.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['destroy'] = {
 				frames = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
 				interval = 0.025,				
@@ -45,10 +31,6 @@ return {
 		description = 'This only apparently human creature is pretty stupid. Moves erratically. Almost harmless.',
 		texture = 'gfx/Soldier.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -72,10 +54,6 @@ return {
 		description = 'He\'s tough, he\'s mean, he wears shades. In fact, the only difference with the soldier is a slightly higher fire rate.',
 		texture = 'gfx/Sarge.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -99,10 +77,6 @@ return {
 		description = 'Part man, part reptile, all nastiness. This ugly beast casts deadly fireballs.',
 		texture = 'gfx/Lizzy.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -127,10 +101,6 @@ return {
 		speed = 2.0,
 		texture = 'gfx/Taur.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -154,10 +124,6 @@ return {
 		description = 'Another former human being. He holds a rapid-fire pulse rifle. Veeery dangerous!',
 		texture = 'gfx/Gunner.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -181,10 +147,6 @@ return {
 		description = 'The aliens\' favorite pet. Luckily our dogs don\'t spit energy bolts.',
 		texture = 'gfx/Thing.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -209,10 +171,6 @@ return {
 		speed = 2.5,
 		texture = 'gfx/Ghost.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -236,10 +194,6 @@ return {
 		description = 'A fat and ugly psycho killer. Keep away from his lethal flamethrower if you want to survive.',
 		texture = 'gfx/Smoulder.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -263,10 +217,6 @@ return {
 		description = 'A biomechanical creature. Its plasma cannon will wipe you out in seconds.',
 		texture = 'gfx/Skully.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -290,10 +240,6 @@ return {
 		description = 'Your worst nightmare. The ultimate biological weapon. Throws radioactive magma and runs like a demon.',
 		texture = 'gfx/Giggler.png',
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -318,10 +264,6 @@ return {
 		speed = 2.0,
 		fuse_time = 3.0,
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
 				interval = 0.1,
@@ -346,10 +288,6 @@ return {
 		speed = 2.0,
 		fuse_time = 3.0,
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
 				interval = 0.1,
@@ -372,22 +310,13 @@ return {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',
 		size = { 96, 96 },
-		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-		},
+		animations = {},
 	},	
 	['alien-boss'] = {
 		name = 'Alien Boss',
 		texture = 'gfx/Alien Boss.png',
 		size = { 160, 160 },
 		animations = {
-			['idle'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -419,12 +348,25 @@ return {
 	['bomb'] = {
 		name = 'Bomb',
 		texture = 'gfx/Bomb.png',
+		animations = {},
+	},
+	['explosion'] = {
+		name = 'Explosion',
+		texture = 'gfx/Explosion.png',
 		animations = {
-			['idle'] = {
-				frames = { 1, 2, 3 },
-				interval = 0.1,
+			['center'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.25,
 			},
-		},
+			['vertical'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.25,
+			},
+			['horizontal'] = {
+				frames = { 9, 10, 11, 12 },
+				interval = 0.25,
+			},
+		}
 	},
 	['flash'] = {
 		name = 'Flash',

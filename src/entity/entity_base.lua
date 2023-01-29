@@ -9,11 +9,18 @@ local math_floor, lume_round = math.floor, lume.round
 
 EntityBase = Class {}
 
+local function addIdleAnimationIfNeeded(animations)
+	if animations['idle'] then return end
+	animations['idle'] = Animation({
+		frames = { 1 },
+		interval = 0.1,
+	}) 
+end
+
 function EntityBase:init(def)
 	assert(def ~= nil, 'definition is required')
 	assert(def.name ~= nil, 'name is required')
 	assert(def.animations ~= nil, 'definition should contain animations table')
-	assert(def.animations['idle'] ~= nil, 'animation table should contain idle animation')
 
 	self.name = def.name
 	self.description = def.description or ''
@@ -26,7 +33,8 @@ function EntityBase:init(def)
 	self.image = ImageCache.load(def.texture)
 	self.quads = GenerateQuads(self.image, self.size.x, self.size.y)
 	self.animations = ParseAnimations(def.animations)
-	self.animation = self.animations['idle']
+	addIdleAnimationIfNeeded(self.animations)
+	self.animation = self.animations['idle']	
 
 	self.category_flags = Category.NONE
 	self.collision_flags = Category.NONE
