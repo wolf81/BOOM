@@ -15,15 +15,12 @@ function Bomb:init(def)
 	self.z_index = def.z_index or 1	
 end
 
-function Bomb:config(id, x, y, level, player)
-	EntityBase.config(self, id, x, y)
+function Bomb:config(id, level, x, y, player)
+	EntityBase.config(self, id, level, x, y)
 
-	assert(level ~= nil and getmetatable(level) == Level, 'level is required')
 	assert(player ~= nil and getmetatable(player) == Player, 'player is required')
 
 	self.player = player
-	self.level = level
-
 	self.fuse_time = self.player.fuse_time
 end
 

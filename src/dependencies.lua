@@ -43,6 +43,7 @@ require 'src.state.destroy'
 
 require 'src.entity.entity_base'
 require 'src.entity.block'
+require 'src.entity.flash'
 require 'src.entity.bomb'
 require 'src.entity.breakable_block'
 require 'src.entity.teleporter'

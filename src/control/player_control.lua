@@ -56,7 +56,7 @@ function PlayerControl:update(dt)
 	if self.input:pressed('action') then
 		local grid_pos = self.entity:gridPosition()
 		local x, y = grid_pos.x * TILE_W, grid_pos.y * TILE_H
-		local bomb = EntityFactory.create('bomb', x, y, self.entity.level, self.entity)
+		local bomb = EntityFactory.create('bomb', self.entity.level, x, y, self.entity)
 		self.entity.level:addEntity(bomb)
 	end
 

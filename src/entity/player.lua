@@ -20,8 +20,8 @@ function Player:init(def)
 	self.collision_flags = bit.bor(Category.PLAYER, Category.COIN, Category.MONSTER, Category.TELEPORTER)
 end
 
-function Player:config(id, x, y, level)
-	Creature.config(self, id, x, y, level)
+function Player:config(id, level, x, y)
+	Creature.config(self, id, level, x, y)
 
 	self.control = PlayerControl(self)
 end

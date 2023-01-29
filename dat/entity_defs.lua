@@ -348,7 +348,12 @@ return {
 	['bomb'] = {
 		name = 'Bomb',
 		texture = 'gfx/Bomb.png',
-		animations = {},
+		animations = {
+			['idle'] = {
+				frames = { 1, 2, 3 },
+				interval = 0.1,
+			},
+		},
 	},
 	['explosion'] = {
 		name = 'Explosion',

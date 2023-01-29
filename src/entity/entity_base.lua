@@ -40,9 +40,10 @@ function EntityBase:init(def)
 	self.collision_flags = Category.NONE
 end
 
-function EntityBase:config(id, x, y)
-	self.pos = vector(x, y)
+function EntityBase:config(id, level, x, y)
 	self.id = id
+	self.level = level
+	self.pos = vector(x, y)
 end
 
 function EntityBase:gridPosition()

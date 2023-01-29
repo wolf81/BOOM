@@ -26,6 +26,10 @@ function Animation:update(dt)
     end
 end
 
+function Animation:getDuration()
+    return #self.frames * self.interval
+end
+
 function Animation:getCurrentFrame()
     return self.frames[self.currentFrame]
 end

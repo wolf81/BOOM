@@ -38,6 +38,8 @@ function EntityFactory.register(path)
 			prototypes[key] = Teleporter(entity_def)
 		elseif key == 'bomb' then
 			prototypes[key] = Bomb(entity_def)
+		elseif key == 'flash' then
+			prototypes[key] = Flash(entity_def)
 		else
 			prototypes[key] = Creature(entity_def)
 		end			
@@ -47,13 +49,14 @@ function EntityFactory.register(path)
 	end
 end
 
--- generate an entity based on key and x, y coords
-function EntityFactory.create(key, x, y, ...)
+-- generate an entity based on key, level & x, y coords
+function EntityFactory.create(key, level, x, y, ...)
 	assert(key ~= nil, 'key is required')
-	assert(prototypes[key] ~= nil, 'key \"' .. key .. '\" not registered')
+	assert(level ~= nil and getmetatable(level) == Level, 'level is required')
 	assert(x ~= nil and y ~= nil, 'x and y value is required')
+	assert(prototypes[key] ~= nil, 'key \"' .. key .. '\" not registered')
 
 	local entity = CopyTable(prototypes[key])
-	entity:config(id_generator.next(), x, y, ...)
+	entity:config(id_generator.next(), level, x, y, ...)
 	return entity
 end

@@ -114,17 +114,20 @@ local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_i
 		if c == '0' then 
 			goto continue
 		elseif c == '1' then
-			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
+			local block = EntityFactory.create(c, level, x * TILE_W, y * TILE_H)
 			block:setBlockId(fixed_block_id)
 			level:addEntity(block)
 		elseif c == '2' then
-			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
+			local block = EntityFactory.create(c, level, x * TILE_W, y * TILE_H)
 			block:setBlockId(breakable_block_id)
 			level:addEntity(block)
 		elseif c == '*' and level.index == 80 then
-			level:addEntity(EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H, level))
+			level:addEntity(EntityFactory.create('alien-boss', level, x * TILE_W, y * TILE_H))
+		elseif c == 'X' or c == 'Y' then
+			level:addEntity(EntityFactory.create(c, level, x * TILE_W, y * TILE_H))
+			level:addEntity(EntityFactory.create('flash', level, x * TILE_W, y * TILE_H))
 		else
-			level:addEntity(EntityFactory.create(c, x * TILE_W, y * TILE_H, level))
+			level:addEntity(EntityFactory.create(c, level, x * TILE_W, y * TILE_H))
 		end
 
 		::continue::
