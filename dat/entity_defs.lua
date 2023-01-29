@@ -47,9 +47,13 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+			['destroy'] = {
+				frames = { 21, 22 },
 				interval = 0.1,
 			},
 		},
@@ -75,6 +79,10 @@ return {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				frames = { 21, 22 },
+				interval = 0.1,
+			},
 		},
 	},
 	['C'] = {
@@ -96,6 +104,10 @@ return {
 			},		
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+			['destroy'] = {
+				frames = { 21, 22, 23, 24 },
 				interval = 0.1,
 			},
 		},

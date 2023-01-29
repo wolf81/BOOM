@@ -7,7 +7,7 @@
 
 local lume_remove, lume_randomchoice = lume.remove, lume.randomchoice
 
-Creature = Class { __includes = { EntityBase, Movable } }
+Creature = Class { __includes = { EntityBase, Movable, Destructable } }
 
 function Creature:init(def)
 	EntityBase.init(self, def)
@@ -27,6 +27,7 @@ function Creature:config(id, level, x, y)
 	self.state_machine = StateMachine {
 		['idle'] = function() return Idle(self) end,
 		['move'] = function() return Move(self) end,
+		['destroy'] = function() return Destroy(self) end,
 	}
 	self.state_machine:change('idle')		
 end

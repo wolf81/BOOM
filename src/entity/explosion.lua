@@ -21,6 +21,9 @@ end
 
 function Explosion:init(def)
 	EntityBase.init(self, def)
+
+	self.category_flags = Category.EXPLOSION
+	self.collision_flags = Category.MONSTER
 end
 
 function Explosion:config(id, level, x, y, player, direction)
