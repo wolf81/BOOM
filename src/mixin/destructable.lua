@@ -8,6 +8,8 @@
 Destructable = Class {}
 
 function Destructable:destroy()
+	if getmetatable(self.state_machine.current) == Destroy then return end
+	
 	self.state_machine:change('destroy')
 end
 

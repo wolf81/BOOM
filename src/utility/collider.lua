@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local bit_band = bit.band
+local bit_band, lume_ripairs, table_remove = bit.band, lume.ripairs, table.remove
 
 local Collider = Class {}
 
@@ -24,19 +24,21 @@ function Collider:init(fn)
 
 	self.onCollision = fn
 	self.entities = {}
-	self.entity_info = {}
 end
 
 function Collider:add(entity)
-	table.insert(self.entities, entity)
-	self.entity_info[entity] = #self.entities
+	self.entities[#self.entities + 1] = entity
 end
 
 function Collider:remove(entity)
-	local entity_idx = self.entity_info[entity]
-	if entity_idx then
-		self.entity_info[entity] = nil
-		table.remove(self.entities, entity_idx)
+	-- TODO: somehow using a lookup table for entity indices doesn't seem to
+	-- work, but this loop could be slow if we have many entities 
+	-- optimize later ...	
+	for idx, e in lume_ripairs(self.entities) do
+		if e.id == entity.id then
+			table_remove(self.entities, idx)
+			break
+		end
 	end
 end
 

@@ -15,7 +15,7 @@ local function coordToKey(pos)
 end
 
 local function isCollidable(entity)
-	return entity.category_flags ~= Category.NONE or entity.collision_flags ~= Category.NONE
+	return entity.category_flags ~= Category.NONE
 end
 
 local function onCollide(entity1, entity2)
