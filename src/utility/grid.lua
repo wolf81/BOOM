@@ -21,6 +21,10 @@ function Grid:block(x, y)
    self.grid[y][x] = 0
 end
 
+function Grid:unblock(x, y)
+   self.grid[y][x] = 1
+end
+
 function Grid:isBlocked(x, y)
    if y < 1 or y > #self.grid then return true end
    if x < 1 or x > #self.grid[1] then return true end

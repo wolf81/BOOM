@@ -17,6 +17,7 @@ local levels_data = nil
 local entity_defs = nil
 
 -- generate a background image based on background pattern image and border image
+-- TODO: consider adding fixed blocks as well, but make sure this will work fine with projectiles
 local function generateBackground(bg_pattern_id, border_id)
 	local canvas = love.graphics.newCanvas(WINDOW_W, WINDOW_H)
 	love.graphics.setCanvas(canvas)

@@ -9,6 +9,8 @@ BreakableBlock = Class { __includes = { Block, Destructable } }
 
 function BreakableBlock:init(def)
 	EntityBase.init(self, def)
+
+	self.z_index = 3
 end
 
 function BreakableBlock:config(id, level, x, y)
@@ -19,4 +21,8 @@ function BreakableBlock:config(id, level, x, y)
 		['destroy'] = function() return Destroy(self) end,
 	}
 	self.state_machine:change('idle')	
+end
+
+function BreakableBlock:update(dt)
+	self.state_machine:update(dt)
 end

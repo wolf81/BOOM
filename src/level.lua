@@ -35,13 +35,16 @@ function Level:init(index, background, grid, time)
 	self.grid = grid
 	self.time = time
 
+	-- TODO: seems there's not much value in using SkipList at this point, perhaps
+	-- just use a list for each entity type and render in appropriate order
+	-- in that case we can remove the z_index from entities as well
 	self.entities = SkipList.new(TILE_W * TILE_H)
 	self.collider = Collider(onCollide)
 
 	self.bomb_info = {}
 	self.bblock_info = {}
 
-	-- TODO: use shash for collision checking, likely more efficient
+	-- TODO: use shash module for collision checking, likely more efficient
 
 	print('level ' .. self.index)
 	print(self.grid)
@@ -65,7 +68,9 @@ function Level:removeEntity(entity)
 	self.entities:delete(entity)
 
 	if entity:is(BreakableBlock) then
-		self.bblock_info[coordToKey(entity:gridPosition())] = nil
+		local grid_pos = entity:gridPosition()
+		self.bblock_info[coordToKey(grid_pos)] = nil
+		self.grid:unblock(grid_pos.x, grid_pos.y)
 	elseif entity:is(Bomb) then
 		self.bomb_info[coordToKey(entity:gridPosition())] = nil
 	end
@@ -83,6 +88,7 @@ function Level:getBomb(grid_pos)
 	return self.bomb_info[coordToKey(grid_pos)]
 end
 
+-- TODO: should use a vector to align with getBreakableBlock(), getBomb()
 function Level:isBlocked(x, y)
 	return self.grid:isBlocked(x, y)
 end

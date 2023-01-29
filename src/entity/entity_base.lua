@@ -5,6 +5,14 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
+-- TODO: I think it's a good idea to just add a StateMachine by default to each entity
+--
+-- Since DestroyState already removes entities from level, we can then use DestroyState
+-- as initial state for entities like Flash
+-- 
+-- Also, based on animation keys defined in entity definition we can dynamically include
+-- mixins for the appropriate states
+
 local math_floor, lume_round = math.floor, lume.round
 
 EntityBase = Class {}
