@@ -31,10 +31,11 @@ function Explosion:config(id, level, x, y, player, direction)
 
 	self.player = player
 
+	self.z_index = 2
+
 	local anim_name = getAnimationName(direction)
 	self:animate(anim_name)
 	self.explode_time = self.animations[anim_name]:getDuration()
-	print('explode_time', self.explode_time)
 end
 
 function Explosion:update(dt)

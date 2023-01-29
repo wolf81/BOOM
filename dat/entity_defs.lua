@@ -14,7 +14,12 @@ return {
 	['2'] = {
 		name = 'Breakable Block',
 		texture = 'gfx/Breakable Blocks.png',
-		animations = {},
+		animations = {
+			['destroy'] = {
+				frames = { 2, 3, 4 },
+				interval = 0.1,
+			},
+		},
 	},
 	['3'] = {
 		name = 'Coin',

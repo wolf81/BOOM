@@ -31,5 +31,12 @@ function Bomb:update(dt)
 	if self.fuse_time == 0 then
 		self.level:addEntity(EntityFactory.create('explosion', self.level, self.pos.x, self.pos.y, self.player, Direction.NONE))
 		self.level:removeEntity(self)		
+
+		local grid_pos = self:gridPosition()
+
+		for _, dir in ipairs({ Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT }) do
+			local pos = (grid_pos + dir):permul(TILE_SIZE)
+			self.level:addEntity(EntityFactory.create('explosion', self.level, pos.x, pos.y, self.player, dir))
+		end
 	end
 end

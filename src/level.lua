@@ -10,6 +10,10 @@ local SkipList = require 'src.utility.skip_list'
 
 Level = Class {}
 
+local function coordToKey(pos)
+  return pos.x + pos.y * 1e7
+end
+
 local function isCollidable(entity)
 	return entity.category_flags ~= Category.NONE or entity.collision_flags ~= Category.NONE
 end
@@ -34,6 +38,9 @@ function Level:init(index, background, grid, time)
 	self.entities = SkipList.new(TILE_W * TILE_H)
 	self.collider = Collider(onCollide)
 
+	self.bomb_info = {}
+	self.bblock_info = {}
+
 	-- TODO: use shash for collision checking, likely more efficient
 
 	print('level ' .. self.index)
@@ -43,6 +50,12 @@ end
 function Level:addEntity(entity)
 	self.entities:insert(entity)
 
+	if entity:is(BreakableBlock) then
+		self.bblock_info[coordToKey(entity:gridPosition())] = entity
+	elseif entity:is(Bomb) then
+		self.bomb_info[coordToKey(entity:gridPosition())] = entity
+	end
+
 	if isCollidable(entity) then
 		self.collider:add(entity)
 	end
@@ -51,9 +64,23 @@ end
 function Level:removeEntity(entity)
 	self.entities:delete(entity)
 
+	if entity:is(BreakableBlock) then
+		self.bblock_info[coordToKey(entity:gridPosition())] = nil
+	elseif entity:is(Bomb) then
+		self.bomb_info[coordToKey(entity:gridPosition())] = nil
+	end
+
 	if isCollidable(entity) then
 		self.collider:remove(entity)
 	end
+end
+
+function Level:getBreakableBlock(grid_pos)
+	return self.bblock_info[coordToKey(grid_pos)]
+end
+
+function Level:getBomb(grid_pos)
+	return self.bomb_info[coordToKey(grid_pos)]
 end
 
 function Level:isBlocked(x, y)

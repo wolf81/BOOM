@@ -5,8 +5,18 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-BreakableBlock = Class { __includes = Block }
+BreakableBlock = Class { __includes = { Block, Destructable } }
 
 function BreakableBlock:init(def)
 	EntityBase.init(self, def)
+end
+
+function BreakableBlock:config(id, level, x, y)
+	EntityBase.config(self, id, level, x, y)
+
+	self.state_machine = StateMachine {
+		['idle'] = function() return Idle(self) end,
+		['destroy'] = function() return Destroy(self) end,
+	}
+	self.state_machine:change('idle')	
 end
