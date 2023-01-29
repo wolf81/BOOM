@@ -21,6 +21,8 @@ local function idling(self, dt)
 end
 
 local function roaming(self, dt)
+	if self.entity:isDestroyed() then return end
+	
 	if self.entity.pos.y % TILE_H == 0 and self.entity.pos.x % TILE_W == 0 then
 		local dirs = lume.shuffle(DIRS)
 		local dir = Direction.NONE

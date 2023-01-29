@@ -53,6 +53,8 @@ end
 function PlayerControl:update(dt)	
 	self.input:update()
 
+	if self.entity:isDestroyed() then return end
+
 	if self.input:pressed('action') then
 		local grid_pos = self.entity:gridPosition()
 		if not self.entity.level:getBomb(grid_pos) then

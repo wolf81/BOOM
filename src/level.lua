@@ -6,16 +6,48 @@
 --]]
 
 local Collider = require 'src.utility.collider'
-local SkipList = require 'src.utility.skip_list'
+
+local table_insert, lume_remove = table.insert, lume.remove
 
 Level = Class {}
 
-local function coordToKey(pos)
-  return pos.x + pos.y * 1e7
-end
-
 local function isCollidable(entity)
 	return entity.category_flags ~= Category.NONE
+end
+
+local function insertEntities(self)
+	for _, entity in ipairs(self.insert_queue) do
+		if entity:is(Explosion) then table_insert(self.explosions, entity)
+		elseif entity:is(Bomb) then table_insert(self.bombs, entity)
+		elseif entity:is(Block) then table_insert(self.fixed_blocks, entity)
+		elseif entity:is(BreakableBlock) then table_insert(self.breakable_blocks, entity)
+		elseif entity:is(Player) then table_insert(self.players, entity)
+		elseif entity:is(Creature) then table_insert(self.monsters, entity)
+		elseif entity:is(Teleporter) then table_insert(self.teleporters, entity)
+		elseif entity:is(Coin) then table_insert(self.coins, entity)
+		end
+	end
+
+	self.insert_queue = {}
+end
+
+local function removeEntities(self)
+	for _, entity in ipairs(self.remove_queue) do
+		if entity:is(Explosion) then lume_remove(self.explosions, entity)
+		elseif entity:is(Bomb) then lume_remove(self.bombs, entity)
+		elseif entity:is(Block) then lume_remove(self.fixed_blocks, entity)
+		elseif entity:is(BreakableBlock) then 
+			lume_remove(self.breakable_blocks, entity)
+			local grid_pos = entity:gridPosition()
+			self.grid:unblock(grid_pos.x, grid_pos.y)
+		elseif entity:is(Player) then lume_remove(self.players, entity)
+		elseif entity:is(Creature) then lume_remove(self.monsters, entity)
+		elseif entity:is(Teleporter) then lume_remove(self.teleporters, entity)
+		elseif entity:is(Coin) then lume_remove(self.coins, entity)
+		end
+	end
+
+	self.remove_queue = {}
 end
 
 local function onCollide(entity1, entity2)
@@ -42,11 +74,19 @@ function Level:init(index, background, grid, time)
 	-- TODO: seems there's not much value in using SkipList at this point, perhaps
 	-- just use a list for each entity type and render in appropriate order
 	-- in that case we can remove the z_index from entities as well
-	self.entities = SkipList.new(TILE_W * TILE_H)
 	self.collider = Collider(onCollide)
 
-	self.bomb_info = {}
-	self.bblock_info = {}
+	self.fixed_blocks = {}
+	self.breakable_blocks = {}
+	self.players = {}
+	self.coins = {}
+	self.bombs = {}
+	self.explosions = {}
+	self.teleporters = {}
+	self.monsters = {}
+
+	self.insert_queue = {}
+	self.remove_queue = {}
 
 	AudioPlayer.playMusic('mus/BOOM Music ' .. math.ceil(self.index / 10) .. '.wav')
 
@@ -57,13 +97,7 @@ function Level:init(index, background, grid, time)
 end
 
 function Level:addEntity(entity)
-	self.entities:insert(entity)
-
-	if entity:is(BreakableBlock) then
-		self.bblock_info[coordToKey(entity:gridPosition())] = entity
-	elseif entity:is(Bomb) then
-		self.bomb_info[coordToKey(entity:gridPosition())] = entity
-	end
+	table_insert(self.insert_queue, entity)
 
 	if isCollidable(entity) then
 		self.collider:add(entity)
@@ -71,15 +105,7 @@ function Level:addEntity(entity)
 end
 
 function Level:removeEntity(entity)
-	self.entities:delete(entity)
-
-	if entity:is(BreakableBlock) then
-		local grid_pos = entity:gridPosition()
-		self.bblock_info[coordToKey(grid_pos)] = nil
-		self.grid:unblock(grid_pos.x, grid_pos.y)
-	elseif entity:is(Bomb) then
-		self.bomb_info[coordToKey(entity:gridPosition())] = nil
-	end
+	table_insert(self.remove_queue, entity)
 
 	if isCollidable(entity) then
 		self.collider:remove(entity)
@@ -87,30 +113,98 @@ function Level:removeEntity(entity)
 end
 
 function Level:getBreakableBlock(grid_pos)
-	return self.bblock_info[coordToKey(grid_pos)]
+	for _, entity in ipairs(self.breakable_blocks) do
+		if entity:gridPosition() == grid_pos then return entity end
+	end
+
+	return nil
 end
 
 function Level:getBomb(grid_pos)
-	return self.bomb_info[coordToKey(grid_pos)]
+	for _, entity in ipairs(self.bombs) do
+		if entity:gridPosition() == grid_pos then return entity end
+	end
+
+	return nil
 end
 
--- TODO: should use a vector to align with getBreakableBlock(), getBomb()
+-- TODO: use a vector instead of x, y coords to align with getBreakableBlock(), getBomb()
 function Level:isBlocked(x, y)
 	return self.grid:isBlocked(x, y)
 end
 
 function Level:update(dt)
-	for key, entity in self.entities:ipairs() do
+	insertEntities(self)
+
+	for _, entity in ipairs(self.teleporters) do
+		entity:update(dt)
+	end
+
+	for _, entity in ipairs(self.coins) do
+		entity:update(dt)
+	end	
+
+	for _, entity in ipairs(self.bombs) do
+		entity:update(dt)
+	end
+
+	for _, entity in ipairs(self.explosions) do
+		entity:update(dt)
+	end
+
+	for _, entity in ipairs(self.monsters) do
+		entity:update(dt)
+	end
+
+	for _, entity in ipairs(self.players) do
+		entity:update(dt)
+	end
+
+	for _, entity in ipairs(self.fixed_blocks) do
+		entity:update(dt)
+	end
+
+	for _, entity in ipairs(self.breakable_blocks) do
 		entity:update(dt)
 	end
 
 	self.collider:update()
+
+	removeEntities(self)
 end
 
 function Level:draw()
 	love.graphics.draw(self.background)
 
-	for key, entity in self.entities:ipairs() do
+	for _, entity in ipairs(self.teleporters) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.coins) do
+		entity:draw()
+	end	
+
+	for _, entity in ipairs(self.bombs) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.explosions) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.monsters) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.players) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.fixed_blocks) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.breakable_blocks) do
 		entity:draw()
 	end
 end
