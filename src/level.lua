@@ -19,7 +19,6 @@ local function isCollidable(entity)
 end
 
 local function onCollide(entity1, entity2)
-	print(entity1.name, entity2.name)
 	if entity1:is(Creature) and entity2:is(Creature) then
 		entity2:onCollision(entity1)
 		entity1:onCollision(entity2)
@@ -27,9 +26,9 @@ local function onCollide(entity1, entity2)
 		entity1:destroy()
 	elseif entity1:is(Player) and entity2:is(Coin) then
 		entity2:destroy()
-	elseif entity1:is(Explosion) and entity2:is(Creature) then
+	elseif entity1:is(Explosion) then
 		entity2:destroy()
-	elseif entity1:is(Creature) and entity2:is(Explosion) then
+	elseif entity2:is(Explosion) then
 		entity1:destroy()
 	end
 end
