@@ -48,6 +48,8 @@ function Level:init(index, background, grid, time)
 	self.bomb_info = {}
 	self.bblock_info = {}
 
+	AudioPlayer.playMusic('mus/BOOM Music ' .. math.ceil(self.index / 10) .. '.wav')
+
 	-- TODO: use shash module for collision checking, likely more efficient
 
 	print('level ' .. self.index)

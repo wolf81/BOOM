@@ -12,6 +12,8 @@ local settings = {
 	sound_volume = 1.0,
 }
 
+local music = nil
+
 function AudioPlayer.setMusicVolume(volume)
 	settings.music_volume = volume
 end
@@ -21,7 +23,9 @@ function AudioPlayer.setSoundVolume(volume)
 end
 
 function AudioPlayer.playMusic(path, looping)
-	local music = love.audio.newSource(path, 'stream')
+	if music then music:stop() end
+
+	music = love.audio.newSource(path, 'stream')
     music:setVolume(settings.music_volume)
     music:setLooping(looping or true)
     love.audio.play(music) 
