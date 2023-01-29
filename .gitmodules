@@ -13,6 +13,3 @@
 [submodule "lib/skip-list"]
 	path = lib/skip-list
 	url = git@github.com:wolf81/skip-list.git
-[submodule "lib/skip_list"]
-	path = lib/skip_list
-	url = git@github.com:wolf81/skip-list.git

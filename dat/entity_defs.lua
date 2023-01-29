@@ -361,15 +361,15 @@ return {
 		animations = {
 			['center'] = {
 				frames = { 1, 2, 3, 4 },
-				interval = 0.25,
+				interval = 0.15,
 			},
 			['vertical'] = {
 				frames = { 5, 6, 7, 8 },
-				interval = 0.25,
+				interval = 0.15,
 			},
 			['horizontal'] = {
 				frames = { 9, 10, 11, 12 },
-				interval = 0.25,
+				interval = 0.15,
 			},
 		}
 	},

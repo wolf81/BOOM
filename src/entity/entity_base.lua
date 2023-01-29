@@ -73,5 +73,7 @@ end
 
 -- the skip list uses the less-than operator to determine drawing order based on z_index
 function EntityBase:__lt(other)
-	return self.z_index < other.z_index
+	if self.z_index < other.z_index then return true 
+	elseif self.z_index == other.z_index and self.id < other.id then return true
+	else return false end
 end

@@ -12,7 +12,7 @@ Bomb = Class { __includes = EntityBase }
 function Bomb:init(def)
 	EntityBase.init(self, def)
 
-	self.z_index = def.z_index or 1	
+	self.z_index = 1
 end
 
 function Bomb:config(id, level, x, y, player)
@@ -29,7 +29,7 @@ function Bomb:update(dt)
 
 	self.fuse_time = math_max(self.fuse_time - dt, 0)
 	if self.fuse_time == 0 then
-		print('EXPLODE')
-		self.level:removeEntity(self)
+		self.level:addEntity(EntityFactory.create('explosion', self.level, self.pos.x, self.pos.y, self.player, Direction.NONE))
+		self.level:removeEntity(self)		
 	end
 end

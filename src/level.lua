@@ -6,7 +6,7 @@
 --]]
 
 local Collider = require 'src.utility.collider'
-local SkipList = require 'lib.skip_list.skip_list'
+local SkipList = require 'src.utility.skip_list'
 
 Level = Class {}
 
@@ -31,7 +31,7 @@ function Level:init(index, background, grid, time)
 	self.grid = grid
 	self.time = time
 
-	self.entities = SkipList:new()
+	self.entities = SkipList.new(TILE_W * TILE_H)
 	self.collider = Collider(onCollide)
 
 	-- TODO: use shash for collision checking, likely more efficient
@@ -61,16 +61,17 @@ function Level:isBlocked(x, y)
 end
 
 function Level:update(dt)
-	self.collider:update()
-	for entity in self.entities:iterate() do
+	for key, entity in self.entities:ipairs() do
 		entity:update(dt)
 	end
+
+	self.collider:update()
 end
 
 function Level:draw()
 	love.graphics.draw(self.background)
 
-	for entity in self.entities:iterate() do
+	for key, entity in self.entities:ipairs() do
 		entity:draw()
 	end
 end
