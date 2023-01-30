@@ -128,10 +128,6 @@ function Level:init(index, background, grid, time, entities)
 
 	updateTeleporterTargets(self)
 
-	for idx, teleporter in ipairs(self.teleporters) do
-		print('teleporter #' .. idx, teleporter:gridPosition(), '=>', teleporter.target:gridPosition())
-	end
-
 	AudioPlayer.playMusic('mus/BOOM Music ' .. math.ceil(self.index / 10) .. '.wav')
 
 	-- TODO: use shash module for collision checking, likely more efficient
