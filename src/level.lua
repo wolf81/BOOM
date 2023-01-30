@@ -62,6 +62,33 @@ local function removeEntities(self)
 	self.remove_queue = {}
 end
 
+local function tryTeleportEntities(self, teleporter)
+	local busy = false
+	local grid_pos = teleporter:gridPosition()
+
+	for _, monster in ipairs(self.monsters) do
+		if monster:gridPosition() == grid_pos then 
+			busy = true
+
+			if teleporter.pos == monster.pos then
+				teleporter:teleport(monster)
+			end
+		end
+	end
+
+	for _, player in ipairs(self.players) do
+		if player:gridPosition() == grid_pos then 
+			busy = true
+
+			if teleporter.pos == player.pos then
+				teleporter:teleport(player)
+			end
+		end
+	end
+
+	teleporter.busy = busy
+end
+
 local function onCollide(entity1, entity2)
 	if entity1:is(Creature) and entity2:is(Creature) then
 		entity2:onCollision(entity1)
@@ -161,6 +188,8 @@ function Level:update(dt)
 
 	for _, entity in ipairs(self.teleporters) do
 		entity:update(dt)
+
+		tryTeleportEntities(self, entity)
 	end
 
 	for _, entity in ipairs(self.coins) do
