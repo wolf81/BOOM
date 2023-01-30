@@ -42,6 +42,11 @@ local function configureStateMachineIfNeeded(self)
 		use_dummy = false
 	end
 
+	if self.animations['attack-down'] ~= nil then
+		states['attack'] = function() return Attack(self) end
+		use_dummy = false
+	end
+
 	if use_dummy then
 		self.state_machine = StateMachine()
 	else
@@ -97,7 +102,7 @@ function EntityBase:getFrame()
 end
 
 function EntityBase:update(dt)
-	self.animation:update(dt)	
+	self.animation:update(dt)
 
 	self.state_machine:update(dt)
 end
@@ -150,5 +155,15 @@ function EntityBase:destroy()
 end
 
 function EntityBase:isDestroyed()
-	return getmetatable(self.state_machine.current) == Destroy	
+	return getmetatable(self.state_machine.current) == Destroy
+end
+
+-- attack
+
+function EntityBase:attack()	
+	self.state_machine:change('attack')
+end
+
+function EntityBase:isAttacking()
+	return getmetatable(self.state_machine.current) == Attack
 end

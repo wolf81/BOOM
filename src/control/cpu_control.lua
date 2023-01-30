@@ -21,9 +21,39 @@ local function idling(self, dt)
 end
 
 local function roaming(self, dt)
-	if self.entity:isDestroyed() then return end
-	
-	if self.entity.pos.y % TILE_H == 0 and self.entity.pos.x % TILE_W == 0 then
+	if self.entity:isDestroyed() or self.entity:isAttacking() then return end
+
+	if self.entity.direction ~= Direction.NONE and self.entity:canAttack() then
+		local grid_pos = self.entity:gridPosition()
+
+		local did_attack = false
+
+		for _, player in ipairs(self.entity.level.players) do
+			local player_grid_pos = player:gridPosition()
+
+			if self.entity.direction == Direction.UP then
+				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then 
+					self.entity:attack() 
+				end
+			elseif self.entity.direction == Direction.DOWN then
+				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then 
+					self.entity:attack() 
+				end
+			elseif self.entity.direction == Direction.LEFT then
+				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then 
+					self.entity:attack() 
+				end
+			elseif self.entity.direction == Direction.RIGHT then
+				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then 
+					self.entity:attack() 
+				end
+			end
+
+			if self.entity:isAttacking() then return end
+		end
+	end
+
+	if self.entity.pos.x % TILE_W == 0 and self.entity.pos.y % TILE_H == 0 then
 		local dirs = lume.shuffle(DIRS)
 		local dir = Direction.NONE
 

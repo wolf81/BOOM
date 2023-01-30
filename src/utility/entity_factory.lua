@@ -43,7 +43,7 @@ function EntityFactory.register(path)
 		elseif key == 'explosion' then
 			prototypes[key] = Explosion(entity_def)
 		else
-			prototypes[key] = Creature(entity_def)
+			prototypes[key] = Monster(entity_def)
 		end			
 
 		-- preload textures

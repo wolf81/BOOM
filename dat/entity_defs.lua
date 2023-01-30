@@ -52,6 +52,22 @@ return {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
 			},
+			['attack-down'] = {
+				frames = { 17 },
+				interval = 0.5,
+			},
+			['attack-up'] = {
+				frames = { 18 },
+				interval = 0.5,
+			},
+			['attack-right'] = {
+				frames = { 19 },
+				interval = 0.5,
+			},
+			['attack-left'] = {
+				frames = { 20 },
+				interval = 0.5,
+			},
 			['destroy'] = {
 				frames = { 21, 22 },
 				interval = 0.1,

@@ -34,7 +34,7 @@ local function insertEntities(self)
 		elseif entity:is(Block) then table_insert(self.fixed_blocks, entity)
 		elseif entity:is(BreakableBlock) then table_insert(self.breakable_blocks, entity)
 		elseif entity:is(Player) then table_insert(self.players, entity)
-		elseif entity:is(Creature) then table_insert(self.monsters, entity)
+		elseif entity:is(Monster) then table_insert(self.monsters, entity)
 		elseif entity:is(Teleporter) then table_insert(self.teleporters, entity)
 		elseif entity:is(Coin) then table_insert(self.coins, entity)
 		elseif entity:is(Flash) then table_insert(self.props, entity)
@@ -54,7 +54,7 @@ local function removeEntities(self)
 			local grid_pos = entity:gridPosition()
 			self.grid:unblock(grid_pos.x, grid_pos.y)
 		elseif entity:is(Player) then lume_remove(self.players, entity)
-		elseif entity:is(Creature) then lume_remove(self.monsters, entity)
+		elseif entity:is(Monster) then lume_remove(self.monsters, entity)
 		elseif entity:is(Teleporter) then lume_remove(self.teleporters, entity)
 		elseif entity:is(Coin) then lume_remove(self.coins, entity)
 		elseif entity:is(Flash) then lume_remove(self.props, entity)
@@ -85,7 +85,7 @@ local function tryTeleportEntities(self, teleporter)
 end
 
 local function onCollide(entity1, entity2)
-	if entity1:is(Creature) and entity2:is(Creature) then
+	if entity1:is(Monster) and entity2:is(Monster) then
 		entity2:onCollision(entity1)
 		entity1:onCollision(entity2)
 	elseif entity1:is(Coin) and entity2:is(Player) then
