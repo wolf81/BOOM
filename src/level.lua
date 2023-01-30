@@ -21,10 +21,10 @@ local function updateTeleporterTargets(self)
 	for idx = 1, #self.teleporters - 1 do
 		local teleporter1 = self.teleporters[idx]
 		local teleporter2 = self.teleporters[idx + 1]
-		teleporter1:setTarget(teleporter2)
+		teleporter2:setTarget(teleporter1)
 	end
 
-	self.teleporters[#self.teleporters]:setTarget(self.teleporters[1])
+	self.teleporters[1]:setTarget(self.teleporters[#self.teleporters])
 end
 
 local function insertEntities(self)
@@ -68,25 +68,18 @@ local function tryTeleportEntities(self, teleporter)
 	local busy = false
 	local grid_pos = teleporter:gridPosition()
 
-	for _, monster in ipairs(self.monsters) do
-		if monster:gridPosition() == grid_pos then 
+	local fn = function(entity)
+		if entity:gridPosition() == grid_pos then
 			busy = true
 
-			if teleporter.pos == monster.pos then
-				teleporter:teleport(monster)
-			end
+			if teleporter.pos:dist2(entity.pos) < 8 then
+				teleporter:teleport(entity)
+			end			
 		end
 	end
 
-	for _, player in ipairs(self.players) do
-		if player:gridPosition() == grid_pos then 
-			busy = true
-
-			if teleporter.pos == player.pos then
-				teleporter:teleport(player)
-			end
-		end
-	end
+	for _, monster in ipairs(self.monsters) do fn(monster) end
+	for _, player in ipairs(self.players) do fn(player) end
 
 	teleporter.busy = busy
 end
