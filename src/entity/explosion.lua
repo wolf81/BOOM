@@ -26,8 +26,8 @@ function Explosion:init(def)
 	self.collision_flags = bit.bor(Category.MONSTER, Category.PLAYER)
 end
 
-function Explosion:config(id, level, x, y, player, direction)
-	EntityBase.config(self, id, level, x, y)
+function Explosion:config(id, x, y, player, direction)
+	EntityBase.config(self, id, x, y)
 
 	assert(player ~= nil and getmetatable(player) == Player, 'player is required')
 	assert(direction ~= nil, 'direction is required')

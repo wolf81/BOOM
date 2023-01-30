@@ -19,8 +19,8 @@ function Creature:init(def)
 	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
 end
 
-function Creature:config(id, level, x, y)
-	EntityBase.config(self, id, level, x, y)
+function Creature:config(id, x, y)
+	EntityBase.config(self, id, x, y)
 
 	self.control = CpuControl(self)
 

@@ -12,3 +12,17 @@ function Teleporter:init(def)
 
 	self.category_flags = Category.TELEPORTER
 end
+
+function Teleporter:update(dt)
+	for _, entity in ipairs(self.level.monsters) do
+		if entity.pos == self.pos then
+			print('TELEPORT')
+		end
+	end
+	
+	for _, entity in ipairs(self.level.players) do
+		if entity.pos == self.pos then
+			print('TELEPORT')
+		end
+	end
+end

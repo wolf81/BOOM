@@ -13,8 +13,8 @@ function BreakableBlock:init(def)
 	self.z_index = 3
 end
 
-function BreakableBlock:config(id, level, x, y)
-	EntityBase.config(self, id, level, x, y)
+function BreakableBlock:config(id, x, y)
+	EntityBase.config(self, id, x, y)
 
 	self.state_machine = StateMachine {
 		['idle'] = function() return Idle(self) end,

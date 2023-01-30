@@ -33,7 +33,8 @@ function EntityBase:init(def)
 	self.name = def.name
 	self.description = def.description or ''
 	self.z_index = def.z_index or 0
-	self.id = nil -- id will be assigned when created using EntityFactory
+	self.id = nil -- assigned by EntityFactory
+	self.level = nil -- assigned by Level when added to Level
 	
 	self.pos = vector(0, 0)
 	self.size = vector(ParseSpriteSize(def.size))
@@ -48,9 +49,8 @@ function EntityBase:init(def)
 	self.collision_flags = Category.NONE
 end
 
-function EntityBase:config(id, level, x, y)
+function EntityBase:config(id, x, y)
 	self.id = id
-	self.level = level
 	self.pos = vector(x, y)
 end
 

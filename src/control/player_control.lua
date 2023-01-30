@@ -59,7 +59,7 @@ function PlayerControl:update(dt)
 		local grid_pos = self.entity:gridPosition()
 		if not self.entity.level:getBomb(grid_pos) then
 			local x, y = grid_pos.x * TILE_W, grid_pos.y * TILE_H
-			local bomb = EntityFactory.create('bomb', self.entity.level, x, y, self.entity)
+			local bomb = EntityFactory.create('bomb', x, y, self.entity)
 			self.entity.level:addEntity(bomb)
 		end
 	end

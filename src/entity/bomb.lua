@@ -15,8 +15,8 @@ function Bomb:init(def)
 	self.z_index = 1
 end
 
-function Bomb:config(id, level, x, y, player)
-	EntityBase.config(self, id, level, x, y)
+function Bomb:config(id, x, y, player)
+	EntityBase.config(self, id, x, y)
 
 	assert(player ~= nil and getmetatable(player) == Player, 'player is required')
 
@@ -34,7 +34,7 @@ function Bomb:update(dt)
 
 	self.fuse_time = math_max(self.fuse_time - dt, 0)
 	if self.fuse_time == 0 then
-		self.level:addEntity(EntityFactory.create('explosion', self.level, self.pos.x, self.pos.y, self.player, Direction.NONE))
+		self.level:addEntity(EntityFactory.create('explosion', self.pos.x, self.pos.y, self.player, Direction.NONE))
 		self.level:removeEntity(self)		
 
 		local grid_pos = self:gridPosition()
@@ -49,7 +49,7 @@ function Bomb:update(dt)
 					local bblock = self.level:getBreakableBlock(next_grid_pos)
 					if bblock then
 						local pos = (grid_pos + dir * i):permul(TILE_SIZE)
-						self.level:addEntity(EntityFactory.create('explosion', self.level, pos.x, pos.y, self.player, dir))
+						self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player, dir))
 
 						bblock:destroy()
 					end
@@ -61,7 +61,7 @@ function Bomb:update(dt)
 				if bomb then bomb:explode() end
 
 				local pos = (next_grid_pos):permul(TILE_SIZE)
-				self.level:addEntity(EntityFactory.create('explosion', self.level, pos.x, pos.y, self.player, dir))				
+				self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player, dir))				
 			end
 		end
 	end

@@ -6,7 +6,7 @@
 --]]
 
 local json = require 'lib.json.json'
-local string_sub = string.sub
+local string_sub, table_insert = string.sub, table.insert
 
 LevelLoader = {}
 
@@ -106,7 +106,7 @@ local function GenerateMovementGrid(grid_desc_str)
 end
 
 -- parse grid description, generating entities on map for each character
-local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_id, level)
+local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_id, is_final_level)
 	local x, y = 1, 1
 	local entities = {}
 	for i = 1, #grid_desc_str do
@@ -115,20 +115,20 @@ local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_i
 		if c == '0' then 
 			goto continue
 		elseif c == '1' then
-			local block = EntityFactory.create(c, level, x * TILE_W, y * TILE_H)
+			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
 			block:setBlockId(fixed_block_id)
-			level:addEntity(block)
+			table_insert(entities, block)
 		elseif c == '2' then
-			local block = EntityFactory.create(c, level, x * TILE_W, y * TILE_H)
+			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
 			block:setBlockId(breakable_block_id)
-			level:addEntity(block)
-		elseif c == '*' and level.index == 80 then
-			level:addEntity(EntityFactory.create('alien-boss', level, x * TILE_W, y * TILE_H))
+			table_insert(entities, block)
+		elseif c == '*' and is_final_level then
+			table_insert(entities, EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H))
 		elseif c == 'X' or c == 'Y' then
-			level:addEntity(EntityFactory.create(c, level, x * TILE_W, y * TILE_H))
-			level:addEntity(EntityFactory.create('flash', level, x * TILE_W, y * TILE_H))
+			table_insert(entities, EntityFactory.create(c, x * TILE_W, y * TILE_H))
+			table_insert(entities, EntityFactory.create('flash', x * TILE_W, y * TILE_H))
 		else
-			level:addEntity(EntityFactory.create(c, level, x * TILE_W, y * TILE_H))
+			table_insert(entities, EntityFactory.create(c, x * TILE_W, y * TILE_H))
 		end
 
 		::continue::
@@ -140,6 +140,8 @@ local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_i
 			x = 1
 		end
 	end
+
+	return entities
 end
 
 -- load a level - will return false if index is greater than amount of levels
@@ -162,6 +164,7 @@ LevelLoader.load = function(index)
 	-- index greater than number of levels?
 	-- => game finished - don't parse level, return false
 	if index > #levels_data then return false end
+	local is_final_level = index == #levels_data
 
 	-- retrieve level from list
 	local level_data = levels_data[index]
@@ -177,9 +180,8 @@ LevelLoader.load = function(index)
 	-- get texture id for fixed & breakable blocks
 	local fixed_block_id = level_data['FixedBlockID']
 	local breakable_block_id = level_data['BreakableBlockID']
-	
-	print('block ids', fixed_block_id, breakable_block_id)
 
+	-- get grid description
 	local grid_desc_str = level_data['GridDescString']
 
 	-- the movement grid for the player - we exclude blocked tiles
@@ -188,17 +190,11 @@ LevelLoader.load = function(index)
 	-- movement grid anyways as blocks are destroyed
 	local grid = GenerateMovementGrid(grid_desc_str)
 
-	-- keep track of current coord on map using x & y variables
-	local x, y = 1, 1
-
-	-- make level
-	local level = Level(index, background, grid, time)
+	-- parse grid description, generating entities on map for each character
+	local entities = GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_id, is_final_level)
 
 	-- TODO: should reset IdGenerator starting value to 0 here
 
-	-- parse grid description, generating entities on map for each character
-	GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_id, level)
-
 	-- finally return the level
-	return level
+	return Level(index, background, grid, time, entities)
 end

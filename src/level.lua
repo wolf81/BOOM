@@ -65,7 +65,7 @@ local function onCollide(entity1, entity2)
 	end
 end
 
-function Level:init(index, background, grid, time)
+function Level:init(index, background, grid, time, entities)
 	self.index = index
 	self.background = background
 	self.grid = grid
@@ -88,6 +88,8 @@ function Level:init(index, background, grid, time)
 	self.insert_queue = {}
 	self.remove_queue = {}
 
+	for _, entity in ipairs(entities) do self:addEntity(entity) end
+
 	AudioPlayer.playMusic('mus/BOOM Music ' .. math.ceil(self.index / 10) .. '.wav')
 
 	-- TODO: use shash module for collision checking, likely more efficient
@@ -98,6 +100,8 @@ end
 
 function Level:addEntity(entity)
 	table_insert(self.insert_queue, entity)
+
+	entity.level = self
 
 	if isCollidable(entity) then
 		self.collider:add(entity)
