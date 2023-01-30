@@ -15,6 +15,18 @@ local function isCollidable(entity)
 	return entity.category_flags ~= Category.NONE
 end
 
+local function updateTeleporterTargets(self)
+	if #self.teleporters < 2 then return end
+
+	for idx = 1, #self.teleporters - 1 do
+		local teleporter1 = self.teleporters[idx]
+		local teleporter2 = self.teleporters[idx + 1]
+		teleporter1:setTarget(teleporter2)
+	end
+
+	self.teleporters[#self.teleporters]:setTarget(self.teleporters[1])
+end
+
 local function insertEntities(self)
 	for _, entity in ipairs(self.insert_queue) do
 		if entity:is(Explosion) then table_insert(self.explosions, entity)
@@ -89,6 +101,13 @@ function Level:init(index, background, grid, time, entities)
 	self.remove_queue = {}
 
 	for _, entity in ipairs(entities) do self:addEntity(entity) end
+	insertEntities(self)
+
+	updateTeleporterTargets(self)
+
+	for idx, teleporter in ipairs(self.teleporters) do
+		print('teleporter #' .. idx, teleporter:gridPosition(), '=>', teleporter.target:gridPosition())
+	end
 
 	AudioPlayer.playMusic('mus/BOOM Music ' .. math.ceil(self.index / 10) .. '.wav')
 
