@@ -29,9 +29,11 @@ end
 
 function Teleporter:teleport(entity)
 	if not self.subject and not self.target.busy then
-		print(self:gridPosition(), '=>', self.target:gridPosition())
 		self.target.subject = entity
 		entity.pos = self.target.pos
+
+		self.level:addEntity(EntityFactory.create('flash', self.pos.x, self.pos.y))
+		self.level:addEntity(EntityFactory.create('flash', self.target.pos.x, self.target.pos.y))
 	end
 end
 

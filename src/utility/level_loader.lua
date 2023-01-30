@@ -126,7 +126,6 @@ local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_i
 			table_insert(entities, EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H))
 		elseif c == 'X' or c == 'Y' then
 			table_insert(entities, EntityFactory.create(c, x * TILE_W, y * TILE_H))
-			table_insert(entities, EntityFactory.create('flash', x * TILE_W, y * TILE_H))
 		else
 			table_insert(entities, EntityFactory.create(c, x * TILE_W, y * TILE_H))
 		end

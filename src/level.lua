@@ -37,6 +37,7 @@ local function insertEntities(self)
 		elseif entity:is(Creature) then table_insert(self.monsters, entity)
 		elseif entity:is(Teleporter) then table_insert(self.teleporters, entity)
 		elseif entity:is(Coin) then table_insert(self.coins, entity)
+		elseif entity:is(Flash) then table_insert(self.props, entity)
 		end
 	end
 
@@ -56,6 +57,7 @@ local function removeEntities(self)
 		elseif entity:is(Creature) then lume_remove(self.monsters, entity)
 		elseif entity:is(Teleporter) then lume_remove(self.teleporters, entity)
 		elseif entity:is(Coin) then lume_remove(self.coins, entity)
+		elseif entity:is(Flash) then lume_remove(self.props, entity)
 		end
 	end
 
@@ -123,6 +125,7 @@ function Level:init(index, background, grid, time, entities)
 	self.explosions = {}
 	self.teleporters = {}
 	self.monsters = {}
+	self.props = {}
 
 	self.insert_queue = {}
 	self.remove_queue = {}
@@ -148,6 +151,10 @@ function Level:addEntity(entity)
 	table_insert(self.insert_queue, entity)
 
 	entity.level = self
+
+	if entity:is(Player) then 
+		self:addEntity(EntityFactory.create('flash', entity.pos.x, entity.pos.y))
+	end
 
 	if isCollidable(entity) then
 		self.collider:add(entity)
@@ -220,6 +227,10 @@ function Level:update(dt)
 		entity:update(dt)
 	end
 
+	for _, entity in ipairs(self.props) do
+		entity:update(dt)
+	end
+
 	self.collider:update()
 
 	removeEntities(self)
@@ -257,6 +268,10 @@ function Level:draw()
 	end
 
 	for _, entity in ipairs(self.breakable_blocks) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.props) do
 		entity:draw()
 	end
 end
