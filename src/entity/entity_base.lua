@@ -25,6 +25,33 @@ local function addIdleAnimationIfNeeded(animations)
 	}) 
 end
 
+local function configureStateMachineIfNeeded(self)
+	local states = {}
+
+	local use_dummy = true
+
+	if self.animations['move-down'] ~= nil then
+		states['move'] = function() return Move(self) end
+		use_dummy = false
+
+		self.direction = Direction.NONE
+	end
+
+	if self.animations['destroy'] ~= nil then
+		states['destroy'] = function() return Destroy(self) end
+		use_dummy = false
+	end
+
+	if use_dummy then
+		self.state_machine = StateMachine()
+	else
+		states['idle'] = function() return Idle(self) end
+
+		self.state_machine = StateMachine(states)
+		self.state_machine:change('idle')		
+	end
+end
+
 function EntityBase:init(def)
 	assert(def ~= nil, 'definition is required')
 	assert(def.name ~= nil, 'name is required')
@@ -43,7 +70,7 @@ function EntityBase:init(def)
 	self.quads = GenerateQuads(self.image, self.size.x, self.size.y)
 	self.animations = ParseAnimations(def.animations)
 	addIdleAnimationIfNeeded(self.animations)
-	self.animation = self.animations['idle']	
+	self.animation = self.animations['idle']
 
 	self.category_flags = Category.NONE
 	self.collision_flags = Category.NONE
@@ -52,6 +79,8 @@ end
 function EntityBase:config(id, x, y)
 	self.id = id
 	self.pos = vector(x, y)
+
+	configureStateMachineIfNeeded(self)
 end
 
 function EntityBase:gridPosition()
@@ -69,6 +98,8 @@ end
 
 function EntityBase:update(dt)
 	self.animation:update(dt)	
+
+	self.state_machine:update(dt)
 end
 
 function EntityBase:is(T)
@@ -84,4 +115,40 @@ function EntityBase:__lt(other)
 	if self.z_index < other.z_index then return true 
 	elseif self.z_index == other.z_index and self.id < other.id then return true
 	else return false end
+end
+
+-- idle
+
+function EntityBase:idle()
+	self.direction = Direction.NONE
+	self.state_machine:change('idle')
+end
+
+function EntityBase:isIdling()
+	return getmetatable(self.state_machine.current) == Idle
+end
+
+-- move
+
+function EntityBase:move(direction)
+	self.direction = direction
+
+	local state_name = direction == Direction.NONE and 'idle' or 'move'
+	self.state_machine:change(state_name, direction)
+end
+
+function EntityBase:isMoving()
+	return getmetatable(self.state_machine.current) == Move
+end
+
+-- destroy
+
+function EntityBase:destroy()
+	if getmetatable(self.state_machine.current) == Destroy then return end
+	
+	self.state_machine:change('destroy')
+end
+
+function EntityBase:isDestroyed()
+	return getmetatable(self.state_machine.current) == Destroy	
 end

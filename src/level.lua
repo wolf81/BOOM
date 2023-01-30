@@ -72,7 +72,7 @@ local function tryTeleportEntities(self, teleporter)
 		if entity:gridPosition() == grid_pos then
 			busy = true
 
-			if teleporter.pos:dist2(entity.pos) < 8 then
+			if teleporter.pos:dist2(entity.pos) < 5 then
 				teleporter:teleport(entity)
 			end			
 		end

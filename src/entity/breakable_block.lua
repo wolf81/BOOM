@@ -12,17 +12,3 @@ function BreakableBlock:init(def)
 
 	self.z_index = 3
 end
-
-function BreakableBlock:config(id, x, y)
-	EntityBase.config(self, id, x, y)
-
-	self.state_machine = StateMachine {
-		['idle'] = function() return Idle(self) end,
-		['destroy'] = function() return Destroy(self) end,
-	}
-	self.state_machine:change('idle')	
-end
-
-function BreakableBlock:update(dt)
-	self.state_machine:update(dt)
-end

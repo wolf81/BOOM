@@ -23,29 +23,12 @@ function Creature:config(id, x, y)
 	EntityBase.config(self, id, x, y)
 
 	self.control = CpuControl(self)
-
-	self.state_machine = StateMachine {
-		['idle'] = function() return Idle(self) end,
-		['move'] = function() return Move(self) end,
-		['destroy'] = function() return Destroy(self) end,
-	}
-	self.state_machine:change('idle')		
 end
 
 function Creature:update(dt)
 	EntityBase.update(self, dt)
 
 	self.control:update(dt)
-	self.state_machine:update(dt)
-end
-
-function Creature:changeState(name, ...)
-	self.state_machine:change(name, ...)
-end
-
-function Creature:idle()
-	self.direction = Direction.NONE
-	self.state_machine:change('idle')
 end
 
 function Creature:onCollision(entity)
@@ -81,8 +64,4 @@ function Creature:onCollision(entity)
 	if #dirs > 0 then
 		self:move(lume_randomchoice(dirs))
 	end
-end
-
-function Creature:isIdling()
-	return getmetatable(self.state_machine.current) == Idle
 end

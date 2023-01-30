@@ -21,11 +21,12 @@ end
 
 -- parse an animation definition, converting it to an Animation instance
 function ParseAnimations(animation_defs)
-	local animations = {}
+	local animations, count = {}, 0
 	for k, v in pairs(animation_defs) do
 		animations[k] = Animation(v)
+		count = count + 1
 	end
-	return animations
+	return animations, count
 end
 
 -- given a table with 2 int values, return first value as width, second as height

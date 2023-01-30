@@ -29,9 +29,6 @@ require 'src.utility.entity_factory'
 require 'src.control.player_control'
 require 'src.control.cpu_control'
 
-require 'src.mixin.movable'
-require 'src.mixin.destructable'
-
 require 'src.scene.scene_base'
 require 'src.scene.loading'
 require 'src.scene.game'

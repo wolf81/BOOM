@@ -30,7 +30,12 @@ end
 function Teleporter:teleport(entity)
 	if not self.subject and not self.target.busy then
 		self.target.subject = entity
+
+		-- prevent movement state updates while teleporting
+		local dir = entity.direction
+		entity:idle()
 		entity.pos = self.target.pos
+		entity:move(dir)
 
 		self.level:addEntity(EntityFactory.create('flash', self.pos.x, self.pos.y))
 		self.level:addEntity(EntityFactory.create('flash', self.target.pos.x, self.target.pos.y))
