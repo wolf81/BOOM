@@ -42,6 +42,8 @@ function EntityFactory.register(path)
 			prototypes[key] = Flash(entity_def)
 		elseif key == 'explosion' then
 			prototypes[key] = Explosion(entity_def)
+		elseif key == 'shot' then
+			prototypes[key] = Projectile(entity_def)
 		else
 			prototypes[key] = Monster(entity_def)
 		end			

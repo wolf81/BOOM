@@ -35,6 +35,7 @@ return {
 		name = 'Soldier',
 		description = 'This only apparently human creature is pretty stupid. Moves erratically. Almost harmless.',
 		texture = 'gfx/Soldier.png',
+		projectile = 'shot',
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -564,6 +565,16 @@ return {
 			['idle'] = {
 				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
 				interval = 0.2
+			},
+		},
+	},
+	['shot'] = {
+		name = 'Shot',
+		texture = 'gfx/Shot.png',
+		animations = {
+			['destroy'] = {
+				frames = { 2, 3, 4, 5 },
+				interval = 0.1,
 			},
 		},
 	},
