@@ -4,6 +4,8 @@ Category = {
 	MONSTER = bit.lshift(1, 1),
 	COIN = bit.lshift(1, 2),
 	TELEPORTER = bit.lshift(1, 3),
-	BREAKABLE_BLOCK = bit.lshift(1, 4),
-	EXPLOSION = bit.lshift(1, 5),
+	FIXED_BLOCK = bit.lshift(1, 4),
+	BREAKABLE_BLOCK = bit.lshift(1, 5),
+	EXPLOSION = bit.lshift(1, 6),
+	PROJECTILE = bit.lshift(1, 7),
 }

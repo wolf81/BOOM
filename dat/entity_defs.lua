@@ -230,6 +230,7 @@ return {
 		name = 'Gunner',
 		description = 'Another former human being. He holds a rapid-fire pulse rifle. Veeery dangerous!',
 		texture = 'gfx/Gunner.png',
+		projectile = 'mg_shot',
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -276,6 +277,7 @@ return {
 		name = 'The \"Thing\"',
 		description = 'The aliens\' favorite pet. Luckily our dogs don\'t spit energy bolts.',
 		texture = 'gfx/Thing.png',
+		projectile = 'lightbolt',
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -369,6 +371,7 @@ return {
 		name = 'Smoulder',
 		description = 'A fat and ugly psycho killer. Keep away from his lethal flamethrower if you want to survive.',
 		texture = 'gfx/Smoulder.png',
+		projectile = 'flame',
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -415,6 +418,7 @@ return {
 		name = 'Skully',
 		description = 'A biomechanical creature. Its plasma cannon will wipe you out in seconds.',
 		texture = 'gfx/Skully.png',
+		projectile = 'plasma',
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -461,6 +465,7 @@ return {
 		name = 'H.R. Giggler',
 		description = 'Your worst nightmare. The ultimate biological weapon. Throws radioactive magma and runs like a demon.',
 		texture = 'gfx/Giggler.png',
+		projectile = 'magma',
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -568,7 +573,7 @@ return {
 	['*'] = {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',
-		size = { 96, 96 },
+		sprite_size = { 96, 96 },
 		projectile = 'head_missile',
 		animations = {
 			['destroy'] = {
@@ -583,7 +588,7 @@ return {
 	['alien-boss'] = {
 		name = 'Alien Boss',
 		texture = 'gfx/Alien Boss.png',
-		size = { 160, 160 },
+		sprite_size = { 160, 160 },
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -623,6 +628,7 @@ return {
 	['shot'] = {
 		name = 'Shot',
 		texture = 'gfx/Shot.png',
+		size = 7,
 		animations = {
 			['destroy'] = {
 				frames = { 2, 3, 4, 5 },
@@ -630,6 +636,45 @@ return {
 			},
 		},
 	},
+	['flame'] = { -- bugged in level 72
+		name = 'Flame',
+		texture = 'gfx/Flame.png',
+		size = 32,
+		animations = {
+			['idle'] = { 
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['destroy'] = {
+				frames = { 1 },
+				interval = 0,
+			},
+		},
+	},
+	['mg_shot'] = {
+		name = 'Minigun Shot',
+		texture = 'gfx/MGShot.png',
+		-- TODO: use different frames depending on direction
+		size = 7,
+		animations = {
+			['destroy'] = {
+				frames = { 5, 6, 7, 8, 9 },
+				interval = 0.1,
+			},
+		},
+	},	
+	['magma'] = {
+		name = 'Magma',
+		texture = 'gfx/Magma.png',
+		-- TODO: use different frames depending on direction
+		size = 26,
+		animations = {
+			['destroy'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+		},
+	},	
 	['head_missile'] = {
 		name = 'Head Missile',
 		texture = 'gfx/Head Missile.png',
@@ -647,6 +692,7 @@ return {
 	['fireball'] = {
 		name = 'Fireball',
 		texture = 'gfx/Fireball.png',
+		size = 13,
 		animations = {
 			['destroy'] = {
 				frames = { 2, 3, 4, 5 },
@@ -654,6 +700,28 @@ return {
 			},
 		},		
 	},
+	['lightbolt'] = {
+		name = 'Lightbolt',
+		texture = 'gfx/Lightbolt.png',
+		size = 13,
+		animations = {
+			['destroy'] = {
+				frames = { 2, 3, 4, 5 },
+				interval = 0.1,
+			},
+		},		
+	},	
+	['plasma'] = {
+		name = 'Plasma',
+		texture = 'gfx/Plasma.png',
+		size = 13,
+		animations = {
+			['destroy'] = {
+				frames = { 2, 3, 4, 5 },
+				interval = 0.1,
+			},
+		},		
+	},	
 	['bomb'] = {
 		name = 'Bomb',
 		texture = 'gfx/Bomb.png',

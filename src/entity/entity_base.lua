@@ -69,7 +69,7 @@ function EntityBase:init(def)
 	self.level = nil -- assigned by Level when added to Level
 	
 	self.pos = vector(0, 0)
-	self.size = vector(ParseSpriteSize(def.size))
+	self.size = vector(ParseSpriteSize(def.sprite_size))
 
 	self.image = ImageCache.load(def.texture)
 	self.quads = GenerateQuads(self.image, self.size.x, self.size.y)

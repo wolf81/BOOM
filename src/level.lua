@@ -87,7 +87,11 @@ local function tryTeleportEntities(self, teleporter)
 end
 
 local function onCollide(entity1, entity2)
-	if entity1:is(Monster) and entity2:is(Monster) then
+	if entity1:is(Projectile) then
+		entity1:destroy()
+	elseif entity2:is(Projectile) then
+		entity2:destroy()
+	elseif entity1:is(Monster) and entity2:is(Monster) then
 		entity2:onCollision(entity1)
 		entity1:onCollision(entity2)
 	elseif entity1:is(Coin) and entity2:is(Player) then
