@@ -50,6 +50,11 @@ function EntityFactory.register(path)
 
 		-- preload textures
 		ImageCache.load(entity_def.texture)
+
+		-- preload sounds
+		for _, path in pairs(entity_def.sounds or {}) do
+			AudioPlayer.load(path)
+		end
 	end
 end
 

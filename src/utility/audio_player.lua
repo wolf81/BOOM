@@ -14,6 +14,14 @@ local settings = {
 
 local music = nil
 
+local sources = {}
+
+function AudioPlayer.load(path)
+	assert(path ~= nil, 'path is required')
+
+	sources[path] = love.audio.newSource(path, 'static')
+end
+
 function AudioPlayer.setMusicVolume(volume)
 	settings.music_volume = volume
 end
@@ -32,8 +40,9 @@ function AudioPlayer.playMusic(path, looping)
 end
 
 function AudioPlayer.playSound(path)
-	-- TODO: should preload sounds in a cache perhaps?
-	local sound = love.audio.newSource(path, 'static')
+	assert(sources[path] ~= nil, 'sound not loaded: ' .. path)
+
+	local sound = sources[path]
 	sound:setVolume(settings.sound_volume)
-	love.audio.play(sound)
+	sound:play()
 end
