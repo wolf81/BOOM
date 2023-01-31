@@ -5,9 +5,11 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local lume_keys, lume_match, string_find = lume.keys, lume.match, string.find
+local lume_keys, lume_match, string_find, math_abs = lume.keys, lume.match, string.find, math.abs
 
 CpuControl = Class {}
+
+local MELEE_ATTACK_RANGE = 0.8
 
 local DIRS = {
 	Direction.UP,
@@ -15,6 +17,14 @@ local DIRS = {
 	Direction.LEFT,
 	Direction.RIGHT
 }
+
+local function tryAttack(monster, range)
+	if monster.projectile then
+		monster:attack() 
+	elseif range <= MELEE_ATTACK_RANGE then
+		monster:attack() 
+	end
+end
 
 local function idling(self, dt)
 	-- body
@@ -33,19 +43,19 @@ local function roaming(self, dt)
 
 			if self.entity.direction == Direction.UP then
 				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then 
-					self.entity:attack() 
+					tryAttack(self.entity, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.DOWN then
 				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then 
-					self.entity:attack() 
+					tryAttack(self.entity, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.LEFT then
 				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then 
-					self.entity:attack() 
+					tryAttack(self.entity, math_abs(player_grid_pos.x - grid_pos.x))					
 				end
 			elseif self.entity.direction == Direction.RIGHT then
 				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then 
-					self.entity:attack() 
+					tryAttack(self.entity, math_abs(player_grid_pos.x - grid_pos.x))					
 				end
 			end
 

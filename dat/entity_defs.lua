@@ -79,6 +79,7 @@ return {
 		name = 'Sgt. Cool',
 		description = 'He\'s tough, he\'s mean, he wears shades. In fact, the only difference with the soldier is a slightly higher fire rate.',
 		texture = 'gfx/Sarge.png',
+		projectile = 'shot',
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -122,6 +123,7 @@ return {
 		name = 'Thick Lizzy',
 		description = 'Part man, part reptile, all nastiness. This ugly beast casts deadly fireballs.',
 		texture = 'gfx/Lizzy.png',
+		projectile = 'fireball',
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -524,6 +526,7 @@ return {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',
 		size = { 96, 96 },
+		projectile = 'head_missile',
 		animations = {
 			['destroy'] = {
 				frames = { 1 },
@@ -577,6 +580,30 @@ return {
 				interval = 0.1,
 			},
 		},
+	},
+	['head_missile'] = {
+		name = 'Head Missile',
+		texture = 'gfx/Head Missile.png',
+		animations = {
+			['idle'] = {
+				frames = { 1, 2 },
+				interval = 0.1,				
+			},
+			['destroy'] = {
+				frames = { 3, 4, 5, 6, 7 },
+				interval = 0.1,
+			},
+		},
+	},
+	['fireball'] = {
+		name = 'Fireball',
+		texture = 'gfx/Fireball.png',
+		animations = {
+			['destroy'] = {
+				frames = { 2, 3, 4, 5 },
+				interval = 0.1,
+			},
+		},		
 	},
 	['bomb'] = {
 		name = 'Bomb',

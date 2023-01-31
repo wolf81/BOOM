@@ -12,6 +12,8 @@ Monster = Class { __includes = Creature }
 function Monster:init(def)
 	Creature.init(self, def)
 
+	self.projectile = def.projectile
+
 	self.category_flags = Category.MONSTER
 	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
 end
@@ -70,4 +72,3 @@ end
 function Monster:canAttack()
 	return self.attack_delay == 0
 end
-
