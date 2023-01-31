@@ -30,6 +30,7 @@ end
 local function insertEntities(self)
 	for _, entity in ipairs(self.insert_queue) do
 		if entity:is(Explosion) then table_insert(self.explosions, entity)
+		elseif entity:is(Projectile) then table_insert(self.projectiles, entity)
 		elseif entity:is(Bomb) then table_insert(self.bombs, entity)
 		elseif entity:is(Block) then table_insert(self.fixed_blocks, entity)
 		elseif entity:is(BreakableBlock) then table_insert(self.breakable_blocks, entity)
@@ -47,6 +48,7 @@ end
 local function removeEntities(self)
 	for _, entity in ipairs(self.remove_queue) do
 		if entity:is(Explosion) then lume_remove(self.explosions, entity)
+		elseif entity:is(Projectile) then lume_remove(self.projectiles, entity)
 		elseif entity:is(Bomb) then lume_remove(self.bombs, entity)
 		elseif entity:is(Block) then lume_remove(self.fixed_blocks, entity)
 		elseif entity:is(BreakableBlock) then 
@@ -116,6 +118,7 @@ function Level:init(index, background, grid, time, entities)
 	self.coins = {}
 	self.bombs = {}
 	self.explosions = {}
+	self.projectiles = {}
 	self.teleporters = {}
 	self.monsters = {}
 	self.props = {}
@@ -218,6 +221,10 @@ function Level:update(dt)
 		entity:update(dt)
 	end
 
+	for _, entity in ipairs(self.projectiles) do
+		entity:update(dt)
+	end
+
 	for _, entity in ipairs(self.props) do
 		entity:update(dt)
 	end
@@ -259,6 +266,10 @@ function Level:draw()
 	end
 
 	for _, entity in ipairs(self.breakable_blocks) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.projectiles) do
 		entity:draw()
 	end
 

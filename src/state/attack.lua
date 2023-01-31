@@ -20,6 +20,12 @@ function Attack:enter()
 
 	self.entity:animate('attack-' .. string_lower(GetDirectionName(self.entity.direction)))
 
+	if self.entity.projectile ~= nil then
+		print(self.entity.projectile)
+		local projectile = EntityFactory.create(self.entity.projectile, self.entity.pos.x, self.entity.pos.y, self.entity.direction)
+		self.entity.level:addEntity(projectile)
+	end
+
 	self.duration = self.entity.animation:getDuration()
 end
 
