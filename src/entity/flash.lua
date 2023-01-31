@@ -13,7 +13,7 @@ function Flash:init(def)
 	EntityBase.init(self, def)
 
 	self.z_index = def.z_index or 20
-	self.flash_time = self.animations['idle']:getDuration()
+	self.flash_time = self.animations['idle']:getDuration()	
 end
 
 function Flash:update(dt)

@@ -141,6 +141,8 @@ function Level:addEntity(entity)
 
 	entity.level = self
 
+	entity:spawn()
+
 	if entity:is(Player) then 
 		self:addEntity(EntityFactory.create('flash', entity.pos.x, entity.pos.y))
 	end

@@ -20,6 +20,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/BlockDestruction.wav',
+		},
 	},
 	['3'] = {
 		name = 'Coin',
@@ -29,6 +32,9 @@ return {
 				frames = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
 				interval = 0.025,				
 			},
+		},
+		sounds = {
+			['destroy'] = 'sfx/Coin.wav',
 		},
 	},
 	['A'] = {
@@ -74,6 +80,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/SoldierDeath.wav',
+		}
 	},
 	['B'] = {
 		name = 'Sgt. Cool',
@@ -118,6 +127,10 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			-- TODO: this sound doesn't seem to be working, why?
+			['destroy'] = 'sfx/SargeDeath.wav',
+		}
 	},
 	['C'] = {
 		name = 'Thick Lizzy',
@@ -161,6 +174,9 @@ return {
 				frames = { 21, 22, 23, 24 },
 				interval = 0.1,
 			},
+		},
+		sounds = {
+			['destroy'] = 'sfx/LizzyDeath.wav',
 		},
 	},
 	['D'] = {
@@ -206,6 +222,9 @@ return {
 				interval = 0.1,
 			},			
 		},
+		sounds = {
+			['destroy'] = 'sfx/TaurDeath.wav',
+		},
 	},	
 	['E'] = {
 		name = 'Gunner',
@@ -249,6 +268,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/GunnerDeath.wav',
+		},
 	},
 	['F'] = {
 		name = 'The \"Thing\"',
@@ -291,6 +313,9 @@ return {
 				frames = { 21, 22 },
 				interval = 0.1,
 			},
+		},
+		sounds = {
+			['destroy'] = 'sfx/ThingDeath.wav',
 		},
 	},
 	['G'] = {
@@ -336,6 +361,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/GhostDeath.wav',
+		},
 	},
 	['H'] = {
 		name = 'Smoulder',
@@ -378,6 +406,9 @@ return {
 				frames = { 21, 22, 23, 24 },
 				interval = 0.1,
 			},
+		},
+		sounds = {
+			['destroy'] = 'sfx/SmoulderDeath.wav',
 		},
 	},
 	['I'] = {
@@ -422,6 +453,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/SkullyDeath.wav',
+		},
 	},
 	['J'] = {
 		name = 'H.R. Giggler',
@@ -465,6 +499,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/GigglerDeath.wav',
+		}
 	},
 	['X'] = {
 		name = 'Player 1',
@@ -493,6 +530,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/P1Death.wav',
+		}
 	},
 	['Y'] = {
 		name = 'Player 2',
@@ -521,6 +561,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/P2Death.wav',
+		}
 	},	
 	['*'] = {
 		name = 'Head Boss',
@@ -532,6 +575,9 @@ return {
 				frames = { 1 },
 				interval = 0.1,
 			},			
+		},
+		sounds = {
+			['destroy'] = 'sfx/HeadDeath.wav',
 		},
 	},	
 	['alien-boss'] = {
@@ -559,6 +605,9 @@ return {
 				frames = { 1 },
 				interval = 0.1,
 			},			
+		},
+		sounds = {
+			['destroy'] = 'sfx/BossDeath.wav',
 		},
 	},
 	['+'] = {
@@ -614,6 +663,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['spawn'] = 'sfx/LightTheFuse.wav',
+		},
 	},
 	['explosion'] = {
 		name = 'Explosion',
@@ -631,7 +683,10 @@ return {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
 			},
-		}
+		},
+		sounds = {
+			['spawn'] = 'sfx/Explosion.wav',
+		},
 	},
 	['flash'] = {
 		name = 'Flash',
@@ -641,6 +696,9 @@ return {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
 			},
+		},
+		sounds = {
+			['spawn'] = 'sfx/Teleport.wav',
 		},
 	},
 }

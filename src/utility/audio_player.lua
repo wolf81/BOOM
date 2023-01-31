@@ -32,6 +32,7 @@ function AudioPlayer.playMusic(path, looping)
 end
 
 function AudioPlayer.playSound(path)
+	-- TODO: should preload sounds in a cache perhaps?
 	local sound = love.audio.newSource(path, 'static')
 	sound:setVolume(settings.sound_volume)
 	love.audio.play(sound)

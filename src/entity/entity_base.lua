@@ -77,6 +77,8 @@ function EntityBase:init(def)
 	addIdleAnimationIfNeeded(self.animations)
 	self.animation = self.animations['idle']
 
+	self.sounds = def.sounds or {}
+
 	self.category_flags = Category.NONE
 	self.collision_flags = Category.NONE
 end
@@ -95,6 +97,11 @@ end
 function EntityBase:animate(name)
 	self.animation = self.animations[name]
 	assert(self.animation ~= nil, 'no animation defined named: ' .. name)
+end
+
+function EntityBase:playSound(name)
+	local sound = self.sounds[name]
+	if sound then AudioPlayer.playSound(sound) end	
 end
 
 function EntityBase:getFrame()
@@ -120,6 +127,12 @@ function EntityBase:__lt(other)
 	if self.z_index < other.z_index then return true 
 	elseif self.z_index == other.z_index and self.id < other.id then return true
 	else return false end
+end
+
+-- spawn
+
+function EntityBase:spawn()
+	self:playSound('spawn')
 end
 
 -- idle

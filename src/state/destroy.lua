@@ -15,6 +15,7 @@ function Destroy:enter()
 	self.duration = self.entity.animations['destroy']:getDuration()	
 
 	self.entity:animate('destroy')
+	self.entity:playSound('destroy')
 end
 
 function Destroy:update(dt)
