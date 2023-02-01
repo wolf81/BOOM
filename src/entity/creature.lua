@@ -7,7 +7,7 @@
 
 local lume_remove, lume_randomchoice = lume.remove, lume.randomchoice
 
-Creature = Class { __includes = { EntityBase, Movable, Destructable } }
+Creature = Class { __includes = EntityBase }
 
 function Creature:init(def)
 	EntityBase.init(self, def)

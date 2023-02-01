@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-BreakableBlock = Class { __includes = { Block, Destructable } }
+BreakableBlock = Class { __includes = Block }
 
 function BreakableBlock:init(def)
 	EntityBase.init(self, def)

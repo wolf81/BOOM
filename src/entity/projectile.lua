@@ -1,3 +1,10 @@
+--[[
+--  BOOM
+--  Copyright (c) 2023 Wolftrail Ltd
+--  Author: Wolfgang Schreurs
+--  Email: info+boom@wolftrail.net
+--]]
+
 Projectile = Class { __includes = EntityBase }
 
 function Projectile:init(def)

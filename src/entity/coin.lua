@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-Coin = Class { __includes = { EntityBase, Destructable } }
+Coin = Class { __includes = EntityBase }
 
 function Coin:init(def)
 	EntityBase.init(self, def)
