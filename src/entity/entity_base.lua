@@ -47,6 +47,11 @@ local function configureStateMachineIfNeeded(self)
 		use_dummy = false
 	end
 
+	if self.animations['propel-down'] ~= nil then
+		states['propel'] = function() return Propel(self) end
+		use_dummy = false
+	end 
+
 	if use_dummy then
 		self.state_machine = StateMachine()
 	else

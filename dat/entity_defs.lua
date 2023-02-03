@@ -630,6 +630,22 @@ return {
 		texture = 'gfx/Shot.png',
 		size = 7,
 		animations = {
+			['propel-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
 			['destroy'] = {
 				frames = { 2, 3, 4, 5 },
 				interval = 0.1,
@@ -641,8 +657,20 @@ return {
 		texture = 'gfx/Flame.png',
 		size = 32,
 		animations = {
-			['idle'] = { 
+			['propel-down'] = {
 				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 5, 6, 7, 8 },
 				interval = 0.1,
 			},
 			['destroy'] = {
@@ -657,6 +685,22 @@ return {
 		-- TODO: use different frames depending on direction
 		size = 7,
 		animations = {
+			['propel-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 2 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 3 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 4 },
+				interval = 0.1,
+			},
 			['destroy'] = {
 				frames = { 5, 6, 7, 8, 9 },
 				interval = 0.1,
@@ -669,6 +713,22 @@ return {
 		-- TODO: use different frames depending on direction
 		size = 26,
 		animations = {
+			['propel-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 2 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 3 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 4 },
+				interval = 0.1,
+			},
 			['destroy'] = {
 				frames = { 5, 6, 7, 8 },
 				interval = 0.1,
@@ -694,6 +754,22 @@ return {
 		texture = 'gfx/Fireball.png',
 		size = 13,
 		animations = {
+			['propel-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
 			['destroy'] = {
 				frames = { 2, 3, 4, 5 },
 				interval = 0.1,
@@ -705,6 +781,22 @@ return {
 		texture = 'gfx/Lightbolt.png',
 		size = 13,
 		animations = {
+			['propel-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
 			['destroy'] = {
 				frames = { 2, 3, 4, 5 },
 				interval = 0.1,
@@ -716,6 +808,22 @@ return {
 		texture = 'gfx/Plasma.png',
 		size = 13,
 		animations = {
+			['propel-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
 			['destroy'] = {
 				frames = { 2, 3, 4, 5 },
 				interval = 0.1,
