@@ -5,15 +5,29 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local math_max = math.max
+local math_max, table_insert = math.max, table.insert
 
 Animation = Class {}
 
 function Animation:init(def)
     self.frames = def.frames
+
+    local times = def.times or 1
+    
+    local frames = CopyTable(self.frames)
+    while times > 1 do
+        for _, frame in ipairs(frames) do
+            table_insert(self.frames, frame)
+        end
+        times = times - 1
+    end
+    print('#frames', #self.frames)
+
     self.interval = def.interval
     self.timer = 0
     self.currentFrame = 1
+
+    print('getDuration', self:getDuration())
 end
 
 function Animation:update(dt)

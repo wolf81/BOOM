@@ -97,7 +97,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 5,
 			},
 		},
 		sounds = {
@@ -147,7 +148,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 5,
 			},
 		},
 		sounds = {
@@ -198,7 +200,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22, 23, 24 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 2,
 			},
 		},
 		sounds = {
@@ -248,7 +251,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 5,
 			},			
 		},
 		sounds = {
@@ -298,7 +302,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 5,
 			},
 		},
 		sounds = {
@@ -348,7 +353,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 5,
 			},
 		},
 		sounds = {
@@ -398,7 +404,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 5,
 			},
 		},
 		sounds = {
@@ -447,7 +454,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22, 23, 24 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 2,
 			},
 		},
 		sounds = {
@@ -496,7 +504,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 5,
 			},
 		},
 		sounds = {
@@ -546,7 +555,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 5,
 			},
 		},
 		sounds = {
@@ -577,7 +587,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 33, 34, 35 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 4,
 			},
 		},
 		sounds = {
@@ -608,7 +619,8 @@ return {
 			},
 			['destroy'] = {
 				frames = { 33, 34, 35 },
-				interval = 0.1,
+				interval = 0.2,
+				times = 4,
 			},
 		},
 		sounds = {
@@ -623,7 +635,7 @@ return {
 		animations = {
 			['destroy'] = {
 				frames = { 1 },
-				interval = 0.1,
+				interval = 2.0,
 			},			
 		},
 		sounds = {
@@ -657,7 +669,7 @@ return {
 			},
 			['destroy'] = {
 				frames = { 1 },
-				interval = 0.1,
+				interval = 2.0,
 			},			
 		},
 		sounds = {
