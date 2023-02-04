@@ -5,4 +5,4 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-BreakableBlock = Class { __includes = Block }
+Points5K = Class { __includes = Points }

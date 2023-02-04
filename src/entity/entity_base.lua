@@ -71,6 +71,7 @@ function EntityBase:init(def)
 	self.description = def.description or ''
 	self.id = nil -- assigned by EntityFactory
 	self.level = nil -- assigned by Level when added to Level
+	self.value = def.value
 	
 	self.pos = vector(0, 0)
 	self.size = vector(ParseSpriteSize(def.sprite_size))
@@ -159,6 +160,19 @@ end
 
 function EntityBase:destroy()
 	if getmetatable(self.state_machine.current) == Destroy then return end
+
+	if self.value then
+		local entity_key = 'points1k'
+
+		if self.value == 5000 then
+			entity_key = 'points5k'
+		elseif self.value == 100000 then
+			entity_key = 'points100k'
+		end
+
+		local mid_x, mid_y = self.pos.x + self.size.x / 2, self.pos.y + self.size.y / 2
+		self.level:addEntity(EntityFactory.create(entity_key, mid_x, mid_y, self.value))		
+	end
 	
 	self.state_machine:change('destroy')
 end

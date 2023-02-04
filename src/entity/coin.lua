@@ -12,11 +12,3 @@ function Coin:init(def)
 
 	self.category_flags = Category.COIN
 end
-
-function Coin:destroy()
-	if not self:isDestroyed() then
-		self.level:addEntity(EntityFactory.create('points', self.pos.x, self.pos.y, 150))	
-	end
-
-	EntityBase.destroy(self)
-end

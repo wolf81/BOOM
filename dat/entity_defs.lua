@@ -14,6 +14,7 @@ return {
 	['2'] = {
 		name = 'Breakable Block',
 		texture = 'gfx/Breakable Blocks.png',
+		value = 10,
 		animations = {
 			['destroy'] = {
 				frames = { 2, 3, 4 },
@@ -27,6 +28,7 @@ return {
 	['3'] = {
 		name = 'Coin',
 		texture = 'gfx/Coin.png',
+		value = 150,
 		animations = {
 			['destroy'] = {
 				frames = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
@@ -41,7 +43,7 @@ return {
 		name = 'Soldier',
 		description = 'This only apparently human creature is pretty stupid. Moves erratically. Almost harmless.',
 		texture = 'gfx/Soldier.png',
-		projectile = 'shot',
+		value = 200,
 		attack = {
 			projectile = 'shot',
 			rate = 1.0,
@@ -109,6 +111,7 @@ return {
 		name = 'Sgt. Cool',
 		description = 'He\'s tough, he\'s mean, he wears shades. In fact, the only difference with the soldier is a slightly higher fire rate.',
 		texture = 'gfx/Sarge.png',
+		value = 300,
 		attack = {
 			projectile = 'shot',
 			rate = 0.8,
@@ -161,6 +164,7 @@ return {
 		name = 'Thick Lizzy',
 		description = 'Part man, part reptile, all nastiness. This ugly beast casts deadly fireballs.',
 		texture = 'gfx/Lizzy.png',
+		value = 400,
 		attack = {
 			projectile = 'fireball',
 			rate = 1.0,
@@ -213,6 +217,7 @@ return {
 		description = 'A sort of a cross between a man and a bull on steroids. Fast and extremely vicious.',
 		speed = 60,
 		texture = 'gfx/Taur.png',
+		value = 500,
 		attack = {
 			rate = 0.5,
 		},
@@ -264,6 +269,7 @@ return {
 		name = 'Gunner',
 		description = 'Another former human being. He holds a rapid-fire pulse rifle. Veeery dangerous!',
 		texture = 'gfx/Gunner.png',
+		value = 600,
 		attack = {
 			projectile = 'mg_shot',
 		},
@@ -314,6 +320,7 @@ return {
 		name = 'The \"Thing\"',
 		description = 'The aliens\' favorite pet. Luckily our dogs don\'t spit energy bolts.',
 		texture = 'gfx/Thing.png',
+		value = 700,
 		attack = {
 			projectile = 'lightbolt',
 			rate = 1.0,
@@ -366,6 +373,7 @@ return {
 		description = 'This creature from beyond is unarmed but his fast and incessant attacks can be very annoying.',
 		speed = 75,
 		texture = 'gfx/Ghost.png',
+		value = 800,
 		attack = {
 			rate = 0.5,
 		},
@@ -416,6 +424,7 @@ return {
 		name = 'Smoulder',
 		description = 'A fat and ugly psycho killer. Keep away from his lethal flamethrower if you want to survive.',
 		texture = 'gfx/Smoulder.png',
+		value = 900,
 		attack = {
 			projectile = 'flame',
 		},
@@ -466,6 +475,7 @@ return {
 		name = 'Skully',
 		description = 'A biomechanical creature. Its plasma cannon will wipe you out in seconds.',
 		texture = 'gfx/Skully.png',
+		value = 1000,
 		attack = {
 			projectile = 'plasma',
 		},
@@ -516,6 +526,7 @@ return {
 		name = 'H.R. Giggler',
 		description = 'Your worst nightmare. The ultimate biological weapon. Throws radioactive magma and runs like a demon.',
 		texture = 'gfx/Giggler.png',
+		value = 1000,
 		attack = {
 			projectile = 'magma',
 			rate = 0.3, 
@@ -631,7 +642,11 @@ return {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',
 		sprite_size = { 96, 96 },
-		projectile = 'head_missile',
+		value = 5000,
+		attack = {
+			projectile = 'head_missile',
+			rate = 0.3, 
+		},	
 		animations = {
 			['destroy'] = {
 				frames = { 1 },
@@ -646,6 +661,7 @@ return {
 		name = 'Alien Boss',
 		texture = 'gfx/Alien Boss.png',
 		sprite_size = { 160, 160 },
+		value = 100000,
 		attack = {
 			projectile = 'head_missile',
 			rate = 1.0, 
@@ -923,15 +939,15 @@ return {
 		animations = {
 			['center'] = {
 				frames = { 1, 2, 3, 4 },
-				interval = 0.1,
+				interval = 0.05,
 			},
 			['vertical'] = {
 				frames = { 5, 6, 7, 8 },
-				interval = 0.1,
+				interval = 0.05,
 			},
 			['horizontal'] = {
 				frames = { 9, 10, 11, 12 },
-				interval = 0.1,
+				interval = 0.05,
 			},
 		},
 	},
@@ -948,16 +964,36 @@ return {
 			['spawn'] = 'sfx/Teleport.wav',
 		},
 	},
-	['points'] = {
+	['points1k'] = {
 		name = 'Points 10-1K',
 		texture = 'gfx/Points 10-1K.png',
 		speed = 30,
 		sprite_size = { 32, 16 },
 		animations = {
-			['idle'] = {
+			['destroy'] = {
 				frames = { 1 },
 				interval = 0.1,
-			},
+			}
+		},
+	},
+	['points5k'] = {
+		name = 'Points 5K',
+		texture = 'gfx/Points 5K.png',
+		speed = 30,
+		sprite_size = { 42, 19 },
+		animations = {
+			['destroy'] = {
+				frames = { 1 },
+				interval = 0.1,
+			}
+		},
+	},
+	['points100k'] = {
+		name = 'Points 100K',
+		texture = 'gfx/Points 100K.png',
+		speed = 30,
+		sprite_size = { 75, 28 },
+		animations = {
 			['destroy'] = {
 				frames = { 1 },
 				interval = 0.1,

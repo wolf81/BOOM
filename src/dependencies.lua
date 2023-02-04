@@ -53,3 +53,7 @@ require 'src.entity.monster'
 require 'src.entity.player'
 require 'src.entity.coin'
 require 'src.entity.points'
+require 'src.entity.points_1k'
+require 'src.entity.points_5k'
+require 'src.entity.points_100k'
+

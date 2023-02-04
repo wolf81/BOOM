@@ -38,7 +38,7 @@ local function insertEntities(self)
 		elseif entity:is(Monster) then table_insert(self.monsters, entity)
 		elseif entity:is(Teleporter) then table_insert(self.teleporters, entity)
 		elseif entity:is(Coin) then table_insert(self.coins, entity)
-		elseif entity:is(Flash) or entity:is(Points) then table_insert(self.props, entity)
+		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then table_insert(self.props, entity)
 		end
 	end
 
@@ -59,7 +59,7 @@ local function removeEntities(self)
 		elseif entity:is(Monster) then lume_remove(self.monsters, entity)
 		elseif entity:is(Teleporter) then lume_remove(self.teleporters, entity)
 		elseif entity:is(Coin) then lume_remove(self.coins, entity)
-		elseif entity:is(Flash) or entity:is(Points) then lume_remove(self.props, entity)
+		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then lume_remove(self.props, entity)
 		end
 	end
 
