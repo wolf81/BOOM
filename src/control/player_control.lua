@@ -64,7 +64,7 @@ function PlayerControl:update(dt)
 		end
 	end
 
-	local direction = Direction.NONE
+	local direction = nil
 
 	-- if vertically aligned with tiles, allow movement in horizontal directions
 	if self.entity.pos.y % TILE_H == 0 then
@@ -80,11 +80,11 @@ function PlayerControl:update(dt)
 		end
 	end
 
-	if direction ~= Direction.NONE then
+	if direction then
 		self.entity:move(direction)
 	else
 		-- if direction is none, don't stop immediately, but make entity stop moving when 
 		-- reaching target position for current move
-		self.entity.direction = Direction.NONE
+		self.entity.direction = nil
 	end
 end

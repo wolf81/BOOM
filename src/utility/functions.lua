@@ -39,7 +39,7 @@ end
 -- get a world position adjacent to the given position, the position is constrained 
 -- to grid positions, e.g. with TILE_W of 32, x-values in set 0, 32, 64, 96, ...
 function GetAdjacentPosition(pos, direction)
-	local to_pos = pos + (direction or Direction.NONE):permul(TILE_SIZE)
+	local to_pos = pos + (direction or vector.zero):permul(TILE_SIZE)
 	return vector(lume_round(to_pos.x, TILE_W), lume_round(to_pos.y, TILE_H))
 end
 

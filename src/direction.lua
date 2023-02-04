@@ -10,7 +10,6 @@ Direction =  {
 	DOWN = vector(0, 1),
 	LEFT = vector(-1, 0),
 	RIGHT = vector(1, 0),
-	NONE = vector(0, 0),
 }
 
 local oppositeInfo = {
@@ -18,7 +17,6 @@ local oppositeInfo = {
 	[Direction.DOWN] = Direction.UP,
 	[Direction.LEFT] = Direction.RIGHT,
 	[Direction.RIGHT] = Direction.LEFT,
-	[Direction.NONE] = Direction.NONE,
 }
 
 function GetOpposite(dir)

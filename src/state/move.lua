@@ -12,7 +12,7 @@ Move = Class { __includes = StateBase }
 function Move:enter(direction)
 	StateBase.enter(self)
 
-	assert(direction ~= Direction.NONE, 'direction should be UP, DOWN, LEFT or RIGHT')
+	assert(direction ~= nil, 'direction should be UP, DOWN, LEFT or RIGHT')
 
 	self.direction = direction
 
@@ -35,28 +35,28 @@ function Move:update(dt)
 
 	if self.direction == Direction.RIGHT then
 		pos.x = math_min(self.to_pos.x, pos.x)
-		if pos.x == self.to_pos.x and self.entity.direction == Direction.NONE then
+		if pos.x == self.to_pos.x then
 			self.entity:idle()
 		end
 	end
 
 	if self.direction == Direction.LEFT then
 		pos.x = math_max(self.to_pos.x, pos.x)
-		if pos.x == self.to_pos.x and self.entity.direction == Direction.NONE then
+		if pos.x == self.to_pos.x then
 			self.entity:idle()
 		end
 	end
 	
 	if self.direction == Direction.DOWN then
 		pos.y = math_min(self.to_pos.y, pos.y)
-		if pos.y == self.to_pos.y and self.entity.direction == Direction.NONE then
+		if pos.y == self.to_pos.y then
 			self.entity:idle()
 		end
 	end
 
 	if self.direction == Direction.UP then
 		pos.y = math_max(self.to_pos.y, pos.y)
-		if pos.y == self.to_pos.y and self.entity.direction == Direction.NONE then
+		if pos.y == self.to_pos.y then
 			self.entity:idle()
 		end
 	end

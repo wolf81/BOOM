@@ -43,6 +43,22 @@ return {
 		texture = 'gfx/Soldier.png',
 		projectile = 'shot',
 		animations = {
+			['idle-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['idle-up'] = {
+				frames = { 5 },
+				interval = 0.1,
+			},
+			['idle-right'] = {
+				frames = { 9 },
+				interval = 0.1,
+			},
+			['idle-left'] = {
+				frames = { 13 },
+				interval = 0.1,
+			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,

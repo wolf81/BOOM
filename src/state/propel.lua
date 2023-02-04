@@ -15,7 +15,7 @@ function Propel:enter(angle)
 	assert(angle ~= nil, 'angle must be defined')
 
 	self.velocity = angle * self.entity.speed
-	self.direction = Direction.NONE
+	self.direction = nil
 
 	self.offset = vector.zero
 

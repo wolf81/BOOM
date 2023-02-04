@@ -5,7 +5,8 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local lume_keys, lume_match, string_find, math_abs = lume.keys, lume.match, string.find, math.abs
+local lume_keys, lume_match, lume_shuffle = lume.keys, lume.match, lume.shuffle
+local string_find, math_abs, table_remove = string.find, math.abs, table.remove
 
 CpuControl = Class {}
 
@@ -31,9 +32,9 @@ local function idling(self, dt)
 end
 
 local function roaming(self, dt)
-	if self.entity:isDestroyed() or self.entity:isAttacking() then return end
+	if not self.entity:isIdling() then return end
 
-	if self.entity.direction ~= Direction.NONE and self.entity:canAttack() then
+	if self.entity:canAttack() then
 		local grid_pos = self.entity:gridPosition()
 
 		local did_attack = false
@@ -64,14 +65,14 @@ local function roaming(self, dt)
 	end
 
 	if self.entity.pos.x % TILE_W == 0 and self.entity.pos.y % TILE_H == 0 then
-		local dirs = lume.shuffle(DIRS)
-		local dir = Direction.NONE
+		local dirs = lume_shuffle(DIRS)
+		local dir = nil
 
 		-- loop through each direction, finding the first unblocked direction
 		while #dirs > 0 do
 			-- TODO: for alien boss at level 80, we also need to take into
 			-- account the sprite size, to see whether we hit a block
-			local direction = table.remove(dirs)
+			local direction = table_remove(dirs)
 			local to_grid_pos = self.entity:gridPosition() + direction
 			if not self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
 				dir = direction
@@ -79,7 +80,11 @@ local function roaming(self, dt)
 			end
 		end
 
-		self.entity:move(dir)
+		if dir then
+			self.entity:move(dir)
+		else
+			self.entity:idle()
+		end
 	end	
 end
 

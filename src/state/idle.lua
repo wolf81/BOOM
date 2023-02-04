@@ -8,7 +8,7 @@
 Idle = Class { __includes = StateBase }
 
 function Idle:enter()
-	StateBase.enter(self)	
+	StateBase.enter(self)
 
 	self.entity:animate('idle')
 end

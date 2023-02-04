@@ -34,7 +34,7 @@ local function configureStateMachineIfNeeded(self)
 		states['move'] = function() return Move(self) end
 		use_dummy = false
 
-		self.direction = Direction.NONE
+		self.direction = nil
 	end
 
 	if self.animations['destroy'] ~= nil then
@@ -143,7 +143,7 @@ end
 -- idle
 
 function EntityBase:idle()
-	self.direction = Direction.NONE
+	self.direction = nil
 	self.state_machine:change('idle')
 end
 
@@ -156,7 +156,7 @@ end
 function EntityBase:move(direction)
 	self.direction = direction
 
-	local state_name = direction == Direction.NONE and 'idle' or 'move'
+	local state_name = direction == nil and 'idle' or 'move'
 	self.state_machine:change(state_name, direction)
 end
 

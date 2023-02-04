@@ -16,7 +16,7 @@ end
 function Attack:enter()
 	StateBase.enter(self)
 
-	assert(self.entity.direction ~= Direction.NONE, 'direction must be UP, DOWN, LEFT or RIGHT')
+	assert(self.entity.direction ~= nil, 'direction must be UP, DOWN, LEFT or RIGHT')
 
 	self.entity:animate('attack-' .. string_lower(GetDirectionName(self.entity.direction)))
 
