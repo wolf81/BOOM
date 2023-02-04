@@ -12,11 +12,12 @@ CpuControl = Class {}
 
 local MELEE_ATTACK_RANGE = 0.8
 
-local function tryAttack(monster, range)
+local function tryAttack(monster, player, range)
 	if monster.projectile then
 		monster:attack() 
 	elseif range <= MELEE_ATTACK_RANGE then
 		monster:attack() 
+		player:hit()
 	end
 end
 
@@ -56,19 +57,19 @@ local function roaming(self, dt)
 
 			if self.entity.direction == Direction.UP then
 				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then 
-					tryAttack(self.entity, math_abs(player_grid_pos.y - grid_pos.y))
+					tryAttack(self.entity, player, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.DOWN then
 				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then 
-					tryAttack(self.entity, math_abs(player_grid_pos.y - grid_pos.y))
+					tryAttack(self.entity, player, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.LEFT then
 				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then 
-					tryAttack(self.entity, math_abs(player_grid_pos.x - grid_pos.x))					
+					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))					
 				end
 			elseif self.entity.direction == Direction.RIGHT then
 				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then 
-					tryAttack(self.entity, math_abs(player_grid_pos.x - grid_pos.x))					
+					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))					
 				end
 			end
 
@@ -86,19 +87,19 @@ local function roaming(self, dt)
 
 			if self.entity.direction == Direction.UP then
 				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then 
-					tryAttack(self.entity, math_abs(player_grid_pos.y - grid_pos.y))
+					tryAttack(self.entity, player, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.DOWN then
 				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then 
-					tryAttack(self.entity, math_abs(player_grid_pos.y - grid_pos.y))
+					tryAttack(self.entity, player, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.LEFT then
 				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then 
-					tryAttack(self.entity, math_abs(player_grid_pos.x - grid_pos.x))					
+					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))					
 				end
 			elseif self.entity.direction == Direction.RIGHT then
 				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then 
-					tryAttack(self.entity, math_abs(player_grid_pos.x - grid_pos.x))					
+					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))					
 				end
 			end
 

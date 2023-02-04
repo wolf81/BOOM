@@ -24,7 +24,7 @@ function Propel:enter(angle)
 		self.offset = vector((TILE_W - self.entity.proj_size) / 2, TILE_H)
 	elseif angle == Direction.UP then
 		self.direction = Direction.UP
-		self.offset = vector((TILE_W - self.entity.proj_size) / 2, 0)		
+		self.offset = vector((TILE_W - self.entity.proj_size) / 2, -self.entity.proj_size)		
 	elseif angle == Direction.LEFT then
 		self.direction = Direction.LEFT
 		self.offset = vector(-self.entity.proj_size, TILE_H / 2)

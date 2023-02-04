@@ -14,6 +14,8 @@ function Hit:enter()
 
 	self.duration = self.entity.animations['hit']:getDuration()	
 
+	self.direction = self.entity.direction
+
 	self.entity:animate('hit')
 	self.entity:playSound('hit')
 end
@@ -22,6 +24,7 @@ function Hit:update(dt)
 	self.duration = math_max(self.duration - dt, 0)
 
 	if self.duration == 0 then
+		self.entity.direction = nil
 		self.entity:idle()
 	end
 end
