@@ -16,6 +16,13 @@ function Monster:init(def)
 
 	self.category_flags = Category.MONSTER
 	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
+
+	local attack_info = def.attack or {
+		rate = 1.0,
+	}
+
+	self.attack_rate = attack_info.rate
+	self.projectile = attack_info.projectile
 end
 
 function Monster:config(id, x, y)
@@ -54,7 +61,7 @@ function Monster:onCollision(entity)
 		dirs = { Direction.LEFT, Direction.RIGHT }
 	end
 
-	-- exclude direction towards collding entity
+	-- exclude direction towards colliding entity
 	local grid_pos1 = self:gridPosition()
 	local grid_pos2 = entity:gridPosition()
 	local dxy = grid_pos1 - grid_pos2
@@ -66,6 +73,14 @@ function Monster:onCollision(entity)
 	-- finally choose a random direction from remaining directions
 	if #dirs > 0 then
 		self:move(lume_randomchoice(dirs))
+	end
+end
+
+function Monster:attack()
+	Creature.attack(self)
+
+	if not self:isAttacking() then
+		self.attack_delay = self.attack_rate
 	end
 end
 

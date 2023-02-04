@@ -178,6 +178,8 @@ end
 -- attack
 
 function EntityBase:attack()	
+	if getmetatable(self.state_machine.current) == Attack then return end
+
 	self.state_machine:change('attack')
 end
 

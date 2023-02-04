@@ -42,6 +42,10 @@ return {
 		description = 'This only apparently human creature is pretty stupid. Moves erratically. Almost harmless.',
 		texture = 'gfx/Soldier.png',
 		projectile = 'shot',
+		attack = {
+			projectile = 'shot',
+			rate = 1.0,
+		},
 		animations = {
 			['idle-down'] = {
 				frames = { 1 },
@@ -77,19 +81,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.2,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.2,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.2,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.2,
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
@@ -104,7 +108,10 @@ return {
 		name = 'Sgt. Cool',
 		description = 'He\'s tough, he\'s mean, he wears shades. In fact, the only difference with the soldier is a slightly higher fire rate.',
 		texture = 'gfx/Sarge.png',
-		projectile = 'shot',
+		attack = {
+			projectile = 'shot',
+			rate = 1.0,
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -152,7 +159,10 @@ return {
 		name = 'Thick Lizzy',
 		description = 'Part man, part reptile, all nastiness. This ugly beast casts deadly fireballs.',
 		texture = 'gfx/Lizzy.png',
-		projectile = 'fireball',
+		attack = {
+			projectile = 'fireball',
+			rate = 1.0,
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -200,6 +210,9 @@ return {
 		description = 'A sort of a cross between a man and a bull on steroids. Fast and extremely vicious.',
 		speed = 2.0,
 		texture = 'gfx/Taur.png',
+		attack = {
+			rate = 0.5,
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -246,7 +259,10 @@ return {
 		name = 'Gunner',
 		description = 'Another former human being. He holds a rapid-fire pulse rifle. Veeery dangerous!',
 		texture = 'gfx/Gunner.png',
-		projectile = 'mg_shot',
+		attack = {
+			projectile = 'mg_shot',
+			rate = 0.3,
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -266,19 +282,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.3,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.3,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.3,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.3,
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
@@ -293,7 +309,10 @@ return {
 		name = 'The \"Thing\"',
 		description = 'The aliens\' favorite pet. Luckily our dogs don\'t spit energy bolts.',
 		texture = 'gfx/Thing.png',
-		projectile = 'lightbolt',
+		attack = {
+			projectile = 'lightbolt',
+			rate = 1.0,
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -341,6 +360,9 @@ return {
 		description = 'This creature from beyond is unarmed but his fast and incessant attacks can be very annoying.',
 		speed = 2.5,
 		texture = 'gfx/Ghost.png',
+		attack = {
+			rate = 1.0,
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -387,7 +409,10 @@ return {
 		name = 'Smoulder',
 		description = 'A fat and ugly psycho killer. Keep away from his lethal flamethrower if you want to survive.',
 		texture = 'gfx/Smoulder.png',
-		projectile = 'flame',
+		attack = {
+			projectile = 'flame',
+			rate = 0.4,
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -434,7 +459,10 @@ return {
 		name = 'Skully',
 		description = 'A biomechanical creature. Its plasma cannon will wipe you out in seconds.',
 		texture = 'gfx/Skully.png',
-		projectile = 'plasma',
+		attack = {
+			projectile = 'plasma',
+			rate = 1.0,
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -481,7 +509,10 @@ return {
 		name = 'H.R. Giggler',
 		description = 'Your worst nightmare. The ultimate biological weapon. Throws radioactive magma and runs like a demon.',
 		texture = 'gfx/Giggler.png',
-		projectile = 'magma',
+		attack = {
+			projectile = 'magma',
+			rate = 1.0, 
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -605,6 +636,10 @@ return {
 		name = 'Alien Boss',
 		texture = 'gfx/Alien Boss.png',
 		sprite_size = { 160, 160 },
+		attack = {
+			projectile = 'head_missile',
+			rate = 1.0, 
+		},
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
@@ -699,6 +734,7 @@ return {
 		name = 'Minigun Shot',
 		texture = 'gfx/MGShot.png',
 		-- TODO: use different frames depending on direction
+		speed = 90,
 		size = 7,
 		animations = {
 			['propel-down'] = {
