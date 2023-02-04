@@ -906,9 +906,15 @@ return {
 				frames = { 1, 2, 3 },
 				interval = 0.1,
 			},
+			['destroy'] = {
+				-- destroy state is dummy state - we only need to add the state for the sound
+				frames = { 1 },
+				interval = 0,
+			}
 		},
 		sounds = {
 			['spawn'] = 'sfx/LightTheFuse.wav',
+			['destroy'] = 'sfx/Explosion.wav',
 		},
 	},
 	['explosion'] = {
@@ -927,9 +933,6 @@ return {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
 			},
-		},
-		sounds = {
-			['spawn'] = 'sfx/Explosion.wav',
 		},
 	},
 	['flash'] = {

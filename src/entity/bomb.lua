@@ -35,7 +35,7 @@ function Bomb:update(dt)
 	self.fuse_time = math_max(self.fuse_time - dt, 0)
 	if self.fuse_time == 0 then
 		self.level:addEntity(EntityFactory.create('explosion', self.pos.x, self.pos.y, self.player))
-		self.level:removeEntity(self)		
+		self:destroy()
 
 		local grid_pos = self:gridPosition()
 
