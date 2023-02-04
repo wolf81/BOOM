@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local math_max = math.max
+local math_max, math_min = math.max, math.min
 
 Points = Class { __includes = EntityBase }
 
@@ -24,10 +24,17 @@ end
 function Points:update(dt)
 	self.duration = math_max(self.duration - dt, 0)
 	self.pos.y = self.pos.y - self.speed * dt
+	self.alpha = math_min(self.duration / 0.5, 1.0)
 
 	EntityBase.update(self, dt)
 
 	if self.duration == 0 then
 		self:destroy()
 	end
+end
+
+function Points:draw()
+	love.graphics.setColor(1, 1, 1, self.alpha)
+	EntityBase.draw(self)
+	love.graphics.setColor(1, 1, 1, 1)
 end
