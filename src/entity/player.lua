@@ -13,9 +13,6 @@ function Player:init(def)
 	assert(def.fuse_time ~= nil and type(def.fuse_time) == 'number', 'fuse_time is required')
 
 	self.fuse_time = def.fuse_time
-
-	self.z_index = 10
-
 	self.category_flags = Category.PLAYER
 	self.collision_flags = bit.bor(Category.PLAYER, Category.COIN, Category.MONSTER, Category.TELEPORTER)
 end

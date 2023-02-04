@@ -69,7 +69,6 @@ function EntityBase:init(def)
 
 	self.name = def.name
 	self.description = def.description or ''
-	self.z_index = def.z_index or 0
 	self.id = nil -- assigned by EntityFactory
 	self.level = nil -- assigned by Level when added to Level
 	
@@ -125,13 +124,6 @@ end
 
 function EntityBase:draw()
 	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], math_floor(self.pos.x), math_floor(self.pos.y))
-end
-
--- the skip list uses the less-than operator to determine drawing order based on z_index
-function EntityBase:__lt(other)
-	if self.z_index < other.z_index then return true 
-	elseif self.z_index == other.z_index and self.id < other.id then return true
-	else return false end
 end
 
 -- spawn

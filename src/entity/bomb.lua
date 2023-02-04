@@ -9,12 +9,6 @@ local math_max = math.max
 
 Bomb = Class { __includes = EntityBase }
 
-function Bomb:init(def)
-	EntityBase.init(self, def)
-
-	self.z_index = 1
-end
-
 function Bomb:config(id, x, y, player)
 	EntityBase.config(self, id, x, y)
 

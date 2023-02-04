@@ -30,7 +30,7 @@ function Move:enter(direction)
 end
 
 function Move:update(dt)
-	local dxy = self.direction:permul(TILE_SIZE) * dt * self.entity.speed
+	local dxy = self.direction * dt * self.entity.speed
 	local pos = self.entity.pos + dxy
 
 	if self.direction == Direction.RIGHT then

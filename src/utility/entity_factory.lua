@@ -44,6 +44,8 @@ function EntityFactory.register(path)
 			prototypes[key] = Explosion(entity_def)
 		elseif key == 'shot' or key == 'fireball' or key == 'lightbolt' or key == 'mg_shot' or key == 'plasma' or key == 'magma' or key == 'flame' then
 			prototypes[key] = Projectile(entity_def)
+		elseif key == 'points' then
+			prototypes[key] = Points(entity_def)
 		else
 			prototypes[key] = Monster(entity_def)
 		end			

@@ -211,7 +211,7 @@ return {
 	['D'] = {
 		name = 'Mean-o-Taur',
 		description = 'A sort of a cross between a man and a bull on steroids. Fast and extremely vicious.',
-		speed = 2.0,
+		speed = 60,
 		texture = 'gfx/Taur.png',
 		attack = {
 			rate = 0.5,
@@ -364,7 +364,7 @@ return {
 	['G'] = {
 		name = 'Ghost',
 		description = 'This creature from beyond is unarmed but his fast and incessant attacks can be very annoying.',
-		speed = 2.5,
+		speed = 75,
 		texture = 'gfx/Ghost.png',
 		attack = {
 			rate = 0.5,
@@ -566,7 +566,7 @@ return {
 	['X'] = {
 		name = 'Player 1',
 		texture = 'gfx/Player1.png',
-		speed = 2.0,
+		speed = 60,
 		fuse_time = 3.0,
 		animations = {
 			['move-down'] = {
@@ -598,7 +598,7 @@ return {
 	['Y'] = {
 		name = 'Player 2',
 		texture = 'gfx/Player2.png',
-		speed = 2.0,
+		speed = 60,
 		fuse_time = 3.0,
 		animations = {
 			['move-down'] = {
@@ -946,6 +946,22 @@ return {
 		},
 		sounds = {
 			['spawn'] = 'sfx/Teleport.wav',
+		},
+	},
+	['points'] = {
+		name = 'Points 10-1K',
+		texture = 'gfx/Points 10-1K.png',
+		speed = 30,
+		sprite_size = { 32, 16 },
+		animations = {
+			['idle'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['destroy'] = {
+				frames = { 1 },
+				interval = 0.1,
+			}
 		},
 	},
 }

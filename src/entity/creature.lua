@@ -12,8 +12,7 @@ Creature = Class { __includes = EntityBase }
 function Creature:init(def)
 	EntityBase.init(self, def)
 
-	self.speed = def.speed or 1.0
-	self.z_index = def.z_index or 5
+	self.speed = def.speed or 30
 
 	self.category_flags = Category.MONSTER
 	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
