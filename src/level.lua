@@ -89,8 +89,10 @@ end
 local function onCollide(entity1, entity2)
 	if entity1:is(Projectile) then
 		entity1:destroy()
+		if entity2:is(Player) then entity2:hit() end
 	elseif entity2:is(Projectile) then
 		entity2:destroy()
+		if entity1:is(Player) then entity1:hit() end
 	elseif entity1:is(Monster) and entity2:is(Monster) then
 		entity2:onCollision(entity1)
 		entity1:onCollision(entity2)

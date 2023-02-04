@@ -39,6 +39,7 @@ require 'src.state.move'
 require 'src.state.destroy'
 require 'src.state.attack'
 require 'src.state.propel'
+require 'src.state.hit'
 
 require 'src.entity.entity_base'
 require 'src.entity.block'

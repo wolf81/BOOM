@@ -596,6 +596,10 @@ return {
 				frames = { 25, 26, 27, 28, 29, 30, 31, 32 },
 				interval = 0.1,
 			},
+			['hit'] = {
+				frames = { 37 },
+				interval = 0.1,
+			},
 			['destroy'] = {
 				frames = { 33, 34, 35 },
 				interval = 0.2,
@@ -604,7 +608,8 @@ return {
 		},
 		sounds = {
 			['destroy'] = 'sfx/P1Death.wav',
-		}
+			['hit'] = 'sfx/P1Ouch.wav'
+		},
 	},
 	['Y'] = {
 		name = 'Player 2',
@@ -633,10 +638,15 @@ return {
 				interval = 0.2,
 				times = 4,
 			},
+			['hit'] = {
+				frames = { 37 },
+				interval = 0.1,
+			},
 		},
 		sounds = {
 			['destroy'] = 'sfx/P2Death.wav',
-		}
+			['hit'] = 'sfx/P2Ouch.wav',
+		},
 	},	
 	['*'] = {
 		name = 'Head Boss',

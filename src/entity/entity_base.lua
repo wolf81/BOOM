@@ -52,6 +52,11 @@ local function configureStateMachineIfNeeded(self)
 		use_dummy = false
 	end 
 
+	if self.animations['hit'] ~= nil then
+		states['hit'] = function() return Hit(self) end
+		use_dummy = false
+	end
+
 	if use_dummy then
 		self.state_machine = StateMachine()
 	else
@@ -191,4 +196,16 @@ end
 
 function EntityBase:isAttacking()
 	return getmetatable(self.state_machine.current) == Attack
+end
+
+-- hit
+
+function EntityBase:hit()
+	if getmetatable(self.state_machine.current) == Hit then return end
+
+	self.state_machine:change('hit')
+end
+
+function EntityBase:isHit()
+	return getmetatable(self.state_machine.current) == Hit
 end
