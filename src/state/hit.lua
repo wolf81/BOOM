@@ -24,7 +24,6 @@ function Hit:update(dt)
 	self.duration = math_max(self.duration - dt, 0)
 
 	if self.duration == 0 then
-		self.entity.direction = nil
 		self.entity:idle()
 	end
 end

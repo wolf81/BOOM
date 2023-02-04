@@ -12,21 +12,29 @@ Move = Class { __includes = StateBase }
 function Move:enter(direction)
 	StateBase.enter(self)
 
-	assert(direction ~= nil, 'direction should be UP, DOWN, LEFT or RIGHT')
+	local grid_pos = self.entity:gridPosition()
+	local to_grid_pos = grid_pos + (direction or vector.zero)
+
+	if direction == nil or self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then 
+		-- move to nearest grid position
+		self.to_pos = grid_pos:permul(TILE_SIZE)
+		if self.to_pos.x < self.entity.pos.x then
+			direction = Direction.LEFT
+		elseif self.to_pos.x > self.entity.pos.x then
+			direction = Direction.RIGHT
+		elseif self.to_pos.y < self.entity.pos.y then
+			direction = Direction.UP
+		elseif self.to_pos.y > self.entity.pos.y then
+			direction = Direction.DOWN
+		end
+	else
+		-- move to grid position indicated by direction
+		self.to_pos = to_grid_pos:permul(TILE_SIZE)
+	end
 
 	self.direction = direction
 
 	self.entity:animate('move-' .. string_lower(GetDirectionName(self.direction)))
-
-	-- calculate target position
-	-- stop movement past current grid position if next grid position is blocked
-	local grid_pos = self.entity:gridPosition()
-	local to_grid_pos = grid_pos + direction
-	if self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
-		self.to_pos = grid_pos:permul(TILE_SIZE)
-	else
-		self.to_pos = GetAdjacentPosition(self.entity.pos, self.direction)		
-	end
 end
 
 function Move:update(dt)

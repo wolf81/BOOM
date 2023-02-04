@@ -153,8 +153,7 @@ end
 function EntityBase:move(direction)
 	self.direction = direction
 
-	local state_name = direction == nil and 'idle' or 'move'
-	self.state_machine:change(state_name, direction)
+	self.state_machine:change('move', direction)
 end
 
 function EntityBase:isMoving()

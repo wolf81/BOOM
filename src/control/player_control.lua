@@ -53,6 +53,19 @@ end
 function PlayerControl:update(dt)	
 	self.input:update()
 
+	local is_x_aligned = self.entity.pos.x % TILE_W == 0
+	local is_y_aligned = self.entity.pos.y % TILE_H == 0
+
+	if self.entity:isIdling() and not self.entity.direction then
+		if not is_x_aligned then
+			local dir = ((self.entity.pos.x % TILE_W) < TILE_W / 2) and Direction.RIGHT or Direction.LEFT
+			self.entity:move(nil)
+		elseif not is_y_aligned then
+			local dir = ((self.entity.pos.x % TILE_H) < TILE_H / 2) and Direction.DOWN or Direction.UP
+			self.entity:move(nil)
+		end
+	end
+
 	if self.entity:isDestroyed() or self.entity:isHit() then return end
 
 	if self.input:pressed('action') then
@@ -67,14 +80,14 @@ function PlayerControl:update(dt)
 	local direction = nil
 
 	-- if vertically aligned with tiles, allow movement in horizontal directions
-	if self.entity.pos.y % TILE_H == 0 then
+	if is_y_aligned then
 		if self.input:down('left') then direction = getDirection(self, Direction.LEFT)
 		elseif self.input:down('right') then direction = getDirection(self, Direction.RIGHT)
 		end
 	end
 
 	-- if horizontally aligned with tiles, allow movement in vertical directions
-	if self.entity.pos.x % TILE_W == 0 then
+	if is_x_aligned then
 		if self.input:down('up') then direction = getDirection(self, Direction.UP)
 		elseif self.input:down('down') then direction = getDirection(self, Direction.DOWN)
 		end
