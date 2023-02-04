@@ -12,19 +12,34 @@ CpuControl = Class {}
 
 local MELEE_ATTACK_RANGE = 0.8
 
-local DIRS = {
-	Direction.UP,
-	Direction.DOWN,
-	Direction.LEFT,
-	Direction.RIGHT
-}
-
 local function tryAttack(monster, range)
-	print('try attack')
 	if monster.projectile then
 		monster:attack() 
 	elseif range <= MELEE_ATTACK_RANGE then
 		monster:attack() 
+	end
+end
+
+local function tryMove(monster, directions)
+	local dirs = lume_shuffle(directions)
+	local dir = nil
+
+	-- loop through each direction, finding the first unblocked direction
+	while #dirs > 0 do
+		-- TODO: for alien boss at level 80, we also need to take into
+		-- account the sprite size, to see whether we hit a block
+		local direction = table_remove(dirs)
+		local to_grid_pos = monster:gridPosition() + direction
+		if not monster.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
+			dir = direction
+			break
+		end
+	end
+
+	if dir then
+		monster:move(dir)
+	else
+		monster:idle()
 	end
 end
 
@@ -35,8 +50,6 @@ end
 local function roaming(self, dt)
 	if self.entity:isMoving() and self.entity:canAttack() then
 		local grid_pos = self.entity:gridPosition()
-
-		local did_attack = false
 
 		for _, player in ipairs(self.entity.level.players) do
 			local player_grid_pos = player:gridPosition()
@@ -68,8 +81,6 @@ local function roaming(self, dt)
 	if self.entity:canAttack() then
 		local grid_pos = self.entity:gridPosition()
 
-		local did_attack = false
-
 		for _, player in ipairs(self.entity.level.players) do
 			local player_grid_pos = player:gridPosition()
 
@@ -99,68 +110,11 @@ local function roaming(self, dt)
 	local is_y_aligned = self.entity.pos.y % TILE_H == 0
 
 	if is_x_aligned and is_y_aligned then
-		local dirs = lume_shuffle(DIRS)
-		local dir = nil
-
-		-- loop through each direction, finding the first unblocked direction
-		while #dirs > 0 do
-			-- TODO: for alien boss at level 80, we also need to take into
-			-- account the sprite size, to see whether we hit a block
-			local direction = table_remove(dirs)
-			local to_grid_pos = self.entity:gridPosition() + direction
-			if not self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
-				dir = direction
-				break
-			end
-		end
-
-		if dir then
-			self.entity:move(dir)
-		else
-			self.entity:idle()
-		end
+		tryMove(self.entity, { Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT })
 	elseif is_x_aligned then
-		local dirs = lume_shuffle({ Direction.UP, Direction.DOWN })
-		local dir = nil
-
-		-- loop through each direction, finding the first unblocked direction
-		while #dirs > 0 do
-			-- TODO: for alien boss at level 80, we also need to take into
-			-- account the sprite size, to see whether we hit a block
-			local direction = table_remove(dirs)
-			local to_grid_pos = self.entity:gridPosition() + direction
-			if not self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
-				dir = direction
-				break
-			end
-		end
-
-		if dir then
-			self.entity:move(dir)
-		else
-			self.entity:idle()
-		end
+		tryMove(self.entity, { Direction.UP, Direction.DOWN })
 	elseif is_y_aligned then
-		local dirs = lume_shuffle({ Direction.LEFT, Direction.RIGHT })
-		local dir = nil
-
-		-- loop through each direction, finding the first unblocked direction
-		while #dirs > 0 do
-			-- TODO: for alien boss at level 80, we also need to take into
-			-- account the sprite size, to see whether we hit a block
-			local direction = table_remove(dirs)
-			local to_grid_pos = self.entity:gridPosition() + direction
-			if not self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
-				dir = direction
-				break
-			end
-		end
-
-		if dir then
-			self.entity:move(dir)
-		else
-			self.entity:idle()
-		end		
+		tryMove(self.entity, { Direction.LEFT, Direction.RIGHT })
 	end	
 end
 

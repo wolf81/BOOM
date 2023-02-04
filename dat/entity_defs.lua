@@ -110,7 +110,7 @@ return {
 		texture = 'gfx/Sarge.png',
 		attack = {
 			projectile = 'shot',
-			rate = 1.0,
+			rate = 0.8,
 		},
 		animations = {
 			['move-down'] = {
@@ -131,19 +131,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
@@ -182,19 +182,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['destroy'] = {
 				frames = { 21, 22, 23, 24 },
@@ -232,19 +232,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
@@ -253,6 +253,7 @@ return {
 		},
 		sounds = {
 			['destroy'] = 'sfx/TaurDeath.wav',
+			['attack'] = 'sfx/TaurNoise.wav',
 		},
 	},	
 	['E'] = {
@@ -261,7 +262,6 @@ return {
 		texture = 'gfx/Gunner.png',
 		attack = {
 			projectile = 'mg_shot',
-			rate = 0.3,
 		},
 		animations = {
 			['move-down'] = {
@@ -361,7 +361,7 @@ return {
 		speed = 2.5,
 		texture = 'gfx/Ghost.png',
 		attack = {
-			rate = 1.0,
+			rate = 0.5,
 		},
 		animations = {
 			['move-down'] = {
@@ -382,19 +382,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
@@ -411,7 +411,6 @@ return {
 		texture = 'gfx/Smoulder.png',
 		attack = {
 			projectile = 'flame',
-			rate = 0.4,
 		},
 		animations = {
 			['move-down'] = {
@@ -432,19 +431,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.4,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.4,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.4,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.4,
 			},
 			['destroy'] = {
 				frames = { 21, 22, 23, 24 },
@@ -461,7 +460,6 @@ return {
 		texture = 'gfx/Skully.png',
 		attack = {
 			projectile = 'plasma',
-			rate = 1.0,
 		},
 		animations = {
 			['move-down'] = {
@@ -482,19 +480,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
@@ -511,7 +509,7 @@ return {
 		texture = 'gfx/Giggler.png',
 		attack = {
 			projectile = 'magma',
-			rate = 1.0, 
+			rate = 0.3, 
 		},
 		animations = {
 			['move-down'] = {
@@ -532,19 +530,19 @@ return {
 			},
 			['attack-down'] = {
 				frames = { 17 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-up'] = {
 				frames = { 18 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-right'] = {
 				frames = { 19 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['attack-left'] = {
 				frames = { 20 },
-				interval = 0.5,
+				interval = 0.1,
 			},
 			['destroy'] = {
 				frames = { 21, 22 },
@@ -702,6 +700,9 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['propel'] = 'sfx/Shot.wav',
+		}
 	},
 	['flame'] = { -- bugged in level 72
 		name = 'Flame',
@@ -757,6 +758,9 @@ return {
 				frames = { 5, 6, 7, 8, 9 },
 				interval = 0.1,
 			},
+		},
+		sounds = {
+			['propel'] = 'sfx/Shot.wav',
 		},
 	},	
 	['magma'] = {

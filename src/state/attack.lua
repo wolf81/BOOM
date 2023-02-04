@@ -19,6 +19,7 @@ function Attack:enter()
 	assert(self.entity.direction ~= nil, 'direction must be UP, DOWN, LEFT or RIGHT')
 
 	self.entity:animate('attack-' .. string_lower(GetDirectionName(self.entity.direction)))
+	self.entity:playSound('attack')
 
 	if self.entity.projectile ~= nil then
 		local projectile = EntityFactory.create(self.entity.projectile, self.entity.pos.x, self.entity.pos.y, self.entity.direction)

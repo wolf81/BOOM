@@ -5,6 +5,8 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
+local lume_ripairs, table_remove, table_insert = lume.ripairs, table.remove, table.insert
+
 AudioPlayer = {}
 
 local settings = {
@@ -16,10 +18,14 @@ local music = nil
 
 local sources = {}
 
+local registry = {}
+
 function AudioPlayer.load(path)
 	assert(path ~= nil, 'path is required')
 
-	sources[path] = love.audio.newSource(path, 'static')
+	print('load @ ' .. path)
+
+	registry[path] = love.audio.newSource(path, 'static')
 end
 
 function AudioPlayer.setMusicVolume(volume)
@@ -40,9 +46,15 @@ function AudioPlayer.playMusic(path, looping)
 end
 
 function AudioPlayer.playSound(path)
-	assert(sources[path] ~= nil, 'sound not loaded: ' .. path)
+	for idx, source in lume_ripairs(sources) do
+		if not source:isPlaying() then
+			table_remove(sources, idx)
+		end
+	end
 
-	local sound = sources[path]
-	sound:setVolume(settings.sound_volume)
-	sound:play()
+	local source = registry[path]:clone()
+
+	table_insert(sources, source)
+	source:setVolume(settings.sound_volume)
+	source:play()
 end

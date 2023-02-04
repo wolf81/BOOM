@@ -36,6 +36,7 @@ function Propel:enter(angle)
 	self.entity.pos = self.entity.pos + self.offset
 
 	self.entity:animate('propel-' .. string_lower(GetDirectionName(angle)))
+	self.entity:playSound('propel')
 end
 
 function Propel:exit()

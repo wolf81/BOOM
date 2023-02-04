@@ -17,9 +17,8 @@ function Monster:init(def)
 	self.category_flags = Category.MONSTER
 	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
 
-	local attack_info = def.attack or {
-		rate = 1.0,
-	}
+	local attack_info = def.attack or {}
+	attack_info.rate = attack_info.rate or 0.0
 
 	self.attack_rate = attack_info.rate
 	self.projectile = attack_info.projectile
@@ -39,6 +38,18 @@ function Monster:update(dt)
 	self.attack_delay = math_max(self.attack_delay - dt, 0)
 
 	self.control:update(dt)
+end
+
+function Monster:attack()
+	if self.attack_delay > 0 then return end
+
+	self.attack_delay = self.attack_rate
+
+	Creature.attack(self)
+end
+
+function Monster:canAttack()
+	return self.attack_delay == 0
 end
 
 function Monster:onCollision(entity)
@@ -74,16 +85,4 @@ function Monster:onCollision(entity)
 	if #dirs > 0 then
 		self:move(lume_randomchoice(dirs))
 	end
-end
-
-function Monster:attack()
-	Creature.attack(self)
-
-	if not self:isAttacking() then
-		self.attack_delay = self.attack_rate
-	end
-end
-
-function Monster:canAttack()
-	return self.attack_delay == 0
 end
