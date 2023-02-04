@@ -14,7 +14,9 @@ function Coin:init(def)
 end
 
 function Coin:destroy()
-	EntityBase.destroy(self)
+	if not self:isDestroyed() then
+		self.level:addEntity(EntityFactory.create('points', self.pos.x, self.pos.y, 150))	
+	end
 
-	self.level:addEntity(EntityFactory.create('points', self.pos.x, self.pos.y))	
+	EntityBase.destroy(self)
 end
