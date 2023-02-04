@@ -20,6 +20,7 @@ local DIRS = {
 }
 
 local function tryAttack(monster, range)
+	print('try attack')
 	if monster.projectile then
 		monster:attack() 
 	elseif range <= MELEE_ATTACK_RANGE then
@@ -32,6 +33,36 @@ local function idling(self, dt)
 end
 
 local function roaming(self, dt)
+	if self.entity:isMoving() and self.entity:canAttack() then
+		local grid_pos = self.entity:gridPosition()
+
+		local did_attack = false
+
+		for _, player in ipairs(self.entity.level.players) do
+			local player_grid_pos = player:gridPosition()
+
+			if self.entity.direction == Direction.UP then
+				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then 
+					tryAttack(self.entity, math_abs(player_grid_pos.y - grid_pos.y))
+				end
+			elseif self.entity.direction == Direction.DOWN then
+				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then 
+					tryAttack(self.entity, math_abs(player_grid_pos.y - grid_pos.y))
+				end
+			elseif self.entity.direction == Direction.LEFT then
+				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then 
+					tryAttack(self.entity, math_abs(player_grid_pos.x - grid_pos.x))					
+				end
+			elseif self.entity.direction == Direction.RIGHT then
+				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then 
+					tryAttack(self.entity, math_abs(player_grid_pos.x - grid_pos.x))					
+				end
+			end
+
+			if self.entity:isAttacking() then return end
+		end
+	end
+
 	if not self.entity:isIdling() then return end
 
 	if self.entity:canAttack() then

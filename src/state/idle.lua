@@ -7,7 +7,7 @@
 
 Idle = Class { __includes = StateBase }
 
-function Idle:enter()
+function Idle:enter(direction)
 	StateBase.enter(self)
 
 	self.entity:animate('idle')

@@ -143,7 +143,6 @@ end
 -- idle
 
 function EntityBase:idle()
-	self.direction = nil
 	self.state_machine:change('idle')
 end
 
