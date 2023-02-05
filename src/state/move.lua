@@ -15,7 +15,7 @@ function Move:enter(direction)
 	local grid_pos = self.entity:gridPosition()
 	local to_grid_pos = grid_pos + (direction or vector.zero)
 
-	if direction == nil or self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then 
+	if direction == nil then
 		-- move to nearest grid position
 		self.to_pos = grid_pos:permul(TILE_SIZE)
 		if self.to_pos.x < self.entity.pos.x then
@@ -27,6 +27,13 @@ function Move:enter(direction)
 		elseif self.to_pos.y > self.entity.pos.y then
 			direction = Direction.DOWN
 		end
+
+		if direction == nil then direction = Direction.DOWN end
+	end
+
+
+	if self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then 
+		self.to_pos = grid_pos:permul(TILE_SIZE)
 	else
 		-- move to grid position indicated by direction
 		self.to_pos = to_grid_pos:permul(TILE_SIZE)

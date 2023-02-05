@@ -8,4 +8,5 @@ Category = {
 	BREAKABLE_BLOCK = bit.lshift(1, 5),
 	EXPLOSION = bit.lshift(1, 6),
 	PROJECTILE = bit.lshift(1, 7),
+	BONUS = bit.lshift(1, 8),
 }

@@ -49,7 +49,9 @@ function EntityFactory.register(path)
 		elseif key == 'points5k' then
 			prototypes[key] = Points5K(entity_def)
 		elseif key == 'points100k' then
-			prototypes[key] = Points100K(entity_def)			
+			prototypes[key] = Points100K(entity_def)
+		elseif key == 'bonus' then
+			prototypes[key] = Bonus(entity_def)
 		else
 			prototypes[key] = Monster(entity_def)
 		end			

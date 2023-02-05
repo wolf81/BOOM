@@ -984,7 +984,7 @@ return {
 			['destroy'] = {
 				frames = { 1 },
 				interval = 0.1,
-			}
+			},
 		},
 	},
 	['points5k'] = {
@@ -996,7 +996,7 @@ return {
 			['destroy'] = {
 				frames = { 1 },
 				interval = 0.1,
-			}
+			},
 		},
 	},
 	['points100k'] = {
@@ -1008,7 +1008,20 @@ return {
 			['destroy'] = {
 				frames = { 1 },
 				interval = 0.1,
-			}
+			},
+		},
+	},
+	['bonus'] = {
+		name = 'Bonuses',
+		texture = 'gfx/Bonuses.png',
+		animations = {
+			['destroy'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+		},
+		sounds = {
+			['destroy'] = 'sfx/GetBonus.wav',
 		},
 	},
 }

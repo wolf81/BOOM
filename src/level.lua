@@ -38,6 +38,7 @@ local function insertEntities(self)
 		elseif entity:is(Monster) then table_insert(self.monsters, entity)
 		elseif entity:is(Teleporter) then table_insert(self.teleporters, entity)
 		elseif entity:is(Coin) then table_insert(self.coins, entity)
+		elseif entity:is(Bonus) then table_insert(self.bonuses, entity)
 		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then table_insert(self.props, entity)
 		end
 	end
@@ -59,6 +60,7 @@ local function removeEntities(self)
 		elseif entity:is(Monster) then lume_remove(self.monsters, entity)
 		elseif entity:is(Teleporter) then lume_remove(self.teleporters, entity)
 		elseif entity:is(Coin) then lume_remove(self.coins, entity)
+		elseif entity:is(Bonus) then lume_remove(self.bonuses, entity)
 		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then lume_remove(self.props, entity)
 		end
 	end
@@ -98,8 +100,18 @@ local function onCollide(entity1, entity2)
 		entity1:onCollision(entity2)
 	elseif entity1:is(Coin) and entity2:is(Player) then
 		entity1:destroy()
+		-- TODO: add points to player
 	elseif entity1:is(Player) and entity2:is(Coin) then
 		entity2:destroy()
+		-- TODO: add points to player
+	elseif entity1:is(Bonus) and entity2:is(Player) then
+		entity1:apply(entity2)
+		entity1:destroy()
+		-- TODO: give bonus to player
+	elseif entity1:is(Player) and entity2:is(Bonus) then
+		entity2:apply(entity1)
+		entity2:destroy()
+		-- TODO: give bonus to player
 	elseif entity1:is(Explosion) then
 		entity2:destroy()
 	elseif entity2:is(Explosion) then
@@ -119,6 +131,7 @@ function Level:init(index, background, grid, time, entities)
 	self.breakable_blocks = {}
 	self.players = {}
 	self.coins = {}
+	self.bonuses = {}
 	self.bombs = {}
 	self.explosions = {}
 	self.projectiles = {}
@@ -200,6 +213,10 @@ function Level:update(dt)
 		entity:update(dt)
 	end	
 
+	for _, entity in ipairs(self.bonuses) do
+		entity:update(dt)
+	end
+
 	for _, entity in ipairs(self.bombs) do
 		entity:update(dt)
 	end
@@ -247,6 +264,10 @@ function Level:draw()
 	for _, entity in ipairs(self.coins) do
 		entity:draw()
 	end	
+
+	for _, entity in ipairs(self.bonuses) do
+		entity:draw()
+	end
 
 	for _, entity in ipairs(self.bombs) do
 		entity:draw()
