@@ -49,3 +49,15 @@ end
 function Player:healOne()
 	setHitpoints(self, self.hitpoints + 2)
 end
+
+function Player:haste()
+	-- TODO: perhaps a bit ugly to store the base speed here
+	-- maybe a better idea to store in external object?
+	if not self.base_speed then self.base_speed = self.speed end
+
+	self.speed = self.base_speed * 2
+
+	Timer.after(10, function()
+		self.speed = self.base_speed
+	end)
+end

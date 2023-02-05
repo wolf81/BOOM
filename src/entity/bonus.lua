@@ -15,8 +15,8 @@ BonusType = {
 	PLAYER_INC_EXPLOSION_SIZE = 5,
 	PLAYER_HEAL_ONE = 6,
 	PLAYER_HEAL_ALL = 7,
-	PLAYER_TEMP_SHIELD = 8,
-	PLAYER_TEMP_SPEED = 8,
+	PLAYER_SHIELD = 8,
+	PLAYER_HASTE = 9,
 }
 
 Bonus = Class { __includes = EntityBase }
@@ -24,7 +24,7 @@ Bonus = Class { __includes = EntityBase }
 local function getRandomBonus()
 	local keys = lume_keys(BonusType)
 	local bonus = keys[math_random(#keys)]
-	return BonusType.PLAYER_HEAL_ALL, 7
+	return BonusType.PLAYER_HASTE, 9
 	-- return bonus, BonusType[bonus]
 end
 
@@ -57,6 +57,8 @@ function Bonus:apply(player)
 		player:healOne()
 	elseif self.bonus_type == BonusType.PLAYER_HEAL_ALL then
 		player:healAll()
+	elseif self.bonus_type == BonusType.PLAYER_HASTE then
+		player:haste()
 	else
 		error('not implemented', self.bonus_type)
 	end
