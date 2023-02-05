@@ -195,6 +195,16 @@ function Level:getBomb(grid_pos)
 	return nil
 end
 
+function Level:eachGridPosition(fn)
+	local width, height = self.grid:size()
+
+	for y = 1, height do
+		for x = 1, width do
+			fn(vector(x, y))
+		end
+	end
+end
+
 -- TODO: use a vector instead of x, y coords to align with getBreakableBlock(), getBomb()
 function Level:isBlocked(x, y)
 	return self.grid:isBlocked(x, y)

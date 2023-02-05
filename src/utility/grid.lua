@@ -17,6 +17,10 @@ function Grid:init(width, height)
    end
 end
 
+function Grid:size()
+   return #self.grid[1], #self.grid
+end
+
 function Grid:block(x, y)
    self.grid[y][x] = 0
 end

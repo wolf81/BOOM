@@ -21,10 +21,27 @@ BonusType = {
 
 Bonus = Class { __includes = EntityBase }
 
+local function destroyBlocks(self)
+	local delay = 0.0
+
+	self.level:eachGridPosition(function(pos)
+		local bblock = self.level:getBreakableBlock(pos)
+		if bblock then Timer.after(delay, function() bblock:destroy() end) end
+		delay = delay + 0.01
+	end)
+end
+
+local function destroyMonsters(self)
+	for _, monster in ipairs(self.level.monsters) do
+		monster:destroy()
+	end
+end
+
 local function getRandomBonus()
 	local keys = lume_keys(BonusType)
 	local bonus = keys[math_random(#keys)]
-	return bonus, BonusType[bonus]
+	return BonusType.DESTROY_MONSTERS, 2
+	-- return bonus, BonusType[bonus]
 end
 
 function Bonus:init(def)
@@ -47,4 +64,10 @@ end
 
 function Bonus:apply(player)
 	print('apply bonus', self.bonus_type)
+
+	if self.bonus_type == BonusType.DESTROY_BLOCKS then
+		destroyBlocks(self)
+	elseif self.bonus_type == BonusType.DESTROY_MONSTERS then
+		destroyMonsters(self)
+	end
 end
