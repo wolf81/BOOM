@@ -205,6 +205,22 @@ function Level:eachGridPosition(fn)
 	end
 end
 
+function Level:destroyBlocks()
+	local delay = 0.0
+
+	self:eachGridPosition(function(pos)
+		local bblock = self:getBreakableBlock(pos)
+		if bblock then Timer.after(delay, function() bblock:destroy() end) end
+		delay = delay + 0.01
+	end)
+end
+
+function Level:destroyMonsters()
+	for _, monster in ipairs(self.monsters) do
+		monster:destroy()
+	end
+end
+
 -- TODO: use a vector instead of x, y coords to align with getBreakableBlock(), getBomb()
 function Level:isBlocked(x, y)
 	return self.grid:isBlocked(x, y)
