@@ -25,6 +25,11 @@ function Player:init(def)
 	self.category_flags = Category.PLAYER
 	self.collision_flags = bit.bor(Category.PLAYER, Category.COIN, Category.MONSTER, Category.TELEPORTER)
 	self.hitpoints = 16
+
+	self.bonus_info = { 
+		[BonusType.PLAYER_HASTE] = { active = false, base_speed = self.speed, factor = 2 },
+		[BonusType.PLAYER_SHIELD] = nil,
+	}
 end
 
 function Player:config(id, x, y)
@@ -51,13 +56,19 @@ function Player:healOne()
 end
 
 function Player:haste()
-	-- TODO: perhaps a bit ugly to store the base speed here
-	-- maybe a better idea to store in external object?
-	if not self.base_speed then self.base_speed = self.speed end
+	local factor = 2
 
-	self.speed = self.base_speed * 2
+	local haste_bonus = self.bonus_info[BonusType.PLAYER_HASTE]
+	haste_bonus.active = true
+
+	self.speed = haste_bonus.base_speed * haste_bonus.factor
 
 	Timer.after(10, function()
-		self.speed = self.base_speed
+		haste_bonus.active = false
+		self.speed = haste_bonus.base_speed
 	end)
+end
+
+function Player:shield()
+	-- body
 end
