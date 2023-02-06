@@ -1024,4 +1024,26 @@ return {
 			['destroy'] = 'sfx/GetBonus.wav',
 		},
 	},
+	['shield'] = {
+		name = 'Shield',
+		texture = 'gfx/Shield.png',
+		animations = {
+			['move-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['move-up'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['move-right'] = {
+				frames = { 2 },
+				interval = 0.1,
+			},
+			['move-left'] = {
+				frames = { 3 },
+				interval = 0.1,
+			},
+		},
+	},
 }

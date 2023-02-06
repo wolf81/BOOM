@@ -30,6 +30,8 @@ function Player:init(def)
 		[BonusType.PLAYER_HASTE] = { active = false, base_speed = self.speed, factor = 2 },
 		[BonusType.PLAYER_SHIELD] = nil,
 	}
+
+	self.shield = nil
 end
 
 function Player:config(id, x, y)
@@ -39,6 +41,8 @@ function Player:config(id, x, y)
 end
 
 function Player:hit()
+	if self.shield ~= nil then return end
+
 	setHitpoints(self, self.hitpoints - 1)
 	if self.hitpoints == 0 then
 		self:destroy()
@@ -55,7 +59,7 @@ function Player:healOne()
 	setHitpoints(self, self.hitpoints + 2)
 end
 
-function Player:haste()
+function Player:applyHaste()
 	local factor = 2
 
 	local haste_bonus = self.bonus_info[BonusType.PLAYER_HASTE]
@@ -69,6 +73,26 @@ function Player:haste()
 	end)
 end
 
-function Player:shield()
-	-- body
+function Player:update(dt)
+	Creature.update(self, dt)
+
+	if self.shield ~= nil then
+		self.shield:update(dt)
+		self.shield.pos = self.pos
+	end
+end
+
+function Player:draw()
+	Creature.draw(self)
+
+	if self.shield ~= nil then
+		self.shield:draw()
+	end
+end
+
+function Player:applyShield()
+	self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y)
+	Timer.after(10, function()
+		self.shield = nil
+	end)
 end

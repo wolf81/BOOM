@@ -58,4 +58,5 @@ require 'src.entity.points_1k'
 require 'src.entity.points_5k'
 require 'src.entity.points_100k'
 require 'src.entity.bonus'
+require 'src.entity.shield'
 
