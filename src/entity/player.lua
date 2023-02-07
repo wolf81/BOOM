@@ -48,6 +48,9 @@ function Player:hit()
 		self:destroy()
 	else
 		Creature.hit(self)
+		Timer.after(0.1, function() 
+			self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, 1.5)
+		end)
 	end
 end
 
@@ -78,7 +81,6 @@ function Player:update(dt)
 
 	if self.shield ~= nil then
 		self.shield:update(dt)
-		self.shield.pos = self.pos
 	end
 end
 
@@ -90,9 +92,18 @@ function Player:draw()
 	end
 end
 
+function Player:move(direction)
+	Creature.move(self, direction)
+
+	if self.shield then
+		self.shield:setDirection(direction)
+	end
+end
+
 function Player:applyShield()
-	self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y)
-	Timer.after(10, function()
-		self.shield = nil
-	end)
+	self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, 20)
+end
+
+function Player:removeShield()
+	self.shield = nil
 end

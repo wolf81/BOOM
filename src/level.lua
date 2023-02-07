@@ -198,8 +198,8 @@ end
 function Level:eachGridPosition(fn)
 	local width, height = self.grid:size()
 
-	for y = 1, height do
-		for x = 1, width do
+	for x = 1, width do
+		for y = 1, height do
 			fn(vector(x, y))
 		end
 	end
