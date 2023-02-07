@@ -18,3 +18,23 @@ HUD_H = 480
 
 WINDOW_W = TILE_W * (MAP_W + 2) + HUD_W
 WINDOW_H = math.max(TILE_H * (MAP_H + 2), HUD_H)
+
+ExtraFlags = {
+	E = bit.lshift(1, 0),
+	X = bit.lshift(1, 1),
+	T = bit.lshift(1, 2),
+	R = bit.lshift(1, 3),
+	A = bit.lshift(1, 4),
+}
+
+CategoryFlags = {	
+	PLAYER = bit.lshift(1, 0),
+	MONSTER = bit.lshift(1, 1),
+	COIN = bit.lshift(1, 2),
+	TELEPORTER = bit.lshift(1, 3),
+	FIXED_BLOCK = bit.lshift(1, 4),
+	BREAKABLE_BLOCK = bit.lshift(1, 5),
+	EXPLOSION = bit.lshift(1, 6),
+	PROJECTILE = bit.lshift(1, 7),
+	BONUS = bit.lshift(1, 8),
+}

@@ -20,7 +20,7 @@ function love.load(args)
 	love.window.setTitle('BOOM (' .. version .. ')')
 
     AudioPlayer.setMusicVolume(0.0)
-    AudioPlayer.setSoundVolume(0.1)
+    AudioPlayer.setSoundVolume(0.0)
 
     Transition.init(Loading, 1)
 end

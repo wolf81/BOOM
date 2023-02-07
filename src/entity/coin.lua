@@ -10,5 +10,5 @@ Coin = Class { __includes = EntityBase }
 function Coin:init(def)
 	EntityBase.init(self, def)
 
-	self.category_flags = Category.COIN
+	self.category_flags = CategoryFlags.COIN
 end

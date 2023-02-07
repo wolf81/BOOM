@@ -10,7 +10,7 @@ Teleporter = Class { __includes = EntityBase }
 function Teleporter:init(def)
 	EntityBase.init(self, def)
 
-	self.category_flags = Category.TELEPORTER
+	self.category_flags = CategoryFlags.TELEPORTER
 end
 
 function Teleporter:config(id, x, y)

@@ -22,9 +22,11 @@ function Player:init(def)
 	assert(def.fuse_time ~= nil and type(def.fuse_time) == 'number', 'fuse_time is required')
 
 	self.fuse_time = def.fuse_time
-	self.category_flags = Category.PLAYER
-	self.collision_flags = bit.bor(Category.PLAYER, Category.COIN, Category.MONSTER, Category.TELEPORTER)
+	self.category_flags = CategoryFlags.PLAYER
+	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.COIN, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
 	self.hitpoints = 16
+	self.score = 0
+	self.extra_flags = bit.bor(ExtraFlags.E, ExtraFlags.X, ExtraFlags.T, ExtraFlags.R, ExtraFlags.A)
 
 	self.bonus_info = { 
 		[BonusType.PLAYER_HASTE] = { active = false, base_speed = self.speed, factor = 2 },

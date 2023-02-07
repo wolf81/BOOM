@@ -31,8 +31,8 @@ end
 function Bonus:init(def)
 	EntityBase.init(self, def)
 
-	self.category_flags = Category.BONUS
-	self.collision_flags = Category.PLAYER
+	self.category_flags = CategoryFlags.BONUS
+	self.collision_flags = CategoryFlags.PLAYER
 	self.bonus_type = nil -- this value is set during config
 end
 

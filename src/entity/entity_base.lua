@@ -89,8 +89,8 @@ function EntityBase:init(def)
 
 	self.sounds = def.sounds or {}
 
-	self.category_flags = Category.NONE
-	self.collision_flags = Category.NONE
+	self.category_flags = 0
+	self.collision_flags = 0
 end
 
 function EntityBase:config(id, x, y)

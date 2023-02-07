@@ -14,8 +14,8 @@ function Monster:init(def)
 
 	self.projectile = def.projectile
 
-	self.category_flags = Category.MONSTER
-	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
+	self.category_flags = CategoryFlags.MONSTER
+	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
 
 	local attack_info = def.attack or {}
 	attack_info.rate = attack_info.rate or 0.0

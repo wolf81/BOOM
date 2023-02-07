@@ -12,7 +12,7 @@ local table_insert, lume_remove, math_max = table.insert, lume.remove, math.max
 Level = Class {}
 
 local function isCollidable(entity)
-	return entity.category_flags ~= Category.NONE
+	return entity.category_flags ~= 0
 end
 
 local function updateTeleporterTargets(self)
@@ -56,7 +56,7 @@ local function removeEntities(self)
 			lume_remove(self.breakable_blocks, entity)
 			local grid_pos = entity:gridPosition()
 			self.grid:unblock(grid_pos.x, grid_pos.y)
-		elseif entity:is(Player) then lume_remove(self.players, entity)
+		elseif entity:is(Player) then -- lume_remove(self.players, entity) -- TODO: respawn after delay
 		elseif entity:is(Monster) then lume_remove(self.monsters, entity)
 		elseif entity:is(Teleporter) then lume_remove(self.teleporters, entity)
 		elseif entity:is(Coin) then lume_remove(self.coins, entity)
@@ -90,6 +90,7 @@ end
 
 local function onCollide(entity1, entity2)
 	if entity1:is(Projectile) then
+		-- TODO: add wall/border collider, perhaps inverse of a rectangle (inside ok, outside remove)
 		entity1:destroy()
 		if entity2:is(Player) then entity2:hit() end
 	elseif entity2:is(Projectile) then

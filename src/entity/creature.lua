@@ -14,8 +14,8 @@ function Creature:init(def)
 
 	self.speed = def.speed or 30
 
-	self.category_flags = Category.MONSTER
-	self.collision_flags = bit.bor(Category.PLAYER, Category.MONSTER, Category.TELEPORTER)
+	self.category_flags = CategoryFlags.MONSTER
+	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
 end
 
 function Creature:config(id, x, y)

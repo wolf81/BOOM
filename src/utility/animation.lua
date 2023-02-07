@@ -21,13 +21,10 @@ function Animation:init(def)
         end
         times = times - 1
     end
-    print('#frames', #self.frames)
 
     self.interval = def.interval
     self.timer = 0
     self.currentFrame = 1
-
-    print('getDuration', self:getDuration())
 end
 
 function Animation:update(dt)

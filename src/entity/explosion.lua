@@ -22,8 +22,8 @@ end
 function Explosion:init(def)
 	EntityBase.init(self, def)
 
-	self.category_flags = Category.EXPLOSION
-	self.collision_flags = bit.bor(Category.MONSTER, Category.PLAYER)
+	self.category_flags = CategoryFlags.EXPLOSION
+	self.collision_flags = bit.bor(CategoryFlags.MONSTER, CategoryFlags.PLAYER)
 end
 
 function Explosion:config(id, x, y, player, direction)

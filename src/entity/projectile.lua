@@ -17,8 +17,8 @@ function Projectile:init(def)
 	self.speed = def.speed or 75
 	self.proj_size = def.size or 1
 
-	self.category_flags = Category.PROJECTILE
-	self.collision_flags = bit.bor(Category.BREAKABLE_BLOCK, Category.FIXED_BLOCK, Category.PLAYER, Category.MONSTER)
+	self.category_flags = CategoryFlags.PROJECTILE
+	self.collision_flags = bit.bor(CategoryFlags.BREAKABLE_BLOCK, CategoryFlags.FIXED_BLOCK, CategoryFlags.PLAYER, CategoryFlags.MONSTER)
 end
 
 function Projectile:config(id, x, y, velocity)

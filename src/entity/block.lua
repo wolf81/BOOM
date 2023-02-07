@@ -10,7 +10,7 @@ Block = Class { __includes = EntityBase }
 function Block:init(def)
 	EntityBase.init(self, def)
 
-	self.category_flags = Category.FIXED_BLOCK
+	self.category_flags = CategoryFlags.FIXED_BLOCK
 end
 
 function Block:setBlockId(block_id)

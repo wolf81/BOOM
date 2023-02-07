@@ -12,11 +12,15 @@ lume = require 'lib.lume.lume'
 
 require 'src.constants'
 require 'src.direction'
-require 'src.category'
 
 require 'src.level'
 
 require 'src.ui.hud'
+require 'src.ui.health_bar'
+require 'src.ui.extra_bar'
+require 'src.ui.score_view'
+require 'src.ui.time_view'
+require 'src.ui.player_view'
 
 require 'src.utility.level_loader'
 require 'src.utility.transition'
@@ -61,4 +65,3 @@ require 'src.entity.points_5k'
 require 'src.entity.points_100k'
 require 'src.entity.bonus'
 require 'src.entity.shield'
-
