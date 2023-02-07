@@ -24,7 +24,7 @@ Bonus = Class { __includes = EntityBase }
 local function getRandomBonus()
 	local keys = lume_keys(BonusType)
 	local bonus = keys[math_random(#keys)]
-	return BonusType.PLAYER_SHIELD, 8
+	return BonusType.PLAYER_HASTE, 9
 	-- return bonus, BonusType[bonus]
 end
 
@@ -34,6 +34,7 @@ function Bonus:init(def)
 	self.category_flags = CategoryFlags.BONUS
 	self.collision_flags = CategoryFlags.PLAYER
 	self.bonus_type = nil -- this value is set during config
+	self.duration = 0
 end
 
 function Bonus:config(id, x, y)
@@ -44,6 +45,10 @@ function Bonus:config(id, x, y)
 	self.bonus_type = bonus_type
 	self.animations['idle'].frames[1] = bonus_idx
 	self.animations['destroy'].frames[1] = bonus_idx
+
+	if self.bonus_type == BonusType.PLAYER_SHIELD or self.bonus_type == BonusType.PLAYER_HASTE then
+		self.duration = 10
+	end
 end
 
 function Bonus:apply(player)
@@ -58,9 +63,9 @@ function Bonus:apply(player)
 	elseif self.bonus_type == BonusType.PLAYER_HEAL_ALL then
 		player:healAll()
 	elseif self.bonus_type == BonusType.PLAYER_HASTE then
-		player:applyHaste()
+		player:applyHaste(self.duration)
 	elseif self.bonus_type == BonusType.PLAYER_SHIELD then
-		player:applyShield()
+		player:applyShield(self.duration)
 	else
 		error('not implemented', self.bonus_type)
 	end

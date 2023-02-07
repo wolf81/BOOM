@@ -27,6 +27,17 @@ ExtraFlags = {
 	A = bit.lshift(1, 4),
 }
 
+BonusFlags = {
+	EXTRA_BOMB = bit.lshift(1, 0),
+	SHORT_FUSE = bit.lshift(1, 1),
+	EXPLODE_SIZE = bit.lshift(1, 2),
+	SHIELD = bit.lshift(1, 3),
+	BOOTS = bit.lshift(1, 4),
+	--
+	SHIELD_HIDDEN = bit.lshift(1, 5),
+	BOOTS_HIDDEN = bit.lshift(1, 6),
+}
+
 CategoryFlags = {	
 	PLAYER = bit.lshift(1, 0),
 	MONSTER = bit.lshift(1, 1),

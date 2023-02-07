@@ -8,12 +8,21 @@
 local math_min, math_max = math.min, math.max
 
 local PLAYER_HP_MAX = 16
+local DAMAGE_SHIELD_DURATION = 1.5
 
 Player = Class { __includes = Creature }
 
 local function setHitpoints(self, hp)
 	self.hitpoints = math_max(math_min(hp, PLAYER_HP_MAX), 0)
 	print('hp', self.hitpoints)
+end
+
+local function repeatToggleFlag(self, flag, duration, delay)
+	Timer.after(delay or 0, function()
+		Timer.every(0.2, function()
+			self.bonus_flags = ToggleMask(self.bonus_flags, flag)
+		end, duration / 0.2)
+	end)
 end
 
 function Player:init(def)
@@ -26,13 +35,10 @@ function Player:init(def)
 	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.COIN, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
 	self.hitpoints = 16
 	self.score = 0
-	self.extra_flags = bit.bor(ExtraFlags.E, ExtraFlags.X, ExtraFlags.T, ExtraFlags.R, ExtraFlags.A)
+	self.extra_flags = 0
+	self.bonus_flags = 0
 
-	self.bonus_info = { 
-		[BonusType.PLAYER_HASTE] = { active = false, base_speed = self.speed, factor = 2 },
-		[BonusType.PLAYER_SHIELD] = nil,
-	}
-
+	self.base_speed = self.speed
 	self.shield = nil
 end
 
@@ -51,7 +57,11 @@ function Player:hit()
 	else
 		Creature.hit(self)
 		Timer.after(0.1, function() 
-			self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, 1.5)
+			self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, DAMAGE_SHIELD_DURATION)
+
+			Timer.after(DAMAGE_SHIELD_DURATION, function()
+				self.shield = nil
+			end)
 		end)
 	end
 end
@@ -62,20 +72,6 @@ end
 
 function Player:healOne()
 	setHitpoints(self, self.hitpoints + 2)
-end
-
-function Player:applyHaste()
-	local factor = 2
-
-	local haste_bonus = self.bonus_info[BonusType.PLAYER_HASTE]
-	haste_bonus.active = true
-
-	self.speed = haste_bonus.base_speed * haste_bonus.factor
-
-	Timer.after(10, function()
-		haste_bonus.active = false
-		self.speed = haste_bonus.base_speed
-	end)
 end
 
 function Player:update(dt)
@@ -102,10 +98,28 @@ function Player:move(direction)
 	end
 end
 
-function Player:applyShield()
-	self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, 20)
+function Player:applyHaste(duration)
+	assert(duration ~= nil and type(duration) == 'number', 'duration is required')
+	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.BOOTS)
+	self.speed = self.base_speed * 2
+
+	repeatToggleFlag(self, BonusFlags.BOOTS_HIDDEN, 3.0, duration - 3.0)
+
+	Timer.after(duration, function()
+		self.speed = self.base_speed
+		self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.BOOTS)		
+	end)
 end
 
-function Player:removeShield()
-	self.shield = nil
+function Player:applyShield(duration)
+	assert(duration ~= nil and type(duration) == 'number', 'duration is required')
+	self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, duration)
+	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.SHIELD)
+
+	repeatToggleFlag(self, BonusFlags.SHIELD_HIDDEN, 3.0, duration - 3.0)
+
+	Timer.after(duration, function()
+		self.shield:destroy()
+		self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.SHIELD)
+	end)
 end

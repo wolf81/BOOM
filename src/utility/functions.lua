@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local lume_round = lume.round
+local lume_round, bit_band, bit_bor, bit_bnot, bit_bxor = lume.round, bit.band, bit.bor, bit.bnot, bit.bxor
 
 -- generate a list of quads for a given image, tile width & tile height
 function GenerateQuads(image, width, height)
@@ -52,4 +52,16 @@ function CopyTable(obj, seen)
 	s[obj] = res
 	for k, v in pairs(obj) do res[CopyTable(k, s)] = CopyTable(v, s) end
 	return res
+end
+
+function ClearFlag(x, flag)
+	return bit_band(x, bit_bnot(flag))
+end
+
+function ToggleMask(x, mask)
+	return bit_bxor(x, mask)
+end
+
+function SetFlag(x, flag)
+	return bit_bor(x, flag)
 end

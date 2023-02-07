@@ -16,8 +16,8 @@ function Shield:config(id, x, y, player, duration)
 	assert(duration ~= nil and type(duration) == 'number', 'duration is required')
 
 	self.duration = duration
-	self.alpha = 0.5
 	self.player = player
+	self.alpha = 0.5
 end
 
 function Shield:setDirection(direction)
@@ -33,9 +33,7 @@ function Shield:update(dt)
 	self.pos = self.player.pos
 
 	self.duration = math_max(self.duration - dt, 0)
-	if self.duration == 0 then
-		self.player:removeShield()
-	elseif self.duration <= 1.5 then
+	if self.duration <= 1.5 then
 		if math_floor(self.duration * 10) % 2 == 0 then
 			self.alpha = 0.5
 		else
