@@ -7,7 +7,7 @@
 
 local Collider = require 'src.utility.collider'
 
-local table_insert, lume_remove = table.insert, lume.remove
+local table_insert, lume_remove, math_max = table.insert, lume.remove, math.max
 
 Level = Class {}
 
@@ -142,6 +142,8 @@ function Level:init(index, background, grid, time, entities)
 	self.insert_queue = {}
 	self.remove_queue = {}
 
+	self.hud = Hud(self)
+
 	for _, entity in ipairs(entities) do self:addEntity(entity) end
 	insertEntities(self)
 
@@ -227,6 +229,10 @@ function Level:isBlocked(x, y)
 end
 
 function Level:update(dt)
+	self.hud:update(dt)
+
+	self.time = math_max(self.time - dt, 0)
+
 	insertEntities(self)
 
 	for _, entity in ipairs(self.teleporters) do
@@ -281,6 +287,11 @@ function Level:update(dt)
 end
 
 function Level:draw()
+	self.hud:draw()
+
+	love.graphics.push()
+	love.graphics.translate(HUD_W, 0)
+
 	love.graphics.draw(self.background)
 
 	for _, entity in ipairs(self.teleporters) do
@@ -326,4 +337,6 @@ function Level:draw()
 	for _, entity in ipairs(self.props) do
 		entity:draw()
 	end
+
+	love.graphics.pop()
 end

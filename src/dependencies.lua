@@ -16,6 +16,8 @@ require 'src.category'
 
 require 'src.level'
 
+require 'src.ui.hud'
+
 require 'src.utility.level_loader'
 require 'src.utility.transition'
 require 'src.utility.image_cache'
