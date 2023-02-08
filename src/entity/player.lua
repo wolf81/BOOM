@@ -103,8 +103,6 @@ function Player:applyHaste(duration)
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.BOOTS)
 	self.speed = self.base_speed * 2
 
-	repeatToggleFlag(self, BonusFlags.BOOTS_HIDDEN, 3.0, duration - 3.0)
-
 	Timer.after(duration, function()
 		self.speed = self.base_speed
 		self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.BOOTS)		
@@ -115,8 +113,6 @@ function Player:applyShield(duration)
 	assert(duration ~= nil and type(duration) == 'number', 'duration is required')
 	self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, duration)
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.SHIELD)
-
-	repeatToggleFlag(self, BonusFlags.SHIELD_HIDDEN, 3.0, duration - 3.0)
 
 	Timer.after(duration, function()
 		self.shield = nil
@@ -134,7 +130,5 @@ end
 
 function Player:explodeSize()
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.EXPLODE_SIZE)
-
-	self.bonus_flags = MaskValue(self.bonus_flags, BonusFlags.EXPLODE_SIZE_COUNT, 5)
 end
 

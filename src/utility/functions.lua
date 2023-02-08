@@ -59,20 +59,8 @@ function ClearFlag(x, flag)
 	return bit_band(x, bit_bnot(flag))
 end
 
-function ToggleMask(x, mask)
-	return bit_bxor(x, mask)
-end
-
 function SetFlag(x, flag)
 	return bit_bor(x, flag)
-end
-
-function MaskValue(x, mask, value)
-	return bit_bor(x, bit_lshift(value, mask))
-end
-
-function GetMaskedValue(x, mask)
-	return bit_rshift(x, mask)
 end
 
 function HasFlag(x, flag)

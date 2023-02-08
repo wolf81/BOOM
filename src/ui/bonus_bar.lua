@@ -28,16 +28,10 @@ local function updateBonusTexture(self)
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 2, 0)
 
 		quad_idx = HasFlag(self.flags, BonusFlags.SHIELD) and 4 or 9
-		if quad_idx == 4 and HasFlag(self.flags, BonusFlags.SHIELD_HIDDEN) then quad_idx = 9 end
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 3, 0)
 
 		quad_idx = HasFlag(self.flags, BonusFlags.BOOTS) and 5 or 10
-		if quad_idx == 5 and HasFlag(self.flags, BonusFlags.BOOTS_HIDDEN) then quad_idx = 10 end
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 4, 0)	
-
-		local v = GetMaskedValue(self.flags, BonusFlags.EXPLODE_SIZE_COUNT)
-		print('v', v)
-
 	end)
 
 	return canvas
