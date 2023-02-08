@@ -27,26 +27,28 @@ local function getRandomBonus()
 	return bonus, bonusFlagIconInfo[bonus]
 end
 
-function Bonus:init(def)
+function Bonus:init(def, flag)
 	EntityBase.init(self, def)
 
 	self.category_flags = CategoryFlags.BONUS
 	self.collision_flags = CategoryFlags.PLAYER
 	self.bonus_type = nil -- this value is set during config
 	self.duration = 0
+	self.value = 50
 end
 
-function Bonus:config(id, x, y)
+function Bonus:config(id, x, y, flag)
 	EntityBase.config(self, id, x, y)
 
-	local bonus_type, bonus_idx = getRandomBonus()
-	
-	self.bonus_type = bonus_type
-	self.animations['idle'].frames[1] = bonus_idx
-	self.animations['destroy'].frames[1] = bonus_idx
+	assert(flag ~= nil and type(flag) == 'number', 'flag is required')
+	local frame_idx = bonusFlagIconInfo[flag]
+
+	self.bonus_type = flag
+	self.animations['idle'].frames[1] = frame_idx
+	self.animations['destroy'].frames[1] = frame_idx
 
 	if self.bonus_type == BonusFlags.SHIELD or self.bonus_type == BonusFlags.BOOTS then
-		self.duration = 10
+		self.duration = 20
 	end
 end
 
