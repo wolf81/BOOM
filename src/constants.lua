@@ -33,9 +33,13 @@ BonusFlags = {
 	EXPLODE_SIZE = bit.lshift(1, 2),
 	SHIELD = bit.lshift(1, 3),
 	BOOTS = bit.lshift(1, 4),
+	HEAL_ONE = bit.lshift(1, 5),
+	HEAL_ALL = bit.lshift(1, 6),
+	DESTROY_BLOCKS = bit.lshift(1, 7),
+	DESTROY_MONSTERS = bit.lshift(1, 8),
 	--
-	SHIELD_HIDDEN = bit.lshift(1, 5),
-	BOOTS_HIDDEN = bit.lshift(1, 6),
+	SHIELD_HIDDEN = bit.lshift(1, 9),
+	BOOTS_HIDDEN = bit.lshift(1, 10),
 }
 
 CategoryFlags = {	

@@ -7,25 +7,24 @@
 
 local lume_keys, math_random = lume.keys, math.random
 
-BonusType = {
-	LEVEL_DESTROY_BLOCKS = 1,
-	LEVEL_DESTROY_MONSTERS = 2,
-	PLAYER_INC_BOMB_COUNT = 3,
-	PLAYER_INC_BOMB_SPEED = 4,
-	PLAYER_INC_EXPLOSION_SIZE = 5,
-	PLAYER_HEAL_ONE = 6,
-	PLAYER_HEAL_ALL = 7,
-	PLAYER_SHIELD = 8,
-	PLAYER_HASTE = 9,
+local bonusFlagIconInfo = {
+	[BonusFlags.DESTROY_BLOCKS] = 1,
+	[BonusFlags.DESTROY_MONSTERS] = 2,
+	[BonusFlags.EXTRA_BOMB] = 3,
+	[BonusFlags.SHORT_FUSE] = 4,
+	[BonusFlags.EXPLODE_SIZE] = 5,
+	[BonusFlags.HEAL_ONE] = 6,
+	[BonusFlags.HEAL_ALL] = 7,
+	[BonusFlags.SHIELD] = 8,
+	[BonusFlags.BOOTS] = 9,
 }
 
 Bonus = Class { __includes = EntityBase }
 
 local function getRandomBonus()
-	local keys = lume_keys(BonusType)
+	local keys = lume_keys(bonusFlagIconInfo)
 	local bonus = keys[math_random(#keys)]
-	return BonusType.PLAYER_HASTE, 9
-	-- return bonus, BonusType[bonus]
+	return bonus, bonusFlagIconInfo[bonus]
 end
 
 function Bonus:init(def)
@@ -40,13 +39,13 @@ end
 function Bonus:config(id, x, y)
 	EntityBase.config(self, id, x, y)
 
-	local bonus_type, bonus_idx = getRandomBonus()
+	local bonus_flag, bonus_idx = getRandomBonus()
 	
 	self.bonus_type = bonus_type
 	self.animations['idle'].frames[1] = bonus_idx
 	self.animations['destroy'].frames[1] = bonus_idx
 
-	if self.bonus_type == BonusType.PLAYER_SHIELD or self.bonus_type == BonusType.PLAYER_HASTE then
+	if self.bonus_type == BonusFlags.SHIELD or self.bonus_type == BonusFlags.BOOTS then
 		self.duration = 10
 	end
 end
@@ -54,17 +53,17 @@ end
 function Bonus:apply(player)
 	print('apply bonus', self.bonus_type)
 
-	if self.bonus_type == BonusType.LEVEL_DESTROY_BLOCKS then
+	if self.bonus_type == BonusFlags.DESTROY_BLOCKS then
 		self.level:destroyBlocks()
-	elseif self.bonus_type == BonusType.LEVEL_DESTROY_MONSTERS then
+	elseif self.bonus_type == BonusFlags.DESTROY_MONSTERS then
 		self.level:destroyMonsters()
-	elseif self.bonus_type == BonusType.PLAYER_HEAL_ONE then
+	elseif self.bonus_type == BonusFlags.HEAL_ONE then
 		player:healOne()
-	elseif self.bonus_type == BonusType.PLAYER_HEAL_ALL then
+	elseif self.bonus_type == BonusFlags.HEAL_ALL then
 		player:healAll()
-	elseif self.bonus_type == BonusType.PLAYER_HASTE then
+	elseif self.bonus_type == BonusFlags.BOOTS then
 		player:applyHaste(self.duration)
-	elseif self.bonus_type == BonusType.PLAYER_SHIELD then
+	elseif self.bonus_type == BonusFlags.SHIELD then
 		player:applyShield(self.duration)
 	else
 		error('not implemented', self.bonus_type)
