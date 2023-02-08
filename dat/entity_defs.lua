@@ -579,7 +579,7 @@ return {
 		name = 'Player 1',
 		texture = 'gfx/Player1.png',
 		speed = 60,
-		fuse_time = 3.0,
+		fuse_time = 5.0,
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
@@ -616,7 +616,7 @@ return {
 		name = 'Player 2',
 		texture = 'gfx/Player2.png',
 		speed = 60,
-		fuse_time = 3.0,
+		fuse_time = 5.0,
 		animations = {
 			['move-down'] = {
 				frames = { 1, 2, 3, 4, 5, 6, 7, 8 },
@@ -947,6 +947,7 @@ return {
 	['explosion'] = {
 		name = 'Explosion',
 		texture = 'gfx/Explosion.png',
+		damage = 1,
 		animations = {
 			['center'] = {
 				frames = { 1, 2, 3, 4 },

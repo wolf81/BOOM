@@ -7,15 +7,9 @@
 
 local math_min, math_max = math.min, math.max
 
-local PLAYER_HP_MAX = 16
 local DAMAGE_SHIELD_DURATION = 1.5
 
 Player = Class { __includes = Creature }
-
-local function setHitpoints(self, hp)
-	self.hitpoints = math_max(math_min(hp, PLAYER_HP_MAX), 0)
-	print('hp', self.hitpoints)
-end
 
 local function repeatToggleFlag(self, flag, duration, delay)
 	Timer.after(delay or 0, function()
@@ -25,7 +19,11 @@ local function repeatToggleFlag(self, flag, duration, delay)
 	end)
 end
 
+local defaults = {}
+
 function Player:init(def)
+	def.hitpoints = 16
+
 	Creature.init(self, def)
 
 	assert(def.fuse_time ~= nil and type(def.fuse_time) == 'number', 'fuse_time is required')
@@ -33,13 +31,14 @@ function Player:init(def)
 	self.fuse_time = def.fuse_time
 	self.category_flags = CategoryFlags.PLAYER
 	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.COIN, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
-	self.hitpoints = 16
 	self.score = 0
 	self.extra_flags = 0
 	self.bonus_flags = 0
 
 	self.base_speed = self.speed
 	self.shield = nil
+
+	self.damage_shield_timer = nil
 end
 
 function Player:config(id, x, y)
@@ -48,30 +47,26 @@ function Player:config(id, x, y)
 	self.control = PlayerControl(self)
 end
 
-function Player:hit()
+function Player:hit(damage)
 	if self.shield ~= nil then return end
 
-	setHitpoints(self, self.hitpoints - 1)
-	if self.hitpoints == 0 then
-		self:destroy()
-	else
-		Creature.hit(self)
-		Timer.after(0.1, function() 
+	Creature.hit(self, damage)
+
+	if self.hitpoints.current > 0 and not self.damage_shield_timer then
+		self.damage_shield_timer = Timer.after(0.05, function() 
 			self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, DAMAGE_SHIELD_DURATION)
 
 			Timer.after(DAMAGE_SHIELD_DURATION, function()
 				self.shield = nil
+				Timer.cancel(self.damage_shield_timer)
+				self.damage_shield_timer = nil
 			end)
 		end)
+	elseif self.hitpoints.current == 0 then
+		Timer.cancel(self.damage_shield_timer)
+		self.damage_shield_timer = nil
+		self.shield = nil
 	end
-end
-
-function Player:healAll()
-	setHitpoints(self, PLAYER_HP_MAX)
-end
-
-function Player:healOne()
-	setHitpoints(self, self.hitpoints + 2)
 end
 
 function Player:update(dt)
@@ -131,4 +126,3 @@ end
 function Player:explodeSize()
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.EXPLODE_SIZE)
 end
-

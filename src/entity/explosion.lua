@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local math_max = math.max
+local math_max, bit_bor = math.max
 
 Explosion = Class { __includes = EntityBase }
 
@@ -24,6 +24,7 @@ function Explosion:init(def)
 
 	self.category_flags = CategoryFlags.EXPLOSION
 	self.collision_flags = bit.bor(CategoryFlags.MONSTER, CategoryFlags.PLAYER)
+	self.damage = def.damage or 1
 end
 
 function Explosion:config(id, x, y, player, direction)

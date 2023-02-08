@@ -199,7 +199,7 @@ end
 
 -- hit
 
-function EntityBase:hit()
+function EntityBase:hit(damage)
 	if getmetatable(self.state_machine.current) == Hit then return end
 
 	self.state_machine:change('hit')

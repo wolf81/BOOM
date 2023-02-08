@@ -15,7 +15,7 @@ function PlayerView:init()
 end
 
 function PlayerView:updateForPlayer(player)
-	self.health_bar:updateHitpoints(player.hitpoints)
+	self.health_bar:updateHitpoints(player.hitpoints.current)
 	self.extra_bar:updateExtraFlags(player.extra_flags)
 	self.bonus_bar:updateBonusFlags(player.bonus_flags)
 	self.score_view:updateScore(player.score)
