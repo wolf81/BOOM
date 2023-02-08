@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local math_max = math.max
+local math_max, bit_band, bit_rshift = math.max, bit.band, bit.rshift
 
 Bomb = Class { __includes = EntityBase }
 
@@ -15,8 +15,8 @@ function Bomb:config(id, x, y, player)
 	assert(player ~= nil and getmetatable(player) == Player, 'player is required')
 
 	self.player = player
-	self.fuse_time = self.player.fuse_time
-	self.size = 2
+	self.fuse_time = self.player:getFuseDuration()
+	self.size = 2 + self.player:getExplodeRange()
 end
 
 function Bomb:explode()

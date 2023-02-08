@@ -51,8 +51,6 @@ function Bonus:config(id, x, y)
 end
 
 function Bonus:apply(player)
-	print('apply bonus', self.bonus_type)
-
 	if self.bonus_type == BonusFlags.DESTROY_BLOCKS then
 		self.level:destroyBlocks()
 	elseif self.bonus_type == BonusFlags.DESTROY_MONSTERS then
@@ -66,11 +64,11 @@ function Bonus:apply(player)
 	elseif self.bonus_type == BonusFlags.SHIELD then
 		player:applyShield(self.duration)
 	elseif self.bonus_type == BonusFlags.EXTRA_BOMB then
-		player:extraBomb()
+		player:addBomb()
 	elseif self.bonus_type == BonusFlags.SHORT_FUSE then
-		player:shortFuse()
+		player:setShortFuse()
 	elseif self.bonus_type == BonusFlags.EXPLODE_SIZE then
-		player:explodeSize()
+		player:increaseExplodeRange()
 	else
 		error('not implemented', self.bonus_type)
 	end

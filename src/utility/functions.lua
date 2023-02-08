@@ -67,6 +67,18 @@ function HasFlag(x, flag)
 	return bit_band(x, flag) == flag
 end
 
+function ClearMask(x, mask)
+	return bit_band(x, bit_bnot(mask))
+end
+
+function GetMaskedValue(x, mask, offset)
+	return bit_rshift(bit_band(x, mask), offset)	
+end
+
+function SetValue(x, value, offset)
+	return bit_bor(x, bit_lshift(value, offset))	
+end
+
 -- seems lume.keys function is sometimes problematic, so this simpler
 -- implementation should always work fine
 function GetKeys(tbl)

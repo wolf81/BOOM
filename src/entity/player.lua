@@ -64,8 +64,10 @@ function Player:hit(damage)
 			end)
 		end)
 	elseif self.hitpoints.current == 0 then
-		Timer.cancel(self.damage_shield_timer)
-		self.damage_shield_timer = nil
+		if self.damage_shield_timer then
+			Timer.cancel(self.damage_shield_timer)
+			self.damage_shield_timer = nil
+		end
 		self.shield = nil
 	end
 end
@@ -116,14 +118,51 @@ function Player:applyShield(duration)
 	end)
 end
 
-function Player:extraBomb()
+function Player:addBomb()
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.EXTRA_BOMB)
+
+	-- get current bomb count
+	local bomb_count = GetMaskedValue(self.bonus_flags, BonusMasks.BOMB_COUNT, 12)
+	bomb_count = math_min(bomb_count + 1, 5)
+	-- reset bomb count to 0 in bonus flags
+	local flags = ClearMask(self.bonus_flags, BonusMasks.BOMB_COUNT)
+	-- set new bomb count
+	self.bonus_flags = SetValue(flags, bomb_count, 12)
 end
 
-function Player:shortFuse()
+function Player:setShortFuse()
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.SHORT_FUSE)
 end
 
-function Player:explodeSize()
+function Player:getExplodeRange()
+	return GetMaskedValue(self.bonus_flags, BonusMasks.EXPLODE_COUNT, 15)
+end
+
+function Player:getFuseDuration()
+	if HasFlag(self.bonus_flags, BonusFlags.SHORT_FUSE) then
+		return self.fuse_time - 2.0
+	else
+		return self.fuse_time
+	end
+end
+
+function Player:increaseExplodeRange()
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.EXPLODE_SIZE)
+
+	-- get current explode count
+	local explode_count = GetMaskedValue(self.bonus_flags, BonusMasks.EXPLODE_COUNT, 15)
+	explode_count = math_min(explode_count + 1, 2)
+	-- reset explode count to 0 in bonus flags
+	local flags = ClearMask(self.bonus_flags, BonusMasks.EXPLODE_COUNT)
+	-- set new explode count
+	self.bonus_flags = SetValue(flags, explode_count, 15)
+end
+
+function Player:tryDropBomb()
+	local grid_pos = self:gridPosition()
+	if not self.level:getBomb(grid_pos) then
+		local x, y = grid_pos.x * TILE_W, grid_pos.y * TILE_H
+		local bomb = EntityFactory.create('bomb', x, y, self)
+		self.level:addEntity(bomb)
+	end
 end

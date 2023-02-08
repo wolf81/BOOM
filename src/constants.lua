@@ -39,6 +39,11 @@ BonusFlags = {
 	DESTROY_MONSTERS = bit.lshift(1, 8),
 }
 
+BonusMasks = {
+	BOMB_COUNT = 0x7000,
+	EXPLODE_COUNT = 0x18000,
+}
+
 CategoryFlags = {	
 	PLAYER = bit.lshift(1, 0),
 	MONSTER = bit.lshift(1, 1),
