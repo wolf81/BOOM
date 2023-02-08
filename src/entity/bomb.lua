@@ -9,7 +9,7 @@ local math_max, bit_band, bit_rshift = math.max, bit.band, bit.rshift
 
 Bomb = Class { __includes = EntityBase }
 
-function Bomb:config(id, x, y, player)
+function Bomb:config(id, x, y, player, fn)
 	EntityBase.config(self, id, x, y)
 
 	assert(player ~= nil and getmetatable(player) == Player, 'player is required')
@@ -17,10 +17,20 @@ function Bomb:config(id, x, y, player)
 	self.player = player
 	self.fuse_time = self.player:getFuseDuration()
 	self.size = 2 + self.player:getExplodeRange()
+
+	self.onDestroy = fn or function() end
 end
 
 function Bomb:explode()
 	self.fuse_time = 0
+end
+
+function Bomb:destroy()
+	if not self:isDestroyed() then
+		self.onDestroy(self)
+	end
+	
+	EntityBase.destroy(self)
 end
 
 function Bomb:update(dt)

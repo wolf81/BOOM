@@ -275,6 +275,14 @@ function Level:update(dt)
 	end
 
 	for _, entity in ipairs(self.projectiles) do
+		-- destroy projectiles that go outside of map bounds
+		-- would be nicer to fix in Collider, but that might 
+		-- need some optimalization first
+		local x, y, w, h = entity:getFrame()
+		if x < TILE_W or y < TILE_H or x > MAP_W * TILE_W + TILE_W / 2 or y > MAP_H * TILE_H + TILE_H / 2 then 
+			entity:destroy() 
+		end
+
 		entity:update(dt)
 	end
 
@@ -331,7 +339,7 @@ function Level:draw()
 		entity:draw()
 	end
 
-	for _, entity in ipairs(self.projectiles) do
+	for _, entity in ipairs(self.projectiles) do		
 		entity:draw()
 	end
 

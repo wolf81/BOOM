@@ -35,6 +35,7 @@ function Player:init(def)
 	self.lives = 3
 	self.extra_flags = 0
 	self.bonus_flags = 0
+	self.bomb_count = 3
 
 	self.base_speed = self.speed
 	self.shield = nil
@@ -130,6 +131,10 @@ function Player:addBomb()
 	self.bonus_flags = SetValue(flags, bomb_count, 12)
 end
 
+function Player:getBombCount()
+	return self.bomb_count + GetMaskedValue(self.bonus_flags, BonusMasks.BOMB_COUNT, 12)
+end
+
 function Player:setShortFuse()
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.SHORT_FUSE)
 end
@@ -160,9 +165,12 @@ end
 
 function Player:tryDropBomb()
 	local grid_pos = self:gridPosition()
-	if not self.level:getBomb(grid_pos) then
+	if not self.level:getBomb(grid_pos) and self:getBombCount() > 0 then
 		local x, y = grid_pos.x * TILE_W, grid_pos.y * TILE_H
-		local bomb = EntityFactory.create('bomb', x, y, self)
+		local bomb = EntityFactory.create('bomb', x, y, self, function()
+			self.bomb_count = self.bomb_count + 1
+		end)
 		self.level:addEntity(bomb)
+		self.bomb_count = self.bomb_count - 1
 	end
 end
