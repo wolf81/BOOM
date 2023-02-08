@@ -578,7 +578,7 @@ return {
 	['X'] = {
 		name = 'Player 1',
 		texture = 'gfx/Player1.png',
-		speed = 60,
+		speed = 90,
 		fuse_time = 5.0,
 		animations = {
 			['move-down'] = {
@@ -615,7 +615,7 @@ return {
 	['Y'] = {
 		name = 'Player 2',
 		texture = 'gfx/Player2.png',
-		speed = 60,
+		speed = 90,
 		fuse_time = 5.0,
 		animations = {
 			['move-down'] = {
