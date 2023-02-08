@@ -26,9 +26,7 @@ function Player:init(def)
 
 	Creature.init(self, def)
 
-	assert(def.fuse_time ~= nil and type(def.fuse_time) == 'number', 'fuse_time is required')
-
-	self.fuse_time = def.fuse_time
+	self.fuse_time = 5.0
 	self.category_flags = CategoryFlags.PLAYER
 	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.COIN, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
 	self.score = 0

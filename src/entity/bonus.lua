@@ -53,6 +53,8 @@ function Bonus:config(id, x, y, flag)
 end
 
 function Bonus:apply(player)
+	self:playSound('snd/GetBonus.wav')
+
 	if self.bonus_type == BonusFlags.DESTROY_BLOCKS then
 		self.level:destroyBlocks()
 	elseif self.bonus_type == BonusFlags.DESTROY_MONSTERS then
