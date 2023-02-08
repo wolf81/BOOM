@@ -18,22 +18,26 @@ local function updateBonusTexture(self)
 
 		local draw_w = 14
 
-		local quad_idx = bit_band(self.flags, BonusFlags.EXTRA_BOMB) ~= 0 and 1 or 6
+		local quad_idx = HasFlag(self.flags, BonusFlags.EXTRA_BOMB) and 1 or 6
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 0, 0)
 
-		quad_idx = bit_band(self.flags, BonusFlags.SHORT_FUSE) ~= 0 and 2 or 7
+		quad_idx = HasFlag(self.flags, BonusFlags.SHORT_FUSE) and 2 or 7
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 1, 0)
 
-		quad_idx = bit_band(self.flags, BonusFlags.EXPLODE_SIZE) ~= 0 and 3 or 8
+		quad_idx = HasFlag(self.flags, BonusFlags.EXPLODE_SIZE) and 3 or 8
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 2, 0)
 
-		quad_idx = bit_band(self.flags, BonusFlags.SHIELD) ~= 0 and 4 or 9
-		if quad_idx == 4 and bit_band(self.flags, BonusFlags.SHIELD_HIDDEN) ~= 0 then quad_idx = 9 end
+		quad_idx = HasFlag(self.flags, BonusFlags.SHIELD) and 4 or 9
+		if quad_idx == 4 and HasFlag(self.flags, BonusFlags.SHIELD_HIDDEN) then quad_idx = 9 end
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 3, 0)
 
-		quad_idx = bit_band(self.flags, BonusFlags.BOOTS) ~= 0 and 5 or 10
-		if quad_idx == 5 and bit_band(self.flags, BonusFlags.BOOTS_HIDDEN) ~= 0 then quad_idx = 10 end
+		quad_idx = HasFlag(self.flags, BonusFlags.BOOTS) and 5 or 10
+		if quad_idx == 5 and HasFlag(self.flags, BonusFlags.BOOTS_HIDDEN) then quad_idx = 10 end
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 4, 0)	
+
+		local v = GetMaskedValue(self.flags, BonusFlags.EXPLODE_SIZE_COUNT)
+		print('v', v)
+
 	end)
 
 	return canvas

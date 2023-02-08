@@ -119,7 +119,22 @@ function Player:applyShield(duration)
 	repeatToggleFlag(self, BonusFlags.SHIELD_HIDDEN, 3.0, duration - 3.0)
 
 	Timer.after(duration, function()
-		self.shield:destroy()
+		self.shield = nil
 		self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.SHIELD)
 	end)
 end
+
+function Player:extraBomb()
+	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.EXTRA_BOMB)
+end
+
+function Player:shortFuse()
+	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.SHORT_FUSE)
+end
+
+function Player:explodeSize()
+	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.EXPLODE_SIZE)
+
+	self.bonus_flags = MaskValue(self.bonus_flags, BonusFlags.EXPLODE_SIZE_COUNT, 5)
+end
+

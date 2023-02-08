@@ -5,7 +5,8 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local lume_round, bit_band, bit_bor, bit_bnot, bit_bxor = lume.round, bit.band, bit.bor, bit.bnot, bit.bxor
+local bit_band, bit_bor, bit_bnot, bit_bxor = bit.band, bit.bor, bit.bnot, bit.bxor
+local lume_round, bit_lshift, bit_rshift = lume.round, bit.lshift, bit.rshift
 
 -- generate a list of quads for a given image, tile width & tile height
 function GenerateQuads(image, width, height)
@@ -64,4 +65,26 @@ end
 
 function SetFlag(x, flag)
 	return bit_bor(x, flag)
+end
+
+function MaskValue(x, mask, value)
+	return bit_bor(x, bit_lshift(value, mask))
+end
+
+function GetMaskedValue(x, mask)
+	return bit_rshift(x, mask)
+end
+
+function HasFlag(x, flag)
+	return bit_band(x, flag) == flag
+end
+
+-- seems lume.keys function is sometimes problematic, so this simpler
+-- implementation should always work fine
+function GetKeys(tbl)
+	local keys = {}
+	for k, _ in pairs(tbl) do
+		table.insert(keys, k)
+	end
+	return keys
 end

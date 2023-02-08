@@ -40,6 +40,7 @@ BonusFlags = {
 	--
 	SHIELD_HIDDEN = bit.lshift(1, 9),
 	BOOTS_HIDDEN = bit.lshift(1, 10),
+	EXPLODE_SIZE_COUNT = bit.lshift(1, 13), -- 3 bits
 }
 
 CategoryFlags = {	

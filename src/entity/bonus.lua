@@ -22,7 +22,7 @@ local bonusFlagIconInfo = {
 Bonus = Class { __includes = EntityBase }
 
 local function getRandomBonus()
-	local keys = lume_keys(bonusFlagIconInfo)
+	local keys = GetKeys(bonusFlagIconInfo)
 	local bonus = keys[math_random(#keys)]
 	return bonus, bonusFlagIconInfo[bonus]
 end
@@ -39,7 +39,7 @@ end
 function Bonus:config(id, x, y)
 	EntityBase.config(self, id, x, y)
 
-	local bonus_flag, bonus_idx = getRandomBonus()
+	local bonus_type, bonus_idx = getRandomBonus()
 	
 	self.bonus_type = bonus_type
 	self.animations['idle'].frames[1] = bonus_idx
@@ -65,6 +65,12 @@ function Bonus:apply(player)
 		player:applyHaste(self.duration)
 	elseif self.bonus_type == BonusFlags.SHIELD then
 		player:applyShield(self.duration)
+	elseif self.bonus_type == BonusFlags.EXTRA_BOMB then
+		player:extraBomb()
+	elseif self.bonus_type == BonusFlags.SHORT_FUSE then
+		player:shortFuse()
+	elseif self.bonus_type == BonusFlags.EXPLODE_SIZE then
+		player:explodeSize()
 	else
 		error('not implemented', self.bonus_type)
 	end
