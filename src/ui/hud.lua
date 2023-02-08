@@ -15,8 +15,8 @@ function Hud:init(level)
 
 	self.time_view = TimeView()
 
-	self.p1_view = PlayerView()
-	self.p2_view = PlayerView()
+	self.p1_view = PlayerView(1)
+	self.p2_view = PlayerView(2)
 end
 
 function Hud:update(dt)
@@ -34,8 +34,8 @@ end
 function Hud:draw()
 	love.graphics.draw(self.panel)
 
-	self.time_view:draw(20, HUD_H / 2 - 14)
+	self.time_view:draw(20, HUD_H / 2 - 7)
 
-	self.p1_view:draw(14, 90)
-	self.p2_view:draw(14, 300)
+	self.p1_view:draw(14, 60)
+	self.p2_view:draw(14, 270)
 end

@@ -32,6 +32,7 @@ function Player:init(def)
 	self.category_flags = CategoryFlags.PLAYER
 	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.COIN, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
 	self.score = 0
+	self.lives = 3
 	self.extra_flags = 0
 	self.bonus_flags = 0
 

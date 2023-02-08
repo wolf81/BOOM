@@ -21,7 +21,7 @@ local function updateScoreViewTexture(self)
 		love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
 
 		love.graphics.setFont(self.score_title_font)
-		love.graphics.print('score')
+		love.graphics.print('score', 1)
 
 		love.graphics.setFont(self.score_value_font)
 		love.graphics.print(string_format('%06d', self.score), 0, 20)
@@ -31,8 +31,11 @@ local function updateScoreViewTexture(self)
 end
 
 function ScoreView:init()
-	self.score_title_font = love.graphics.newFont('fnt/pf_tempesta_seven_bold.ttf', FONT_SIZE)
-	self.score_value_font = love.graphics.newFont('fnt/pf_tempesta_seven_condensed.ttf', FONT_SIZE)
+	self.score_title_font = love.graphics.newImageFont('gfx/BigLettersFont.png', ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~', -2)
+	self.score_value_font = love.graphics.newImageFont('gfx/BigLettersFont.png', ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~', -4)
+
+	-- self.score_title_font = love.graphics.newFont('fnt/pf_tempesta_seven_bold.ttf', FONT_SIZE)
+	-- self.score_value_font = love.graphics.newFont('fnt/pf_tempesta_seven_condensed.ttf', FONT_SIZE)
 
 	self.score = 0
 	self.canvas = updateScoreViewTexture(self)	
