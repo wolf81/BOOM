@@ -24,9 +24,13 @@ function Bomb:explode()
 end
 
 function Bomb:update(dt)
+	self.fuse_time = math_max(self.fuse_time - dt, 0)
+
+	-- double animation speed when bombs are about to explode
+	if self.fuse_time < 1.5 then dt = dt * 2 end
+
 	EntityBase.update(self, dt)
 
-	self.fuse_time = math_max(self.fuse_time - dt, 0)
 	if self.fuse_time == 0 then
 		self.level:addEntity(EntityFactory.create('explosion', self.pos.x, self.pos.y, self.player))
 		self:destroy()
