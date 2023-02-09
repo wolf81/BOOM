@@ -9,7 +9,7 @@ Class = require 'lib.hump.class'
 Timer = require 'lib.hump.timer'
 vector = require 'lib.hump.vector'
 lume = require 'lib.lume.lume'
-binser = require "lib.binser.binser"
+bitser = require "lib.bitser.bitser"
 
 require 'src.constants'
 require 'src.direction'

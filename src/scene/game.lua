@@ -30,16 +30,6 @@ local function proceedNextLevel(self)
 	end
 end
 
-local function save(level)
-	level_str = binser.serialize(level)
-end
-
-local function load()
-	if level_str then return binser.deserialize(level_str) end
-
-	return nil
-end
-
 function Game:init()		
 	SceneBase.init(self)
 
@@ -76,11 +66,5 @@ function Game:keyreleased(key, code)
 
     if key == 'f1' then proceedNextLevel(self)
     elseif key == 'f2' then self.level:destroyBlocks() 
-    elseif key == 'f5' then 
-    	local level = load()
-    	if level then 
-    		self.level = level
-    	end
-    elseif key == 'f6' then save(self.level) 
     end
 end
