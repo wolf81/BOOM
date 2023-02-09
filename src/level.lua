@@ -15,6 +15,15 @@ local function isCollidable(entity)
 	return entity.category_flags ~= 0
 end
 
+local function transformMonsters(self)
+	for _, monster in ipairs(self.monsters) do
+		local alien = EntityFactory.create('alien', monster.pos.x, monster.pos.y)
+		alien.monster = monster
+		self:removeEntity(monster)
+		self:addEntity(alien)
+	end
+end
+
 local function updateTeleporterTargets(self)
 	if #self.teleporters < 2 then return end
 
@@ -303,9 +312,12 @@ function Level:update(dt)
 
 	removeEntities(self)
 
+	-- TODO: should show when colliding with last coin
 	if #self.coins == 0 and not HasFlag(self.flags, LevelFlags.DID_SHOW_EXTRA) and #self.monsters > 0 then
 		Overlay.show('gfx/EXTRA Game.png', 'sfx/EXTRAGame.wav')
 		self.flags = SetFlag(self.flags, LevelFlags.DID_SHOW_EXTRA)
+
+		transformMonsters(self)
 	end	
 end
 

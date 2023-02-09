@@ -647,6 +647,56 @@ return {
 			['hit'] = 'sfx/P2Ouch.wav',
 		},
 	},	
+	['alien'] = {
+		name = 'Alien',
+		texture = 'gfx/Alien Frames.png',
+		value = 0,
+		attack = {
+			rate = 1.0,
+		},
+		animations = {
+			['move-down'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['move-up'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['move-right'] = {
+				frames = { 9, 10, 11, 12 },
+				interval = 0.1,
+			},		
+			['move-left'] = {
+				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
+			['attack-down'] = {
+				frames = { 1 },
+				interval = 0.0,
+			},
+			['attack-up'] = {
+				frames = { 1 },
+				interval = 0.0,
+			},
+			['attack-right'] = {
+				frames = { 1 },
+				interval = 0.0,
+			},
+			['attack-left'] = {
+				frames = { 1 },
+				interval = 0.0,
+			},
+			['destroy'] = {
+				frames = { 17, 18 },
+				interval = 0.2,
+				times = 5,
+			},
+		},
+		sounds = {
+			['destroy'] = 'sfx/AlienDeath.wav',
+		},
+	},
 	['*'] = {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',

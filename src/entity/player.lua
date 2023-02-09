@@ -33,7 +33,9 @@ function Player:init(def)
 	self.lives = 3
 	self.extra_flags = 0
 	self.bonus_flags = 0
-	self.bomb_count = 3
+
+	self.bomb_count = 0
+	for i = 1, 5 do self:addBomb() end
 
 	self.base_speed = self.speed
 	self.shield = nil
@@ -122,7 +124,7 @@ function Player:addBomb()
 
 	-- get current bomb count
 	local bomb_count = GetMaskedValue(self.bonus_flags, BonusMasks.BOMB_COUNT, 12)
-	bomb_count = math_min(bomb_count + 1, 5)
+	bomb_count = math_min(bomb_count + 1, 8)
 	-- reset bomb count to 0 in bonus flags
 	local flags = ClearMask(self.bonus_flags, BonusMasks.BOMB_COUNT)
 	-- set new bomb count
