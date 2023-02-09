@@ -18,9 +18,17 @@ end
 local function transformMonsters(self)
 	for _, monster in ipairs(self.monsters) do
 		local alien = EntityFactory.create('alien', monster.pos.x, monster.pos.y)
-		alien.monster = monster
+		alien.monster = EntityFactory.getKey(monster.name)
 		self:removeEntity(monster)
 		self:addEntity(alien)
+	end
+end
+
+local function transformAliens(self)
+	for _, alien in ipairs(self.monsters) do
+		local monster = EntityFactory.create(alien.monster, alien.pos.x, alien.pos.y)
+		self:addEntity(monster)
+		self:removeEntity(alien)
 	end
 end
 
@@ -152,6 +160,8 @@ function Level:init(index, background, grid, time, entities)
 	self.insert_queue = {}
 	self.remove_queue = {}
 
+	self.extra_duration = 0
+
 	self.flags = 0
 
 	self.hud = Hud(self)
@@ -250,6 +260,7 @@ function Level:update(dt)
 	if self.time <= 30.0 and not HasFlag(self.flags, LevelFlags.DID_SHOW_HURRY) then
 		Overlay.show('gfx/Hurry Up.png', 'sfx/HurryUp.wav')
 		self.flags = SetFlag(self.flags, LevelFlags.DID_SHOW_HURRY)
+		-- TODO: when time reaches 0, speed up monsters
 	end
 
 	insertEntities(self)
@@ -318,7 +329,16 @@ function Level:update(dt)
 		self.flags = SetFlag(self.flags, LevelFlags.DID_SHOW_EXTRA)
 
 		transformMonsters(self)
+		self.extra_duration = 30
 	end	
+
+	if self.extra_duration > 0 then
+		self.extra_duration = math_max(self.extra_duration - dt, 0)
+
+		if self.extra_duration == 0 then
+			transformAliens(self)
+		end
+	end
 end
 
 function Level:draw()

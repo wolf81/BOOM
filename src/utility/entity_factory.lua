@@ -13,6 +13,8 @@ EntityFactory = {}
 -- in line with rest of the code base
 local id_generator = IdGenerator()
 
+local name_key_info = {}
+
 local prototypes = {}
 
 -- register all entities at the given path
@@ -26,6 +28,8 @@ function EntityFactory.register(path)
 	local entity_defs = fn()
 
 	for key, entity_def in pairs(entity_defs) do
+		name_key_info[entity_def.name] = key
+
 		if key == '1' then 
 			prototypes[key] = Block(entity_def)
 		elseif key == '2' then 
@@ -66,6 +70,10 @@ function EntityFactory.register(path)
 			AudioPlayer.load(path)
 		end
 	end
+end
+
+function EntityFactory.getKey(name)
+	return name_key_info[name]
 end
 
 -- generate an entity based on key, level & x, y coords
