@@ -25,7 +25,7 @@ local function configure(image_path, sound_path)
 	return {
 		image = image,
 		sound = love.audio.newSource(sound_path, 'static'),
-		x = HUD_W + math_floor((WINDOW_W - HUD_W - image_w) / 2),
+		x = math_floor((WINDOW_W - HUD_W - image_w) / 2),
 		y = -image_h,
 		mid_y = math_floor((WINDOW_H - image_h) / 2),
 		delay = 1.0,

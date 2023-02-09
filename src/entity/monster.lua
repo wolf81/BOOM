@@ -41,9 +41,7 @@ function Monster:update(dt)
 end
 
 function Monster:destroy()
-	print('destroy:', self.name)
 	if not self:isDestroyed() and self.name == 'Alien' then
-		print('SPAWN EXTRA')
 		local extra = EntityFactory.create('extra', self.pos.x, self.pos.y)
 		self.level:addEntity(extra)
 	end

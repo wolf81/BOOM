@@ -194,6 +194,6 @@ LevelLoader.load = function(index)
 
 	-- TODO: should reset IdGenerator starting value to 0 here
 
-	-- finally return the level
-	return Level(index, background, grid, time, entities)
+	-- finally return the level & background
+	return Level(index, grid, time, entities), background
 end

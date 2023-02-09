@@ -13,3 +13,6 @@
 [submodule "lib/skip-list"]
 	path = lib/skip-list
 	url = git@github.com:wolf81/skip-list.git
+[submodule "lib/binser"]
+	path = lib/binser
+	url = git@github.com:wolf81/binser.git

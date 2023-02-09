@@ -145,9 +145,8 @@ local function onCollide(entity1, entity2)
 	end
 end
 
-function Level:init(index, background, grid, time, entities)
+function Level:init(index, grid, time, entities)
 	self.index = index
-	self.background = background
 	self.grid = grid
 	self.time = time
 
@@ -172,8 +171,6 @@ function Level:init(index, background, grid, time, entities)
 	self.extra_duration = 0
 
 	self.flags = 0
-
-	self.hud = Hud(self)
 
 	for _, entity in ipairs(entities) do self:addEntity(entity) end
 	insertEntities(self)
@@ -260,8 +257,6 @@ function Level:isBlocked(x, y)
 end
 
 function Level:update(dt)
-	self.hud:update(dt)
-
 	Overlay.update(dt)
 
 	self.time = math_max(self.time - dt, 0)
@@ -355,13 +350,6 @@ function Level:update(dt)
 end
 
 function Level:draw()
-	self.hud:draw()
-
-	love.graphics.push()
-	love.graphics.translate(HUD_W, 0)
-
-	love.graphics.draw(self.background)
-
 	for _, entity in ipairs(self.teleporters) do
 		entity:draw()
 	end
@@ -409,8 +397,6 @@ function Level:draw()
 	for _, entity in ipairs(self.props) do
 		entity:draw()
 	end
-
-	love.graphics.pop()
 
 	Overlay.draw()
 end
