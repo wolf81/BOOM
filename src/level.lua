@@ -143,6 +143,8 @@ function Level:init(index, background, grid, time, entities)
 	self.insert_queue = {}
 	self.remove_queue = {}
 
+	self.flags = 0
+
 	self.hud = Hud(self)
 
 	for _, entity in ipairs(entities) do self:addEntity(entity) end
@@ -232,7 +234,14 @@ end
 function Level:update(dt)
 	self.hud:update(dt)
 
+	Overlay.update(dt)
+
 	self.time = math_max(self.time - dt, 0)
+
+	if self.time <= 30.0 and not HasFlag(self.flags, LevelFlags.DID_SHOW_HURRY) then
+		Overlay.show('gfx/Hurry Up.png', 'sfx/HurryUp.wav')
+		self.flags = SetFlag(self.flags, LevelFlags.DID_SHOW_HURRY)
+	end
 
 	insertEntities(self)
 
@@ -293,6 +302,11 @@ function Level:update(dt)
 	self.collider:update()
 
 	removeEntities(self)
+
+	if #self.coins == 0 and not HasFlag(self.flags, LevelFlags.DID_SHOW_EXTRA) and #self.monsters > 0 then
+		Overlay.show('gfx/EXTRA Game.png', 'sfx/EXTRAGame.wav')
+		self.flags = SetFlag(self.flags, LevelFlags.DID_SHOW_EXTRA)
+	end	
 end
 
 function Level:draw()
@@ -348,4 +362,6 @@ function Level:draw()
 	end
 
 	love.graphics.pop()
+
+	Overlay.draw()
 end

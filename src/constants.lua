@@ -19,6 +19,11 @@ HUD_H = 480
 WINDOW_W = TILE_W * (MAP_W + 2) + HUD_W
 WINDOW_H = math.max(TILE_H * (MAP_H + 2), HUD_H)
 
+LevelFlags = {
+	DID_SHOW_EXTRA = bit.lshift(1, 0),
+	DID_SHOW_HURRY = bit.lshift(1, 1),
+}
+
 ExtraFlags = {
 	E = bit.lshift(1, 0),
 	X = bit.lshift(1, 1),
