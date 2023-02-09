@@ -697,6 +697,17 @@ return {
 			['destroy'] = 'sfx/AlienDeath.wav',
 		},
 	},
+	['extra'] = {
+		name = 'EXTRA',
+		texture = 'gfx/EXTRA Letters.png',
+		value = 0,
+		animations = {
+			['idle'] = {
+				frames = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 },
+				interval = 0.2,
+			},
+		},
+	},
 	['*'] = {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',

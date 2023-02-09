@@ -57,6 +57,7 @@ local function insertEntities(self)
 		elseif entity:is(Coin) then table_insert(self.coins, entity)
 		elseif entity:is(Bonus) then table_insert(self.bonuses, entity)
 		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then table_insert(self.props, entity)
+		elseif entity:is(Extra) then table_insert(self.extras, entity)
 		end
 	end
 
@@ -79,6 +80,7 @@ local function removeEntities(self)
 		elseif entity:is(Coin) then lume_remove(self.coins, entity)
 		elseif entity:is(Bonus) then lume_remove(self.bonuses, entity)
 		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then lume_remove(self.props, entity)
+		elseif entity:is(Extra) then lume_remove(self.extras, entity)
 		end
 	end
 
@@ -134,6 +136,12 @@ local function onCollide(entity1, entity2)
 		entity2:hit(entity1.damage)
 	elseif entity2:is(Explosion) then
 		entity1:hit(entity2.damage)
+	elseif entity1:is(Extra) then
+		entity1:apply(entity2)
+		entity1:destroy()
+	elseif entity2:is(Extra) then
+		entity2:apply(entity1)
+		entity2:destroy()
 	end
 end
 
@@ -150,6 +158,7 @@ function Level:init(index, background, grid, time, entities)
 	self.players = {}
 	self.coins = {}
 	self.bonuses = {}
+	self.extras = {}
 	self.bombs = {}
 	self.explosions = {}
 	self.projectiles = {}
@@ -279,6 +288,10 @@ function Level:update(dt)
 		entity:update(dt)
 	end
 
+	for _, entity in ipairs(self.extras) do
+		entity:update(dt)
+	end
+
 	for _, entity in ipairs(self.bombs) do
 		entity:update(dt)
 	end
@@ -358,6 +371,10 @@ function Level:draw()
 	end	
 
 	for _, entity in ipairs(self.bonuses) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.extras) do
 		entity:draw()
 	end
 

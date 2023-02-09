@@ -40,6 +40,17 @@ function Monster:update(dt)
 	self.control:update(dt)
 end
 
+function Monster:destroy()
+	print('destroy:', self.name)
+	if not self:isDestroyed() and self.name == 'Alien' then
+		print('SPAWN EXTRA')
+		local extra = EntityFactory.create('extra', self.pos.x, self.pos.y)
+		self.level:addEntity(extra)
+	end
+
+	Creature.destroy(self)	
+end
+
 function Monster:attack()
 	if self.attack_delay > 0 then return end
 

@@ -58,6 +58,8 @@ function EntityFactory.register(path)
 			prototypes[key] = Bonus(entity_def)
 		elseif key == 'shield' then
 			prototypes[key] = Shield(entity_def)
+		elseif key == 'extra' then
+			prototypes[key] = Extra(entity_def)			
 		else
 			prototypes[key] = Monster(entity_def)
 		end			
