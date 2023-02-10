@@ -72,6 +72,7 @@ function EntityBase:init(def)
 	assert(def.name ~= nil, 'name is required')
 	assert(def.animations ~= nil, 'definition should contain animations table')
 
+	self.key = def.key
 	self.name = def.name
 	self.description = def.description or ''
 	self.id = nil -- assigned by EntityFactory
@@ -90,6 +91,24 @@ function EntityBase:init(def)
 
 	self.category_flags = 0
 	self.collision_flags = 0
+end
+
+function EntityBase.deserialize(obj)
+	assert(obj.key ~= nil and type(obj.key) == 'string', 'key is required')
+
+	local entity = EntityFactory.create(obj.key, obj.x, obj.y)
+	entity:config(obj.id, obj.x, obj.y)
+
+	return entity
+end
+
+function EntityBase:serialize()
+	return {
+		id = self.id,
+		key = self.key,
+		x = self.pos.x,
+		y = self.pos.y,
+	}
 end
 
 function EntityBase:prepare(def)

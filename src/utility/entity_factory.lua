@@ -28,6 +28,8 @@ function EntityFactory.register(path)
 	local entity_defs = fn()
 
 	for key, entity_def in pairs(entity_defs) do
+		entity_def.key = key
+
 		name_key_info[entity_def.name] = key
 
 		if key == '1' then

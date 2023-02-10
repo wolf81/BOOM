@@ -40,36 +40,6 @@ function Game:enter(previous, level, background)
 	self.level = level
 	self.background = background
 	self.hud = Hud(self.level)
-
-	bitser.registerClass('hump.vector', getmetatable(vector()), nil, setmetatable)
-	bitser.registerClass('hump.timer', getmetatable(Timer()), nil, setmetatable)
-	bitser.registerClass('baton', getmetatable(baton.new({ controls = {} })), nil, setmetatable)
-
-	bitser.registerClass('StateBase', StateBase)
-	bitser.registerClass('Move', Move)
-	bitser.registerClass('Idle', Idle)
-	bitser.registerClass('Destroy', Destroy)
-	bitser.registerClass('Hit', Hit)
-	bitser.registerClass('Attack', Attack)
-	bitser.registerClass('Propel', Propel)
-
-	bitser.registerClass('StateMachine', StateMachine)
-	local s = StateMachine()
-	bitser.register('StateMachine.empty', s.empty)
-	bitser.register('StateMachine.states', s.states)
-	bitser.register('StateMachine.current', s.current)
-	local t = bitser.dumps(s)
-	print(t)
-
-	bitser.registerClass('Animation', Animation)
-	bitser.registerClass('Grid', Grid)
-
-	bitser.registerClass('EntityBase', EntityBase)
-	bitser.registerClass('Creature', Creature)
-	bitser.registerClass('Player', Player)
-
-	bitser.registerClass('PlayerControl', PlayerControl)
-	bitser.registerClass('CpuControl', CpuControl)
 end
 
 function Game:onFinishTransition()
@@ -97,25 +67,12 @@ function Game:keyreleased(key, code)
     if key == 'f1' then proceedNextLevel(self)
     elseif key == 'f2' then self.level:destroyBlocks()
     elseif key == 'f5' then
-    	local player = EntityBase({ name = 'test', animations = {} })
-    	-- local player = CopyTable(self.level.fixed_blocks[1])
-    	-- player.level = nil
-    	player:config(1, 0, 0)
+    	local obj = self.level:serialize()
+    	PrintTable(obj)
+    	print(obj.entities[4].key)
+    	local t = bitser.dumps(obj.entities[4])
+    	self.level = Level.deserialize(obj)
 
-    	-- for k,v in pairs(player.state_machine.states) do
-    	-- 	bitser.register(k, v)
-    	-- end
-
-    	-- bitser.register('player.state_machine', player.state_machine)
-
-    	PrintTable(player)
-
-    	-- local s = StateMachine({ ['idle'] = function() return Idle() end })
-    	-- local t = bitser.dumps(s)
-    	-- print(t)
-
-    	-- print(lume.serialize(player))
-    	local x = bitser.dumps(player)
-    	print(x)
+    	self.hud.level = self.level
     end
 end

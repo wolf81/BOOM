@@ -5,7 +5,7 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-Direction =  {
+Direction = {
 	UP = vector(0, -1),
 	DOWN = vector(0, 1),
 	LEFT = vector(-1, 0),

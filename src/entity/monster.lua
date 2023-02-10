@@ -32,6 +32,18 @@ function Monster:config(id, x, y)
 	self.control = CpuControl(self)
 end
 
+function Monster:serialize()
+	local obj = Creature.serialize(self)
+	obj.attack_delay = self.attack_delay
+	return obj
+end
+
+function Monster.deserialize(obj)
+	local monster = Creature.deserialize(obj)
+	monster.attack_delay = obj.attack_delay
+	return monster
+end
+
 function Monster:update(dt)
 	Creature.update(self, dt)
 

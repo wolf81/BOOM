@@ -185,6 +185,52 @@ function Level:init(index, grid, time, entities)
 	print(self.grid)
 end
 
+function Level:serialize()
+	local entities = {}
+
+	for _, player in ipairs(self.players) do
+		table_insert(entities, player:serialize())
+	end
+
+	for _, monster in ipairs(self.monsters) do
+		table_insert(entities, monster:serialize())
+	end
+
+	for _, fixed_block in ipairs(self.fixed_blocks) do
+		table_insert(entities, fixed_block:serialize())
+	end
+
+	for _, breakable_block in ipairs(self.breakable_blocks) do
+		table_insert(entities, breakable_block:serialize())
+	end
+
+	for _, bomb in ipairs(self.bombs) do
+		table_insert(entities, bomb:serialize())
+	end
+
+	for _, explosion in ipairs(self.explosions) do
+		table_insert(entities, explosion:serialize())
+	end
+
+	for _, coin in ipairs(self.coins) do
+		table_insert(entities, coin:serialize())
+	end
+
+	return { index = self.index, grid = self.grid:serialize(), time = self.time, entities = entities }
+end
+
+function Level.deserialize(obj)
+	local entities = {}
+	for _, entity in ipairs(obj.entities) do
+		table_insert(entities, EntityBase.deserialize(entity))
+	end
+
+	local grid = Grid.deserialize(obj.grid)
+	local level = Level(obj.index, grid, obj.time, entities)
+
+	return level
+end
+
 function Level:addEntity(entity)
 	table_insert(self.insert_queue, entity)
 

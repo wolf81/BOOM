@@ -35,6 +35,16 @@ function Grid:isBlocked(x, y)
    return self.grid[y][x] == 0
 end
 
+function Grid:serialize()
+   return { grid = self.grid }
+end
+
+function Grid.deserialize(obj)
+   local grid = Grid(0, 0)
+   grid.grid = obj.grid
+   return grid
+end
+
 function Grid:__tostring()
    local s = 'Grid {\n'
    for y = 1, #self.grid do

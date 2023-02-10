@@ -39,6 +39,18 @@ function Player:config(id, x, y)
 	self.control = PlayerControl(self)
 end
 
+function Player:serialize()
+	local obj = Creature.serialize(self)
+	obj.bomb_count = self.bomb_count
+	return obj
+end
+
+function Player.deserialize(obj)
+	local player = Creature.deserialize(obj)
+	player.bomb_count = obj.bomb_count
+	return player
+end
+
 function Player:hit(damage)
 	if self.shield ~= nil then return end
 
