@@ -46,7 +46,7 @@ function Monster:destroy()
 		self.level:addEntity(extra)
 	end
 
-	Creature.destroy(self)	
+	Creature.destroy(self)
 end
 
 function Monster:attack()
@@ -72,7 +72,7 @@ function Monster:onCollision(entity)
 	local dirs = { Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT }
 
 	-- when moving across y axis exclude horizontal directions
-	if is_y_aligned and not is_x_aligned then 
+	if is_y_aligned and not is_x_aligned then
 		dirs = { Direction.UP, Direction.DOWN }
 	end
 

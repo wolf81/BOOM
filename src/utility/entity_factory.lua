@@ -30,15 +30,15 @@ function EntityFactory.register(path)
 	for key, entity_def in pairs(entity_defs) do
 		name_key_info[entity_def.name] = key
 
-		if key == '1' then 
+		if key == '1' then
 			prototypes[key] = Block(entity_def)
-		elseif key == '2' then 
+		elseif key == '2' then
 			prototypes[key] = BreakableBlock(entity_def)
-		elseif key == '3' then 
+		elseif key == '3' then
 			prototypes[key] = Coin(entity_def)
 		elseif key == 'X' or key == 'Y' then
 			prototypes[key] = Player(entity_def)
-		elseif key == '+' then 
+		elseif key == '+' then
 			prototypes[key] = Teleporter(entity_def)
 		elseif key == 'bomb' then
 			prototypes[key] = Bomb(entity_def)
@@ -59,10 +59,10 @@ function EntityFactory.register(path)
 		elseif key == 'shield' then
 			prototypes[key] = Shield(entity_def)
 		elseif key == 'extra' then
-			prototypes[key] = Extra(entity_def)			
+			prototypes[key] = Extra(entity_def)
 		else
 			prototypes[key] = Monster(entity_def)
-		end			
+		end
 
 		prototypes[key]:prepare(entity_def)
 	end

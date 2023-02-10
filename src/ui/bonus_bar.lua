@@ -12,7 +12,7 @@ BonusBar = Class {}
 local function updateBonusTexture(self)
 	local canvas = love.graphics.newCanvas(HUD_W, 32)
 
-	canvas:renderTo(function() 
+	canvas:renderTo(function()
 		love.graphics.clear(0.0, 0.0, 0.0, 0.0)
 		love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
 
@@ -31,8 +31,8 @@ local function updateBonusTexture(self)
 		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 3, 0)
 
 		quad_idx = HasFlag(self.flags, BonusFlags.BOOTS) and 5 or 10
-		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 4, 0)	
-			
+		love.graphics.draw(self.bonus_icons, self.bonus_quads[quad_idx], draw_w * 4, 0)
+
 		love.graphics.setFont(self.font)
 
 		local bomb_count = bit_rshift(bit_band(self.flags, BonusMasks.BOMB_COUNT), 12)

@@ -20,7 +20,7 @@ local function tryAddBonus(self)
 		[BonusFlags.HEAL_ONE] = 15,
 		[BonusFlags.HEAL_ALL] = 15,
 		[BonusFlags.SHIELD] = 15,
-		[BonusFlags.BOOTS] = 15,		
+		[BonusFlags.BOOTS] = 15,
 	})
 
 	if flag ~= 0 then

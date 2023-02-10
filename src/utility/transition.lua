@@ -51,7 +51,7 @@ local function startTransition(imageData)
 
 		-- now draw an image of previous scene, but use alpha value for fade
 		love.graphics.setColor(1.0, 1.0, 1.0, fade.alpha)
-		love.graphics.draw(image)				
+		love.graphics.draw(image)
 	end
 
 	-- tween fade alpha value
@@ -65,7 +65,7 @@ local function startTransition(imageData)
 		-- notify next scene the transition is completed
 		fade.to_scene.onFinishTransition(fade.to_scene)
 	end)
-	
+
 	-- start switch to next scene
 	Gamestate.switch(fade.to_scene, unpack(fade.to_args))
 end

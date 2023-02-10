@@ -12,7 +12,7 @@ Hit = Class { __includes = StateBase }
 function Hit:enter()
 	StateBase.enter(self)
 
-	self.duration = self.entity.animations['hit']:getDuration()	
+	self.duration = self.entity.animations['hit']:getDuration()
 
 	self.direction = self.entity.direction
 

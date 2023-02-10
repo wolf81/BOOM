@@ -37,12 +37,12 @@ local function generateBackground(bg_pattern_id, border_id)
 	-- draw borders
 	local border_tiles = love.graphics.newImage('gfx/Border ' .. string.format('%02d', border_id + 1) .. '.png')
 
-	-- top 
+	-- top
 	local quad = love.graphics.newQuad(TILE_W * 0, 0, TILE_W, TILE_H, border_tiles)
 	for y = 1, MAP_H do
 		love.graphics.draw(border_tiles, quad, 0, y * TILE_H)
 	end
-	
+
 	-- bottom
 	quad = love.graphics.newQuad(TILE_W * 1, 0, TILE_W, TILE_H, border_tiles)
 	for y = 1, MAP_H do
@@ -60,22 +60,22 @@ local function generateBackground(bg_pattern_id, border_id)
 	for x = 1, MAP_W do
 		love.graphics.draw(border_tiles, quad, x * TILE_W, (MAP_H + 1) * TILE_H)
 	end
-	
+
 	-- bottom-left
 	quad = love.graphics.newQuad(TILE_W * 4, 0, TILE_W, TILE_H, border_tiles)
-	love.graphics.draw(border_tiles, quad, 0 * TILE_W, 14 * TILE_H)	
+	love.graphics.draw(border_tiles, quad, 0 * TILE_W, 14 * TILE_H)
 
 	-- bottom-right
 	quad = love.graphics.newQuad(TILE_W * 5, 0, TILE_W, TILE_H, border_tiles)
-	love.graphics.draw(border_tiles, quad, 16 * TILE_W, 14 * TILE_H)	
+	love.graphics.draw(border_tiles, quad, 16 * TILE_W, 14 * TILE_H)
 
 	-- top-right
 	quad = love.graphics.newQuad(TILE_W * 6, 0, TILE_W, TILE_H, border_tiles)
-	love.graphics.draw(border_tiles, quad, 16 * TILE_W, 0 * TILE_H)	
+	love.graphics.draw(border_tiles, quad, 16 * TILE_W, 0 * TILE_H)
 
 	-- top-left
 	quad = love.graphics.newQuad(TILE_W * 7, 0, TILE_W, TILE_H, border_tiles)
-	love.graphics.draw(border_tiles, quad, 0 * TILE_W, 0 * TILE_H)	
+	love.graphics.draw(border_tiles, quad, 0 * TILE_W, 0 * TILE_H)
 
 	-- reset canvas
 	love.graphics.setCanvas()
@@ -100,8 +100,8 @@ local function GenerateMovementGrid(grid_desc_str)
 		if x > MAP_W then
 			y = y + 1
 			x = 1
-		end		
-	end	
+		end
+	end
 	return grid
 end
 
@@ -112,7 +112,7 @@ local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_i
 	for i = 1, #grid_desc_str do
 		local c = string_sub(grid_desc_str, i, i)
 
-		if c == '0' then 
+		if c == '0' then
 			goto continue
 		elseif c == '1' then
 			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)

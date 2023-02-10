@@ -14,7 +14,7 @@ function Destroy:enter()
 
 	self.entity.collision_flags = 0
 
-	self.duration = self.entity.animations['destroy']:getDuration()	
+	self.duration = self.entity.animations['destroy']:getDuration()
 
 	self.entity:animate('destroy')
 	self.entity:playSound('destroy')

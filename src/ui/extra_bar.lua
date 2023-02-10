@@ -12,7 +12,7 @@ ExtraBar = Class {}
 local function updateExtraTexture(self)
 	local canvas = love.graphics.newCanvas(HUD_W, 20)
 
-	canvas:renderTo(function() 
+	canvas:renderTo(function()
 		love.graphics.clear(0.0, 0.0, 0.0, 0.0)
 		love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
 
@@ -31,7 +31,7 @@ local function updateExtraTexture(self)
 		love.graphics.draw(self.extra_icons, self.extra_quads[quad_idx], draw_w * 3, 0)
 
 		quad_idx = bit_band(self.flags, ExtraFlags.A) ~= 0 and 6 or 1
-		love.graphics.draw(self.extra_icons, self.extra_quads[quad_idx], draw_w * 4, 0)	
+		love.graphics.draw(self.extra_icons, self.extra_quads[quad_idx], draw_w * 4, 0)
 	end)
 
 	return canvas

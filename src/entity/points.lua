@@ -18,7 +18,7 @@ function Points:init(def)
 end
 
 function Points:config(id, x, y)
-	EntityBase.config(self, id, x - self.size.x / 2, y - self.size.y / 2)	
+	EntityBase.config(self, id, x - self.size.x / 2, y - self.size.y / 2)
 end
 
 function Points:update(dt)

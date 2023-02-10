@@ -45,7 +45,7 @@ function Player:hit(damage)
 	Creature.hit(self, damage)
 
 	if self.hitpoints.current > 0 and not self.damage_shield_timer then
-		self.damage_shield_timer = Timer.after(0.05, function() 
+		self.damage_shield_timer = Timer.after(0.05, function()
 			self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, DAMAGE_SHIELD_DURATION)
 
 			Timer.after(DAMAGE_SHIELD_DURATION, function()
@@ -94,7 +94,7 @@ function Player:applyHaste(duration)
 
 	Timer.after(duration, function()
 		self.speed = self.base_speed
-		self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.BOOTS)		
+		self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.BOOTS)
 	end)
 end
 

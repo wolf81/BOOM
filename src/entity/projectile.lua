@@ -34,5 +34,5 @@ end
 function Projectile:destroy()
 	EntityBase.destroy(self)
 
-	self.getFrame = self.defaultFrameFunc	
+	self.getFrame = self.defaultFrameFunc
 end

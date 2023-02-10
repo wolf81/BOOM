@@ -13,7 +13,7 @@ local images = {}
 ImageCache.load = function(path)
 	if not images[path] then
 		images[path] = love.graphics.newImage(path)
-	end	
+	end
 
 	return images[path]
 end

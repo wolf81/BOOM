@@ -32,7 +32,7 @@ end
 function Attack:update(dt)
 	self.duration = math_max(self.duration - dt, 0)
 
-	if self.duration == 0 then 
+	if self.duration == 0 then
 		self.entity:idle()
 	end
 end

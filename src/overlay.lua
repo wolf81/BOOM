@@ -42,7 +42,7 @@ end
 function Overlay.update(dt)
 	if not current then
 		-- if pending items in queue, make first item the current item
-		if #queue > 0 then 
+		if #queue > 0 then
 			current = table.remove(queue, 1)
 			love.audio.play(current.sound)
 		else return end
@@ -52,7 +52,7 @@ function Overlay.update(dt)
 		current.y = math_min(current.y + SPEED * dt, current.mid_y)
 		if current.y == current.mid_y then current.state = 'pausing' end
 	elseif current.state == 'pausing' then -- pause for 1.0 seconds
-		current.delay = math_max(current.delay - dt, 0)	
+		current.delay = math_max(current.delay - dt, 0)
 		if current.delay == 0 then current.state = 'hiding' end
 	elseif current.state == 'hiding' then -- hide in 0.5 seconds
 		current.y = math_min(current.y + SPEED * dt, WINDOW_H)

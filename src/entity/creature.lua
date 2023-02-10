@@ -5,7 +5,6 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local lume_remove, lume_randomchoice = lume.remove, lume.randomchoice
 local math_min, math_max = math.min, math.max
 
 Creature = Class { __includes = EntityBase }

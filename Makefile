@@ -14,7 +14,7 @@ MAC_ICONS_PATH="${BUILD_DIR}/macOS/love-xcodeproj/platform/xcode/Images.xcassets
 run:
 	love . #-play
 
-clean: 
+clean:
 	# clean
 	rm -rf -- "${BUILD_DIR}"
 	mkdir -p "${BUILD_DIR}"
@@ -77,4 +77,4 @@ win: lovefile
 
 	# Run modify.bat script on Windows computer to update app metadata & icons
 
-release: clean osx win	
+release: clean osx win

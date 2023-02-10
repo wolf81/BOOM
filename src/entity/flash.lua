@@ -12,7 +12,7 @@ Flash = Class { __includes = EntityBase }
 function Flash:init(def)
 	EntityBase.init(self, def)
 
-	self.flash_time = self.animations['idle']:getDuration()	
+	self.flash_time = self.animations['idle']:getDuration()
 end
 
 function Flash:update(dt)

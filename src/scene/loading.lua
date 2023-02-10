@@ -9,10 +9,10 @@ Loading = Class { __includes = SceneBase }
 
 local function loadFiles()
 	local dir = love.filesystem.getRealDirectory(path)
-	local fn = assert(loadfile(dir .. path))	
+	local fn = assert(loadfile(dir .. path))
 end
 
-function Loading:init() 
+function Loading:init()
 	SceneBase.init(self)
 end
 
@@ -36,7 +36,7 @@ function Loading:enter(previous, level_idx)
 	end
 end
 
-function Loading:onFinishTransition()	
+function Loading:onFinishTransition()
 	local level, background = LevelLoader.load(self.level_idx)
 	Transition.crossfade(self, Game, level, background)
 end

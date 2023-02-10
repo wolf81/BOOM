@@ -16,7 +16,7 @@ function GenerateQuads(image, width, height)
         for x = 0, image:getWidth() - width, width do
         	quads[#quads + 1] = love.graphics.newQuad(x, y, width, height, image_w, image_h)
         end
-    end    
+    end
     return quads
 end
 
@@ -37,7 +37,7 @@ function ParseSpriteSize(size)
 	return size[1], size[2]
 end
 
--- get a world position adjacent to the given position, the position is constrained 
+-- get a world position adjacent to the given position, the position is constrained
 -- to grid positions, e.g. with TILE_W of 32, x-values in set 0, 32, 64, 96, ...
 function GetAdjacentPosition(pos, direction)
 	local to_pos = pos + (direction or vector.zero):permul(TILE_SIZE)
@@ -72,11 +72,11 @@ function ClearMask(x, mask)
 end
 
 function GetMaskedValue(x, mask, offset)
-	return bit_rshift(bit_band(x, mask), offset)	
+	return bit_rshift(bit_band(x, mask), offset)
 end
 
 function SetValue(x, value, offset)
-	return bit_bor(x, bit_lshift(value, offset))	
+	return bit_bor(x, bit_lshift(value, offset))
 end
 
 -- seems lume.keys function is sometimes problematic, so this simpler
@@ -87,4 +87,24 @@ function GetKeys(tbl)
 		table.insert(keys, k)
 	end
 	return keys
+end
+
+local function printTable(tbl, ident, seen)
+	if seen[tbl] then return end
+
+	seen[tbl] = true
+
+	for k, v in pairs(tbl) do
+		if type(v) ~= 'table' then
+			print(ident, k, v)
+		else
+			print(ident, k)
+			printTable(v, ident .. '\t', seen)
+		end
+	end
+end
+
+-- recursively print all values in a table, skipping circular references
+function PrintTable(tbl)
+	printTable(tbl, '', {})
 end

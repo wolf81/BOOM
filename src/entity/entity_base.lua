@@ -9,7 +9,7 @@
 --
 -- Since DestroyState already removes entities from level, we can then use DestroyState
 -- as initial state for entities like Flash
--- 
+--
 -- Also, based on animation keys defined in entity definition we can dynamically include
 -- mixins for the appropriate states
 
@@ -22,7 +22,7 @@ local function addAnimationIfNeeded(key, animations, duration)
 	animations[key] = Animation({
 		frames = { 1 },
 		interval = duration or 0.1,
-	}) 
+	})
 end
 
 local function configureStateMachineIfNeeded(self)
@@ -50,7 +50,7 @@ local function configureStateMachineIfNeeded(self)
 	if self.animations['propel-down'] ~= nil then
 		states['propel'] = function() return Propel(self) end
 		use_dummy = false
-	end 
+	end
 
 	if self.animations['hit'] ~= nil then
 		states['hit'] = function() return Hit(self) end
@@ -63,7 +63,7 @@ local function configureStateMachineIfNeeded(self)
 		states['idle'] = function() return Idle(self) end
 
 		self.state_machine = StateMachine(states)
-		self.state_machine:change('idle')		
+		self.state_machine:change('idle')
 	end
 end
 
@@ -77,7 +77,7 @@ function EntityBase:init(def)
 	self.id = nil -- assigned by EntityFactory
 	self.level = nil -- assigned by Level when added to Level
 	self.value = def.value
-	
+
 	self.pos = vector(0, 0)
 	self.size = vector(ParseSpriteSize(def.sprite_size))
 
@@ -94,7 +94,7 @@ end
 
 function EntityBase:prepare(def)
 	assert(def ~= nil, 'definition is required')
-	
+
 	local image = ImageCache.load(def.texture)
 	local quads = GenerateQuads(image, self.size.x, self.size.y)
 	Animator.register(self.name, image, quads)
@@ -108,7 +108,7 @@ function EntityBase:config(id, x, y)
 end
 
 function EntityBase:gridPosition()
-	return vector(lume_round(self.pos.x / TILE_W), lume_round(self.pos.y / TILE_H))	
+	return vector(lume_round(self.pos.x / TILE_W), lume_round(self.pos.y / TILE_H))
 end
 
 function EntityBase:animate(name)
@@ -118,7 +118,7 @@ end
 
 function EntityBase:playSound(name)
 	local sound = self.sounds[name]
-	if sound then AudioPlayer.playSound(sound) end	
+	if sound then AudioPlayer.playSound(sound) end
 end
 
 function EntityBase:getFrame()
@@ -182,9 +182,9 @@ function EntityBase:destroy()
 		end
 
 		local mid_x, mid_y = self.pos.x + self.size.x / 2, self.pos.y + self.size.y / 2
-		self.level:addEntity(EntityFactory.create(entity_key, mid_x, mid_y, self.value))		
+		self.level:addEntity(EntityFactory.create(entity_key, mid_x, mid_y, self.value))
 	end
-	
+
 	self.state_machine:change('destroy')
 end
 
@@ -194,7 +194,7 @@ end
 
 -- attack
 
-function EntityBase:attack()	
+function EntityBase:attack()
 	if getmetatable(self.state_machine.current) == Attack then return end
 
 	self.state_machine:change('attack')

@@ -42,7 +42,7 @@ function AudioPlayer.playMusic(path, looping)
 	music = love.audio.newSource(path, 'stream')
     music:setVolume(settings.music_volume)
     music:setLooping(looping or true)
-    love.audio.play(music) 
+    love.audio.play(music)
 end
 
 function AudioPlayer.playSound(path)

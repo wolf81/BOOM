@@ -5,8 +5,6 @@
 --  Email: info+boom@wolftrail.net
 --]]
 
-local baton = require 'lib.baton.baton'
-
 local lume_round = lume.round
 
 local P1_CONFIG = {
@@ -50,7 +48,7 @@ function PlayerControl:init(entity)
 	self.input = baton.new(config)
 end
 
-function PlayerControl:update(dt)	
+function PlayerControl:update(dt)
 	self.input:update()
 
 	local is_x_aligned = self.entity.pos.x % TILE_W == 0
@@ -91,7 +89,7 @@ function PlayerControl:update(dt)
 	if direction then
 		self.entity:move(direction)
 	else
-		-- if direction is none, don't stop immediately, but make entity stop moving when 
+		-- if direction is none, don't stop immediately, but make entity stop moving when
 		-- reaching target position for current move
 		self.entity.direction = nil
 	end

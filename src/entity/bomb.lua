@@ -29,7 +29,7 @@ function Bomb:destroy()
 	if not self:isDestroyed() then
 		self.onDestroy(self)
 	end
-	
+
 	EntityBase.destroy(self)
 end
 
@@ -51,7 +51,7 @@ function Bomb:update(dt)
 			for i = 1, self.size do
 				local next_grid_pos = grid_pos + dir * i
 
-				if self.level:isBlocked(next_grid_pos.x, next_grid_pos.y) then 
+				if self.level:isBlocked(next_grid_pos.x, next_grid_pos.y) then
 					if i > 1 then break end
 
 					local bblock = self.level:getBreakableBlock(next_grid_pos)
@@ -69,7 +69,7 @@ function Bomb:update(dt)
 				if bomb then bomb:explode() end
 
 				local pos = (next_grid_pos):permul(TILE_SIZE)
-				self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player, dir))				
+				self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player, dir))
 			end
 		end
 	end

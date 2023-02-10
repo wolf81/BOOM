@@ -14,7 +14,7 @@ local FONT_SIZE = 16
 local function updateScoreViewTexture(self)
 	local canvas = love.graphics.newCanvas(HUD_W, 50)
 
-	canvas:renderTo(function() 
+	canvas:renderTo(function()
 		love.graphics.setCanvas(canvas)
 
 		love.graphics.clear(0.0, 0.0, 0.0, 0.0)
@@ -38,7 +38,7 @@ function ScoreView:init()
 	-- self.score_value_font = love.graphics.newFont('fnt/pf_tempesta_seven_condensed.ttf', FONT_SIZE)
 
 	self.score = 0
-	self.canvas = updateScoreViewTexture(self)	
+	self.canvas = updateScoreViewTexture(self)
 end
 
 function ScoreView:updateScore(score)

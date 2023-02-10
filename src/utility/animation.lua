@@ -13,7 +13,7 @@ function Animation:init(def)
     self.frames = def.frames
 
     local times = def.times or 1
-    
+
     local frames = CopyTable(self.frames)
     while times > 1 do
         for _, frame in ipairs(frames) do

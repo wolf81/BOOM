@@ -14,9 +14,9 @@ local MELEE_ATTACK_RANGE = 0.8
 
 local function tryAttack(monster, player, range)
 	if monster.projectile then
-		monster:attack() 
+		monster:attack()
 	elseif range <= MELEE_ATTACK_RANGE then
-		monster:attack() 
+		monster:attack()
 		player:hit(1)
 	end
 end
@@ -56,20 +56,20 @@ local function roaming(self, dt)
 			local player_grid_pos = player:gridPosition()
 
 			if self.entity.direction == Direction.UP then
-				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then 
+				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then
 					tryAttack(self.entity, player, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.DOWN then
-				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then 
+				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then
 					tryAttack(self.entity, player, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.LEFT then
-				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then 
-					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))					
+				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then
+					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))
 				end
 			elseif self.entity.direction == Direction.RIGHT then
-				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then 
-					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))					
+				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then
+					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))
 				end
 			end
 
@@ -86,20 +86,20 @@ local function roaming(self, dt)
 			local player_grid_pos = player:gridPosition()
 
 			if self.entity.direction == Direction.UP then
-				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then 
+				if player_grid_pos.x == grid_pos.x and player_grid_pos.y <= grid_pos.y then
 					tryAttack(self.entity, player, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.DOWN then
-				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then 
+				if player_grid_pos.x == grid_pos.x and player_grid_pos.y >= grid_pos.y then
 					tryAttack(self.entity, player, math_abs(player_grid_pos.y - grid_pos.y))
 				end
 			elseif self.entity.direction == Direction.LEFT then
-				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then 
-					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))					
+				if player_grid_pos.y == grid_pos.y and player_grid_pos.x <= grid_pos.x then
+					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))
 				end
 			elseif self.entity.direction == Direction.RIGHT then
-				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then 
-					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))					
+				if player_grid_pos.y == grid_pos.y and player_grid_pos.x >= grid_pos.x then
+					tryAttack(self.entity, player, math_abs(player_grid_pos.x - grid_pos.x))
 				end
 			end
 
@@ -116,7 +116,7 @@ local function roaming(self, dt)
 		tryMove(self.entity, { Direction.UP, Direction.DOWN })
 	elseif is_y_aligned then
 		tryMove(self.entity, { Direction.LEFT, Direction.RIGHT })
-	end	
+	end
 end
 
 function CpuControl:init(entity)
@@ -126,6 +126,6 @@ function CpuControl:init(entity)
 	self.update = has_move_anims and roaming or idling
 end
 
-function CpuControl:update(dt)	
+function CpuControl:update(dt)
 	-- an update function is assigned on initialization
 end

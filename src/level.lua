@@ -70,7 +70,7 @@ local function removeEntities(self)
 		elseif entity:is(Projectile) then lume_remove(self.projectiles, entity)
 		elseif entity:is(Bomb) then lume_remove(self.bombs, entity)
 		elseif entity:is(Block) then lume_remove(self.fixed_blocks, entity)
-		elseif entity:is(BreakableBlock) then 
+		elseif entity:is(BreakableBlock) then
 			lume_remove(self.breakable_blocks, entity)
 			local grid_pos = entity:gridPosition()
 			self.grid:unblock(grid_pos.x, grid_pos.y)
@@ -97,7 +97,7 @@ local function tryTeleportEntities(self, teleporter)
 
 			if teleporter.pos:dist2(entity.pos) < 5 then
 				teleporter:teleport(entity)
-			end			
+			end
 		end
 	end
 
@@ -192,7 +192,7 @@ function Level:addEntity(entity)
 
 	entity:spawn()
 
-	if entity:is(Player) then 
+	if entity:is(Player) then
 		self:addEntity(EntityFactory.create('flash', entity.pos.x, entity.pos.y))
 	end
 
@@ -277,7 +277,7 @@ function Level:update(dt)
 
 	for _, entity in ipairs(self.coins) do
 		entity:update(dt)
-	end	
+	end
 
 	for _, entity in ipairs(self.bonuses) do
 		entity:update(dt)
@@ -313,11 +313,11 @@ function Level:update(dt)
 
 	for _, entity in ipairs(self.projectiles) do
 		-- destroy projectiles that go outside of map bounds
-		-- would be nicer to fix in Collider, but that might 
+		-- would be nicer to fix in Collider, but that might
 		-- need some optimalization first
 		local x, y, w, h = entity:getFrame()
-		if x < TILE_W or y < TILE_H or x > MAP_W * TILE_W + TILE_W / 2 or y > MAP_H * TILE_H + TILE_H / 2 then 
-			entity:destroy() 
+		if x < TILE_W or y < TILE_H or x > MAP_W * TILE_W + TILE_W / 2 or y > MAP_H * TILE_H + TILE_H / 2 then
+			entity:destroy()
 		end
 
 		entity:update(dt)
@@ -338,7 +338,7 @@ function Level:update(dt)
 
 		transformMonsters(self)
 		self.extra_duration = 30
-	end	
+	end
 
 	if self.extra_duration > 0 then
 		self.extra_duration = math_max(self.extra_duration - dt, 0)
@@ -356,7 +356,7 @@ function Level:draw()
 
 	for _, entity in ipairs(self.coins) do
 		entity:draw()
-	end	
+	end
 
 	for _, entity in ipairs(self.bonuses) do
 		entity:draw()
@@ -390,7 +390,7 @@ function Level:draw()
 		entity:draw()
 	end
 
-	for _, entity in ipairs(self.projectiles) do		
+	for _, entity in ipairs(self.projectiles) do
 		entity:draw()
 	end
 

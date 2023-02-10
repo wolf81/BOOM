@@ -129,7 +129,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -182,7 +182,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -234,7 +234,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -259,13 +259,13 @@ return {
 				frames = { 21, 22 },
 				interval = 0.2,
 				times = 5,
-			},			
+			},
 		},
 		sounds = {
 			['destroy'] = 'sfx/TaurDeath.wav',
 			['attack'] = 'sfx/TaurNoise.wav',
 		},
-	},	
+	},
 	['E'] = {
 		name = 'Gunner',
 		description = 'Another former human being. He holds a rapid-fire pulse rifle. Veeery dangerous!',
@@ -286,7 +286,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -338,7 +338,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -390,7 +390,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -441,7 +441,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -492,7 +492,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -530,7 +530,7 @@ return {
 		value = 1000,
 		attack = {
 			projectile = 'magma',
-			rate = 0.3, 
+			rate = 0.3,
 		},
 		animations = {
 			['move-down'] = {
@@ -544,7 +544,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -646,7 +646,7 @@ return {
 			['destroy'] = 'sfx/P2Death.wav',
 			['hit'] = 'sfx/P2Ouch.wav',
 		},
-	},	
+	},
 	['alien'] = {
 		name = 'Alien',
 		texture = 'gfx/Alien Frames.png',
@@ -666,7 +666,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -719,18 +719,18 @@ return {
 		value = 5000,
 		attack = {
 			projectile = 'head_missile',
-			rate = 0.3, 
-		},	
+			rate = 0.3,
+		},
 		animations = {
 			['destroy'] = {
 				frames = { 1 },
 				interval = 2.0,
-			},			
+			},
 		},
 		sounds = {
 			['destroy'] = 'sfx/HeadDeath.wav',
 		},
-	},	
+	},
 	['alien-boss'] = {
 		name = 'Alien Boss',
 		texture = 'gfx/Alien Boss.png',
@@ -738,7 +738,7 @@ return {
 		value = 100000,
 		attack = {
 			projectile = 'head_missile',
-			rate = 1.0, 
+			rate = 1.0,
 		},
 		animations = {
 			['move-down'] = {
@@ -752,7 +752,7 @@ return {
 			['move-right'] = {
 				frames = { 9, 10, 11, 12 },
 				interval = 0.1,
-			},		
+			},
 			['move-left'] = {
 				frames = { 13, 14, 15, 16 },
 				interval = 0.1,
@@ -760,7 +760,7 @@ return {
 			['destroy'] = {
 				frames = { 1 },
 				interval = 2.0,
-			},			
+			},
 		},
 		sounds = {
 			['destroy'] = 'sfx/BossDeath.wav',
@@ -860,7 +860,7 @@ return {
 		sounds = {
 			['propel'] = 'sfx/Shot.wav',
 		},
-	},	
+	},
 	['magma'] = {
 		name = 'Magma',
 		texture = 'gfx/Magma.png',
@@ -888,14 +888,14 @@ return {
 				interval = 0.1,
 			},
 		},
-	},	
+	},
 	['head_missile'] = {
 		name = 'Head Missile',
 		texture = 'gfx/Head Missile.png',
 		animations = {
 			['idle'] = {
 				frames = { 1, 2 },
-				interval = 0.1,				
+				interval = 0.1,
 			},
 			['destroy'] = {
 				frames = { 3, 4, 5, 6, 7 },
@@ -928,7 +928,7 @@ return {
 				frames = { 2, 3, 4, 5 },
 				interval = 0.1,
 			},
-		},		
+		},
 	},
 	['lightbolt'] = {
 		name = 'Lightbolt',
@@ -955,8 +955,8 @@ return {
 				frames = { 2, 3, 4, 5 },
 				interval = 0.1,
 			},
-		},		
-	},	
+		},
+	},
 	['plasma'] = {
 		name = 'Plasma',
 		texture = 'gfx/Plasma.png',
@@ -982,8 +982,8 @@ return {
 				frames = { 2, 3, 4, 5 },
 				interval = 0.1,
 			},
-		},		
-	},	
+		},
+	},
 	['bomb'] = {
 		name = 'Bomb',
 		texture = 'gfx/Bomb.png',

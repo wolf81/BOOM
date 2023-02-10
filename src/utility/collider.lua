@@ -32,8 +32,8 @@ end
 
 function Collider:remove(entity)
 	-- TODO: somehow using a lookup table for entity indices doesn't seem to
-	-- work, but this loop could be slow if we have many entities 
-	-- optimize later ...	
+	-- work, but this loop could be slow if we have many entities
+	-- optimize later ...
 	for idx, e in lume_ripairs(self.entities) do
 		if e.id == entity.id then
 			table_remove(self.entities, idx)
@@ -46,11 +46,11 @@ function Collider:update()
 	-- TODO: the following algorithm is not very efficient and could become
 	-- problematic when dealing with a large amount of collidable entities
 	--
-	-- we could improve the performance by creating cells that represent 
+	-- we could improve the performance by creating cells that represent
 	-- smaller areas in the game world - we could track each entity in a cell
 	-- and only perform collision checks for entities per cell
 	--
-	-- some entities might be in multiple cells at the same time when 
+	-- some entities might be in multiple cells at the same time when
 	-- standing on the border rectangle for the cell
 	--
 	-- also, it would be good to have collision categories or flags
@@ -72,7 +72,7 @@ function Collider:update()
 			elseif bit_band(entity2.collision_flags, entity1.category_flags) ~= 0 then
 				if checkCollision(x1, y1, h1, w1, x2, y2, h2, w2) then
 					self.onCollision(entity2, entity1)
-				end				
+				end
 			end
 		end
 

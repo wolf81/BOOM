@@ -32,7 +32,7 @@ function Move:enter(direction)
 	end
 
 
-	if self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then 
+	if self.entity.level:isBlocked(to_grid_pos.x, to_grid_pos.y) then
 		self.to_pos = grid_pos:permul(TILE_SIZE)
 	else
 		-- move to grid position indicated by direction
@@ -61,7 +61,7 @@ function Move:update(dt)
 			self.entity:idle()
 		end
 	end
-	
+
 	if self.direction == Direction.DOWN then
 		pos.y = math_min(self.to_pos.y, pos.y)
 		if pos.y == self.to_pos.y then

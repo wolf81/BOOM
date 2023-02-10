@@ -23,7 +23,7 @@ end
 function Shield:setDirection(direction)
 	if self.direction ~= direction then
 		self.direction = direction
-		self:animate('move-' .. string_lower(GetDirectionName(self.direction)))	
+		self:animate('move-' .. string_lower(GetDirectionName(self.direction)))
 	end
 end
 

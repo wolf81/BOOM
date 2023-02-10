@@ -38,7 +38,7 @@ function TimeView:updateTime(time)
 end
 
 function TimeView:draw(x, y)
-	love.graphics.setFont(self.time_font)	
+	love.graphics.setFont(self.time_font)
 	love.graphics.setColor(self.time_color)
 	love.graphics.print(self.minutes, x, y)
 	love.graphics.print(':', x + 25, y)
