@@ -81,8 +81,6 @@ function EntityBase:init(def)
 	self.pos = vector(0, 0)
 	self.size = vector(ParseSpriteSize(def.sprite_size))
 
-	self.image = ImageCache.load(def.texture)
-	self.quads = GenerateQuads(self.image, self.size.x, self.size.y)
 	self.animations = ParseAnimations(def.animations)
 	addAnimationIfNeeded('idle', self.animations)
 	addAnimationIfNeeded('destroy', self.animations, 0.0)
@@ -92,6 +90,14 @@ function EntityBase:init(def)
 
 	self.category_flags = 0
 	self.collision_flags = 0
+end
+
+function EntityBase:prepare(def)
+	assert(def ~= nil, 'definition is required')
+	
+	local image = ImageCache.load(def.texture)
+	local quads = GenerateQuads(image, self.size.x, self.size.y)
+	Animator.register(self.name, image, quads)
 end
 
 function EntityBase:config(id, x, y)
@@ -130,7 +136,7 @@ function EntityBase:is(T)
 end
 
 function EntityBase:draw()
-	love.graphics.draw(self.image, self.quads[self.animation:getCurrentFrame()], math_floor(self.pos.x), math_floor(self.pos.y))
+	Animator.draw(self.name, self.animation, self.pos.x, self.pos.y)
 end
 
 -- spawn

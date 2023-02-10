@@ -32,6 +32,7 @@ require 'src.utility.state_machine'
 require 'src.utility.functions'
 require 'src.utility.animation'
 require 'src.utility.grid'
+require 'src.utility.animator'
 require 'src.utility.entity_factory'
 
 require 'src.control.player_control'

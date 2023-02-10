@@ -64,13 +64,7 @@ function EntityFactory.register(path)
 			prototypes[key] = Monster(entity_def)
 		end			
 
-		-- preload textures
-		ImageCache.load(entity_def.texture)
-
-		-- preload sounds
-		for _, path in pairs(entity_def.sounds or {}) do
-			AudioPlayer.load(path)
-		end
+		prototypes[key]:prepare(entity_def)
 	end
 end
 
