@@ -17,11 +17,11 @@ local math_floor, lume_round = math.floor, lume.round
 
 EntityBase = Class {}
 
-local function addIdleAnimationIfNeeded(animations)
-	if animations['idle'] then return end
-	animations['idle'] = Animation({
+local function addAnimationIfNeeded(key, animations, duration)
+	if animations[key] then return end
+	animations[key] = Animation({
 		frames = { 1 },
-		interval = 0.1,
+		interval = duration or 0.1,
 	}) 
 end
 
@@ -84,7 +84,8 @@ function EntityBase:init(def)
 	self.image = ImageCache.load(def.texture)
 	self.quads = GenerateQuads(self.image, self.size.x, self.size.y)
 	self.animations = ParseAnimations(def.animations)
-	addIdleAnimationIfNeeded(self.animations)
+	addAnimationIfNeeded('idle', self.animations)
+	addAnimationIfNeeded('destroy', self.animations, 0.0)
 	self.animation = self.animations['idle']
 
 	self.sounds = def.sounds or {}

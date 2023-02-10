@@ -827,10 +827,6 @@ return {
 				frames = { 5, 6, 7, 8 },
 				interval = 0.1,
 			},
-			['destroy'] = {
-				frames = { 1 },
-				interval = 0,
-			},
 		},
 	},
 	['mg_shot'] = {
@@ -996,11 +992,6 @@ return {
 				frames = { 1, 2, 3 },
 				interval = 0.1,
 			},
-			['destroy'] = {
-				-- destroy state is dummy state - we only need to add the state for the sound
-				frames = { 1 },
-				interval = 0,
-			}
 		},
 		sounds = {
 			['spawn'] = 'sfx/LightTheFuse.wav',
@@ -1044,46 +1035,26 @@ return {
 		texture = 'gfx/Points 10-1K.png',
 		speed = 30,
 		sprite_size = { 32, 16 },
-		animations = {
-			['destroy'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-		},
+		animations = { },
 	},
 	['points5k'] = {
 		name = 'Points 5K',
 		texture = 'gfx/Points 5K.png',
 		speed = 30,
 		sprite_size = { 42, 19 },
-		animations = {
-			['destroy'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-		},
+		animations = { },
 	},
 	['points100k'] = {
 		name = 'Points 100K',
 		texture = 'gfx/Points 100K.png',
 		speed = 30,
 		sprite_size = { 75, 28 },
-		animations = {
-			['destroy'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-		},
+		animations = { },
 	},
 	['bonus'] = {
 		name = 'Bonuses',
 		texture = 'gfx/Bonuses.png',
-		animations = {
-			['destroy'] = {
-				frames = { 1 },
-				interval = 0.1,
-			},
-		},
+		animations = { },
 		sounds = {
 			['destroy'] = 'sfx/GetBonus.wav',
 		},
