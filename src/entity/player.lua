@@ -11,16 +11,6 @@ local DAMAGE_SHIELD_DURATION = 1.5
 
 Player = Class { __includes = Creature }
 
-local function repeatToggleFlag(self, flag, duration, delay)
-	Timer.after(delay or 0, function()
-		Timer.every(0.2, function()
-			self.bonus_flags = ToggleMask(self.bonus_flags, flag)
-		end, duration / 0.2)
-	end)
-end
-
-local defaults = {}
-
 function Player:init(def)
 	def.hitpoints = 16
 
