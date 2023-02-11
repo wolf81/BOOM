@@ -77,3 +77,10 @@ function EntityFactory.create(key, x, y, ...)
 	entity:config(id_generator.next(), x, y, ...)
 	return entity
 end
+
+function EntityFactory.deserialize(obj, ...)
+	assert(obj.key ~= nil, 'key is required')
+
+	local T = key_type_info[obj.key] or Monster
+	return T.deserialize(obj, ...)
+end

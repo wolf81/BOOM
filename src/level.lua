@@ -222,7 +222,7 @@ end
 function Level.deserialize(obj)
 	local entities = {}
 	for _, entity in ipairs(obj.entities) do
-		table_insert(entities, EntityBase.deserialize(entity))
+		table_insert(entities, EntityFactory.deserialize(entity))
 	end
 
 	local grid = Grid.deserialize(obj.grid)

@@ -49,7 +49,7 @@ function Creature.deserialize(obj)
 	creature.hitpoints = obj.hitpoints
 
 	if obj.dir then
-		self.direction = vector(unpack(obj.dir))
+		creature.direction = vector(unpack(obj.dir))
 	end
 
 	return creature
