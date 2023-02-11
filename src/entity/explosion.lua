@@ -33,10 +33,28 @@ function Explosion:config(id, x, y, player_id, direction)
 	assert(player_id ~= nil, 'player_id is required')
 
 	self.player_id = player_id
+	self.direction = direction
 
 	local anim_name = getAnimationName(direction)
 	self:animate(anim_name)
 	self.explode_time = self.animations[anim_name]:getDuration()
+end
+
+function Explosion:serialize()
+	local obj = EntityBase.serialize(self)
+	obj.player_id = self.player_id
+	obj.explode_time = self.explode_time
+	if self.direction then
+		obj.direction = { self.direction:unpack() }
+	end
+	return obj
+end
+
+function Explosion.deserialize(obj)
+	local direction = obj.direction and vector(unpack(obj.direction))
+	local explosion = EntityBase.deserialize(obj, obj.player_id, direction)
+	explosion.explode_time = obj.explode_time
+	return explosion
 end
 
 function Explosion:update(dt)

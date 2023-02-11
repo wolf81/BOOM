@@ -11,7 +11,7 @@ function StateBase:init(entity)
 	self.entity = entity
 end
 
-function StateBase:enter(entity)
+function StateBase:enter()
 	-- body
 end
 

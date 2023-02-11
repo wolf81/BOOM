@@ -19,6 +19,19 @@ function Bomb:config(id, x, y, player_id, fuse_time, range)
 	self.size = range or 2 -- 2 + self.player:getExplodeRange()
 end
 
+function Bomb.deserialize(obj)
+	local bomb = EntityBase.deserialize(obj, obj.player_id, obj.fuse_time, obj.range)
+	return bomb
+end
+
+function Bomb:serialize()
+	local obj = EntityBase.serialize(self)
+	obj.player_id = self.player_id
+	obj.fuse_time = self.fuse_time
+	obj.size = self.size
+	return obj
+end
+
 function Bomb:explode()
 	self.fuse_time = 0
 end

@@ -107,7 +107,7 @@ function EntityBase:serialize()
 	return {
 		id = self.id,
 		key = self.key,
-		pos = { self.pos:unpack() }
+		pos = { self.pos:unpack() },
 	}
 end
 

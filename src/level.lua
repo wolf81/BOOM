@@ -26,9 +26,11 @@ end
 
 local function transformAliens(self)
 	for _, alien in ipairs(self.monsters) do
-		local monster = EntityFactory.create(alien.monster, alien.pos.x, alien.pos.y)
-		self:addEntity(monster)
-		self:removeEntity(alien)
+		if not alien:isDestroyed() then
+			local monster = EntityFactory.create(alien.monster, alien.pos.x, alien.pos.y)
+			self:addEntity(monster)
+			self:removeEntity(alien)
+		end
 	end
 end
 
@@ -172,6 +174,8 @@ function Level:init(index, grid, time, entities)
 
 	self.flags = 0
 
+	self.is_boss_level = index % 10 == 0
+
 	for _, entity in ipairs(entities) do self:addEntity(entity) end
 	insertEntities(self)
 
@@ -228,7 +232,7 @@ function Level:serialize()
 		table_insert(entities, coin:serialize())
 	end
 
-	return { index = self.index, grid = self.grid:serialize(), time = self.time, entities = entities }
+	return { index = self.index, grid = self.grid:serialize(), time = self.time, entities = entities, flags = self.flags }
 end
 
 function Level.deserialize(obj)
@@ -239,6 +243,7 @@ function Level.deserialize(obj)
 
 	local grid = Grid.deserialize(obj.grid)
 	local level = Level(obj.index, grid, obj.time, entities)
+	level.flags = obj.flags
 
 	return level
 end
@@ -391,11 +396,13 @@ function Level:update(dt)
 
 	-- TODO: should show when colliding with last coin
 	if #self.coins == 0 and not HasFlag(self.flags, LevelFlags.DID_SHOW_EXTRA) and #self.monsters > 0 then
-		Overlay.show('gfx/EXTRA Game.png', 'sfx/EXTRAGame.wav')
-		self.flags = SetFlag(self.flags, LevelFlags.DID_SHOW_EXTRA)
+		if not self.is_boss_level then
+			Overlay.show('gfx/EXTRA Game.png', 'sfx/EXTRAGame.wav')
+			self.flags = SetFlag(self.flags, LevelFlags.DID_SHOW_EXTRA)
 
-		transformMonsters(self)
-		self.extra_duration = 30
+			transformMonsters(self)
+			self.extra_duration = 30
+		end
 	end
 
 	if self.extra_duration > 0 then
