@@ -21,12 +21,27 @@ function Points:config(id, x, y)
 	EntityBase.config(self, id, x - self.size.x / 2, y - self.size.y / 2)
 end
 
+function Points:serialize()
+	local obj = EntityBase.serialize(self)
+	obj.alpha = self.alpha
+	obj.duration = self.duration
+	return obj
+end
+
+function Points.deserialize(obj, ...)
+	local points = EntityBase.deserialize(obj, ...)
+	points.pos = vector(unpack(obj.pos))
+	points.alpha = obj.alpha
+	points.duration = obj.duration
+	return points
+end
+
 function Points:update(dt)
+	EntityBase.update(self, dt)
+
 	self.duration = math_max(self.duration - dt, 0)
 	self.pos.y = self.pos.y - self.speed * dt
 	self.alpha = math_min(self.duration / 0.5, 1.0)
-
-	EntityBase.update(self, dt)
 
 	if self.duration == 0 then
 		self:destroy()

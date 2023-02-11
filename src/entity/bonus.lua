@@ -52,6 +52,17 @@ function Bonus:config(id, x, y, flag)
 	end
 end
 
+function Bonus:serialize()
+	local obj = EntityBase.serialize(self)
+	obj.bonus_type = self.bonus_type
+	return obj
+end
+
+function Bonus.deserialize(obj)
+	local bonus = EntityBase.deserialize(obj, obj.bonus_type)
+	return bonus
+end
+
 function Bonus:apply(player)
 	self:playSound('snd/GetBonus.wav')
 

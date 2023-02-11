@@ -216,6 +216,14 @@ function Level:serialize()
 		table_insert(entities, explosion:serialize())
 	end
 
+	for _, bonus in ipairs(self.bonuses) do
+		table_insert(entities, bonus:serialize())
+	end
+
+	for _, prop in ipairs(self.props) do
+		table_insert(entities, prop:serialize())
+	end
+
 	for _, coin in ipairs(self.coins) do
 		table_insert(entities, coin:serialize())
 	end
