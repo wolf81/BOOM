@@ -27,12 +27,12 @@ function Explosion:init(def)
 	self.damage = def.damage or 1
 end
 
-function Explosion:config(id, x, y, player, direction)
+function Explosion:config(id, x, y, player_id, direction)
 	EntityBase.config(self, id, x, y)
 
-	assert(player ~= nil and getmetatable(player) == Player, 'player is required')
+	assert(player_id ~= nil, 'player_id is required')
 
-	self.player = player
+	self.player_id = player_id
 
 	local anim_name = getAnimationName(direction)
 	self:animate(anim_name)

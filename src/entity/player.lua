@@ -33,10 +33,26 @@ function Player:init(def)
 	self.damage_shield_timer = nil
 end
 
+function Player:destroy()
+	if not self:isDestroyed() then
+		print('remove destroy notification handle')
+		Signal.remove(self.on_destroy_handle, Notifications.ON_DESTROY_BOMB)
+	end
+
+	Creature.destroy(self)
+end
+
 function Player:config(id, x, y)
 	Creature.config(self, id, x, y)
 
 	self.control = PlayerControl(self)
+
+	self.on_destroy_handle = Signal.register(Notifications.ON_DESTROY_BOMB, function(bomb)
+		print('handle bomb destroyed', bomb.player_id, self.id)
+		if bomb.player_id == self.id then
+			self.bomb_count = self.bomb_count + 1
+		end
+	end)
 end
 
 function Player:serialize()
@@ -169,9 +185,8 @@ function Player:tryDropBomb()
 	local grid_pos = self:gridPosition()
 	if not self.level:getBomb(grid_pos) and self:getBombCount() > 0 then
 		local x, y = grid_pos.x * TILE_W, grid_pos.y * TILE_H
-		local bomb = EntityFactory.create('bomb', x, y, self, function()
-			self.bomb_count = self.bomb_count + 1
-		end)
+		local range = 2 + self:getExplodeRange()
+		local bomb = EntityFactory.create('bomb', x, y, self.id, self.fuse_time, range)
 		self.level:addEntity(bomb)
 		self.bomb_count = self.bomb_count - 1
 	end

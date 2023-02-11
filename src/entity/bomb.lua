@@ -9,16 +9,14 @@ local math_max, bit_band, bit_rshift = math.max, bit.band, bit.rshift
 
 Bomb = Class { __includes = EntityBase }
 
-function Bomb:config(id, x, y, player, fn)
+function Bomb:config(id, x, y, player_id, fuse_time, range)
 	EntityBase.config(self, id, x, y)
 
-	assert(player ~= nil and getmetatable(player) == Player, 'player is required')
+	assert(player_id ~= nil, 'player_id is required')
 
-	self.player = player
-	self.fuse_time = self.player:getFuseDuration()
-	self.size = 2 + self.player:getExplodeRange()
-
-	self.onDestroy = fn or function() end
+	self.player_id = player_id
+	self.fuse_time = fuse_time or 5.0 -- self.player:getFuseDuration()
+	self.size = range or 2 -- 2 + self.player:getExplodeRange()
 end
 
 function Bomb:explode()
@@ -27,7 +25,7 @@ end
 
 function Bomb:destroy()
 	if not self:isDestroyed() then
-		self.onDestroy(self)
+		Signal.emit(Notifications.ON_DESTROY_BOMB, self)
 	end
 
 	EntityBase.destroy(self)
@@ -42,7 +40,7 @@ function Bomb:update(dt)
 	EntityBase.update(self, dt)
 
 	if self.fuse_time == 0 then
-		self.level:addEntity(EntityFactory.create('explosion', self.pos.x, self.pos.y, self.player))
+		self.level:addEntity(EntityFactory.create('explosion', self.pos.x, self.pos.y, self.player_id))
 		self:destroy()
 
 		local grid_pos = self:gridPosition()
@@ -57,7 +55,7 @@ function Bomb:update(dt)
 					local bblock = self.level:getBreakableBlock(next_grid_pos)
 					if bblock then
 						local pos = (grid_pos + dir * i):permul(TILE_SIZE)
-						self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player, dir))
+						self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player_id, dir))
 
 						bblock:destroy()
 					end
@@ -69,7 +67,7 @@ function Bomb:update(dt)
 				if bomb then bomb:explode() end
 
 				local pos = (next_grid_pos):permul(TILE_SIZE)
-				self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player, dir))
+				self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player_id, dir))
 			end
 		end
 	end

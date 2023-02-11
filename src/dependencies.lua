@@ -7,6 +7,7 @@
 
 Class = require 'lib.hump.class'
 Timer = require 'lib.hump.timer'
+Signal = require 'lib.hump.signal'
 vector = require 'lib.hump.vector'
 lume = require 'lib.lume.lume'
 bitser = require "lib.bitser.bitser"
