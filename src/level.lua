@@ -298,7 +298,7 @@ function Level:destroyBlocks()
 
 	self:eachGridPosition(function(pos)
 		local bblock = self:getBreakableBlock(pos)
-		if bblock then Timer.after(delay, function() bblock:destroy() end) end
+		if bblock then bblock.destroy_delay = delay end
 		delay = delay + 0.01
 	end)
 end
