@@ -208,6 +208,10 @@ function Level:serialize()
 		table_insert(entities, bomb:serialize())
 	end
 
+	for _, projectile in ipairs(self.projectiles) do
+		table_insert(entities, projectile:serialize())
+	end
+
 	for _, explosion in ipairs(self.explosions) do
 		table_insert(entities, explosion:serialize())
 	end

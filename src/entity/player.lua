@@ -35,7 +35,6 @@ end
 
 function Player:destroy()
 	if not self:isDestroyed() then
-		print('remove destroy notification handle')
 		Signal.remove(self.on_destroy_handle, Notifications.ON_DESTROY_BOMB)
 	end
 
@@ -48,7 +47,6 @@ function Player:config(id, x, y)
 	self.control = PlayerControl(self)
 
 	self.on_destroy_handle = Signal.register(Notifications.ON_DESTROY_BOMB, function(bomb)
-		print('handle bomb destroyed', bomb.player_id, self.id)
 		if bomb.player_id == self.id then
 			self.bomb_count = self.bomb_count + 1
 		end

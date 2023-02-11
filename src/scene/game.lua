@@ -68,8 +68,7 @@ function Game:keyreleased(key, code)
     elseif key == 'f2' then self.level:destroyBlocks()
     elseif key == 'f5' then
     	local obj = self.level:serialize()
-    	PrintTable(obj)
-    	print(obj.entities[4].key)
+    	-- PrintTable(obj)
     	local t = bitser.dumps(obj.entities[4])
     	self.level = Level.deserialize(obj)
 

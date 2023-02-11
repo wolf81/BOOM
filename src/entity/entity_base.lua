@@ -96,8 +96,9 @@ end
 function EntityBase.deserialize(obj, ...)
 	assert(obj.key ~= nil and type(obj.key) == 'string', 'key is required')
 
-	local entity = EntityFactory.create(obj.key, obj.x, obj.y)
-	entity:config(obj.id, obj.x, obj.y)
+	local x, y = unpack(obj.pos)
+	local entity = EntityFactory.create(obj.key, x, y, ...)
+	entity:config(obj.id, x, y, ...)
 
 	return entity
 end
@@ -106,8 +107,7 @@ function EntityBase:serialize()
 	return {
 		id = self.id,
 		key = self.key,
-		x = self.pos.x,
-		y = self.pos.y,
+		pos = { self.pos:unpack() }
 	}
 end
 
