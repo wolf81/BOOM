@@ -15,6 +15,31 @@ local id_generator = IdGenerator()
 
 local name_key_info = {}
 
+local key_type_info = {
+	['1'] = Block,
+	['2'] = BreakableBlock,
+	['3'] = Coin,
+	['X'] = Player,
+	['Y'] = Player,
+	['+'] = Teleporter,
+	['bomb'] = Bomb,
+	['flash'] = Flash,
+	['explosion'] = Explosion,
+	['shot'] = Projectile,
+	['fireball'] = Projectile,
+	['lightbolt'] = Projectile,
+	['mg_shot'] = Projectile,
+	['magma'] = Projectile,
+	['plasma'] = Projectile,
+	['flame'] = Projectile,
+	['points1k'] = Points1K,
+	['points5k'] = Points5K,
+	['points100k'] = Points100K,
+	['shield'] = Shield,
+	['extra'] = Extra,
+	['bonus'] = Bonus,
+}
+
 local prototypes = {}
 
 -- register all entities at the given path
@@ -31,40 +56,8 @@ function EntityFactory.register(path)
 		entity_def.key = key
 
 		name_key_info[entity_def.name] = key
-
-		if key == '1' then
-			prototypes[key] = Block(entity_def)
-		elseif key == '2' then
-			prototypes[key] = BreakableBlock(entity_def)
-		elseif key == '3' then
-			prototypes[key] = Coin(entity_def)
-		elseif key == 'X' or key == 'Y' then
-			prototypes[key] = Player(entity_def)
-		elseif key == '+' then
-			prototypes[key] = Teleporter(entity_def)
-		elseif key == 'bomb' then
-			prototypes[key] = Bomb(entity_def)
-		elseif key == 'flash' then
-			prototypes[key] = Flash(entity_def)
-		elseif key == 'explosion' then
-			prototypes[key] = Explosion(entity_def)
-		elseif key == 'shot' or key == 'fireball' or key == 'lightbolt' or key == 'mg_shot' or key == 'plasma' or key == 'magma' or key == 'flame' then
-			prototypes[key] = Projectile(entity_def)
-		elseif key == 'points1k' then
-			prototypes[key] = Points1K(entity_def)
-		elseif key == 'points5k' then
-			prototypes[key] = Points5K(entity_def)
-		elseif key == 'points100k' then
-			prototypes[key] = Points100K(entity_def)
-		elseif key == 'bonus' then
-			prototypes[key] = Bonus(entity_def)
-		elseif key == 'shield' then
-			prototypes[key] = Shield(entity_def)
-		elseif key == 'extra' then
-			prototypes[key] = Extra(entity_def)
-		else
-			prototypes[key] = Monster(entity_def)
-		end
+		local T = key_type_info[key] or Monster
+		prototypes[key] = T(entity_def)
 
 		prototypes[key]:prepare(entity_def)
 	end

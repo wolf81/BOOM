@@ -93,7 +93,7 @@ function EntityBase:init(def)
 	self.collision_flags = 0
 end
 
-function EntityBase.deserialize(obj)
+function EntityBase.deserialize(obj, ...)
 	assert(obj.key ~= nil and type(obj.key) == 'string', 'key is required')
 
 	local entity = EntityFactory.create(obj.key, obj.x, obj.y)
