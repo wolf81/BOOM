@@ -11,6 +11,11 @@ local DAMAGE_SHIELD_DURATION = 1.5
 
 Player = Class { __includes = Creature }
 
+local function respawn(self)
+	self.state_machine:change('idle')
+	self.respawn_delay = 0
+end
+
 function Player:init(def)
 	def.hitpoints = 16
 
@@ -23,19 +28,26 @@ function Player:init(def)
 	self.lives = 3
 	self.extra_flags = 0
 	self.bonus_flags = 0
+	self.haste_duration = 0
+	self.shield_duration = 0
+	self.shield_delay = 0
+	self.respawn_delay = 0
 
 	self.bomb_count = 0
 	for i = 1, 5 do self:addBomb() end
 
 	self.base_speed = self.speed
 	self.shield = nil
-
-	self.damage_shield_timer = nil
 end
 
 function Player:destroy()
 	if not self:isDestroyed() then
+		self.lives = math_max(self.lives - 1, 0)
 		Signal.remove(self.on_destroy_handle, Notifications.ON_DESTROY_BOMB)
+
+		if self.lives > 0 then
+			self.respawn_delay = 3.0
+		end
 	end
 
 	Creature.destroy(self)
@@ -55,13 +67,38 @@ end
 
 function Player:serialize()
 	local obj = Creature.serialize(self)
+	obj.score = self.score
 	obj.bomb_count = self.bomb_count
+	obj.shield_delay = self.shield_delay
+	obj.shield_duration = self.shield_duration
+	obj.haste_duration = self.haste_duration
+	obj.respawn_delay = self.respawn_delay
+	obj.lives = self.lives
+	obj.extra_flags = self.extra_flags
+	obj.bonus_flags = self.bonus_flags
 	return obj
 end
 
 function Player.deserialize(obj)
 	local player = Creature.deserialize(obj)
+	player.score = obj.score
 	player.bomb_count = obj.bomb_count
+	player.shield_delay = obj.shield_delay
+	player.shield_duration = obj.shield_duration
+	player.haste_duration = obj.haste_duration
+	player.respawn_delay = obj.respawn_delay
+	player.lives = obj.lives
+	player.extra_flags = obj.extra_flags
+	player.bonus_flags = obj.bonus_flags
+
+	if player.shield_duration > 0 then
+		player:applyShield(player.shield_duration)
+	end
+
+	if player.haste_duration > 0 then
+		player:applyHaste(player.haste_duration)
+	end
+
 	return player
 end
 
@@ -70,27 +107,52 @@ function Player:hit(damage)
 
 	Creature.hit(self, damage)
 
-	if self.hitpoints.current > 0 and not self.damage_shield_timer then
-		self.damage_shield_timer = Timer.after(0.05, function()
-			self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, DAMAGE_SHIELD_DURATION)
-
-			Timer.after(DAMAGE_SHIELD_DURATION, function()
-				self.shield = nil
-				Timer.cancel(self.damage_shield_timer)
-				self.damage_shield_timer = nil
-			end)
-		end)
-	elseif self.hitpoints.current == 0 then
-		if self.damage_shield_timer then
-			Timer.cancel(self.damage_shield_timer)
-			self.damage_shield_timer = nil
+	if self.hitpoints.current > 0 then
+		if self.shield_delay == 0 then
+			self.shield_delay = 0.05
 		end
+	elseif self.hitpoints.current == 0 then
+		self.shield_delay = 0
+		self.shield_duration = 0
 		self.shield = nil
 	end
 end
 
 function Player:update(dt)
 	Creature.update(self, dt)
+
+	if self.haste_duration > 0 then
+		self.haste_duration = math_max(self.haste_duration - dt, 0)
+		if self.haste_duration == 0 then
+			self.speed = self.base_speed
+			self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.BOOTS)
+			self.haste_duration = 0
+		end
+	end
+
+	if self.shield_delay > 0 then
+		self.shield_delay = math_max(self.shield_delay - dt, 0)
+		if self.shield_delay == 0 then
+			self:applyShield(DAMAGE_SHIELD_DURATION)
+		end
+	end
+
+	if self.shield_duration > 0 then
+		self.shield_duration = math_max(self.shield_duration - dt, 0)
+		if self.shield_duration == 0 then
+			self.shield = nil
+			self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.SHIELD)
+			self.shield_duration = 0
+		end
+	end
+
+	if self.respawn_delay > 0 then
+		self.respawn_delay = math_max(self.respawn_delay - dt, 0)
+
+		if self.respawn_delay == 0 then
+			respawn(self)
+		end
+	end
 
 	if self.shield ~= nil then
 		self.shield:update(dt)
@@ -117,22 +179,14 @@ function Player:applyHaste(duration)
 	assert(duration ~= nil and type(duration) == 'number', 'duration is required')
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.BOOTS)
 	self.speed = self.base_speed * 2
-
-	Timer.after(duration, function()
-		self.speed = self.base_speed
-		self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.BOOTS)
-	end)
+	self.haste_duration = duration
 end
 
 function Player:applyShield(duration)
 	assert(duration ~= nil and type(duration) == 'number', 'duration is required')
 	self.shield = EntityFactory.create('shield', self.pos.x, self.pos.y, self, duration)
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.SHIELD)
-
-	Timer.after(duration, function()
-		self.shield = nil
-		self.bonus_flags = ClearFlag(self.bonus_flags, BonusFlags.SHIELD)
-	end)
+	self.shield_duration = duration
 end
 
 function Player:addBomb()

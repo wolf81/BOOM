@@ -53,9 +53,13 @@ function Monster:update(dt)
 end
 
 function Monster:destroy()
-	if not self:isDestroyed() and self.name == 'Alien' then
-		local extra = EntityFactory.create('extra', self.pos.x, self.pos.y)
-		self.level:addEntity(extra)
+	if not self:isDestroyed() then
+		self.collision_flags = 0
+
+		if self.name == 'Alien' then
+			local extra = EntityFactory.create('extra', self.pos.x, self.pos.y)
+			self.level:addEntity(extra)
+		end
 	end
 
 	Creature.destroy(self)

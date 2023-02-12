@@ -82,6 +82,7 @@ end
 
 function Projectile:destroy()
 	if not self:isDestroyed() then
+		self.collision_flags = 0
 		revertOffset(self)
 	end
 

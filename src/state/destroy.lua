@@ -12,8 +12,6 @@ Destroy = Class { __includes = StateBase }
 function Destroy:enter()
 	StateBase.enter(self)
 
-	self.entity.collision_flags = 0
-
 	self.duration = self.entity.animations['destroy']:getDuration()
 
 	self.entity:animate('destroy')
