@@ -24,6 +24,11 @@ local function proceedNextLevel(self)
 	self.accept_input = false
 	local level, background = LevelLoader.load(self.level.index + 1)
 	if level then
+		-- level.players = {}
+		-- for _, player in ipairs(self.level.players) do
+		-- 	level:addEntity(player)
+		-- end
+
 		Transition.crossfade(self, Game, level, background)
 	else
 		Transition.crossfade(self, Loading, 1)

@@ -711,6 +711,9 @@ return {
 				interval = 0,
 			},
 		},
+		sounds = {
+			['destroy'] = 'sfx/GetLetter.wav',
+		},
 	},
 	['*'] = {
 		name = 'Head Boss',

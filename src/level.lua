@@ -7,7 +7,7 @@
 
 local Collider = require 'src.utility.collider'
 
-local table_insert, table_remove, math_max, lume_ripairs = table.insert, table.remove, math.max, lume.ripairs
+local table_insert, table_remove, math_max, lume_remove, lume_ripairs = table.insert, table.remove, math.max, lume.remove, lume.ripairs
 
 Level = Class {}
 
@@ -76,21 +76,21 @@ end
 
 local function removeEntities(self)
 	for idx, entity in lume_ripairs(self.remove_queue) do
-		if entity:is(Explosion) then table_remove(self.explosions, idx)
-		elseif entity:is(Projectile) then table_remove(self.projectiles, idx)
-		elseif entity:is(Bomb) then table_remove(self.bombs, idx)
-		elseif entity:is(Block) then table_remove(self.fixed_blocks, idx)
+		if entity:is(Explosion) then lume_remove(self.explosions, entity)
+		elseif entity:is(Projectile) then lume_remove(self.projectiles, entity)
+		elseif entity:is(Bomb) then lume_remove(self.bombs, entity)
+		elseif entity:is(Block) then lume_remove(self.fixed_blocks, entity)
 		elseif entity:is(BreakableBlock) then
-			table_remove(self.breakable_blocks, idx)
+			lume_remove(self.breakable_blocks, entity)
 			local grid_pos = entity:gridPosition()
 			self.grid:unblock(grid_pos.x, grid_pos.y)
-		elseif entity:is(Player) then table_remove(self.players, idx)
-		elseif entity:is(Monster) then table_remove(self.monsters, idx)
-		elseif entity:is(Teleporter) then table_remove(self.teleporters, idx)
-		elseif entity:is(Coin) then table_remove(self.coins, idx)
-		elseif entity:is(Bonus) then table_remove(self.bonuses, idx)
-		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then table_remove(self.props, idx)
-		elseif entity:is(Extra) then table_remove(self.extras, idx)
+		elseif entity:is(Player) then lume_remove(self.players, entity)
+		elseif entity:is(Monster) then lume_remove(self.monsters, entity)
+		elseif entity:is(Teleporter) then lume_remove(self.teleporters, entity)
+		elseif entity:is(Coin) then lume_remove(self.coins, entity)
+		elseif entity:is(Bonus) then lume_remove(self.bonuses, entity)
+		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then lume_remove(self.props, entity)
+		elseif entity:is(Extra) then lume_remove(self.extras, entity)
 		end
 	end
 
