@@ -25,7 +25,7 @@ local function addAnimationIfNeeded(key, animations, duration)
 	})
 end
 
-local function configureStateMachineIfNeeded(self)
+local function configureStateMachine(self)
 	local states = {}
 
 	local use_dummy = true
@@ -123,7 +123,7 @@ function EntityBase:config(id, x, y)
 	self.id = id
 	self.pos = vector(x, y)
 
-	configureStateMachineIfNeeded(self)
+	configureStateMachine(self)
 end
 
 function EntityBase:gridPosition()
@@ -191,7 +191,7 @@ end
 function EntityBase:destroy()
 	if getmetatable(self.state_machine.current) == Destroy then return end
 
-	if self.value and not self:is(Points1K) or self:is(Points5K) or self:is(Points100K) then
+	if self.value and not (self:is(Points1K) or self:is(Points5K) or self:is(Points100K)) then
 		local entity_key = 'points1k'
 
 		if self.value == 5000 then

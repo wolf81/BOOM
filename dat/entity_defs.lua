@@ -1040,6 +1040,7 @@ return {
 	['points5k'] = {
 		name = 'Points 5K',
 		texture = 'gfx/Points 5K.png',
+		value = 5000,
 		speed = 30,
 		sprite_size = { 42, 19 },
 		animations = { },
@@ -1047,6 +1048,7 @@ return {
 	['points100k'] = {
 		name = 'Points 100K',
 		texture = 'gfx/Points 100K.png',
+		value = 100000,
 		speed = 30,
 		sprite_size = { 75, 28 },
 		animations = { },

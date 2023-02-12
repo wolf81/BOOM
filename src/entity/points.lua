@@ -12,24 +12,30 @@ Points = Class { __includes = EntityBase }
 function Points:init(def)
 	EntityBase.init(self, def)
 
+	self.value = 0
 	self.speed = def.speed or 30
 	self.duration = 2.0
 	self.alpha = 1.0
 end
 
-function Points:config(id, x, y)
+function Points:config(id, x, y, value)
+	assert(value or nil and type(value) == 'number', 'value is required')
+
 	EntityBase.config(self, id, x - self.size.x / 2, y - self.size.y / 2)
+
+	self.value = value
 end
 
 function Points:serialize()
 	local obj = EntityBase.serialize(self)
 	obj.alpha = self.alpha
+	obj.value = self.value
 	obj.duration = self.duration
 	return obj
 end
 
 function Points.deserialize(obj, ...)
-	local points = EntityBase.deserialize(obj, ...)
+	local points = EntityBase.deserialize(obj, obj.value)
 	points.pos = vector(unpack(obj.pos))
 	points.alpha = obj.alpha
 	points.duration = obj.duration

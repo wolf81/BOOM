@@ -22,8 +22,8 @@ end
 function Hud:update(dt)
 	self.time_view:updateTime(self.level.time)
 
-	for idx, player in ipairs(self.level.players) do
-		if idx == 1 then
+	for _, player in ipairs(self.level.players) do
+		if player.key == 'X' then
 			self.p1_view:updateForPlayer(player)
 		else
 			self.p2_view:updateForPlayer(player)

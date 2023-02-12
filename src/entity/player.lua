@@ -8,19 +8,14 @@
 local math_min, math_max = math.min, math.max
 
 local DAMAGE_SHIELD_DURATION = 1.5
+local PLAYER_HITPOINTS = 16
 
 Player = Class { __includes = Creature }
 
-local function respawn(self)
-	self.state_machine:change('idle')
-	self.respawn_delay = 0
-end
-
 function Player:init(def)
-	def.hitpoints = 16
-
 	Creature.init(self, def)
 
+	self.player_idx = key == 'X' and 1 or 2
 	self.fuse_time = 5.0
 	self.category_flags = CategoryFlags.PLAYER
 	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.COIN, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
@@ -32,6 +27,7 @@ function Player:init(def)
 	self.shield_duration = 0
 	self.shield_delay = 0
 	self.respawn_delay = 0
+	self.hitpoints = { current = PLAYER_HITPOINTS, max = PLAYER_HITPOINTS }
 
 	self.bomb_count = 0
 	for i = 1, 5 do self:addBomb() end
@@ -180,6 +176,14 @@ function Player:applyHaste(duration)
 	self.bonus_flags = SetFlag(self.bonus_flags, BonusFlags.BOOTS)
 	self.speed = self.base_speed * 2
 	self.haste_duration = duration
+end
+
+function Player:getRespawnInfo()
+	return {
+		config = { self.key, self.pos.x, self.pos.y },
+		lives = self.lives,
+		extra = self.extra_flags,
+	}
 end
 
 function Player:applyShield(duration)

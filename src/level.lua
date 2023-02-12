@@ -7,7 +7,7 @@
 
 local Collider = require 'src.utility.collider'
 
-local table_insert, lume_remove, math_max = table.insert, lume.remove, math.max
+local table_insert, table_remove, math_max, lume_ripairs = table.insert, table.remove, math.max, lume.ripairs
 
 Level = Class {}
 
@@ -32,6 +32,14 @@ local function transformAliens(self)
 			self:removeEntity(alien)
 		end
 	end
+end
+
+local function respawnPlayer(self, respawn_info)
+	local player = EntityFactory.create(unpack(respawn_info.config))
+	player.lives = respawn_info.lives
+	player.extra_flags = respawn_info.extra
+	player:applyShield(1.5)
+	self:addEntity(player)
 end
 
 local function updateTeleporterTargets(self)
@@ -67,22 +75,22 @@ local function insertEntities(self)
 end
 
 local function removeEntities(self)
-	for _, entity in ipairs(self.remove_queue) do
-		if entity:is(Explosion) then lume_remove(self.explosions, entity)
-		elseif entity:is(Projectile) then lume_remove(self.projectiles, entity)
-		elseif entity:is(Bomb) then lume_remove(self.bombs, entity)
-		elseif entity:is(Block) then lume_remove(self.fixed_blocks, entity)
+	for idx, entity in lume_ripairs(self.remove_queue) do
+		if entity:is(Explosion) then table_remove(self.explosions, idx)
+		elseif entity:is(Projectile) then table_remove(self.projectiles, idx)
+		elseif entity:is(Bomb) then table_remove(self.bombs, idx)
+		elseif entity:is(Block) then table_remove(self.fixed_blocks, idx)
 		elseif entity:is(BreakableBlock) then
-			lume_remove(self.breakable_blocks, entity)
+			table_remove(self.breakable_blocks, idx)
 			local grid_pos = entity:gridPosition()
 			self.grid:unblock(grid_pos.x, grid_pos.y)
-		elseif entity:is(Player) then -- lume_remove(self.players, entity) -- TODO: respawn after delay
-		elseif entity:is(Monster) then lume_remove(self.monsters, entity)
-		elseif entity:is(Teleporter) then lume_remove(self.teleporters, entity)
-		elseif entity:is(Coin) then lume_remove(self.coins, entity)
-		elseif entity:is(Bonus) then lume_remove(self.bonuses, entity)
-		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then lume_remove(self.props, entity)
-		elseif entity:is(Extra) then lume_remove(self.extras, entity)
+		elseif entity:is(Player) then table_remove(self.players, idx)
+		elseif entity:is(Monster) then table_remove(self.monsters, idx)
+		elseif entity:is(Teleporter) then table_remove(self.teleporters, idx)
+		elseif entity:is(Coin) then table_remove(self.coins, idx)
+		elseif entity:is(Bonus) then table_remove(self.bonuses, idx)
+		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then table_remove(self.props, idx)
+		elseif entity:is(Extra) then table_remove(self.extras, idx)
 		end
 	end
 
@@ -267,6 +275,10 @@ end
 function Level:removeEntity(entity)
 	table_insert(self.remove_queue, entity)
 
+	if entity:is(Player) and entity.lives > 0 then
+		respawnPlayer(self, entity:getRespawnInfo())
+	end
+
 	if isCollidable(entity) then
 		self.collider:remove(entity)
 	end
@@ -332,6 +344,9 @@ function Level:update(dt)
 
 	insertEntities(self)
 
+	-- FIXME: sometimes teleporters lock someone out
+	-- this seems to get fixed automatically as soon
+	-- as another entity uses the same teleporter
 	for _, entity in ipairs(self.teleporters) do
 		entity:update(dt)
 

@@ -24,12 +24,7 @@ local VALUES_FRAME_INFO = {
 }
 
 function Points1K:config(id, x, y, value)
-	Points.config(self, id, x, y)
-
-	-- TODO: would it be better to use some kind of enum here?
-	assert(value or nil and type(value) == 'number', 'value is required')
-
-	self.value = value
+	Points.config(self, id, x, y, value)
 
 	for frame_idx, frame_value in ipairs(VALUES_FRAME_INFO) do
 		if self.value == frame_value then
@@ -38,15 +33,4 @@ function Points1K:config(id, x, y, value)
 			break
 		end
 	end
-end
-
-function Points1K:serialize()
-	local obj = Points.serialize(self)
-	obj.value = self.value
-	return obj
-end
-
-function Points1K.deserialize(obj)
-	local points = Points.deserialize(obj, obj.value)
-	return points
 end
