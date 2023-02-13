@@ -123,10 +123,10 @@ local function onCollide(entity1, entity2)
 	if entity1:is(Projectile) then
 		-- TODO: add wall/border collider, perhaps inverse of a rectangle (inside ok, outside remove)
 		entity1:destroy()
-		if entity2:is(Player) then entity2:hit(entity1.damage) end
+		if entity2:is(Player) then entity2:hit(entity1) end
 	elseif entity2:is(Projectile) then
 		entity2:destroy()
-		if entity1:is(Player) then entity1:hit(entity2.damage) end
+		if entity1:is(Player) then entity1:hit(entity2) end
 	elseif entity1:is(Monster) and entity2:is(Monster) then
 		entity2:onCollision(entity1)
 		entity1:onCollision(entity2)
@@ -145,9 +145,9 @@ local function onCollide(entity1, entity2)
 		entity2:destroy()
 		-- TODO: give bonus to player
 	elseif entity1:is(Explosion) then
-		entity2:hit(entity1.damage)
+		entity2:hit(entity1)
 	elseif entity2:is(Explosion) then
-		entity1:hit(entity2.damage)
+		entity1:hit(entity2)
 	elseif entity1:is(Extra) then
 		entity1:apply(entity2)
 		entity1:destroy()

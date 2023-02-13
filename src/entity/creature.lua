@@ -55,13 +55,13 @@ function Creature.deserialize(obj)
 	return creature
 end
 
-function Creature:hit(damage)
-	setHitpoints(self, self.hitpoints.current - damage)
+function Creature:hit(entity)
+	setHitpoints(self, self.hitpoints.current - entity.damage)
 
 	if self.hitpoints.current == 0 then
 		self:destroy()
 	else
-		EntityBase.hit(self, damage)
+		EntityBase.hit(self, entity)
 	end
 end
 

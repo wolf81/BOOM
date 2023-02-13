@@ -98,10 +98,10 @@ function Player.deserialize(obj)
 	return player
 end
 
-function Player:hit(damage)
+function Player:hit(entity)
 	if self.shield ~= nil then return end
 
-	Creature.hit(self, damage)
+	Creature.hit(self, entity)
 
 	if self.hitpoints.current > 0 then
 		if self.shield_delay == 0 then

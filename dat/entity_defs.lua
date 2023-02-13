@@ -719,10 +719,10 @@ return {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',
 		sprite_size = { 96, 96 },
-		hitpoints = 20,
+		hitpoints = 3,
 		value = 5000,
 		attack = {
-			projectile = 'head_missile',
+			projectile = 'head-missile',
 			rate = 0.3,
 		},
 		animations = {
@@ -737,6 +737,7 @@ return {
 		},
 		sounds = {
 			['destroy'] = 'sfx/HeadDeath.wav',
+			['hit'] = 'sfx/HeadNoise.wav',
 		},
 	},
 	['alien-boss'] = {
@@ -745,7 +746,6 @@ return {
 		sprite_size = { 160, 160 },
 		value = 100000,
 		attack = {
-			projectile = 'head_missile',
 			rate = 1.0,
 		},
 		animations = {
@@ -897,10 +897,27 @@ return {
 			},
 		},
 	},
-	['head_missile'] = {
+	['head-missile'] = {
 		name = 'Head Missile',
 		texture = 'gfx/Head Missile.png',
 		animations = {
+			-- TODO: can have single 'propel' state, don't need directions for boss missile
+			['propel-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 2 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 3 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 4 },
+				interval = 0.1,
+			},
 			['idle'] = {
 				frames = { 1, 2 },
 				interval = 0.1,

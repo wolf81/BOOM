@@ -53,7 +53,7 @@ function Bomb:update(dt)
 	EntityBase.update(self, dt)
 
 	if self.fuse_time == 0 then
-		self.level:addEntity(EntityFactory.create('explosion', self.pos.x, self.pos.y, self.player_id))
+		self.level:addEntity(EntityFactory.create('explosion', self.pos.x, self.pos.y, self.player_id, self.id))
 		self:destroy()
 
 		local grid_pos = self:gridPosition()
@@ -68,7 +68,7 @@ function Bomb:update(dt)
 					local bblock = self.level:getBreakableBlock(next_grid_pos)
 					if bblock then
 						local pos = (grid_pos + dir * i):permul(TILE_SIZE)
-						self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player_id, dir))
+						self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player_id, self.id, dir))
 
 						bblock:destroy()
 					end
@@ -80,7 +80,7 @@ function Bomb:update(dt)
 				if bomb then bomb:explode() end
 
 				local pos = (next_grid_pos):permul(TILE_SIZE)
-				self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player_id, dir))
+				self.level:addEntity(EntityFactory.create('explosion', pos.x, pos.y, self.player_id, self.id, dir))
 			end
 		end
 	end
