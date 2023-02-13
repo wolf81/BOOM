@@ -36,6 +36,7 @@ require 'src.entity.bonus'
 require 'src.entity.extra'
 require 'src.entity.shield'
 require 'src.entity.boss'
+require 'src.entity.strike'
 
 require 'src.level'
 
@@ -64,6 +65,7 @@ require 'src.control.cpu_control'
 require 'src.scene.scene_base'
 require 'src.scene.loading'
 require 'src.scene.game'
+require 'src.scene.level_complete'
 
 require 'src.state.state_base'
 require 'src.state.idle'

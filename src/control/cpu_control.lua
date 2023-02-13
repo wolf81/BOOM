@@ -17,7 +17,7 @@ local function tryAttack(monster, player, range)
 		monster:attack()
 	elseif range <= MELEE_ATTACK_RANGE then
 		monster:attack()
-		player:hit(1)
+		player:hit(Strike(1))
 	end
 end
 

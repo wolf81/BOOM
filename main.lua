@@ -13,6 +13,8 @@ io.stdout:setvbuf("no")
 function love.load(args)
     love.math.setRandomSeed(love.timer.getTime())
 
+    love.filesystem.setIdentity('boom')
+
     love.window.setMode(WINDOW_W, WINDOW_H, { fullscreen = false })
 
     local contents, size = love.filesystem.read('version.txt')
@@ -22,7 +24,7 @@ function love.load(args)
     AudioPlayer.setMusicVolume(0.1)
     AudioPlayer.setSoundVolume(0.1)
 
-    Transition.init(Loading, 10)
+    Transition.init(Loading, 65)
 end
 
 function love.update(dt)

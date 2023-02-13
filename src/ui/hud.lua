@@ -7,7 +7,7 @@
 
 Hud = Class {}
 
-function Hud:init(level)
+function Hud:init(level, show_level)
 	assert(level ~= nil, 'level is required')
 
 	self.level = level
@@ -15,6 +15,8 @@ function Hud:init(level)
 
 	self.time_view = TimeView()
 	self.level_view = LevelView(level.index)
+
+	self.show_level = show_level
 
 	self.p1_view = PlayerView(1)
 	self.p2_view = PlayerView(2)
@@ -40,6 +42,8 @@ function Hud:draw()
 	self.p1_view:draw(14, 60)
 	self.p2_view:draw(14, 270)
 
-	local view_w, _ = self.level_view:getSize()
-	self.level_view:draw(WINDOW_W - view_w - 2, 2)
+	if self.show_level then
+		local view_w, _ = self.level_view:getSize()
+		self.level_view:draw(WINDOW_W - view_w - 2, 2)
+	end
 end
