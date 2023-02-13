@@ -57,13 +57,13 @@ function Game:update(dt)
 end
 
 function Game:draw()
-	self.hud:draw()
-
 	love.graphics.push()
 	love.graphics.translate(HUD_W, 0)
 	love.graphics.draw(self.background)
 	self.level:draw()
 	love.graphics.pop()
+
+	self.hud:draw()
 end
 
 function Game:keyreleased(key, code)

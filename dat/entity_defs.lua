@@ -715,16 +715,21 @@ return {
 			['destroy'] = 'sfx/GetLetter.wav',
 		},
 	},
-	['*'] = {
+	['head-boss'] = {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',
 		sprite_size = { 96, 96 },
+		hitpoints = 20,
 		value = 5000,
 		attack = {
 			projectile = 'head_missile',
 			rate = 0.3,
 		},
 		animations = {
+			['hit'] = {
+				frames = { 1 },
+				interval = 0,
+			},
 			['destroy'] = {
 				frames = { 1 },
 				interval = 2.0,

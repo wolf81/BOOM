@@ -38,6 +38,8 @@ local key_type_info = {
 	['shield'] = Shield,
 	['extra'] = Extra,
 	['bonus'] = Bonus,
+	['head-boss'] = Boss,
+	['alien-boss'] = Boss,
 }
 
 local prototypes = {}

@@ -14,6 +14,7 @@ function Hud:init(level)
 	self.panel = love.graphics.newImage('gfx/Panel.png')
 
 	self.time_view = TimeView()
+	self.level_view = LevelView(level.index)
 
 	self.p1_view = PlayerView(1)
 	self.p2_view = PlayerView(2)
@@ -38,4 +39,7 @@ function Hud:draw()
 
 	self.p1_view:draw(14, 60)
 	self.p2_view:draw(14, 270)
+
+	local view_w, _ = self.level_view:getSize()
+	self.level_view:draw(WINDOW_W - view_w - 2, 2)
 end

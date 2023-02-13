@@ -35,6 +35,7 @@ require 'src.entity.points_100k'
 require 'src.entity.bonus'
 require 'src.entity.extra'
 require 'src.entity.shield'
+require 'src.entity.boss'
 
 require 'src.level'
 
@@ -45,6 +46,7 @@ require 'src.ui.bonus_bar'
 require 'src.ui.score_view'
 require 'src.ui.time_view'
 require 'src.ui.player_view'
+require 'src.ui.level_view'
 
 require 'src.utility.level_loader'
 require 'src.utility.transition'

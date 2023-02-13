@@ -122,8 +122,9 @@ local function GenerateEntities(grid_desc_str, fixed_block_id, breakable_block_i
 			local block = EntityFactory.create(c, x * TILE_W, y * TILE_H)
 			block:setBlockId(breakable_block_id)
 			table_insert(entities, block)
-		elseif c == '*' and is_final_level then
-			table_insert(entities, EntityFactory.create('alien-boss', x * TILE_W, y * TILE_H))
+		elseif c == '*' then
+			local key = is_final_level and 'alien-boss' or 'head-boss'
+			table_insert(entities, EntityFactory.create(key, x * TILE_W, y * TILE_H))
 		elseif c == 'X' or c == 'Y' then
 			table_insert(entities, EntityFactory.create(c, x * TILE_W, y * TILE_H))
 		else

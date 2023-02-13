@@ -68,6 +68,7 @@ local function insertEntities(self)
 		elseif entity:is(Bonus) then table_insert(self.bonuses, entity)
 		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then table_insert(self.props, entity)
 		elseif entity:is(Extra) then table_insert(self.extras, entity)
+		elseif entity:is(Boss) then table_insert(self.bosses, entity)
 		end
 	end
 
@@ -91,6 +92,7 @@ local function removeEntities(self)
 		elseif entity:is(Bonus) then lume_remove(self.bonuses, entity)
 		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then lume_remove(self.props, entity)
 		elseif entity:is(Extra) then lume_remove(self.extras, entity)
+		elseif entity:is(Boss) then lume_remove(self.bosses, entity)
 		end
 	end
 
@@ -174,6 +176,7 @@ function Level:init(index, grid, time, entities)
 	self.teleporters = {}
 	self.monsters = {}
 	self.props = {}
+	self.bosses = {}
 
 	self.insert_queue = {}
 	self.remove_queue = {}
@@ -238,6 +241,10 @@ function Level:serialize()
 
 	for _, coin in ipairs(self.coins) do
 		table_insert(entities, coin:serialize())
+	end
+
+	for _, boss in ipairs(self.bosses) do
+		table_insert(entities, boss:serialize())
 	end
 
 	return { index = self.index, grid = self.grid:serialize(), time = self.time, entities = entities, flags = self.flags }
@@ -381,6 +388,10 @@ function Level:update(dt)
 		entity:update(dt)
 	end
 
+	for _, entity in ipairs(self.bosses) do
+		entity:update(dt)
+	end
+
 	for _, entity in ipairs(self.fixed_blocks) do
 		entity:update(dt)
 	end
@@ -459,6 +470,10 @@ function Level:draw()
 	end
 
 	for _, entity in ipairs(self.players) do
+		entity:draw()
+	end
+
+	for _, entity in ipairs(self.bosses) do
 		entity:draw()
 	end
 
