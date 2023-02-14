@@ -900,6 +900,7 @@ return {
 	['head-missile'] = {
 		name = 'Head Missile',
 		texture = 'gfx/Head Missile.png',
+		speed = 125,
 		animations = {
 			-- TODO: can have single 'propel' state, don't need directions for boss missile
 			['propel-down'] = {

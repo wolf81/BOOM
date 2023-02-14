@@ -8,7 +8,7 @@
 local lume_keys, lume_match, lume_shuffle = lume.keys, lume.match, lume.shuffle
 local string_find, math_abs, table_remove = string.find, math.abs, table.remove
 
-CpuControl = Class {}
+Roaming = Class { __includes = StrategyBase }
 
 local MELEE_ATTACK_RANGE = 0.8
 
@@ -44,11 +44,7 @@ local function tryMove(monster, directions)
 	end
 end
 
-local function idling(self, dt)
-	-- body
-end
-
-local function roaming(self, dt)
+function Roaming:update(dt)
 	if self.entity:isMoving() and self.entity:canAttack() then
 		local grid_pos = self.entity:gridPosition()
 
@@ -117,21 +113,4 @@ local function roaming(self, dt)
 	elseif is_y_aligned then
 		tryMove(self.entity, { Direction.LEFT, Direction.RIGHT })
 	end
-end
-
-function headBoss(self, dt)
-	-- body
-end
-
-function CpuControl:init(entity)
-	if entity.name == 'Head Boss' then
-		self.strategy = HeadBoss(entity)
-	else
-		local has_move_anims = lume_match(lume_keys(entity.animations), function(key) return string_find(key, 'move') end)
-		self.strategy = has_move_anims and Roaming(entity) or Idling(entity)
-	end
-end
-
-function CpuControl:update(dt)
-	self.strategy:update(dt)
 end

@@ -7,7 +7,7 @@
 
 local math_min, math_random, table_insert, table_remove = math.min, math.random, table.insert, table.remove
 
-Boss = Class { __includes =  Creature }
+Boss = Class { __includes = Creature }
 
 local function configureStateMachine(self)
 	self.state_machine = StateMachine {
@@ -20,6 +20,15 @@ local function configureStateMachine(self)
 	self.state_machine:change('idle')
 end
 
+function Boss:init(def)
+	Creature.init(self, def)
+
+	local attack_info = def.attack or {}
+	attack_info.rate = attack_info.rate or 0.0
+	self.attack_rate = attack_info.rate
+	self.projectile = attack_info.projectile
+end
+
 function Boss:config(id, x, y)
 	Creature.config(self, id, x, y)
 
@@ -29,8 +38,6 @@ function Boss:config(id, x, y)
 	-- slightly later than bomb, so again a delay would be needed
 	self.hit_list = {}
 	self.explode_list = {}
-
-	configureStateMachine(self)
 end
 
 function Boss:update(dt)

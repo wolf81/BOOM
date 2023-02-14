@@ -12,14 +12,11 @@ Monster = Class { __includes = Creature }
 function Monster:init(def)
 	Creature.init(self, def)
 
-	self.projectile = def.projectile
-
 	self.category_flags = CategoryFlags.MONSTER
 	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
 
 	local attack_info = def.attack or {}
 	attack_info.rate = attack_info.rate or 0.0
-
 	self.attack_rate = attack_info.rate
 	self.projectile = attack_info.projectile
 end
