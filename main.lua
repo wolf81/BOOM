@@ -24,7 +24,7 @@ function love.load(args)
     AudioPlayer.setMusicVolume(0.1)
     AudioPlayer.setSoundVolume(0.1)
 
-    Transition.init(Loading, 65)
+    Transition.init(Loading, 10)
 end
 
 function love.update(dt)

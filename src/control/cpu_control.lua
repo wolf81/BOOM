@@ -119,11 +119,19 @@ local function roaming(self, dt)
 	end
 end
 
+function headBoss(self, dt)
+	-- body
+end
+
 function CpuControl:init(entity)
 	self.entity = entity
 
 	local has_move_anims = lume_match(lume_keys(entity.animations), function(key) return string_find(key, 'move') end)
 	self.update = has_move_anims and roaming or idling
+
+	if self.entity.name == 'Head Boss' then
+		self.update = headBoss
+	end
 end
 
 function CpuControl:update(dt)
