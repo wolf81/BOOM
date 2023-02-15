@@ -719,7 +719,7 @@ return {
 		name = 'Head Boss',
 		texture = 'gfx/Head Boss.png',
 		sprite_size = { 96, 96 },
-		hitpoints = 20,
+		hitpoints = 12,
 		value = 5000,
 		attack = {
 			projectile = 'head-missile',
