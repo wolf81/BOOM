@@ -404,7 +404,7 @@ function Level:update(dt)
 		-- would be nicer to fix in Collider, but that might
 		-- need some optimalization first
 		local x, y, w, h = entity:getFrame()
-		if x < TILE_W or y < TILE_H or x > MAP_W * TILE_W + TILE_W / 2 or y > MAP_H * TILE_H + TILE_H / 2 then
+		if x < TILE_W_2 or y < TILE_H_2 or x > MAP_W * TILE_W + TILE_W_2 or y > MAP_H * TILE_H + TILE_H_2 then
 			entity:destroy()
 		end
 

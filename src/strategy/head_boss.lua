@@ -31,7 +31,7 @@ end
 function HeadBoss:init(entity)
 	StrategyBase.init(self, entity)
 
-	self.attack_delay = ATTACK_DELAY_LONG
+	self.attack_delay = ATTACK_DELAY_LONG / 2
 	self.missile_count = 3
 
 	self.mid_pos = self.entity.pos + self.entity.size / 2

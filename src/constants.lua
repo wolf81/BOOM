@@ -8,6 +8,9 @@
 TILE_W = 32
 TILE_H = 32
 
+TILE_W_2 = TILE_W / 2
+TILE_H_2 = TILE_H / 2
+
 TILE_SIZE = vector(TILE_W, TILE_H)
 
 MAP_W = 15
