@@ -1045,7 +1045,25 @@ return {
 	['alien-egg'] = {
 		name = 'Alien Egg',
 		texture = 'gfx/Egg Frames.png',
+		speed = 150,
+		size = 32,
 		animations = {
+			['idle-up'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			['idle-down'] = {
+				frames = { 5, 6, 7, 8 },
+				interval = 0.1,
+			},
+			['idle-left'] = {
+				frames = { 9, 10, 11, 12 },
+				interval = 0.1,
+			},
+			['idle-right'] = {
+				frames = { 13, 14, 15, 16 },
+				interval = 0.1,
+			},
 			['propel-down'] = {
 				frames = { 17 },
 				interval = 0.1,

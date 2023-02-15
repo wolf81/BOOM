@@ -69,6 +69,7 @@ local function insertEntities(self)
 		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then table_insert(self.props, entity)
 		elseif entity:is(Extra) then table_insert(self.extras, entity)
 		elseif entity:is(Boss) then table_insert(self.bosses, entity)
+		elseif entity:is(AlienEgg) then table_insert(self.projectiles, entity)
 		end
 	end
 
@@ -93,6 +94,7 @@ local function removeEntities(self)
 		elseif entity:is(Flash) or entity:is(Points1K) or entity:is(Points5K) or entity:is(Points100K) then lume_remove(self.props, entity)
 		elseif entity:is(Extra) then lume_remove(self.extras, entity)
 		elseif entity:is(Boss) then lume_remove(self.bosses, entity)
+		elseif entity:is(AlienEgg) then lume_remove(self.projectiles, entity)
 		end
 	end
 

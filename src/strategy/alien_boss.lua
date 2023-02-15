@@ -11,6 +11,13 @@ AlienBoss = Class { __includes = StrategyBase }
 
 local EGG_DELAY = 5.0
 
+local LAUNCH_OFFSET = {
+	[Direction.DOWN] = vector(TILE_W * 2, TILE_H * 4 - 10),
+	[Direction.UP] = vector(TILE_W * 2, 10),
+	[Direction.LEFT] = vector(10, TILE_H + TILE_H_2),
+	[Direction.RIGHT] = vector(TILE_W * 4 - 10, TILE_H + TILE_H_2),
+}
+
 function fireEgg(self, origin, direction)
 	local egg = EntityFactory.create(
 		self.entity.projectile,
@@ -54,6 +61,8 @@ function AlienBoss:init(entity)
 		math_floor(entity.size.x / TILE_W) - 1,
 		math_floor(entity.size.y / TILE_H) - 1
 	)
+
+	self.entity.direction = Direction.RIGHT
 end
 
 function AlienBoss:update(dt)
@@ -67,7 +76,7 @@ function AlienBoss:update(dt)
 	if self.entity:isMoving() then return end
 
 	if self.egg_delay == 0 then
-		self.launch_delay = 0.5
+		self.launch_delay = 1.0
 		self.egg_delay = EGG_DELAY
 
 		local pos = self.entity.pos
@@ -75,17 +84,7 @@ function AlienBoss:update(dt)
 
 		self.entity.direction = direction
 
-		if direction == Direction.LEFT then
-			fireEgg(self, pos + vector(-TILE_W, TILE_H + TILE_H_2), direction)
-		elseif direction == Direction.RIGHT then
-			fireEgg(self, pos + vector(TILE_W * 4, TILE_H + TILE_H_2), direction)
-		elseif direction == Direction.UP then
-			fireEgg(self, pos + vector(TILE_W + TILE_W_2, -TILE_H), direction)
-		elseif direction == Direction.DOWN then
-			fireEgg(self, pos + vector(TILE_W + TILE_W_2, TILE_H * 4), direction)
-		else
-			error('invalid direction', direction)
-		end
+		fireEgg(self, pos + LAUNCH_OFFSET[direction], direction)
 	else
 		local is_x_aligned = self.entity.pos.x % TILE_W == 0
 		local is_y_aligned = self.entity.pos.y % TILE_H == 0

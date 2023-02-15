@@ -42,6 +42,7 @@ local key_type_info = {
 	['bonus'] = Bonus,
 	['head-boss'] = Boss,
 	['alien-boss'] = Boss,
+	['alien-egg'] = AlienEgg,
 }
 
 local prototypes = {}
