@@ -15,6 +15,7 @@ local MATH_PI_2 = math.pi / 2
 local ATTACK_DELAY_LONG = 3.0
 local ATTACK_DELAY_SHORT = 0.5
 local MISSILE_COUNT = 3
+local EYE_OFFSET = vector(20, 25)
 
 function fireMissile(self, origin, target)
 	local dir = math_atan2(origin.x - target.x, target.y - origin.y) + MATH_PI_2
@@ -35,11 +36,9 @@ function HeadBoss:init(entity)
 
 	self.mid_pos = self.entity.pos + self.entity.size / 2
 	self.eye_pos_list = {
-		vector(self.entity.pos.x + 20, self.entity.pos.y + 20),
-		vector(self.entity.pos.x + self.entity.size.x - 20, self.entity.pos.y + 20)
+		vector(self.entity.pos.x + EYE_OFFSET.x, self.entity.pos.y + EYE_OFFSET.y),
+		vector(self.entity.pos.x + self.entity.size.x - EYE_OFFSET.x, self.entity.pos.y + EYE_OFFSET.y)
 	}
-
-	print('projectile', entity.projectile)
 end
 
 function HeadBoss:update(dt)

@@ -13,7 +13,7 @@ local function configureStateMachine(self)
 	self.state_machine = StateMachine {
 		['idle'] = function() return Idle(self) end,
 		['destroy'] = function() return Destroy(self) end,
-		['hit'] = function() return Hit(self) end,
+		['hit'] = function() return BossHit(self) end,
 		['attack'] = function() return Attack(self) end,
 		['move'] = function() return Move(self) end,
 	}
@@ -33,6 +33,8 @@ end
 
 function Boss:config(id, x, y)
 	Creature.config(self, id, x, y)
+
+	configureStateMachine(self)
 
 	-- TODO: should clean up hitlist
 	-- one approach could be to store time of hit and on update delete all hits caused longer than 1 second ago

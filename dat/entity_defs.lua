@@ -739,7 +739,7 @@ return {
 		animations = {
 			['hit'] = {
 				frames = { 1 },
-				interval = 0,
+				interval = 0.1,
 			},
 			['destroy'] = {
 				frames = { 1 },

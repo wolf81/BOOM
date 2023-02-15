@@ -25,6 +25,16 @@ local function addAnimationIfNeeded(key, animations, duration)
 	})
 end
 
+local function draw(self)
+	Animator.draw(self.name, self.animation, self.pos.x, self.pos.y)
+end
+
+local function drawWithShader(self)
+	love.graphics.setShader(self.shader)
+	Animator.draw(self.name, self.animation, self.pos.x, self.pos.y)
+	love.graphics.setShader()
+end
+
 local function configureStateMachine(self)
 	local states = {}
 
@@ -89,9 +99,16 @@ function EntityBase:init(def)
 	self.animation = self.animations['idle']
 
 	self.sounds = def.sounds or {}
+	self.shader = nil
 
 	self.category_flags = 0
 	self.collision_flags = 0
+end
+
+function EntityBase:setShader(shader)
+	self.shader = shader
+
+	self.draw = self.shader and drawWithShader or draw
 end
 
 function EntityBase.deserialize(obj, ...)

@@ -8,6 +8,8 @@
 StateBase = Class {}
 
 function StateBase:init(entity)
+	assert(entity ~= nil, 'entity is required')
+
 	self.entity = entity
 end
 

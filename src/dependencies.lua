@@ -79,6 +79,7 @@ require 'src.state.destroy'
 require 'src.state.attack'
 require 'src.state.propel'
 require 'src.state.hit'
+require 'src.state.boss_hit'
 
 require 'src.utility.state_machine'
 
