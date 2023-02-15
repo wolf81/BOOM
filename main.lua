@@ -21,8 +21,8 @@ function love.load(args)
     local version = contents:gsub('_', '.')
 	love.window.setTitle('BOOM (' .. version .. ')')
 
-    AudioPlayer.setMusicVolume(0.0)
-    AudioPlayer.setSoundVolume(0.0)
+    AudioPlayer.setMusicVolume(1.0)
+    AudioPlayer.setSoundVolume(1.0)
 
     Transition.init(Loading, 80)
 end

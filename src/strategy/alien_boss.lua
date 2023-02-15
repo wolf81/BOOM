@@ -12,10 +12,10 @@ AlienBoss = Class { __includes = StrategyBase }
 local EGG_DELAY = 5.0
 
 local LAUNCH_OFFSET = {
-	[Direction.DOWN] = vector(TILE_W * 2, TILE_H * 4 - 10),
-	[Direction.UP] = vector(TILE_W * 2, 10),
-	[Direction.LEFT] = vector(10, TILE_H + TILE_H_2),
-	[Direction.RIGHT] = vector(TILE_W * 4 - 10, TILE_H + TILE_H_2),
+	[Direction.DOWN] = vector(TILE_W * 2, TILE_H * 5 - 10),
+	[Direction.UP] = vector(TILE_W * 2, 10 - TILE_H),
+	[Direction.LEFT] = vector(10 - TILE_H, TILE_H * 2),
+	[Direction.RIGHT] = vector(TILE_W * 5 - 10, TILE_H * 2),
 }
 
 function fireEgg(self, origin, direction)

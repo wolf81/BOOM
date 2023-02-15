@@ -70,6 +70,7 @@ local function insertEntities(self)
 		elseif entity:is(Extra) then table_insert(self.extras, entity)
 		elseif entity:is(Boss) then table_insert(self.bosses, entity)
 		elseif entity:is(AlienEgg) then table_insert(self.projectiles, entity)
+		elseif entity:is(AlienEggCrack) then table_insert(self.projectiles, entity)
 		end
 	end
 
@@ -95,6 +96,7 @@ local function removeEntities(self)
 		elseif entity:is(Extra) then lume_remove(self.extras, entity)
 		elseif entity:is(Boss) then lume_remove(self.bosses, entity)
 		elseif entity:is(AlienEgg) then lume_remove(self.projectiles, entity)
+		elseif entity:is(AlienEggCrack) then lume_remove(self.projectiles, entity)
 		end
 	end
 
@@ -122,10 +124,10 @@ local function tryTeleportEntities(self, teleporter)
 end
 
 local function onCollide(entity1, entity2)
-	if entity1:is(Projectile) then
+	if entity1:is(Projectile) or entity1:is(AlienEgg) then
 		entity1:hit(entity2)
 		if entity2:is(Player) then entity2:hit(entity1) end
-	elseif entity2:is(Projectile) then
+	elseif entity2:is(Projectile) or entity2:is(AlienEgg) then
 		entity2:hit(entity1)
 		if entity1:is(Player) then entity1:hit(entity2) end
 	elseif entity1:is(Monster) and entity2:is(Monster) then

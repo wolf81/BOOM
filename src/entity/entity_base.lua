@@ -94,6 +94,10 @@ function EntityBase:init(def)
 
 	self.animations = ParseAnimations(def.animations)
 	addAnimationIfNeeded('idle', self.animations)
+	addAnimationIfNeeded('idle-left', self.animations)
+	addAnimationIfNeeded('idle-up', self.animations)
+	addAnimationIfNeeded('idle-right', self.animations)
+	addAnimationIfNeeded('idle-down', self.animations)
 	addAnimationIfNeeded('destroy', self.animations, 0.0)
 	addAnimationIfNeeded('hit', self.animations)
 	self.animation = self.animations['idle']

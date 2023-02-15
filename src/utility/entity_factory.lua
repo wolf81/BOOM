@@ -43,6 +43,7 @@ local key_type_info = {
 	['head-boss'] = Boss,
 	['alien-boss'] = Boss,
 	['alien-egg'] = AlienEgg,
+	['alien-egg-crack'] = AlienEggCrack,
 }
 
 local prototypes = {}

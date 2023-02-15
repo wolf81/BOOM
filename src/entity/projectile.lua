@@ -19,6 +19,7 @@ local function applyOffset(self)
 	elseif self.direction == Direction.RIGHT then
 		offset = vector(TILE_W, TILE_H / 2)
 	end
+
 	self.offset = offset
 
 	self.pos = self.pos + self.offset

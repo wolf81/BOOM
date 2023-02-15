@@ -755,6 +755,7 @@ return {
 		name = 'Alien Boss',
 		texture = 'gfx/Alien Boss.png',
 		sprite_size = { 160, 160 },
+		hitpoints = 30,
 		value = 100000,
 		attack = {
 			projectile = 'alien-egg',
@@ -1080,6 +1081,41 @@ return {
 				frames = { 17 },
 				interval = 0.1,
 			},
+		},
+		sounds = {
+			['spawn'] = 'sfx/Egg.wav',
+		},
+	},
+	['alien-egg-crack'] = {
+		name = 'Alien Egg Crack',
+		texture = 'gfx/Egg Crack.png',
+		sprite_size = { 64, 64 },
+		size = 32,
+		animations = {
+			['destroy'] = {
+				frames = { 1, 2, 3, 4 },
+				interval = 0.1,
+			},
+			-- TODO: should use default first frame and 0 secs if undefined
+			['propel-down'] = {
+				frames = { 1 },
+				interval = 0.0,
+			},
+			['propel-up'] = {
+				frames = { 1 },
+				interval = 0.0,
+			},
+			['propel-right'] = {
+				frames = { 1 },
+				interval = 0.0,
+			},
+			['propel-left'] = {
+				frames = { 1 },
+				interval = 0.0,
+			},
+		},
+		sounds = {
+			['destroy'] = 'sfx/EggCrack.wav',
 		},
 	},
 	['bomb'] = {

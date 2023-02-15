@@ -44,6 +44,7 @@ require 'src.entity.shield'
 require 'src.entity.boss'
 require 'src.entity.strike'
 require 'src.entity.alien_egg'
+require 'src.entity.alien_egg_crack'
 
 require 'src.level'
 
