@@ -20,9 +20,6 @@ function Creature:init(def)
 
 	local hitpoints = def.hitpoints or 1
 	self.hitpoints = { current = hitpoints, max = hitpoints}
-
-	self.category_flags = CategoryFlags.MONSTER
-	self.collision_flags = bit.bor(CategoryFlags.PLAYER, CategoryFlags.MONSTER, CategoryFlags.TELEPORTER)
 end
 
 function Creature:config(id, x, y)

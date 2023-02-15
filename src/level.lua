@@ -121,11 +121,10 @@ end
 
 local function onCollide(entity1, entity2)
 	if entity1:is(Projectile) then
-		-- TODO: add wall/border collider, perhaps inverse of a rectangle (inside ok, outside remove)
-		entity1:destroy()
+		entity1:hit(entity2)
 		if entity2:is(Player) then entity2:hit(entity1) end
 	elseif entity2:is(Projectile) then
-		entity2:destroy()
+		entity2:hit(entity1)
 		if entity1:is(Player) then entity1:hit(entity2) end
 	elseif entity1:is(Monster) and entity2:is(Monster) then
 		entity2:onCollision(entity1)

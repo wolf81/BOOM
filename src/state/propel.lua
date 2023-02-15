@@ -13,11 +13,9 @@ function Propel:enter(direction)
 	StateBase.enter(self)
 
 	assert(direction ~= nil, 'direction must be defined')
-	print('dir', direction)
 
 	self.direction = direction
 	self.velocity = self.direction * self.entity.speed
-	print(self.velocity, ',', self.direction,',', self.entity.speed)
 
 	self.entity:animate('propel-' .. string_lower(GetDirectionName(self.direction) or 'down'))
 	self.entity:playSound('propel')

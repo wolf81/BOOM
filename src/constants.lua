@@ -64,4 +64,5 @@ CategoryFlags = {
 	PROJECTILE = bit.lshift(1, 7),
 	BONUS = bit.lshift(1, 8),
 	EXTRA = bit.lshift(1, 9),
+	BOSS = bit.lshift(1, 10),
 }

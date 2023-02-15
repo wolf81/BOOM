@@ -80,6 +80,12 @@ function Projectile.deserialize(obj)
 	return projectile
 end
 
+function Projectile:hit(entity)
+	EntityBase.hit(self, entity)
+
+	self:destroy()
+end
+
 function Projectile:destroy()
 	if not self:isDestroyed() then
 		self.collision_flags = 0

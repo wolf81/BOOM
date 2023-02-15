@@ -6,7 +6,7 @@
 --]]
 
 local math_max, math_atan2, math_cos, math_sin = math.max, math.atan2, math.cos, math.sin
-local table_insert, table_sort = table.insert, table.sort
+local table_insert, table_sort, bit_bor, lume_shuffle = table.insert, table.sort, bit.bor, lume.shuffle
 
 HeadBoss = Class { __includes = StrategyBase }
 
@@ -23,7 +23,7 @@ function fireMissile(self, origin, target)
 		origin.x, origin.y,
 		vector(math_cos(dir), math_sin(dir))
 	)
-	missile.collision_flags = CategoryFlags.PLAYER
+	missile.collision_flags = bit_bor(CategoryFlags.PLAYER, CategoryFlags.MONSTER)
 	self.entity.level:addEntity(missile)
 end
 
@@ -53,8 +53,12 @@ function HeadBoss:update(dt)
 	local players = {}
 	for _, player in ipairs(self.entity.level.players) do
 		if not player:isDestroyed() then
-			local dist = player.pos:dist2(self.mid_pos)
-			table_insert(players, { target = player, dist = dist })
+			local player_mid_pos = player.pos + player.size / 2
+			table_insert(players, {
+				target = player,
+				dist = player_mid_pos:dist2(self.mid_pos)
+			})
+			players = lume.shuffle(players)
 		end
 	end
 

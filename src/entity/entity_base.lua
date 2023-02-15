@@ -85,6 +85,7 @@ function EntityBase:init(def)
 	self.animations = ParseAnimations(def.animations)
 	addAnimationIfNeeded('idle', self.animations)
 	addAnimationIfNeeded('destroy', self.animations, 0.0)
+	addAnimationIfNeeded('hit', self.animations)
 	self.animation = self.animations['idle']
 
 	self.sounds = def.sounds or {}

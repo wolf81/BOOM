@@ -928,6 +928,10 @@ return {
 				interval = 0.1,
 			},
 		},
+		sounds = {
+			['spawn'] = 'sfx/HeadShot.wav',
+			['hit'] = 'sfx/HeadShotHit.wav',
+		},
 	},
 	['fireball'] = {
 		name = 'Fireball',

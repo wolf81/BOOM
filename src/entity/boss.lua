@@ -27,6 +27,8 @@ function Boss:init(def)
 	attack_info.rate = attack_info.rate or 0.0
 	self.attack_rate = attack_info.rate
 	self.projectile = attack_info.projectile
+
+	self.category_flags = CategoryFlags.BOSS
 end
 
 function Boss:config(id, x, y)
