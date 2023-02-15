@@ -757,9 +757,26 @@ return {
 		sprite_size = { 160, 160 },
 		value = 100000,
 		attack = {
+			projectile = 'alien-egg',
 			rate = 1.0,
 		},
 		animations = {
+			['idle-down'] = {
+				frames = { 1 },
+				interval = 0.1,
+			},
+			['idle-up'] = {
+				frames = { 5 },
+				interval = 0.1,
+			},
+			['idle-right'] = {
+				frames = { 9 },
+				interval = 0.1,
+			},
+			['idle-left'] = {
+				frames = { 13 },
+				interval = 0.1,
+			},
 			['move-down'] = {
 				frames = { 1, 2, 3, 4 },
 				interval = 0.1,
@@ -1021,6 +1038,28 @@ return {
 			},
 			['destroy'] = {
 				frames = { 2, 3, 4, 5 },
+				interval = 0.1,
+			},
+		},
+	},
+	['alien-egg'] = {
+		name = 'Alien Egg',
+		texture = 'gfx/Egg Frames.png',
+		animations = {
+			['propel-down'] = {
+				frames = { 17 },
+				interval = 0.1,
+			},
+			['propel-up'] = {
+				frames = { 17 },
+				interval = 0.1,
+			},
+			['propel-right'] = {
+				frames = { 17 },
+				interval = 0.1,
+			},
+			['propel-left'] = {
+				frames = { 17 },
 				interval = 0.1,
 			},
 		},

@@ -126,6 +126,8 @@ end
 function CpuControl:init(entity)
 	if entity.name == 'Head Boss' then
 		self.strategy = HeadBoss(entity)
+	elseif entity.name == 'Alien Boss' then
+		self.strategy = AlienBoss(entity)
 	else
 		local has_move_anims = lume_match(lume_keys(entity.animations), function(key) return string_find(key, 'move') end)
 		self.strategy = has_move_anims and Roaming(entity) or Idling(entity)

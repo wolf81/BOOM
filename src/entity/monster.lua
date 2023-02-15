@@ -105,6 +105,7 @@ function Monster:onCollision(entity)
 
 	-- finally choose a random direction from remaining directions
 	if #dirs > 0 then
+		print(self.name)
 		self:move(lume_randomchoice(dirs))
 	end
 end

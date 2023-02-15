@@ -33,6 +33,7 @@ local key_type_info = {
 	['plasma'] = Projectile,
 	['flame'] = Projectile,
 	['head-missile'] = Projectile,
+	['alien-egg'] = Projectile,
 	['points1k'] = Points1K,
 	['points5k'] = Points5K,
 	['points100k'] = Points100K,

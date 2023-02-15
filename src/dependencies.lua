@@ -17,6 +17,7 @@ require 'src.constants'
 require 'src.direction'
 
 require 'src.strategy.strategy_base'
+require 'src.strategy.alien_boss'
 require 'src.strategy.head_boss'
 require 'src.strategy.roaming'
 require 'src.strategy.idling'
