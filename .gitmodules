@@ -16,3 +16,6 @@
 [submodule "lib/bitser"]
 	path = lib/bitser
 	url = git@github.com:wolf81/bitser.git
+[submodule "lib/lurker"]
+	path = lib/lurker
+	url = git@github.com:wolf81/lurker.git

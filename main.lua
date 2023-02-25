@@ -7,6 +7,8 @@
 
 require 'src/dependencies'
 
+local lurker = require 'lib.lurker.lurker'
+
 -- show live output in console, don't wait for app to close
 io.stdout:setvbuf("no")
 
@@ -21,13 +23,16 @@ function love.load(args)
     local version = contents:gsub('_', '.')
 	love.window.setTitle('BOOM (' .. version .. ')')
 
-    AudioPlayer.setMusicVolume(1.0)
-    AudioPlayer.setSoundVolume(1.0)
+    local volume = 0.0
+    AudioPlayer.setMusicVolume(volume)
+    AudioPlayer.setSoundVolume(volume)
 
     Transition.init(Loading, 80)
 end
 
 function love.update(dt)
+    lurker.update()
+
     Timer.update(dt)
 end
 
