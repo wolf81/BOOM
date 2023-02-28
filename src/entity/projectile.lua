@@ -9,38 +9,27 @@ Projectile = Class { __includes = EntityBase }
 
 local function applyOffset(self)
 	-- TODO: unless in destroy state, projectile can default to small size
-	local offset = vector.zero
+	local offset = vector(0, 0)
+
 	if self.direction == Direction.DOWN then
-		offset = vector((TILE_W - self.proj_size) / 2, TILE_H)
+		offset = vector((TILE_W - self.proj_size) / 2, 0)
 	elseif self.direction == Direction.UP then
-		offset = vector((TILE_W - self.proj_size) / 2, -self.proj_size)
+		offset = vector((TILE_W - self.proj_size) / 2, 0)
 	elseif self.direction == Direction.LEFT then
-		offset = vector(-self.proj_size, TILE_H / 2)
+		offset = vector(0, (TILE_H - self.proj_size) / 2)
 	elseif self.direction == Direction.RIGHT then
-		offset = vector(TILE_W, TILE_H / 2)
+		offset = vector(0, (TILE_H - self.proj_size) / 2)
 	end
 
 	self.offset = offset
-
-	self.pos = self.pos + self.offset
 end
 
 local function revertOffset(self)
-	if self.direction == Direction.LEFT then
-		self.pos.y = self.pos.y - self.offset.y + self.proj_size
-		self.pos.x = self.pos.x - self.proj_size
-	elseif self.direction == Direction.DOWN then
-		self.pos.x = self.pos.x - self.offset.x + self.proj_size / 2
-	elseif self.direction == Direction.RIGHT then
-		self.pos.y = self.pos.y - TILE_H / 2 + self.proj_size
-	elseif self.direction == Direction.UP then
-		self.pos.x = self.pos.x - self.offset.x + self.proj_size / 2
-		self.pos.y = self.pos.y - self.proj_size
-	end
+	self.offset = vector(0, 0)
 end
 
 local function getProjectileFrameFunc(self)
-	return self.pos.x, self.pos.y, self.proj_size, self.proj_size
+	return self.pos.x + self.offset.x, self.pos.y + self.offset.y, self.proj_size, self.proj_size
 end
 
 function Projectile:init(def)
@@ -49,6 +38,8 @@ function Projectile:init(def)
 	self.speed = def.speed or 75
 	self.proj_size = def.size or 1
 	self.damage = def.damage or 1
+	self.range = def.range or math.huge
+	self.dist = 0
 
 	self.category_flags = CategoryFlags.PROJECTILE
 	self.collision_flags = bit.bor(CategoryFlags.BREAKABLE_BLOCK, CategoryFlags.FIXED_BLOCK, CategoryFlags.PLAYER, CategoryFlags.MONSTER)
@@ -85,6 +76,10 @@ function Projectile:hit(entity)
 	EntityBase.hit(self, entity)
 
 	self:destroy()
+end
+
+function Projectile:draw()
+	Animator.draw(self.name, self.animation, self.pos.x + self.offset.x, self.pos.y + self.offset.y)
 end
 
 function Projectile:destroy()

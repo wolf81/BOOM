@@ -131,8 +131,8 @@ local function onCollide(entity1, entity2)
 		entity2:hit(entity1)
 		if entity1:is(Player) then entity1:hit(entity2) end
 	elseif entity1:is(Monster) and entity2:is(Monster) then
-		entity2:onCollision(entity1)
-		entity1:onCollision(entity2)
+		if not entity1:isAttacking() then entity2:onCollision(entity1) end
+		if not entity2:isAttacking() then entity1:onCollision(entity2) end
 	elseif entity1:is(Coin) and entity2:is(Player) then
 		entity1:destroy()
 		-- TODO: add points to player

@@ -22,7 +22,22 @@ function Attack:enter()
 	self.entity:playSound('attack')
 
 	if self.entity.projectile ~= nil then
-		local projectile = EntityFactory.create(self.entity.projectile, self.entity.pos.x, self.entity.pos.y, self.entity.direction)
+		local x, y = self.entity.pos.x, self.entity.pos.y
+
+		local projectile = EntityFactory.create(self.entity.projectile, 0, 0, self.entity.direction)
+
+		if self.entity.direction == Direction.LEFT then
+			x = x - projectile.proj_size
+		elseif self.entity.direction == Direction.RIGHT then
+			x = x + self.entity.size.x
+		elseif self.entity.direction == Direction.DOWN then
+			y = y + self.entity.size.y
+		elseif self.entity.direction == Direction.UP then
+			y = y - projectile.proj_size
+		end
+
+		projectile.pos = vector(x, y)
+
 		self.entity.level:addEntity(projectile)
 	end
 

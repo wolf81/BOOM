@@ -846,23 +846,25 @@ return {
 	['flame'] = { -- bugged in level 72
 		name = 'Flame',
 		texture = 'gfx/Flame.png',
-		size = 32,
+		size = 12,
+		range = 4 * 32,
+		speed = 100,
 		animations = {
 			['propel-down'] = {
-				frames = { 1, 2, 3, 4 },
-				interval = 0.1,
+				frames = { 1, 2, 3, 4, 5 },
+				interval = 0.25,
 			},
 			['propel-up'] = {
-				frames = { 1, 2, 3, 4 },
-				interval = 0.1,
+				frames = { 1, 2, 3, 4, 5 },
+				interval = 0.25,
 			},
 			['propel-right'] = {
-				frames = { 5, 6, 7, 8 },
-				interval = 0.1,
+				frames = { 6, 7, 8, 9, 10 },
+				interval = 0.25,
 			},
 			['propel-left'] = {
-				frames = { 5, 6, 7, 8 },
-				interval = 0.1,
+				frames = { 6, 7, 8, 9, 10 },
+				interval = 0.25,
 			},
 		},
 	},

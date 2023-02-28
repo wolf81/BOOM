@@ -22,5 +22,11 @@ function Propel:enter(direction)
 end
 
 function Propel:update(dt)
-	self.entity.pos = self.entity.pos + self.velocity * dt
+	local dxy = self.entity.pos + self.velocity * dt
+	self.entity.dist = self.entity.dist + dxy:dist(self.entity.pos)
+	self.entity.pos = dxy
+
+	if self.entity.dist > self.entity.range then
+		self.entity:destroy()
+	end
 end
